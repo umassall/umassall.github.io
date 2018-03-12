@@ -1,0 +1,15 @@
+Date: Fri, 12 Aug 2005 15:21:31 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: application/x-phpwiki;
+  pagename=_AuthInfo;
+  flags="";
+  author=The%20PhpWiki%20programming%20team;
+  version=1;
+  lastmodified=1123874491;
+  author_id=The%20PhpWiki%20programming%20team;
+  markup=2;
+  acl="view:_AUTHENTICATED; edit:_AUTHENTICATED; create:_AUTHENTICATED,_BOGOUSER; list:_AUTHENTICATED; remove:_ADMIN,_OWNER; change:_ADMIN,_OWNER; dump:_EVERY";
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+<?plugin _AuthInfo ?>

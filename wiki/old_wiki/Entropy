@@ -1,0 +1,193 @@
+Date: Tue, 13 Sep 2005 11:57:38 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_34"
+
+--=_multipart_boundary_34
+Content-Type: application/x-phpwiki;
+  pagename=Entropy;
+  flags="";
+  author=pippin;
+  version=6;
+  lastmodified=1126627058;
+  author_id=pippin;
+  markup=2;
+  hits=19;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Disk Space
+
+The most frequently used disk space in the lab sits on Entropy, the lab file server. The machine is a Linux box and sits down in the machine room in the CSCF area of the building. There is also local disk space on each desktop computer.
+
+* *Local Disk Space* - writing to space on the local computer is faster than writing to disk space on entropy. If you have a job which will be writing alot of data, this is probably the best place to write it initially, though it takes a little extra work. You must create local directories with the same path on each machine you will be running experiments on, so, for example, I could create "/user/sl0/pippin/mydata" directories on each machine in the lab, then let my autoson process write to this directory. After the processes are finished, you must collate results from each machine.<br>
+Location: local to each machine <br>
+Use: temporary data (and mp3s) <br>
+Backed up: never <br>
+Amount of space: lots, but depends on the machine. Check using df.
+
+* *User Partitions* - directories with u# in the name are typically user directories. <br>
+Location: mounted from entropy <br>
+Use: user home directories <br>
+Backed up: frequently <br>
+Amount of space: typically 4 G divided between 2-3 students. If you use up all the space on your partition, other students will not be able to do work.
+
+* *Project/Data Partitions* - directories with u# in the name are typically user directories. <br>
+Location: mounted from entropy <br>
+Use: p4: group software and shared data only. others: any data (typically experimental data)<br>
+Backed Up: once a week <br>
+Amount of space: varies. Check amount available currently using *df* (disk free)
+
+* *Entropy Scratch Partitions*
+Location: mounted from entropy <br>
+Use: anything<br>
+Backed Up: never <br>
+Amount of space: varies. Check amount available currently using *df* (disk free)
+
+Finding partitions on a machine:
+ Typing "mount" at the prompt on a linux machine should give you a list of all drives which are mounted on your machine. Below are examples of the output for user, project and local scratch directories. The first path is only for nfs, the second is the one you should use.
+
+scratch (local):<br>
+/dev/hda5 on */user/sl0* type ext3 (rw)
+
+scratch (entropy):<br>
+entropy:/nfs/entropy/s1 on */nfs/entropy/s1* type nfs (rw,hard,bg,intr,addr=128.119.241.214)
+
+user (entropy):<br>
+entropy:/nfs/entropy/u1 on */nfs/entropy/u1* type nfs (rw,hard,bg,intr,addr=128.119.241.214)
+
+project (entropy):<br>
+entropy:/nfs/entropy/p1 on */nfs/entropy/p1* type nfs (rw,hard,bg,intr,addr=128.119.241.214)
+
+There are typically links to all of these directories in the /user directory:
+<verbatim>
+[pippin@valiant /user]$ ls -l
+total 8
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 p1 -> /nfs/entropy/p1/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 p2 -> /nfs/entropy/p2/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 p3 -> /nfs/entropy/p3/
+drwxr-xr-x    2 root     root         4096 Jan 23  2004 s0/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 s1 -> /nfs/entropy/s1/
+drwxrwxrwx    7 root     root         4096 Jul  8  2003 sl0/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u1 -> /nfs/entropy/u1/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u10 -> /nfs/entropy/u7/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u2 -> /nfs/entropy/u2/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u3 -> /nfs/entropy/u3/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u4 -> /nfs/entropy/u4/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u5 -> /nfs/entropy/u5/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u6 -> /nfs/entropy/u6/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u7 -> /nfs/entropy/u7/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u8 -> /nfs/entropy/u8/
+lrwxrwxrwx    1 root     root           15 Jan 23  2004 u9 -> /nfs/entropy/u9/
+</verbatim>
+
+--=_multipart_boundary_34
+Content-Type: application/x-phpwiki;
+  pagename=Entropy;
+  flags="";
+  author=sosentos;
+  version=5;
+  lastmodified=1125422012;
+  author_id=sosentos;
+  markup=2;
+  hits=19;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Entropy
+
+Entropy is the lab server.  The machine is a Linux box and sits down in the machine room in the CSCF area of the building.
+
+There are 3 types of partitions on entropy.
+* *User Partitions* - each student has a home directory on a user partition.  These partitions are backed up frequently.  Typically there is not a lot of space on the user partitions so people should consider what they keep around in their home directory.  The best use for this directory is programs and projcts that you are currently working on.  Things like Mp3s should not be stored in this directory for any reason.
+* *Project/Data Partitions* - these partitions are backed up once a week.  Typically data for large experiments should be saved here.  Note p4 is offlimits for people to use as their data directory.  It has been reserved for group software and data that will be shared by students working on joint projects.
+* *Scratch Partitions* - these partitions are never backed up.  Typically old projects and old class data can go on these partitions.
+
+Note each desk computer also typically has large scratch partitions that may also be used.  This is where people typically store the MP3s they listen to at work.
+
+--=_multipart_boundary_34
+Content-Type: application/x-phpwiki;
+  pagename=Entropy;
+  flags="";
+  author=sosentos;
+  version=4;
+  lastmodified=1125421762;
+  author_id=sosentos;
+  markup=2;
+  hits=19;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Entropy
+
+Entropy is the lab server.  The machine is a Linux box and sits down in the machine room in the CSCF area of the building.
+
+There are 3 types of partitions on entropy.
+* *User Partitions* - each student has a home directory on a user partition.  These partitions are backed up frequently.  Typically there is not a lot of space on the user partitions so people should consider what they keep around in their home directory.  The best use for this directory is programs and projcts that you are currently working on.  Things like Mp3s should not be stored in this directory for any reason.
+* *Project/Data Partitions*
+* *Scratch Partitions*
+
+--=_multipart_boundary_34
+Content-Type: application/x-phpwiki;
+  pagename=Entropy;
+  flags="";
+  author=sosentos;
+  version=3;
+  lastmodified=1125421599;
+  author_id=sosentos;
+  markup=2;
+  hits=19;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Entropy
+
+Entropy is the lab server.  The machine is a Linux box and sits down in the machine room in the CSCF area of the building.
+
+There are 3 types of partitions on entropy.
+* User Partitions - each student has a home directory on a user partition.  These partitions are backed up frequently.  Typically there is not a lot of space on the user partitions so people should consider what they keep around in their home directory.  The best use for this directory is programs and projcts that you are currently working on.  Things like Mp3s should not be stored in this directory for any reason.
+* Project/Data Partitions
+* Scratch Partitions
+
+--=_multipart_boundary_34
+Content-Type: application/x-phpwiki;
+  pagename=Entropy;
+  flags="";
+  author=sosentos;
+  version=2;
+  lastmodified=1125421471;
+  author_id=sosentos;
+  markup=2;
+  hits=19;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Entropy
+
+Entropy is the lab server.  The machine is a Linux box and sits down in the machine room in the CSCF area of the building.
+
+There are 3 types of partitions on entropy.
+* User Partitions
+* Project/Data Partitions
+* Scratch Partitions
+
+--=_multipart_boundary_34
+Content-Type: application/x-phpwiki;
+  pagename=Entropy;
+  flags="";
+  author=sosentos;
+  version=1;
+  lastmodified=1125421435;
+  author_id=sosentos;
+  markup=2;
+  hits=19;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Entropy
+
+Entropy is the lab server.  The machine is a Linux box and sits down in the machine room in the CSCF area of the building.
+
+There are 3 types of partitions on entropy.
+
+--=_multipart_boundary_34--

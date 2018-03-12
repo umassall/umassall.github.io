@@ -1,0 +1,84 @@
+Date: Thu, 1 Sep 2005 14:03:26 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_2"
+
+--=_multipart_boundary_2
+Content-Type: application/x-phpwiki;
+  pagename=Description%20of%20Lab%20Computer%20Policies;
+  flags="";
+  author=ash;
+  version=4;
+  lastmodified=1125597806;
+  author_id=ash;
+  markup=2;
+  hits=16;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Lab Computer Policies
+
+* [Entropy]
+
+* [Experiments and Autoson]
+
+* Also check out the (soon to be) old ALL members resources page: http://www-all.cs.umass.edu/restrict/ . If you're not on an ALL computer, you'll need a username and password to access it. Ask around.
+
+--=_multipart_boundary_2
+Content-Type: application/x-phpwiki;
+  pagename=Description%20of%20Lab%20Computer%20Policies;
+  flags="";
+  author=ash;
+  version=3;
+  lastmodified=1125596782;
+  author_id=ash;
+  markup=2;
+  hits=16;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Lab Computer Policies
+
+* [Entropy]
+
+* [Experiments and Autoson]
+
+--=_multipart_boundary_2
+Content-Type: application/x-phpwiki;
+  pagename=Description%20of%20Lab%20Computer%20Policies;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1125596699;
+  author_id=ash;
+  markup=2;
+  hits=16;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Lab Computer Policies
+
+* [Entropy]
+
+* [ExperimentsAndAutoson]
+
+--=_multipart_boundary_2
+Content-Type: application/x-phpwiki;
+  pagename=Description%20of%20Lab%20Computer%20Policies;
+  flags="";
+  author=sosentos;
+  version=1;
+  lastmodified=1125421324;
+  author_id=sosentos;
+  markup=2;
+  hits=16;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!!! Lab Computer Policies
+
+* [Entropy]
+
+*[Experiments and Autoson]
+
+--=_multipart_boundary_2--

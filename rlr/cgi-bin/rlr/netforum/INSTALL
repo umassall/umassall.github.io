@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Run this program from the command line to install NetForum 2.0.x
+# If this script is not running, verify that its permissions are
+# set correctly (i.e., -rwxr-xr-x). You can modify its permissions
+# by typing 'chmod +x INSTALL' on the command line
+
+TEMP=`umask`
+
+umask 000
+
+tar xvf nf.tar
+
+umask ${TEMP}

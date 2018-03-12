@@ -1,0 +1,14 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.13pre) Gecko/20071129 CentOS/1.0.9-7.el4.centos SeaMonkey/1.0.9
+author=
+csum=
+ctime=1209665092
+host=128.119.241.208
+name=Main.MakeArrow
+rev=1
+targets=
+text=[@%0afunction MakeArrow(x0,x1,arrowlength,arrowwidth,thickness,ax);%0a%0aline('XData',[x0(1) x1(1)], 'YData',[x0(2) x1(2)],'LineWidth',thickness,'Parent',ax);%0a%0ax2 = x1-ashline(x0,x1,arrowlength/mag(x1-x0));%0a%0ay = ashtate(pi/2)*(x1-x0);%0ay1 = ashline([0 0]',y,arrowwidth/mag(y))+x2;%0ay2 = ashline([0 0]',y,-arrowwidth/mag(y))+x2;%0a%0aline('XData',[y1(1) x1(1)], 'YData',[y1(2) x1(2)],'LineWidth',thickness,'Parent',ax);%0aline('XData',[y2(1) x1(1)], 'YData',[y2(2) x1(2)],'LineWidth',thickness,'Parent',ax);%0a%0a%0afunction M = ashtate(th)%0aM = [cos(th) -sin(th); sin(th) cos(th)];%0a%0afunction x = ashline(x1,x2,r)%0ax = r*(x2-x1);%0a@]
+time=1209665092
+author:1209665092=
+diff:1209665092:1209665092:=1,21d0%0a%3c [@%0a%3c function MakeArrow(x0,x1,arrowlength,arrowwidth,thickness,ax);%0a%3c %0a%3c line('XData',[x0(1) x1(1)], 'YData',[x0(2) x1(2)],'LineWidth',thickness,'Parent',ax);%0a%3c %0a%3c x2 = x1-ashline(x0,x1,arrowlength/mag(x1-x0));%0a%3c %0a%3c y = ashtate(pi/2)*(x1-x0);%0a%3c y1 = ashline([0 0]',y,arrowwidth/mag(y))+x2;%0a%3c y2 = ashline([0 0]',y,-arrowwidth/mag(y))+x2;%0a%3c %0a%3c line('XData',[y1(1) x1(1)], 'YData',[y1(2) x1(2)],'LineWidth',thickness,'Parent',ax);%0a%3c line('XData',[y2(1) x1(1)], 'YData',[y2(2) x1(2)],'LineWidth',thickness,'Parent',ax);%0a%3c %0a%3c %0a%3c function M = ashtate(th)%0a%3c M = [cos(th) -sin(th); sin(th) cos(th)];%0a%3c %0a%3c function x = ashline(x1,x2,r)%0a%3c x = r*(x2-x1);%0a%3c @]%0a\ No newline at end of file%0a
+host:1209665092=128.119.241.208

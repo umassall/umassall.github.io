@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>Spectroscopy - Autonomous Learning Laboratory</TITLE>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+<style>
+  /* HACK: keep the subnav open in research */
+  ul#subnavbar { display: block; }
+  li#subnav_spectroscopy { font-style: italic; }
+</style>
+</HEAD>
+
+<!--#include virtual="top.html" -->
+
+<h1>Research</h1>
+<h2>Machine Learning for Spectroscopy</h2>
+<img src="img/spectroscopy.png" align="right" width="40%" style="padding: 1em"/>
+<p>
+Spectroscopy is the process of measuring the intensity of radiation emitted by a sample as a function of frequency.
+Spectra are obtained by shining some type of input radiation on the sample and using a spectrometer to capture the energy that is emitted by the sample in response.
+Different types of spectroscopy use specific energy sources and wavelengths, but in general,
+they all produce output in the form of (<em>x</em>,<em>y</em>) data where <em>x</em> is the energy range and <em>y</em> is peak intensity.
+Traditional methods for data interpretation in spectroscopy  commonly use individual peaks that are known to give rise to specific phenomena.
+For example, when visible light shines on a sample containing the element calcium,
+electrons are initially excited from low to higher-energy orbitals in the structure,
+and then eventually those photons are given off and light of specific energies diagnostic of the spacings between the orbitals in Ca (e.g., 422.673 nm) is given off.
+For decades, the area of a curve fit to this line has been used to calibrate different types of spectrosopic measurements that measure Ca.
+However, in many types of spectrosocpy, the composition of the entire sample influences each individual peak in a complex way called &quot;matrix effects.&quot;
+Univarate models for individual peaks cannot begin to represent the resultant changes in peak intensity.
+Machine learning techniques provide alternatives to this traditional approach by utilizing data from the entire energy range collected.
+</p>
+
+<p>
+Therefore, in the ALL, we've been developing new methods to process and interpret spectroscopic data from a variety of sources.
+Most of these techniques are applicable to any form of spectroscopy.
+Current domains of interest include laser-induced breakdown spectroscopy (LIBS), Raman, FTIR, and x-ray absorption (XAS) spectroscopies.
+</p>
+<p>
+In general, the machine learning tasks fall in two overlapping categories:
+<b>classification</b> (which spectra match other spectra?), and
+<b>composition</b> (how do peak intensities relate to the abundances of the elements/molecules that give rise to them?).
+Both tasks share a number of issues, including:
+</p>
+
+<h3>Availability of Spectra Libraries with Standard Data</h3>
+<p>Development of ML models requires training and test data sets of spectra of standard materials.
+Although spectral data rthemselves have high dimensionality, and may have thousands of channels per spectra,
+the number of spectra of standard materials is often limited,
+and frequently does not come close to fully representing the possible variations in n-dimensional space.
+For example, LIBS data (6144 channels per spectrum) are used to predict 30 different compositional variables,
+but the number of standard spectra available to build predictive models is less than 1000 total.</p>
+
+<h3>Data Preprocessing</h3>
+<p>
+Different types of spectroscopy all come with uncertainties that require spectral preprocessing.
+Chief among these are <b>wavelength calibration</b>, which influences the correspondence between data channels and energy ranges,
+and <b>normalization</b>, which affects how peak intensities vary between instruments, or even runs on the same intsrument.
+These factors can make spectra from identical samples differ in scale and translation, among other effects.
+Our lab is working to develop new preprocessing steps to reduce or eliminate these effects, leading to improved classification accuracy.
+</p>
+
+<h3>Improved Distance Metrics</h3>
+<p>
+When classifying a sample based on its spectrum, it is usually necessary to tell how different one spectrum is from another.
+Spectra are often represented as points in a high-dimensional space,
+which enables cheap comparisons via standard distance metrics,
+but also presents problems due to the curse of dimensionality.
+Heterogenous data is also difficult to coerce into this high-dimensional representation.
+In response to these shortcomings, our lab has focused on more sophisticated measures of distance between spectra.
+</p>
+
+<p>
+One such approach involves characterizing the manifold(s) on which our high-dimensional spectra lie.
+This manifold learning problem enables several useful analyses, including the transfer of knowledge between spectroscopy datasets.
+</p>
+
+<p>
+Another approach discards the high-dimensional point representation in favor of viewing spectra as an ordered sequence of two-dimensional points.
+This "trajectory" representation enables the use of graph-based algorithms while avoiding the resampling and band-cropping that other representations require.
+</p>
+
+<h3>Publications</h3>
+<!-- <p>Boucher, T.F., Ozanne, M.V., Carmosino, M.L., Dyar, M.D., Mahadevan, S., Breves, E.A., and Lepore, K.H. (submitted) Nine machine learning regression methods for major elemental analysis of rocks Using laser-induced breakdown spectroscopy. Spectrochimica Acta Part B.</p>
+<p>Boucher, T., Dyar, M.D., and Mahadevan, S. (submitted) Comparison of linear and non-linear approaches to manifold learning predictions of chemical compositions in geological samples using laser-induced breakdown spectroscopy under Mars conditions. J. Chemometrics. </p>
+<p>Boucher NIPS paper &mdash; I don't have it.</p> -->
+<p>Dyar, M.D., Breves, E., Blau, H., Boucher, T., Clegg, S., Anderson, R., Lanza, N., Newsom, H., Treiman, A. (2013) Mineralogy at Gale Crater on Mars as measured by the ChemCam LIBS. Sci-X 2013, Milwaukee, Abstract #260.</p>
+<p>Boucher, T., Dyar, M.D., Carmosino, M., Mahadevan, S., Clegg, S., and Wiens, R. (2013) Manifold regression of LIBS data from geological samples for application to ChemCam on Mars. Sci-X 2013, Milwaukee, Sci-X 2013, Milwaukee, Abstract #24.</p>
+<p>Boucher, T., Dyar, M.D., Carey, C., and Mahadevan, S. (2014) Using manifold embeddings to preprocess LIBS spectra to improve regression model performance. Sci-X 2014, Reno, NV, in press.</p>
+<p>Boucher, T., Dyar, M.D., Carey, C., Mahadevan, S., Mezzacappa, A., and Melikechi, N. (2014) Recognizing the contribution of dust to ChemCam spectra of rocks and minerals on Mars. Sci-X 2014, Reno, NV, in press.</p>
+<p>Dyar, M.D., Breves, E.A., Boucher, T.F., and Mahadevan, S. (2014) Successes and challenges of laser-induced breakdown spectroscopy (LIBS) applied to chemical analyses of geological samples. Microscopy and Microanalysis 2014, Hartford, CT, in press.</p>
+<p>Anderson, R.B., Clegg, S.M., Ehlmann, B.L., Morris, R.V., McLennan, S.M., Boucher, T., Dyar, M.D., McInroy, R., Delapp, D., Wiens, R.C., Frydenvang, J., Forni, O., Maurice, S., Gasnault, O., Lasue, J., and Fabre, C. (2014) Expanded compositional database for ChemCam quantitative calibration. Mars 8, Pasadena, CA, Abstr. #1275.</p>

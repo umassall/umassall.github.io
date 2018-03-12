@@ -1,0 +1,98 @@
+This document discusses how to upgrade NetForum from version 1.2.x to
+2.0.x and NetForum 2.0 beta 3.x to 2.0.x
+
+You will need the NetForum 2.0.x source from 
+
+	http://www.biostat.wisc.edu/netforum/download.html
+
+This will unpack itself into a directory called netforum when you run
+the INSTALLME script. You may want to avoid clobbering NF 1.2.x by
+moving the pieces of the program to a safe place before running
+install. 
+
+Run install and go through the steps to install the program. Do this
+first, the upgrade program needs to know a few things about how you
+have the program setup and looks in the configuration files for this.
+Test out NF 2.0 using the included test forum. Don't get rid of the 
+admin owner just yet (but do change its password!)
+
+When you have the new version running you can go about migrating your
+old forums to the new format. The new format requires all forums to be
+registered in the admin script and old forms are lacking subjects. The
+program forum1.2.6_to_2.0 (a perl script) will do this. 
+
+Copy all of the forums you wish to convert to the directory containing
+NF 2.0.x We recommend that you keep a backup of these. Even thought the
+program has been tested, you never know what odd errors may crop up...
+
+Run the forum1.2.6_to_2.0 program. It will prompt you for a comma
+separated list of forums you wish to update. Type them in and hit
+return and let the thing go. The forums will be updated and given to
+the admin owner for maintenance. 
+
+These forums can now be manipulated as any other NF 2.0 forum. Note
+the old versions of these forums will be deleted. 
+
+Upgrading from 3.x beta (or any of the later betas) should be easy:
+
+Be sure to unpack the distribution someplace safe (i.e. you dont want
+it to clobber your sys_config, forum config etc. yet...
+
+<P>
+The most important thing is to add a name for each administrative user
+to the file 'userlist' in the diretory admin. At the end of each line add
+a colon (:) (very important!) and then type the name of the user. It should
+look something like this:
+
+test:NO:NO:NO:NO:NO:YES:JSvVbXnLJqJ/M:Test Account
+
+on each line. 
+
+Now replace all of the programs in the lib and admin directories:
+
+admin/admin
+lib/main
+lib/utilities
+lib/variables
+
+
+Now you need to update the forum_config files to adhere to the new
+format. There may be one of these in each forum. The simplest way
+to do this is to print out the old versions, copy the distributed
+new version (found in lib/) overeach and make the changes by hand.
+
+
+The new version of netforum should run without these modifications
+but people typing stuff into forums will wonder why there is a text
+box with only  a : above it.
+
+
+
+
+
+
+
+
+A short FAQ:
+
+Q: forum1.2.6_to_2.0 wont run!
+
+A: You either have the path to perl wrong in it or the current
+directory is not in your path. Try 
+
+	shell% ./forum1.2.6_to_2.0 
+
+or 
+
+	shell% perl forum1.2.6_to_2.0
+
+where shell% is your shell prompt (don't type it!)
+
+Q: Will old 1.2.x forums run without conversion
+
+A: Probably, but you cannot use any of the new admin capabilities on
+them though.
+
+One note: The conversion script seems to have problems with preformatted
+messages. In that case you will have to fix things by hand later as it
+screws up the formatting of all following messages.

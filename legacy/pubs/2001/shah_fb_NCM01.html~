@@ -1,0 +1,66 @@
+<HTML>
+<TITLE>A Computational Model of Muscle Recruitment for Wrist Movements</TITLE>
+<H1>
+<P ALIGN=CENTER>
+A Computational Model of Muscle Recruitment for Wrist Movements
+ </P>
+</H1>
+
+<H3>
+<P ALIGN=CENTER>
+Ashvin Shah, Andrew H. Fagg, Andrew G. Barto
+ </P>
+</H3>
+<P ALIGN=CENTER>
+{ash | fagg | barto}@cs.umass.edu
+<BR>
+Neuroscience and Behavior Program and Computer Science Department
+<BR>
+University of Massachusetts, Amherst
+ </P>
+<BR>
+ <P>
+
+In order to produce a desired movement, the brain must select the set
+of muscles that will be used to generate the appropriate joint
+motions. This problem is made particularly difficult by the fact that
+in many cases, different subsets of muscles may be used to produce the
+same movement. The motor system is therefore faced with a problem of
+redundancy that must be resolved. Hoffman and Strick (1999) recently
+examined the role of several different muscles in the production of
+two degree-of-freedom, step-tracking wrist movements involving
+flexion/extension and radial/ulnar deviation in primates. It was
+observed that agonist muscles were recruited as a function of movement
+direction in a roughly cosine-like fashion, with a muscle's "preferred
+direction" defined as the peak of the cosine fitted to the muscle's
+activity pattern. Furthermore, the preferred direction for some
+muscles differed significantly from the muscle's direction of action
+(or pulling direction).
+<BR><BR>
+We present a model of muscle recruitment that selects wrist muscle
+activation levels based on their ability to produce the desired
+movement while minimizing the total effort required by all muscles to
+implement the movement. Taken together, these two constraints lead to
+a cosine-like recruitment of the muscles. The pattern of muscle
+activation as a function of movement direction produced by the model
+closely matches that produced by experimental EMG recordings (Hoffman
+and Strick, 1999). The model also predicts differences in a muscle's
+pulling and preferred directions. These differences are due to the
+uneven distribution of the pulling directions of the six primary
+muscles involved in these movements. The pulling directions of some
+muscles are separated by gaps as large as 120 degrees. In these cases,
+movements to targets within the gap require additional activation of
+the two muscles whose pulling directions border the gap to compensate
+for the work that these muscles must do against one another. This
+leads to shifts of the muscle's preferred direction toward the gap. In
+addition, the magnitude of the shift increases as the size of the gap
+increases.
+<P>
+<P><HR><P>
+Presented at 2001 Spring Meeting on the 
+<A HREF="http://www-ncm.cs.umass.edu/">Neural Control of Movement</A>, Seville, Spain <BR>
+half-sized (18"x31") poster:
+<A HREF="http://www-anw.cs.umass.edu/~ash/pubs/sfbNCM01.pdf">pdf</A> file;  
+<A HREF="http://www-anw.cs.umass.edu/~ash/pubs/sfbNCM01.ps">ps</A> file
+<P>
+

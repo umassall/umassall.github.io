@@ -1,0 +1,14 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050920 Firefox/1.0.7
+author=Gdk
+csum=
+ctime=1158616854
+host=128.119.241.202
+name=Main.LapTop
+rev=1
+targets=
+text=! Laptop policies%0a%0aThe lab has a laptop for lab use. Right now, this is Dopamine, a Mac Powerbook. It's locked away in a cabinet drawer, and someone (Kim) has a key. Be sure to sign it in and out if you use it.%0a%0aThere are two accounts available to lab members. One is password protected: the username is Alliens and the password is all266. The other is not. It's called allguest and has limited access.
+time=1158616854
+author:1158616854=Gdk
+diff:1158616854:1158616854:=1,5d0%0a%3c ! Laptop policies%0a%3c %0a%3c The lab has a laptop for lab use. Right now, this is Dopamine, a Mac Powerbook. It's locked away in a cabinet drawer, and someone (Kim) has a key. Be sure to sign it in and out if you use it.%0a%3c %0a%3c There are two accounts available to lab members. One is password protected: the username is Alliens and the password is all266. The other is not. It's called allguest and has limited access.%0a\ No newline at end of file%0a
+host:1158616854=128.119.241.202

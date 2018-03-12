@@ -1,0 +1,131 @@
+<HEADER>
+<TITLE>Java(tm) Agent Template, Version 0.3</TITLE>
+</HEADER>
+
+<BODY> 
+<H1>Example 1: Basic agents and resource retrieval.</H1> 
+<hr> 
+
+All JAT agents maintain both class and data resources using objects which
+are subclasses of JavaAgent.resource.Resource. Java class resources include
+languages (essentially protocol handlers, enable a message to be parsed
+and provide some high level semantics) and interpreters (essentially
+content handlers, provide a procedural specification of how a
+message, constructed according to a specific ontology,
+should be interpreted). (The interpreter is specified using the KQML
+"ontology" field). It is assumed that the implementation of each Interpreter
+class is based on some formal specification ("ontology") of the message
+semantics.  One property of the JAT enables
+these resources to be dynamically exchanged between Agents in a "just-in-time"
+fashion (a subclass of Resource, RetrievalResource is utilized for this
+purpose). This allows an agent to correctly process a message, whose language
+and interpreter are both unknown, by dynamically acquiring the necessary Language
+and Interpreter classes.  The following sequence of steps will illustrate this
+functionality. (Keep in mind that although these examples have all of the
+agents running on the same machine, the agents can theoretically run on any
+Internet host which is not inside a firewall.)<p>
+
+<hr>
+
+Perform the following steps:<p>
+<ol>
+
+<LI> You need to have an ANS and at least two agents started. One agent will
+act as "Agent 1" and the other as "Agent 2" (regardless of their actual
+names).<p> 
+
+The standard agent GUI includes a menu bar and a text area for displaying
+system messages, each system message is also written to a log file 
+(the log files are contained in the working directory for each Agent and are
+titled with a time stamp).
+The ANS, when created, will automatically bind a ServerSocket to the host/port
+listed in the init_file. Each Agent will bind a ServerSocket to either the
+user specified port or to an automatically determined port, after which the
+Agent will attempt to send a registration message to the ANS. If you have been
+successful, each Agent, including the ANS, will have received a single message
+from the init_file and each Agent will have sent one message to the ANS. You
+can look at the contents of the sent/received message buffers using the menu
+bar command "Message->View". Go ahead and check out the other commands, but if
+you decide to try the "Action->Quit" command, be prepared for the obvious
+consequences.<p>
+
+<LI> Select the "View" command under the "Resource" menu of the ANS. You
+should see the addresses for the two Agents you started. You should also see
+the "KQML" language and the "agent" interpreter. 
+
+<LI> Select the "Load" command under the "Resource" menu of Agent 1.
+
+<LI> Load the TestInterpreter interpreter. (Resource Name: test , 
+Class/File Name: test.TestInterpreter, URL: &lt;location of the classes
+directory&gt;). Execution of this command will use the NetworkClassLoader to
+open an input stream to the TestInterpreter.class file, read in the byte codes
+and load the class into the current run time. 
+
+<LI> Select the "Compose" command under the "Message" menu of Agent 1.
+
+<LI> Send the following message: performative: "evaluate", sender: will be
+filled-in automatically, receiver: Agent 2's name, language: "KQML", ontology: "test", content: "(test2)".
+
+<LI>A top-level window containing the label "Test 2" should appear.
+
+</ol>
+
+<hr>
+Although this may seem like a very simple exercise, a somewhat complex series
+of synchronized transactions were necessary to implement this
+functionality. Here is what actually happened: <p>
+
+<ul>
+
+<LI>First, when Agent 1 attempts to send the first message, it will realize
+that it does not have the address for Agent 2 so it will block the message
+transmission and send a message to the ANS asking for the address of Agent 2. 
+
+<LI>The ANS will get the ask-resource message from Agent 1 and will send back
+the address of Agent 2.
+
+<LI>After getting the address for Agent 2, Agent 1 will go ahead and send the
+test message to Agent 2.
+
+<LI> Agent 2 will receive the test message and realize that it does not have
+the
+test interpreter and is therefore unable to interpret the message.  Agent 2 will
+therefore block interpretation of the message and attempt to send a message to
+Agent 1 requesting the location of the TestInterpreter code. However,
+Agent 2 does not have the address for Agent 1 so it will have to block the
+message to Agent 1 and first send a message to the ANS requesting Agent 1's
+address. 
+
+<li> The ANS will receive Agent 2's request and will respond with the address
+for Agent 1.
+
+<li> Agent 2 will receive Agent 1's address and will proceed to send a
+message to Agent 1 requesting the location of the TestInterpreter.
+
+<LI> Agent 1 will get the ask-resource message from Agent 2 and will reply
+with the location for the TestInterpreter (both url and absolute class name).
+
+<LI> Agent 2, after getting the location of the TestInterpreter, will load the
+code, create a new instance of the TestInterpreter class and finally interpret
+the first message it received from Agent 1 (the KQMLmessage object will be
+passed as an argument to the interpretMessage() method of the TestInterpreter
+object).
+
+<LI> The TestInterpreter will identify the language for the content field as KQML
+and will thus parse the content field according to the KQML syntax (KQML
+message within a KQML message).
+
+<LI> Because the performative of the content is "test2" the test2Action()
+method will be called. This method checks to see if the current agent has a
+GUI and, if it does, passes an subclass of Panel up to the GUI. This is the
+panel which gets displayed.
+
+<LI> You can use the "Message->View" command in each agent to
+see a record of the above mentioned messages.
+</UL>
+
+<hr>
+<ADDRESS>
+<i>frost@cdr.stanford.edu</i>
+</ADDRESS>
+</Body>

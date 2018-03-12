@@ -1,0 +1,14 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050920 Firefox/1.0.7
+author=Gdk
+csum=
+ctime=1158617886
+host=128.119.241.202
+name=Main.SpecificAutoson
+rev=1
+targets=Main.Xmx512M,Main.GeneHmm
+text=This is the code I used to just submit a job to be run on limbic I'll break it down piece by piece%0a%0a auadd -hosts @limbic -log logfile program%0a%0a-auadd - sends the job to autoson to be added.%0a%0a- -hosts @limbic - says I want the job to be run on limbic%0a%0a- -log logfile - indicates the name of the logfile I want to use for any output from this experiment%0a%0a-program - is what I would normally do to run the program%0a%0aHere's a concrete example that I used to run a java program:%0a%0a auadd -hosts @limbic -log run2test.out java -Xprof -server -ea -Xmx512M Ghmm ~GeneHmm.model ../../../research/synthesis/data/shorttrain ../../../research/synthesis/data/testonefile
+time=1158617886
+author:1158617886=Gdk
+diff:1158617886:1158617886:=1,15d0%0a%3c This is the code I used to just submit a job to be run on limbic I'll break it down piece by piece%0a%3c %0a%3c  auadd -hosts @limbic -log logfile program%0a%3c %0a%3c -auadd - sends the job to autoson to be added.%0a%3c %0a%3c - -hosts @limbic - says I want the job to be run on limbic%0a%3c %0a%3c - -log logfile - indicates the name of the logfile I want to use for any output from this experiment%0a%3c %0a%3c -program - is what I would normally do to run the program%0a%3c %0a%3c Here's a concrete example that I used to run a java program:%0a%3c %0a%3c  auadd -hosts @limbic -log run2test.out java -Xprof -server -ea -Xmx512M Ghmm ~GeneHmm.model ../../../research/synthesis/data/shorttrain ../../../research/synthesis/data/testonefile%0a\ No newline at end of file%0a
+host:1158617886=128.119.241.202

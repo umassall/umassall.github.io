@@ -1,0 +1,59 @@
+
+<HTML>
+<HEAD>
+<TITLE>servername</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<a name="servername">
+<h4>servername</h4>
+</a>
+<strong>This option is ONLY for use with servers that log
+several "virtual domains" to one file, such as Microsoft IIS. It is not 
+necessary for other servers.</strong>
+<pre>
+servername          myservername (AS IT APPEARS IN THE LOG FILE)
+</pre>
+The <code>servername</code> option is used to specify
+the NT server name, IP address, or other logged name of
+the specific virtual domain that Wusage will analyze.
+<strong>Wusage 5.0 will look for the virtual domain name
+in the following places:</strong>
+<ul>
+<li><strong>For Microsoft IIS:</strong> in the standard place
+for this field under Microsoft IIS. This is a standard feature
+of Microsoft IIS when virtual domains are being served.
+<li>At the end of each line of the log file, after all of the
+normal "common log format" fields, optionally in quotes.
+Wusage will look for this field among any "extra" fields in your log.
+See the <a href="server.html">server configuration tips</a>
+section for more information.
+<li>In the almost never used "user ident" field (not the 
+authenticated user name field, which is often used). Some
+servers can be configured to log the virtual domain name here.
+Wusage will recognize this if the servername option is present
+and this field contains a name with at least one dot (<code>.</code>).
+</ul>
+If the <code>servername</code> option is present, Wusage
+will analyze only log entries that contain that server name.
+Otherwise, Wusage analyzes all valid log entries found. 
+
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

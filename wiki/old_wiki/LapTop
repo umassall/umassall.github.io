@@ -1,0 +1,42 @@
+Date: Tue, 25 Jul 2006 15:31:30 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_10"
+
+--=_multipart_boundary_10
+Content-Type: application/x-phpwiki;
+  pagename=LapTop;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1153855890;
+  author_id=ash;
+  markup=2;
+  hits=5;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! Laptop policies
+
+The lab has a laptop for lab use. Right now, this is Dopamine, a Mac Powerbook. It's locked away in a cabinet drawer, and someone (Kim) has a key. Be sure to sign it in and out if you use it.
+
+There are two accounts available to lab members. One is password protected: the username is Alliens and the password is all266. The other is not. It's called allguest and has limited access.
+
+--=_multipart_boundary_10
+Content-Type: application/x-phpwiki;
+  pagename=LapTop;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1153243289;
+  author_id=ash;
+  markup=2;
+  hits=5;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! Laptop policies
+
+The lab has a laptop for lab use. Right now, this is Dopamine, a Mac Powerbook. It's locked away in a cabinet drawer, and someone (Kim) has a key. Be sure to sign it in and out if you use it. Also, the username is Alliens and the password is all266.
+
+--=_multipart_boundary_10--

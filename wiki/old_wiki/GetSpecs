@@ -1,0 +1,25 @@
+Date: Tue, 18 Jul 2006 13:14:00 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: application/x-phpwiki;
+  pagename=GetSpecs;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1153242840;
+  author_id=ash;
+  markup=2;
+  hits=3;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! Getting Specs of the computer
+
+* To get RAM
+<verbatim>
+> more /proc/meminfo
+</verbatim>
+
+* To get CPU
+<verbatim>
+> more /proc/cpuinfo
+</verbatim>

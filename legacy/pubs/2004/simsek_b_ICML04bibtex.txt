@@ -1,0 +1,9 @@
+@inproceedings{simsek-icml-04,
+  author = {\"Ozg\"ur \c{S}im\c{s}ek and Andrew G. Barto},
+  title = {Using relative novelty to identify useful temporal abstractions in reinforcement learning},
+  booktitle = {Proceedings of the Twenty-First International Conference on Machine Learning},
+  pages="751--758",
+  year = {2004},
+  location = {Banff, Alberta, Canada},
+  publisher = {ACM Press},
+}

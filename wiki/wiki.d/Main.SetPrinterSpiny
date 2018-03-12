@@ -1,0 +1,14 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050920 Firefox/1.0.7
+author=Gdk
+csum=
+ctime=1158617516
+host=128.119.241.202
+name=Main.SetPrinterSpiny
+rev=1
+targets=
+text=!Set the default printer on Spiny%0a%0a%0aTo prevent accidental printing to other printers (especially the poster printer!), set *allprinter* to be the default printer on your account on spiny:%0a%0a# open "System Preferences"%0a# click on "Print & Fax" under "Hardware," the second row%0a# bring up the "Printing" menu (left of the three options near the top%0a# under "Selected Printer in Print Dialog," which is near the bottom, select "allprinter," as opposed to "last printer used."%0a
+time=1158617516
+author:1158617516=Gdk
+diff:1158617516:1158617516:=1,9d0%0a%3c !Set the default printer on Spiny%0a%3c %0a%3c %0a%3c To prevent accidental printing to other printers (especially the poster printer!), set *allprinter* to be the default printer on your account on spiny:%0a%3c %0a%3c # open "System Preferences"%0a%3c # click on "Print & Fax" under "Hardware," the second row%0a%3c # bring up the "Printing" menu (left of the three options near the top%0a%3c # under "Selected Printer in Print Dialog," which is near the bottom, select "allprinter," as opposed to "last printer used."%0a
+host:1158617516=128.119.241.202

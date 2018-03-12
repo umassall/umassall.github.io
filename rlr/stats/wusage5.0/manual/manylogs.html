@@ -1,0 +1,153 @@
+<HTML>
+<HEAD>
+<TITLE>Analyzing Many Log Files?</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h2>Analyzing Many Log Files</h2>
+</a>
+Popular sites have a problem: log files become
+very large very quickly! It is necessary to set them aside in
+some way when they become too large to be kept
+in uncompressed form or kept on the hard drive at all.
+<p>
+Most sites solve this problem by periodically
+compressing and setting aside old log files.
+This will present no problem for wusage, as long
+as wusage has already analyzed the data in the
+log file that has been set aside. Programs such
+as Unix <code>compress</code>, and DOS-oriented
+<code>.zip</code> utilities such as PKWare's
+PKZIP, are useful tools to compress and store
+old log files. It is suggested that administrators
+compress and set aside old log files immediately
+after running wusage, just after midnight each
+day or on Sunday for weekly analysis. 
+Wusage will politely ignore data that has already
+been analyzed if it is present in a log file, but
+setting such data aside in another file does
+speed up the program.
+<p>
+<strong>"My server generates a new log file for each
+day, so I have dozens of log files already and more
+on the way. How can I analyze these logs with wusage?"</strong>
+<p>
+If you have many uncompressed log files, just use
+the <a href="logdir.html"><code>logdir</code></a> option
+to tell wusage where to find them all, and keep
+them all in a single directory until they have been
+analyzed. This feature is new as of version 4.1.
+You can keep them there indefinitely if you
+wish, but wusage runs faster if only the data not
+yet analyzed is present in the log directory.
+If your log files are compressed and you do not
+wish to uncompress them, <a href="#compressed">
+skip ahead</a> to read about coping with compressed
+log files.
+<p>
+<strong>"I have many mirror sites, so I have a collection
+of log files that all contain entries from the same
+period in time. Can wusage cope with this?"</strong>
+<p>
+As of version 4.1, the answer is yes. 
+Just use the <a href="logdir.html"><code>logdir</code></a> 
+option to tell wusage where to find the log files you have
+collected. If you have more than 20 log files that
+<strong>cover the same period in time</strong>, for instance
+50 log files from 50 mirrors of the same site, wusage
+may slow down considerably. This does <strong>not</strong>
+occur with non-overlapping log files, even if there
+are hundreds of them. If your needs cannot be met with
+a limit of 20 overlapping log files, please
+<a href="http://www.boutell.com/wusage/contact.html">
+contact us</a> with information about your specific needs. 
+(If the above link does not work for you, send
+email to <a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+instead.)
+
+<p>
+<a name="compressed"><strong>"This is all well and good, but I already
+have several old compressed log files. How do I
+analyze them with wusage?"</strong></a>
+<p>
+The Unix <code>cat</code> and <code>zcat</code>
+commands are extremely useful to reconstruct
+a single log file. Even better, thanks to the
+<code>-l</code> option of wusage, you can avoid
+creating an actual combined disk file of your
+log entirely. Consider the following Unix
+command line:
+<p>
+<code>cat oldlog1 oldlog2 oldlog3 | wusage -l -</code>
+<p>
+The special filename <code>-</code> (a single dash)
+signals wusage to read its log entries from
+standard input, which is piped in from the
+Unix <code>cat</code> program. For more information
+about <code>cat</code>, try the Unix command
+<code>man cat</code>. 
+<p>
+<strong>Important note:</strong> it is important
+to feed log files to cat in ascending order.
+An older log file should precede a newer one.
+<p>
+<strong>"What if I have compressed data?"</strong>
+<p>
+The following Unix pipeline will send several
+compressed log files to wusage:
+<p>
+<code>zcat oldlog1.Z oldlog2.Z | wusage -l -</code>
+<p>
+And the following pipeline will send a
+<strong>combination</strong> of compressed
+and uncompressed log files to wusage:
+<p>
+<code>zcat oldlog1.Z oldlog2.Z | cat - oldlog3 oldlog4 | wusage -l
+-</code>
+<p>
+Note that both cat and wusage are being fed information
+from the output of the preceding program, using the
+special filename <code>-</code>. 
+<p>
+<strong>"What about non-Unix platforms?"</strong>
+<p>
+The MSDOS-related operating systems support the
+the <code>type</code> command, which can be used
+to output several files and pipe that output to wusage:
+<p>
+<code>type oldlog1.dat oldlog2.dat oldlog3.dat | wusage -l -</code>
+<p>
+<strong>"I ran wusage on an old log file, and now I have
+zero accesses for the last two months! What happened?"</strong>
+<p>
+Wusage normally creates reports through the most recent
+complete day or week, and will not generate those reports
+again. You can override this behavior using the
+<a href="coptions.html">-b and -e command line options</a>,
+which are used to force wusage to start re-generating
+reports at an earlier date, or to stop well before
+the present date. If you inadvertently produce 
+empty reports for the most recent several weeks or
+months, just use the -b option to specify a date
+from which wusage should start re-generating those reports,
+and specify the more recent logfile as well using
+the -l option.
+
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="intro2.html">Table of Contents</a><TD align="right"><a href="automatic.html"> Next</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+
+

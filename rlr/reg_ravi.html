@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Register your research interests in the RL Repository</title>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35723838-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body bgcolor="FFFFBB">
+<h2>Register your research interests in the RL Repository</h2>
+<img align=right src="imgs/tower.gif">
+<p>Filling out and submitting this form will automatically add you to the
+HTML page of RL researchers.
+<form method="POST" action="cgi-bin/rlr/reg_ravi.pl">
+<br>
+Your first name:
+<input type="text" name="firstname" size="20"><br>
+Your last name:
+<input type="text" name="lastname" size="20"><br>
+The company, school, or other organization with which you are affiliated:
+<input type="text" name="organization" size="40"><br>
+<br>
+Check any of the following areas within RL in which you are pursuing
+research or have interest:<br>
+<input type="checkbox" name="ar" value="yes"> Applications to robotics<br>
+<input type="checkbox" name="un" value="yes"> Average-reward/undiscounted
+methods<br>
+<input type="checkbox" name="di" value="yes"> Distributed and Multi-Agent RL<br>
+<input type="checkbox" name="dp" value="yes"> DP/MDP<br>
+<input type="checkbox" name="fa" value="yes"> Function approximation<br>
+<input type="checkbox" name="hm" value="yes"> Hierarchical methods<br>
+<input type="checkbox" name="in" valude="yes"> Industrial applications<br>
+<input type="checkbox" name="nb" value="yes"> Neuro-biological RL<br>
+<input type="checkbox" name="po" value="yes"> Partially observable
+problems<br>
+<input type="checkbox" name="pl" value="yes"> Planning<br>
+<input type="checkbox" name="ps" value="yes"> Policy-space Search Methods<br>
+<input type="checkbox" name="sh" value="yes"> Shaping<br>
+<input type="checkbox" name="td" value="yes"> TD-learning<br>
+<input type="checkbox" name="th" value="yes"> Theoretical analysis<br>
+<br>
+Enter your homepage URL if you have one:
+<input type="text" name="homepage" size="50" value="http://"><br>
+Enter your e-mail address:
+<input type="text" name="email" size="30"><br>
+<br>
+<input type="submit" value="Add your research interests to the RL
+repository ">
+<input type="reset"  value="Clear fields">

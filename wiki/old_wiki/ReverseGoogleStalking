@@ -1,0 +1,29 @@
+Date: Tue, 6 Sep 2005 14:53:33 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: application/x-phpwiki;
+  pagename=ReverseGoogleStalking;
+  flags="";
+  author=colinb;
+  version=1;
+  lastmodified=1126032813;
+  author_id=colinb;
+  markup=2;
+  hits=20;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+We use Stat Counter (http://www.statcounter.com/) to reverse Google stalk the ALL webpage.
+
+* Either go to http://www.statcounter.com/ or click on the little number at the bottom of every non-restricted ALL webpage.
+
+* the username is all266 , the password is the usual.
+
+* after you log in, the best thing to see is who visited the ALL page. Simply:
+  # click on the little bar graph to the right of ALL, under Project Name
+  # click on Visitor Path, which is on the left menu under Statistics
+  # enjoy obsessing!
+
+* If you haven't done so, please follow these steps to prevent it from counting visits from your computer (if you have a static IP):
+  # log into Stat Counter as all266
+  # click on the wrench icon to the right of ALL (under project name)
+  # on the IP Blocking, towards the bottom, put in your IP (to the left of the dialogue box, it should tell you what your current IP is, so you can just copy and paste it)

@@ -1,0 +1,50 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.14eol) Gecko/20080716 CentOS/1.0.9-16.4.el4.centos SeaMonkey/1.0.9
+author=
+csum=
+ctime=1158699167
+host=128.119.241.205
+name=Main.LinuxStuff
+rev=13
+targets=Main.RemoteLogout,Main.GettingInfo
+text=* Simple word count%0a[@%0awc -w foo.txt%0ain emacs, highlight a region and type [=M-esc-shift=] followed by "wc".%0aoutput is in bytes, words and lines%0a@]%0a----%0a* Change file permissions, user chmod (change mode)%0a**who letters: u (current user), g (group, all), o (others, not u or g), a (every single person)%0a**permission letters: r (read), w (write), x (execute), X (execute only if file is in directory), s (set user or group ID)%0a**operations: + (add), - (take away), = (set exactly and remove all others)%0a**example: to grant read permissiont to everyone for foo.txt,%0a[@chmod a+r foo.txt@]%0a----%0a* Tarballs%0a**Create a tarball out of all files in a directory, type: tar -cvf foo.tar directoryname_or_files%0a**to untar,  tar -xvf foo.tar%0a**add z to the arguments to gzip or gunzip the tarballs, tar -czvf foo.tgz %0a**Here's a partial list of arguments: c (create an archive), x (extract from an archive), v (verbose mode), f (filename), z (gzip)%0a**More info [[http://www.redhat.com/docs/manuals/linux/RHL-7.3-Manual/getting-started-guide/s1-managing-compressing-archiving.html | here]]%0a----%0a* Disk space and file size%0a** du is the command for "disk usage," df is the command for "disk free," as in how much free space%0a*** du -sh name_of_directory_or_file will give you the size of the directory in human readable numbers%0a*** df name_of_directory will give the disk usage and free space of all paritions associated with that directory. if you have no argument (just df), it will give all partitions%0a%0a%0a----%0a* [[RemoteLogout | Remote Log out]]%0a----%0a* [[GettingInfo | Getting information from your computer ]]
+time=1227547585
+author:1227547585=
+diff:1227547585:1177617939:=16c16%0a%3c **Create a tarball out of all files in a directory, type: tar -cvf foo.tar directoryname_or_files%0a---%0a> **Create a tarball out of all files in a directory, cd to the directory and type: tar -cvf foo.tar %0a
+host:1227547585=128.119.241.205
+author:1177617939=
+diff:1177617939:1176388366:=22,28d21%0a%3c * Disk space and file size%0a%3c ** du is the command for "disk usage," df is the command for "disk free," as in how much free space%0a%3c *** du -sh name_of_directory_or_file will give you the size of the directory in human readable numbers%0a%3c *** df name_of_directory will give the disk usage and free space of all paritions associated with that directory. if you have no argument (just df), it will give all partitions%0a%3c %0a%3c %0a%3c ----%0a
+host:1177617939=128.119.241.208
+author:1176388366=
+diff:1176388366:1176306656:=18c18%0a%3c **add z to the arguments to gzip or gunzip the tarballs, tar -czvf foo.tgz %0a---%0a> **add z to the arguments to gzip or gunzip the tarballs, tar -czcf foo.tgz %0a
+host:1176388366=128.119.241.208
+author:1176306656=
+diff:1176306656:1160575938:=0a1%0a> %0a16c17%0a%3c **Create a tarball out of all files in a directory, cd to the directory and type: tar -cvf foo.tar %0a---%0a> **Create a tarball out of all files in a directory, cd to the directory and type: tar -cvf foo.tar *%0a18c19%0a%3c **add z to the arguments to gzip or gunzip the tarballs, tar -czcf foo.tgz %0a---%0a> **add z to the arguments to gzip or gunzip the tarballs%0a
+host:1176306656=128.119.241.208
+author:1160575938=
+diff:1160575938:1160575909:=1c1,2%0a%3c %0a---%0a> ! Linux Stuff%0a> %0a
+host:1160575938=68.118.252.222
+author:1160575909=
+diff:1160575909:1158773981:=4,8c4,6%0a%3c [@%0a%3c wc -w foo.txt%0a%3c in emacs, highlight a region and type [=M-esc-shift=] followed by "wc".%0a%3c output is in bytes, words and lines%0a%3c @]%0a---%0a> ->wc -w foo.txt%0a> ->in emacs, highlight a region and type [=M-esc-shift=] followed by "wc".%0a> ->output is in bytes, words and lines%0a15c13%0a%3c [@chmod a+r foo.txt@]%0a---%0a> ***chmod a+r foo.txt%0a
+host:1160575909=68.118.252.222
+author:1158773981=
+diff:1158773981:1158773736:=7c7%0a%3c ----%0a---%0a> %0a14c14%0a%3c ----%0a---%0a> %0a21c21%0a%3c ----%0a---%0a> %0a23d22%0a%3c ----%0a
+host:1158773981=128.119.241.208
+author:1158773736=
+diff:1158773736:1158773664:=22c22%0a%3c * [[RemoteLogout | Remote Log out]]%0a---%0a> * Remote Log out%0a
+host:1158773736=128.119.241.208
+author:1158773664=
+diff:1158773664:1158773632:=16,17c16,19%0a%3c **Create a tarball out of all files in a directory, cd to the directory and type: tar -cvf foo.tar *%0a%3c **to untar,  tar -xvf foo.tar%0a---%0a> **Create a tarball out of all files in a directory, cd to the directory and type:%0a> -> tar -cvf foo.tar *%0a> -%3c**to untar, %0a> ->tar -xvf foo.tar%0a19c21,22%0a%3c **Here's a partial list of arguments: c (create an archive), x (extract from an archive), v (verbose mode), f (filename), z (gzip)%0a---%0a> **Here's a partial list of arguments: %0a> ->c (create an archive), x (extract from an archive), v (verbose mode), f (filename), z (gzip)%0a
+host:1158773664=128.119.241.208
+author:1158773632=
+diff:1158773632:1158773579:=18c18%0a%3c -%3c**to untar, %0a---%0a> **to untar, %0a
+host:1158773632=128.119.241.208
+author:1158773579=
+diff:1158773579:1158699302:=16,24d15%0a%3c **Create a tarball out of all files in a directory, cd to the directory and type:%0a%3c -> tar -cvf foo.tar *%0a%3c **to untar, %0a%3c ->tar -xvf foo.tar%0a%3c **add z to the arguments to gzip or gunzip the tarballs%0a%3c **Here's a partial list of arguments: %0a%3c ->c (create an archive), x (extract from an archive), v (verbose mode), f (filename), z (gzip)%0a%3c **More info [[http://www.redhat.com/docs/manuals/linux/RHL-7.3-Manual/getting-started-guide/s1-managing-compressing-archiving.html | here]]%0a%3c %0a
+host:1158773579=128.119.241.208
+author:1158699302=
+diff:1158699302:1158699167:=17c17%0a%3c * [[GettingInfo | Getting information from your computer ]]%0a\ No newline at end of file%0a---%0a> * Getting Information%0a\ No newline at end of file%0a
+host:1158699302=128.119.241.208
+author:1158699167=
+diff:1158699167:1158699167:=1,17d0%0a%3c ! Linux Stuff%0a%3c %0a%3c * Simple word count%0a%3c ->wc -w foo.txt%0a%3c ->in emacs, highlight a region and type [=M-esc-shift=] followed by "wc".%0a%3c ->output is in bytes, words and lines%0a%3c %0a%3c * Change file permissions, user chmod (change mode)%0a%3c **who letters: u (current user), g (group, all), o (others, not u or g), a (every single person)%0a%3c **permission letters: r (read), w (write), x (execute), X (execute only if file is in directory), s (set user or group ID)%0a%3c **operations: + (add), - (take away), = (set exactly and remove all others)%0a%3c **example: to grant read permissiont to everyone for foo.txt,%0a%3c ***chmod a+r foo.txt%0a%3c %0a%3c * Tarballs%0a%3c * Remote Log out%0a%3c * Getting Information%0a\ No newline at end of file%0a
+host:1158699167=128.119.241.208

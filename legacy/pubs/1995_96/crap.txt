@@ -1,0 +1,8 @@
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+<a href="http://dept-www.physio.nwu.edu/Secondlevel/Houk.html">Houk, J. C.</a>
+<a href="http://www.cs.umass.edu/~barto">Barto, A. G.</a>
+<a href="http://www-all.cs.umass.edu/~fagg">Fagg, A. H.</a>
+<a href="http://www.eecs.umich.edu/~baveja/">Singh, S. P.</a>

@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE>hide</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h4>hide</h4>
+</a>
+<pre>
+hide
+*.gif           
+#Patterns matching jpeg files
+*.jpg
+*.jpeg
+end hide
+</pre>
+The <code>hide</code> option is useful to keep certain documents
+from appearing in the popular-documents report. The <code>hide</code>
+option does <em>not</em> prevent documents from being counted
+toward total accesses, hourly throughput or any other report.
+To completely ignore a set of documents, see the 
+<a href="ignore.html"><code>ignore</code></a> option instead.
+Documents that
+match any of the patterns listed
+for the <code>hide</code> option will be
+hidden from the top documents report. Each character
+of the document name is matched against the pattern.
+An <code>*</code> in the pattern matches any
+number of characters in the document name. 
+Patterns have additional features; for more information about 
+patterns, see the <code><a href="patterns.html">patterns</a></code>
+section. Note that the <code><a href="suffixes.html">suffixes</a></code> 
+option is applied first. If the <code>hide</code> option does not appear, 
+all documents not filtered by the <a
+href="ignore.html"><code>ignore</code></a> 
+option are candidates to appear in the popular documents report.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

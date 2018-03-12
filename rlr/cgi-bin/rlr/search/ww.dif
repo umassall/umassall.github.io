@@ -1,0 +1,22 @@
+10c10
+< SelfURL "http://www.cps.msu.edu/cgi-user/rlr/search/wwwwais"
+---
+> SelfURL "http://www.cps.msu.edu/cgi-user/ryanlyn1/search/wwwwais"
+32c32
+< WaisqBin /user/cgi/rlr/search/waisq
+---
+> WaisqBin /home/www/webadmin/bin/waisq
+34c34
+< WaissearchBin /user/cgi/rlr/search/waissearch
+---
+> WaissearchBin /home/www/webadmin/bin/waissearch
+36c36
+< SwishBin /user/cgi/rlr/search/swish
+---
+> SwishBin /user/cgi/ryanlyn1/search/swish
+39,40c39,40
+< SwishSource /user/cgi/rlr/search/rlr.swish "Search RLR Web Site "
+< SourceRules replace "/user/web/htdocs/groups/rlr" "http://www.cps.msu.edu/rlr"
+---
+> SwishSource /user/cgi/ryanlyn1/search/mystuff.swish "Search Lynn's Web Site "
+> SourceRules replace "/user/ryanlyn1/web/" "http://www.cps.msu.edu/~ryanlyn1"

@@ -1,0 +1,300 @@
+Date: Mon, 8 May 2006 13:16:35 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_25"
+
+--=_multipart_boundary_25
+Content-Type: application/x-phpwiki;
+  pagename=InDesignBasics;
+  flags="";
+  author=ash;
+  version=7;
+  lastmodified=1147108595;
+  author_id=ash;
+  markup=2;
+  hits=9;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! ~InDesign Basics
+
+* This will help orient you, but will have to spend time trying stuff out and looking through the help files.
+
+* Open up ~InDesign. The first thing I do is set the units of measurements (I like inches) for the rulers and what not:
+<verbatim>
+InDesign
+  Preferences
+    Units and Increments
+</verbatim>
+
+* Create a new document (File -> New -> Document). Select Custom Page Size and set the dimensions, # of columns, gutter (space between cols), etc. Also, _*be sure to set all margins to 1.5 inches*_, as that's what's required for out poster printer.
+The document in ~InDesign will apprear with guides corresponding to your columns and margins.
+
+* ~InDesign works by positioning "frames," boxes that contain shit like text or pictures, where you want. Frames do not automatically resize once you create one, so if you make a text box and end up adding more text, not all the text will show and  one corner of the frame will have a red + on it and you will have to manually resize the frame. If you click on the +, it creates a new frame with the additional text in it.
+
+* The frames have default styles (like font and what not for a text box), but you can create your own styles. To the right of the document should be several floating windows which allow you access to the styles. For example, Paragraph Styles deal with text boxes. In my poster, I defined a paragraphs style called ~BlueBullets, which had blue font of size 36 pt, started each line with a box bullet, and so forth. I defined  another called subBlueBullets, a third called Captions, and so on. Then, when you open a text box, you can simply click on the style you want it to be and it will be formatted to that style. There is also a color swatch. I deleted most of the colors already there and created the ones I used (dark blue, light blue, and dark red) using cmyk values. So, defining styles, swatches, and what not makes stuff easy.
+
+* To put a picture (eps file) or something in, make sure no text boxes, pictures, or other frames are selected, and then go to
+<verbatim>
+File
+  Place
+</verbatim>
+* Make a frame the size you want where you want and the file will go there. Also, if a frame is already selected, going to File->Place will put the new picture in that frame (replace the content of the current frame with the new one).
+
+* Since ~InDesign is an Adobe product, you can do cool stuff, like literally copy a chunk of a pdf document and paste it into the ~InDesign document. This works for equations and even figures. Basically, open up the pdf in Adobe Acrobat. Zoom in on the thing you want to copy. Then, use Adobe Acrobat to do a screen shot -- this copies the screen shot into a bitmap picture on the clipboard. Then, you paste that bitmap into the ~InDesign document. (This is why it's good to zoom in.) The test poster I did has examples of this.
+
+* Actually, the [test poster | http://www-all.cs.umass.edu/Posters/TestPoster4x3.indd] has several examples of what the copy and paste from pdf looks like, as well as some other stuff. (Oh, [here's a pdf of it | http://www-all.cs.umass.edu/Posters/TestPoster4x3.pdf].)
+
+* Those are the basics, feel free to add.
+
+--=_multipart_boundary_25
+Content-Type: application/x-phpwiki;
+  pagename=InDesignBasics;
+  flags="";
+  author=ash;
+  version=6;
+  lastmodified=1147108556;
+  author_id=ash;
+  markup=2;
+  hits=9;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! ~InDesign Basics
+
+* This will help orient you, but will have to spend time trying stuff out and looking through the help files.
+
+* Open up ~InDesign. The first thing I do is set the units of measurements (I like inches) for the rulers and what not:
+<verbatim>
+InDesign
+  Preferences
+    Units and Increments
+</verbatim>
+
+* Create a new document (File -> New -> Document). Select Custom Page Size and set the dimensions, # of columns, gutter (space between cols), etc. Also, _*be sure to set all margins to 1.5 inches*_, as that's what's required for out poster printer.
+The document in ~InDesign will apprear with guides corresponding to your columns and margins.
+
+* ~InDesign works by positioning "frames," boxes that contain shit like text or pictures, where you want. Frames do not automatically resize once you create one, so if you make a text box and end up adding more text, not all the text will show and  one corner of the frame will have a red + on it and you will have to manually resize the frame. If you click on the +, it creates a new frame with the additional text in it.
+
+* The frames have default styles (like font and what not for a text box), but you can create your own styles. To the right of the document should be several floating windows which allow you access to the styles. For example, Paragraph Styles deal with text boxes. In my poster, I defined a paragraphs style called ~BlueBullets, which had blue font of size 36 pt, started each line with a box bullet, and so forth. I defined  another called subBlueBullets, a third called Captions, and so on. Then, when you open a text box, you can simply click on the style you want it to be and it will be formatted to that style. There is also a color swatch. I deleted most of the colors already there and created the ones I used (dark blue, light blue, and dark red) using cmyk values. So, defining styles, swatches, and what not makes stuff easy.
+
+* To put a picture (eps file) or something in, make sure no text boxes, pictures, or other frames are selected, and then go to
+<verbatim>
+File
+  Place
+</verbatim>
+* Make a frame the size you want where you want and the file will go there. Also, if a frame is already selected, going to File->Place will put the new picture in that frame (replace the content of the current frame with the new one).
+
+* Since ~InDesign is an Adobe product, you can do cool stuff, like literally copy a chunk of a pdf document and paste it into the ~InDesign document. This works for equations and even figures. Basically, open up the pdf in Adobe Acrobat. Zoom in on the thing you want to copy. Then, use Adobe Acrobat to do a screen shot -- this copies the screen shot into a bitmap picture on the clipboard. Then, you paste that bitmap into the ~InDesign document. (This is why it's good to zoom in.) The test poster I did has examples of this.
+
+* Actually, the [test poster | http://www-all.cs.umass.edu/Poster/TestPoster4x3.indd] has several examples of what the copy and paste from pdf looks like, as well as some other stuff. (Oh, [here's a pdf of it | http://www-all.cs.umass.edu/Poster/TestPoster4x3.pdf].)
+
+* Those are the basics, feel free to add.
+
+--=_multipart_boundary_25
+Content-Type: application/x-phpwiki;
+  pagename=InDesignBasics;
+  flags="";
+  author=ash;
+  version=5;
+  lastmodified=1147108239;
+  author_id=ash;
+  markup=2;
+  hits=9;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! ~InDesign Basics
+
+* This will help orient you, but will have to spend time trying stuff out and looking through the help files.
+
+* Open up ~InDesign. The first thing I do is set the units of measurements (I like inches) for the rulers and what not:
+<verbatim>
+InDesign
+  Preferences
+    Units and Increments
+</verbatim>
+
+* Create a new document (File -> New -> Document). Select Custom Page Size and set the dimensions, # of columns, gutter (space between cols), etc. Also, _*be sure to set all margins to 1.5 inches*_, as that's what's required for out poster printer.
+The document in ~InDesign will apprear with guides corresponding to your columns and margins.
+
+* ~InDesign works by positioning "frames," boxes that contain shit like text or pictures, where you want. Frames do not automatically resize once you create one, so if you make a text box and end up adding more text, not all the text will show and  one corner of the frame will have a red + on it and you will have to manually resize the frame. If you click on the +, it creates a new frame with the additional text in it.
+
+* The frames have default styles (like font and what not for a text box), but you can create your own styles. To the right of the document should be several floating windows which allow you access to the styles. For example, Paragraph Styles deal with text boxes. In my poster, I defined a paragraphs style called ~BlueBullets, which had blue font of size 36 pt, started each line with a box bullet, and so forth. I defined  another called subBlueBullets, a third called Captions, and so on. Then, when you open a text box, you can simply click on the style you want it to be and it will be formatted to that style. There is also a color swatch. I deleted most of the colors already there and created the ones I used (dark blue, light blue, and dark red) using cmyk values. So, defining styles, swatches, and what not makes stuff easy.
+
+* To put a picture (eps file) or something in, make sure no text boxes, pictures, or other frames are selected, and then go to
+<verbatim>
+File
+  Place
+</verbatim>
+* Make a frame the size you want where you want and the file will go there. Also, if a frame is already selected, going to File->Place will put the new picture in that frame (replace the content of the current frame with the new one).
+
+* Since ~InDesign is an Adobe product, you can do cool stuff, like literally copy a chunk of a pdf document and paste it into the ~InDesign document. This works for equations and even figures. Basically, open up the pdf in Adobe Acrobat. Zoom in on the thing you want to copy. Then, use Adobe Acrobat to do a screen shot -- this copies the screen shot into a bitmap picture on the clipboard. Then, you paste that bitmap into the ~InDesign document. (This is why it's good to zoom in.) The test poster I did has examples of this.
+
+* Actually, the [test poster | http://www-all.cs.umass.edu/Poster/TestPoster4x3.indd] has several examples of what the copy and paste from pdf looks like, as well as some other stuff.
+
+* Those are the basics, feel free to add.
+
+--=_multipart_boundary_25
+Content-Type: application/x-phpwiki;
+  pagename=InDesignBasics;
+  flags="";
+  author=ash;
+  version=4;
+  lastmodified=1147107992;
+  author_id=ash;
+  markup=2;
+  hits=9;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! ~InDesign Basics
+
+* This will help orient you, but will have to spend time trying stuff out and looking through the help files.
+
+* Open up ~InDesign. The first thing I do is set the units of measurements (I like inches) for the rulers and what not:
+<verbatim>
+InDesign
+  Preferences
+    Units and Increments
+</verbatim>
+
+* Create a new document (File -> New -> Document). Select Custom Page Size and set the dimensions, # of columns, gutter (space between cols), etc. Also, _*be sure to set all margins to 1.5 inches*_, as that's what's required for out poster printer.
+The document in ~InDesign will apprear with guides corresponding to your columns and margins.
+
+* ~InDesign works by positioning "frames," boxes that contain shit like text or pictures, where you want. Frames do not automatically resize once you create one, so if you make a text box and end up adding more text, not all the text will show and  one corner of the frame will have a red + on it and you will have to manually resize the frame. If you click on the +, it creates a new frame with the additional text in it.
+
+* The frames have default styles (like font and what not for a text box), but you can create your own styles. To the right of the document should be several floating windows which allow you access to the styles. For example, Paragraph Styles deal with text boxes. In my poster, I defined a paragraphs style called ~BlueBullets, which had blue font of size 36 pt, started each line with a box bullet, and so forth. I defined  another called subBlueBullets, a third called Captions, and so on. Then, when you open a text box, you can simply click on the style you want it to be and it will be formatted to that style. There is also a color swatch. I deleted most of the colors already there and created the ones I used (dark blue, light blue, and dark red) using cmyk values. So, defining styles, swatches, and what not makes stuff easy.
+
+* To put a picture (eps file) or something in, make sure no text boxes, pictures, or other frames are selected, and then go to
+<verbatim>
+File
+  Place
+</verbatim>
+* Make a frame the size you want where you want and the file will go there. Also, if a frame is already selected, going to File->Place will put the new picture in that frame (replace the content of the current frame with the new one).
+
+* Since ~InDesign is an Adobe product, you can do cool stuff, like literally copy a chunk of a pdf document and paste it into the ~InDesign document. This works for equations and even figures. Basically, open up the pdf in Adobe Acrobat. Zoom in on the thing you want to copy. Then, use Adobe Acrobat to do a screen shot -- this copies the screen shot into a bitmap picture on the clipboard. Then, you paste that bitmap into the ~InDesign document. (This is why it's good to zoom in.)
+
+* Those are the basics, feel free to add.
+
+--=_multipart_boundary_25
+Content-Type: application/x-phpwiki;
+  pagename=InDesignBasics;
+  flags="";
+  author=ash;
+  version=3;
+  lastmodified=1147107701;
+  author_id=ash;
+  markup=2;
+  hits=9;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! ~InDesign Basics
+
+* This will help orient you, but will have to spend time trying stuff out and looking through the help files.
+
+* Open up ~InDesign. The first thing I do is set the units of measurements (I like inches) for the rulers and what not:
+<verbatim>
+InDesign
+  Preferences
+    Units and Increments
+</verbatim>
+
+* Create a new document (File -> New -> Document). Select Custom Page Size and set the dimensions, # of columns, gutter (space between cols), etc. Also, _*be sure to set all margins to 1.5 inches*_, as that's what's required for out poster printer.
+The document in ~InDesign will apprear with guides corresponding to your columns and margins.
+
+* ~InDesign works by positioning "frames," boxes that contain shit like text or pictures, where you want. Frames do not automatically resize once you create one, so if you make a text box and end up adding more text, not all the text will show and  one corner of the frame will have a red + on it and you will have to manually resize the frame. If you click on the +, it creates a new frame with the additional text in it.
+
+* The frames have default styles (like font and what not for a text box), but you can create your own styles. To the right of the document should be several floating windows which allow you access to the styles. For example, Paragraph Styles deal with text boxes. In my poster, I defined a paragraphs style called ~BlueBullets, which had blue font of size 36 pt, started each line with a box bullet, and so forth. I defined  another called subBlueBullets, a third called Captions, and so on. Then, when you open a text box, you can simply click on the style you want it to be and it will be formatted to that style. There is also a color swatch. I deleted most of the colors already there and created the ones I used (dark blue, light blue, and dark red) using cmyk values. So, defining styles, swatches, and what not makes stuff easy.
+
+* To put a picture (eps file) or something in, make sure no text boxes, pictures, or other frames are selected, and then go to
+<verbatim>
+File
+  Place
+</verbatim>
+Make a frame the size you want where you want and the file will go there.
+
+* Those are the basics, feel free to add.
+
+--=_multipart_boundary_25
+Content-Type: application/x-phpwiki;
+  pagename=InDesignBasics;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1147101692;
+  author_id=ash;
+  markup=2;
+  hits=9;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! ~InDesign Basics
+
+* This will help orient you, but will have to spend time trying stuff out and looking through the help files.
+
+* Open up ~InDesign. The first thing I do is set the units of measurements (I like inches) for the rulers and what not:
+<verbatim>
+InDesign
+  Preferences
+    Units and Increments
+</verbatim>
+
+* Create a new document (File -> New -> Document). Select Custom Page Size and set the dimensions, # of columns, gutter (space between cols), etc. Also, _*be sure to set all margins to 1.5 inches*_, as that's what's required for out poster printer.
+The document in ~InDesign will apprear with guides corresponding to your columns and margins.
+
+* ~InDesign works by positioning "frames," boxes that contain shit like text or pictures, where you want. Frames do not automatically resize once you create one, so if you make a text box and end up adding more text, not all the text will show and  one corner of the frame will have a red + on it and you will have to manually resize the frame. If you click on the +, it creates a new frame with the additional text in it.
+
+* The frames have default styles (like font and what not for a text box), but you can create your own styles. To the right of the document should be several floating windows which allow you access to the styles. For example, Paragraph Styles deal with text boxes. In my poster, I defined a paragraphs style called BlueBullets, which had blue font of size 36 pt, started each line with a box bullet, and so forth. I defined  another called subBlueBullets, a third called Captions, and so on. Then, when you open a text box, you can simply click on the style you want it to be and it will be formatted to that style. There is also a color swatch. I deleted most of the colors already there and created the ones I used (dark blue, light blue, and dark red) using cmyk values. So, defining styles, swatches, and what not makes stuff easy.
+
+* To put a picture (eps file) or something in, make sure no text boxes, pictures, or other frames are selected, and then go to
+<verbatim>
+File
+  Place
+</verbatim>
+Make a frame the size you want where you want and the file will go there.
+
+* Those are the basics, feel free to add.
+
+--=_multipart_boundary_25
+Content-Type: application/x-phpwiki;
+  pagename=InDesignBasics;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1147101605;
+  author_id=ash;
+  markup=2;
+  hits=9;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! ~InDesign Basics
+
+* This will help orient you, but will have to spend time trying stuff out and looking through the help files.
+
+* Open up ~InDesign. The first thing I do is set the units of measurements (I like inches) for the rulers and what not:
+<verbatim>
+InDesign
+  Preferences
+    Units and Increments
+</verbatim>
+
+* Create a new document (File -> New -> Document). Select Custom Page Size and set the dimensions, # of columns, gutter (space between cols), etc. Also, _*be sure to set all margins to 1.5 inches*_, as that's what's required for out poster printer.
+The document in InDesign will apprear with guides corresponding to your columns and margins.
+
+* InDesign works by positioning "frames," boxes that contain shit like text or pictures, where you want. Frames do not automatically resize once you create one, so if you make a text box and end up adding more text, not all the text will show and  one corner of the frame will have a red + on it and you will have to manually resize the frame. If you click on the +, it creates a new frame with the additional text in it.
+
+* The frames have default styles (like font and what not for a text box), but you can create your own styles. To the right of the document should be several floating windows which allow you access to the styles. For example, Paragraph Styles deal with text boxes. In my poster, I defined a paragraphs style called BlueBullets, which had blue font of size 36 pt, started each line with a box bullet, and so forth. I defined  another called subBlueBullets, a third called Captions, and so on. Then, when you open a text box, you can simply click on the style you want it to be and it will be formatted to that style. There is also a color swatch. I deleted most of the colors already there and created the ones I used (dark blue, light blue, and dark red) using cmyk values. So, defining styles, swatches, and what not makes stuff easy.
+
+* To put a picture (eps file) or something in, make sure no text boxes, pictures, or other frames are selected, and then go to
+<verbatim>
+File
+  Place
+</verbatim>
+Make a frame the size you want where you want and the file will go there.
+
+* Those are the basics, feel free to add.
+
+--=_multipart_boundary_25--

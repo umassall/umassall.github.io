@@ -1,0 +1,365 @@
+<html>
+<head>
+<title>Reinforcement Learning Repository at UMass, Amherst</title>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35723838-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body bgcolor="FFFFBB">
+<h3>Reinforcement Learning Repository at UMass, Amherst</h3>
+<h2>Demos and Implementation (Domains)</h2>
+<p>This section contains programs which demonstrate
+reinforcement learning in action, as an illustration of the concepts and 
+common algorithms.  These programs might provide a useful
+starting place for the implementation of reinforcement learning to solve
+real
+problems and advance research in this area.  Wherever possible, source
+code is included.  
+<p>Please note that use of this software is <b>restricted</b>; you must
+read this <a href=legal.html>license agreement</a> and agree to its terms
+before downloading any
+software from this site.  Downloading the software is considered consent
+to the terms.
+
+<p>If you would like to contribute source code or make 
+suggestions for
+improvement of what is included here, contact <!-- to <a
+href=mailto:hernan49@cse.msu.edu>Natalia Hernandez</a> or -->
+<!--<a href=mailto:vmanfred@cs.umass.edu>Victoria Manfredi</a> or-->
+<a href=mailto:bsilva@cs.umass.edu>Bruno Castro da Silva</a> or 
+<a href=mailto:mahadeva@cs.umass.edu>Sridhar Mahadevan</a>. <br><br>
+<hr>
+<img align=right border=2 src=imgs/cartpole-sm.gif>
+<li><b>Cart-Pole Problem</b><br>
+Simulation of the cart and pole dynamic
+system and 
+ a procedure for learning to balance the pole.  Both are described in 
+ Barto, Sutton, and Anderson, "<i>Neuronlike Adaptive Elements That Can
+Solve
+ Difficult Learning Control Problems," IEEE Trans. Syst., Man, Cybern.,
+ Vol. SMC-13, pp. 834--846, Sept.--Oct. 1983</i> Written by Rich Sutton.
+
+<br>
+Source code: <a
+href=distcode/cpole.tar>cpole.tar</a>
+(16 K, requires C compiler)
+<br><hr>
+
+<li><b>Cell Phone</b><br>
+Interactive Java demonstration illustrating the
+improvement
+gained by applying RL to the problem of <a href=http://www.eecs.umich.edu/~baveja/Demo.html>Dynamic Channel
+Allocation in Cellular Telephones</a>, by Satinder Singh at the University
+of Colorado
+<hr>
+<img align=right border=2 src=imgs/offbl1.gif>
+
+<li><b>Elevator</b><br>
+Fortran simulation of an elevator, written by James Lewis, and provided by
+Christos Cassandras at UMASS ECE Dept.  The reinforcement learning
+addition to the elevator simulation was implemented by Bob Crites, CS
+Dept. UMass. and John McNulty<br> and is described in the paper
+<a
+href=http://envy.cs.umass.edu/cgi-bin/getfile/pub/anw/pub/crites/nips8.ps.Z> 
+Improving
+Elevator Performance Using Reinforcement Learning</a>. 
+Source code: <a
+href=distcode/elevator.tar.gz>elevator.tar.gz</a>
+(284 K) or 
+<a href=distcode/elevator.tar>elevator.tar</a>
+(814
+K).  Both require a C compiler and the <a
+href=http://www.netlib.org/f2c/>f2c library</a>
+to convert Fortran to c, as it incorporates c random number handling
+routines). <br>
+<hr>
+
+<li><b>Grid World</b>
+This program is a simulation of learning the goal of moving to a
+user-defined square of a grid.  It uses Q-learning, and was written by
+Sridhar Mahadevan. <br>
+Source code:<a
+href=distcode/grid.tar>grid.tar</a> (72 K;
+requires C compiler and X11 libraries)
+<br>
+<hr>
+
+
+<li><b>Interactive Demo of Q-learning</b><br>
+A Java swing <a href = "http://thierry.masson.free.fr/IA/en/qlearning_applet.htm"> 
+applet </a> that allows the user to construct a grid by specifying danger and 
+target cells, and then modify various learning paramaeters.  Upon completion 
+of learning, the learned policy is represented as arrows overlaying the grid. 
+Documentation is available 
+<a href = "http://thierry.masson.free.fr/IA/en/qlearning_about.htm"> here</a>.
+A french version is available 
+<a href = "http://thierry.masson.free.fr/IA/fr/qlearning_applet.htm"> here</a> 
+with <a href = "http://thierry.masson.free.fr/IA/fr/qlearning_apropos.htm"> documentation</a>.
+Written by Thierry Masson.
+Requirements: JDK 1.3 or higher.
+Source code:  <a href = distcode/TM_QLearnerDemo_Src_only.jar> TM_QLearnerDemo_Src_only.jar </a> (38.8 K).
+Classes:  <a href = distcode/TM_QLearnerDemo.jar> TM_QLearnerDemo.jar </a> (22.6 K).
+<hr>
+
+
+
+
+
+<li><b>Least-Squares Policy Iteration</b><br>
+MatLab implementation of Least-Squares Policy Iteration (LSPI) algorithm. Documentation and background is available <a href = "http://www.cs.duke.edu/~mgl/LSPI/">here</a>. 
+Written by Michail G. Lagoudakis and Ronald Parr.
+Requirements: MATLAB V.5 or higher.
+Source code:  <a href = distcode/lspi.tar.gz> lspi.tar.gz </a> (10.9 K),
+<a href = distcode/chain.tar.gz> chain.tar.gz </a> (12.2 K), <a href = distcode/pendulum.tar.gz> pendulum.tar.gz </a> (26.1 K).
+<hr>
+<img align=right border=2 src=imgs/prod-sys-sm.jpg>
+
+<li><b>Machine Maintenance</b><br>
+CSIM simulation of a production system which integrates SMART, a
+model-free average-reward algorithm, to determine the optimal machine
+maintenance policy.  It was written by Nicholas Marchalleck and Abhijit
+Gosavi, and is described in <a
+href=http://www.cs.umass.edu/~mahadeva/papers/mlc97.ps.gz>Self-Improving 
+Factory Simulation using Continuous-Time Average-Reward Reinforcement 
+Learning</a> by Mahadevan et. al.<br> 
+Source code: <a
+href=distcode/maint.tar>maint.tar</a>
+(268 K; requires <a href=http://www.mesquite.com>CSIM</a> v.17 and C++ 
+compiler)<hr>
+
+<li><b>MDP Q-learning</b>: implements Q-learning on a given MDP, using
+semi-uniform exploration. <br>
+Source code: <a
+href=distcode/mdp-q.tar>mdp-q.tar</a>
+(64 K, requires GNU C compiler) 
+<hr>
+
+<li><b>Mountain-Car Problem</b>: <br>
+<img align=right border=2 src=imgs/carhill-sm.gif>
+Simulation of a car learning the proper acceleration to get up a mountain.
+It uses Q-learning with CMAC as a function approximator.  It is described 
+in (among other papers) <a
+href=ftp://ftp.cs.umass.edu/pub/anw/pub/sutton/sutton-96.ps.gz>Generalization
+in Reinforcement Learning: Successful Examples Using Sparse Coarse
+Coding</a> by Rich Sutton, and was developed by Sridhar
+Mahadevan.  <br>
+Source code: <a
+href=distcode/mcar.tar>mcar.tar</a>
+(157K; requires X11 libraries and C++ compiler)<br>
+<hr>
+
+<li><b>Network Routing</b>: Demonstrates a RL network-routing algorithm
+written by Justin Boyan and Michael Littman.   Described in 
+<A HREF=http://www.cs.duke.edu/~mlittman/docs/routing-nips.ps>
+Packet Routing in Dynamically Changing Networks: A Reinforcement
+Learning Approach</A><BR> <i>Advances in
+ Neural Information Processing Systems</i> (Postscript - 155KB)<br>
+Source code: <a href= 
+distcode/network-router.tar>network-router.tar</a> 
+(222 K); requires C compiler, <a href=ftp://ftp.smli.com/pub/tcl/tcl7.6.tar.gz>
+wish windowing shell (part of Tcl)</a>
+<hr>
+
+<li><b>Proposed Standard for Reinforcement Learning Software</b>
+<img align=right border=2 src=imgs/help.gif>
+This <a
+href=http://www-anw.cs.umass.edu/~rich/RLinterface/RLinterface.html>standard</a>,
+developed by Rich Sutton and Juan Carlos Santamaria, is intended to
+facilitate RL research and development, and is available for C++ and
+Common Lisp.
+<hr>
+
+<li><b>Proposed Standard Interface</b><br>
+A <a href =
+"http://www.cs.mcgill.ca/~sonce/rl-code/int_class_intro.html">proposed standard interface</a>
+for RL systems written in C++. It provides standard interface
+classes for an agent, an environment, a function approximator,
+and states and actions.  Written by Bohdana Ratitch. <br>
+Source code: <a href = 
+distcode/si-classes.tar>si-classes.tar</a> 
+(72 K, requires C++ compiler, <a href =
+"http://www.cs.mcgill.ca/~sonce/rl-code/int_class_start.html"> documentation</A>).
+<br><br>Programs written by Bohdana Ratitch using this proposed
+standard interface are the following. All require a C++ compiler.
+Further compiler information can be found
+<a href = "http://www.cs.mcgill.ca/~sonce/rl-code/os_note.html"
+>here</a>.
+     <ul>
+       <li>Random MDP generator. Source code:
+	    <a href = distcode/rmdp.tar>rmdp.tar</a> 
+	    (205 K,
+	    <a href = "http://www.cs.mcgill.ca/~sonce/rl-code/rmdp_doc.html">
+	    documentation</A>).
+       <li>Mountain-Car task implementation. Source code:
+	    <a href = distcode/mc.tar>mc.tar</a>
+	    (82 K, 
+	    <a href = "http://www.cs.mcgill.ca/~sonce/rl-code/mountain_car.html">
+	    documentation</A>).
+       <li>Randomized Mountain-Car task implementation. Source code:
+	    <a href = distcode/mcr.tar>mcr.tar</a>
+	    (82 K, 
+	    <a href = "http://www.cs.mcgill.ca/~sonce/rl-code/mountain_car_rand.html">
+	    documentation</A>).
+       <li>SARSA(lambda) with replacing eligibility traces. Source code:
+	    <a href = distcode/sarsa.tar>sarsa.tar</a>
+	    (82 K, 
+	    <a href = "http://www.cs.mcgill.ca/~sonce/rl-code/sarsart.html">
+	    documentation</A>).
+       <li>CMAC function approximator. Source code:
+	    <a href = distcode/cmac.tar>cmac.tar</a>
+	    (82 K, 
+	    <a href = "http://www.cs.mcgill.ca/~sonce/rl-code/cmac.html">
+	    documentation</A>).
+       <li>Randomized Mountain-Car task using SARSA(lambda) and CMAC function approximator. Source code:
+	    <a href = distcode/mcr-sarsa-cmac.tar>mcr-sarsa-cmac.tar</a>
+	    (154 K,
+	    <a href = "http://www.cs.mcgill.ca/~sonce/rl-code/mcr_sarsart_cmac.html">
+	    documentation</A>).
+       <li>Random MDP generator with SARSA(lambda) and CMAC function approximator. Source code:
+	    <a href = distcode/rmdp-sarsa-cmac.tar>rmdp-sarsa-cmac.tar</a>
+	    (348 K,
+	    <a href = "http://www.cs.mcgill.ca/~sonce/rl-code/rmdp_sarsart_cmac.html">
+	    documentation</A>).            
+	    
+     </ul>     
+     
+</ul>
+<hr>
+
+
+<li><b>Reinforcement Learning Toolbox</b><br>
+The <a href = "http://www.igi.TUGraz.at/ril-toolbox/general/overview.html">
+Reinforcement Learning Toolbox</a> is a set of classes implementing
+a variety of reinforcement learning algorithms,
+including TD-lambda, actor critic, prioritzed sweeping, and hierarchical learning. The toolbox also permits logging and error recognition.
+Written by Gerhard Neumann and Stephan Neumann.
+<a href = "http://www.igi.TUGraz.at/ril-toolbox/downloads/index.html">
+Download</a> (written in C++, available for both Windows and Linux).
+<hr>
+
+
+
+<li><b>Robot-on-a-grid Demo</b><br>
+A <a href = "http://www.science.uva.nl/~gilad/pathlearner">
+demonstration</a>
+of the robot-on-a grid problem.  Different parameters can be modified by 
+the user, such as the selection strategy and learning method.
+Written by Gilad Mishne.
+Demo: <a href = 
+distcode/ML2_project_app.zip>ML2_project_app.zip</a> 
+(2478 K, Windows executable), Source code:  <a href = 
+distcode/ML2_project_src.zip>ML2_project_src.zip</a> 
+(19 K), Sample grids:  <a href = 
+distcode/ML2_project_grids.zip>ML2_project_grids.zip</a> 
+(1.3 K).
+<hr>
+
+
+<li><b>Rumpus Gridworld Simulator</b><br>
+A 
+<a href = "http://rumpus.rubyforge.org/">language independent simulator</a>
+that uses TCP/IP ports for interaction with client
+applications (agents). 
+Requires the scripting language Ruby.
+Simulator 
+allows a gridworld to be specified using a bitmap format and
+supports both local and
+unique state descriptions as well as deterministic and
+non-deterministic actions. 
+Written by Torbjorn Dahl.
+<hr>
+
+<li><b>CLSquare</b><br>
+<A HREF="http://amy.informatik.uni-osnabrueck.de/clsquare">CLSquare</A> 
+from the <A HREF="http://www.ni.uos.de/index.php?id=10">Neuroinformatics Group at the University of 
+Osnabrueck</A>
+simulates a control loop  for 
+closed loop control. Although originally designed
+for training and testing Reinforcement Learning controllers, it also applies to other learning
+and non-learning controller concepts.
+Currently availabe plants:
+Acrobot, bicycle, cart pole, cart double pole, pole, mountain car and maze.	
+Currently availabe controllers:
+linear controller, Reinforcement learning Q table, neural network based Q controller.
+It comes with many useful features, e.g. graphical display and statistics output,
+a documentation, and many demos for quick starting.
+<hr>
+
+<li><b>PIQLE</b><br>
+<A HREF="http://sourceforge.net/projects/piqle">PIQLE</A> 
+is an open source set of Java classes 
+for quickly experimenting with single- and multi-agent reinforcement 
+learning schemes (new problems or new algorithms)
+by <A HREF="http://www.lifl.fr/~decomite">Francesco De Comité</A>. 
+<B>Version 2</B>, with with a major refactoring of classes, English 
+renamings and synthetic documentation released in November 2006.
+
+<!--As
+of January 2006 it also handles tile-coding schemes. It includes 
+a documentation example showing how to connect it to the 
+<A HREF="http://www.cim.mcgill.ca/~dcasto4/octopus/">Octopus Arm 
+Simulator</A> from McGill. -->
+
+<hr>
+
+<li><b>Connectionist Q-learning Java Framework</b><br>
+The <A HREF="http://elsy.gdan.pl/">Free Connectionist Q-learning Java 
+Framework</A> is an open source Java library for developing 
+learning systems using reinforcement learning and neural networks,
+by Dominik Kapusta.
+
+<br><hr>
+
+<li><b>Neuropilot Demos</b><br>
+<img align=right border=2 src=imgs/ft1.jpg>
+
+<a
+href="http://freespace.virgin.net/michael.fairbank/neuropilot/index.html">Michael 
+Fairbank's demonstrations</A> 
+of RL and RNNs learning
+in the Neuropilot Domain, including value-gradient learning.
+
+<br clear=all>
+<hr>
+
+<li><b>The Pinball Domain</b><BR><BR>
+
+<img align=right border=0 width=150 src=imgs/pinball.jpg VSPACE=5 
+HSPACE=5>
+
+The
+<A HREF="http://www-all.cs.umass.edu/~gdk/pinball">Pinball domain</A> is
+a fairly challenging 4-dimensional continuous and dynamic reinforcement
+learning
+domain. The goal is to maneuver the blue ball into the red hole, while
+avoiding (or using, since the ball is dynamic and collisions are
+elastic) the obstacles. The dynamics of the ball and the presence of
+obstacles result in a domain with sharp discontinuities, and the
+location and shape of the obstacles can be specified so you can make
+the domain as hard or as easy as you want.
+<BR><BR>
+
+The source code is in Java, and includes full documentation,
+an
+<A HREF="http://glue.rl-community.org/">RL-Glue interface</A>, and GUI
+programs for editing obstacle
+configurations, viewing saved trajectories, etc.
+
+<br clear=all><hr>
+
+<br>
+
+
+
+
+

@@ -1,0 +1,115 @@
+Date: Fri, 2 Sep 2005 13:11:08 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_4"
+
+--=_multipart_boundary_4
+Content-Type: application/x-phpwiki;
+  pagename=Tarballs;
+  flags="";
+  author=colinb;
+  version=3;
+  lastmodified=1125681068;
+  author_id=colinb;
+  markup=2;
+  hits=15;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+Tar:
+
+To untar file foo.tar:
+
+<verbatim>
+  > tar -xvf foo.tar
+</verbatim>
+
+To create a tarball out of all files in directory:
+
+<verbatim>
+  > cd /path/to/the/directory/
+  > tar -cvf foo.tar *
+</verbatim>
+
+If the tar file is gzipped or if you wanna gzip it,
+add a z to the arguments.
+
+Here is a partial list of the available command line options:
+
+* c - Create an archive
+* x - Extract from an archive
+* v - Verbose mode
+* f - Filename to be read from/written to (default is stdin/stdout)
+* z - use gZip to compress/decompress files
+
+You can find more information [here | http://www.redhat.com/docs/manuals/linux/RHL-7.3-Manual/getting-started-guide/s1-managing-compressing-archiving.html].
+
+--=_multipart_boundary_4
+Content-Type: application/x-phpwiki;
+  pagename=Tarballs;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1125598701;
+  author_id=ash;
+  markup=2;
+  hits=15;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+<pre>
+TAR
+
+-- To untar:
+>tar -xvf foo.tar
+
+-- To create a tarball out of all files in directory:
+>tar -cvf foo.tar *
+
+if tar file is gzipped or if you wanna gzip it,
+add a z to the arguments.
+
+c - create
+x - extract
+v - verbose
+f - filename
+z - gzip
+</pre>
+
+Also, this link is helpful: http://www.redhat.com/docs/manuals/linux/RHL-7.3-Manual/getting-started-guide/s1-managing-compressing-archiving.html
+
+--=_multipart_boundary_4
+Content-Type: application/x-phpwiki;
+  pagename=Tarballs;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1125598406;
+  author_id=ash;
+  markup=2;
+  hits=15;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+</pre>
+TAR
+
+-- To untar:
+>tar -xvf foo.tar
+
+-- To create a tarball out of all files in directory:
+>tar -cvf foo.tar *
+
+if tar file is gzipped or if you wanna gzip it,
+add a z to the arguments.
+
+c - create
+x - extract
+v - verbose
+f - filename
+z - gzip
+</pre>
+
+Also, this link is helpful: http://www.redhat.com/docs/manuals/linux/RHL-7.3-Manual/getting-started-guide/s1-managing-compressing-archiving.html
+
+--=_multipart_boundary_4--

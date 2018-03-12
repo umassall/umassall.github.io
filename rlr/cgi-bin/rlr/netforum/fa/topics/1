@@ -1,0 +1,10 @@
+===topic_name:Optimization for accurate approximation
+===from:Waqqas
+===email:waqqas_arif@hotmail.com
+===date:Sun Jun 24  9:16:26 US/Michigan 2001
+===more:i am trying to use ANN's for function approximation
+in a project i have got good results(.1% error)but i
+ need more accuracy(function is fairly linear with 
+a touch of log).
+ can u give some idea on what factors will yhe accuracy depend.
+=========yorg=========

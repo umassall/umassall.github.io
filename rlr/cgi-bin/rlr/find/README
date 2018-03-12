@@ -1,0 +1,51 @@
+WWWWAIS README
+
+--
+
+What should be in this directory:
+
+wwwwais.XX.c      The source code.
+
+wwwwais.conf      A sample configuration file.
+
+title.html        A sample WWWWAIS title file.
+
+wwwwais.gif       A little icon you can use in your WWWWAIS pages.
+
+icons.tar         Icons you can use to portray different file types
+                  in WAIS search results.
+
+The documentation's at
+
+	http://www.eit.com/software/wwwwais/wwwwais.html
+
+...and you can email kevinh@eit.com for suggestions, contributions, etc.
+
+	Enjoy!
+
+	-- Kevin Hughes
+           kevinh@eit.com
+           9/14/94
+
+--
+
+Description:
+
+WWWWAIS is a small ANSI C program that acts as gateway between waisq
+or waissearch (programs that search WAIS indexes) and a forms-capable
+World-Wide Web browser. With the freely distributable freeWAIS package,
+this program, and your local Web site, you can: 
+
+ * Create searchable databases of the information on your Web site
+ * Allow users to search multiple databases via their
+   Web browser with customizable options
+ * Create a custom pop-up menu of servers to search through
+ * Produce hypertext search results, with file information and links
+   directly to the relevant HTML documents
+ * Retrieve WAIS source descriptions and files
+ * Specify URLs and filters to map results to
+ * Only allow users from certain sites to search documents
+
+You can see how it looks at:
+
+	http://www.eit.com/cgi-bin/wwwwais

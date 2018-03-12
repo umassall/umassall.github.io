@@ -1,0 +1,144 @@
+sub get_file_names  {
+
+    $first_name_found = $false;	
+    $second_name_found = $false;	
+
+    if ($FORM{'fa'} eq "yes")  {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'fa';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'fa';
+	    $second_name_found = $true;
+        }
+    }
+
+    if ($FORM{'hm'} eq "yes")  {
+	# print "WENT INTO HM\n";
+
+	if ($first_name_found == $false) {
+	# print "WENT INTO IF\n";
+            $guest_file1 = 'hm';
+	    $first_name_found = $true;
+        }
+        else  {
+	# print "WENT INTO ELSE\n";
+	    $guest_file2 = 'hm';
+	    $second_name_found = $true;
+        }
+    }
+
+    if ($FORM{'ar'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'ar';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'ar';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'in'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'in';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'in';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'po'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'po';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'po';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'td'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'td';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'td';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'un'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'un';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'un';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'sh'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'sh';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'sh';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'pl'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'pl';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'pl';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'dp'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'dp';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'dp';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'nb'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'nb';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'nb';
+	    $second_name_found = $true;
+        }
+    }
+    if ($FORM{'th'} eq "yes") {
+	if ($first_name_found == $false) {
+            $guest_file1 = 'th';
+	    $first_name_found = $true;
+        }
+        else  {
+	    $guest_file2 = 'th';
+	    $second_name_found = $true;
+        }
+    }
+
+     $guest_file1 = $guest_file1 . ".html";
+     $guest_file2 = $guest_file2 . ".html";
+#	print "Before concatenation, filename1 is $guest_file1\n";
+#	print "Before concatenation, filename2 is $guest_file2\n";
+
+     $full_path1 = $document_root . $guest_file1;
+     $full_path2 = $document_root . $guest_file2;
+     $full_url1 = $url_root . $guest_file1;	
+     $full_url2 = $url_root . $guest_file2;	
+      print "Guest file name 1 is $full_url1\n";
+      print "Guest file name 2 is $full_url2\n";
+}

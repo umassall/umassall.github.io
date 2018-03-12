@@ -1,0 +1,15 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36
+author=Archan Ray
+csum=Editing gypsum links
+ctime=1507305803
+host=128.119.40.193
+name=Main.Gypsum
+rev=1
+targets=
+text='''GYPSUM'''%0a* Go to http://maxwell.cs.umass.edu/gypsum/index.php?n=Main.HomePage for more details.
+time=1507305803
+author:1507305803=Archan Ray
+csum:1507305803=Editing gypsum links
+diff:1507305803:1507305803:=1,2d0%0a%3c '''GYPSUM'''%0a%3c * Go to http://maxwell.cs.umass.edu/gypsum/index.php?n=Main.HomePage for more details.%0a\ No newline at end of file%0a
+host:1507305803=128.119.40.193

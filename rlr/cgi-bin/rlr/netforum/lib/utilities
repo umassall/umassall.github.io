@@ -1,0 +1,1554 @@
+#!/opt/bin/perl -si
+
+# require "variables";
+
+# $Id: utilities,v 1.33 1996/09/13 21:40:22 mcculloh Exp mcculloh $
+#########################################################################
+#                                                                       #
+#      Copyright (c) 1995,96 Board of Regents of the                    #
+#      University of Wisconsin System                                   #
+#                                                                       #
+#                     NetForum 2.0.3                                    #
+#  CGI implementation of a Web-based discussion forum system            #
+#                                                                       #
+#  NetForum Project Team (Past and Present):                            #
+#    Roger Caplan                                                       #
+#    Mike Dykstra                                                       #
+#    Andrew McCulloh                                                    #
+#    Jose Siman                                                         #
+#  Art by:                                                              #
+#    Krista J. Stockebrand                                              #
+#    Doreen Maloney                                                     #
+#                                                                       #
+#         IMPORTANT NOTE: THIS SOFTWARE IS NOT FREE                     #
+#                                                                       #
+#  You are bound by the terms of the license distributed with the       #
+#  NetForum package. The license can also be found at                   #
+#     http://www.biostat.wisc.edu/netforum/license.html                 #
+#                                                                       #
+#                                                                       #
+#            IMPORTANT -- AS STATED IN THE LICENSE                      #
+#                                                                       #
+#  NO MODIFICATIONS TO THE NETFORUM SOFTWARE OR ACCOMPANYING MATERIALS  #
+#  INCLUDING DOCUMENATION AND ARTWORK ARE PERMITTED BY ANYONE, WITHOUT  #
+#  THE EXPRESSED WRITTEN CONSENT OF THE COPYRIGHT HOLDER.  IN OTHER     #
+#  WORDS, DON'T CHANGE THE CODE WITHOUT OUR OK                          #
+#                                                                       #
+#            IMPORTANT -- AS STATED IN THE LICENSE                      #
+#                                                                       #
+#  YOU MAY NOT REDISTRIBUTE THE NETFORUM SOFTWARE PACKAGE IN PART OR    #
+#  IN WHOLE IN ANY WAY.  IT IS A VIOLATION OF THE LICENSE TO DO SO      #
+#                                                                       #
+#                                                                       #
+#  This program is distributed in the hope that it will be useful,but   #
+#  WITHOUT ANY WARRANTY; without even the implied warranty of           #
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.            #
+#                                                                       #
+#                                                                       #
+#       All documentation can be found at:                              #
+#              http://www.biostat.wisc.edu/netforum                     #
+#                                                                       #
+#                                                                       #
+#       Email contact:                                                  #
+#              netforum-dev@biostat.wisc.edu                            #
+#                                                                       #
+#                                                                       #
+#       Snail-Mail contact:                                             #
+#              NetForum Development Team                                #
+#              1300 University Ave, Room 5770                           #
+#              Madison, Wi 53706                                        #
+#                                                                       #
+#########################################################################
+
+
+
+
+# This routine was used to sort the list of responese in the 
+# sub number { $a <=> $b; }
+
+# lock files at the system level
+# this takes a single parameter - the file handle
+
+sub lock{
+
+    if ($flock_exists == 1){
+	local ($file_handle);
+	foreach $file_handle (@_){
+	    flock($file_handle, 2);
+	}
+    }
+}
+
+# unlock locked files
+# this also takes a single file handle as its parameter
+
+sub unlock{
+    if ($flock_exists == 1){
+	local ($file_handle);
+	foreach $file_handle (@_){
+	    flock($file_handle, 8);
+	}
+    }
+}
+
+
+# this reads the variables out of the url and parses them into the
+# correct command and then any additional information necessary for
+# that command
+
+sub get_url_vars {
+
+    $ENV{'PATH_INFO'} =~ s/\///;
+
+    if ( $ENV{'PATH_INFO'} =~ /$cvar_separator/ ) {
+	($which_command,$command_vars) = 
+	    split($cvar_separator, $ENV{'PATH_INFO'});
+    } else {
+	$which_command = $ENV{'PATH_INFO'};
+    }
+
+# if there is no PATH_INFO we get a topics list instead
+
+    if ( !$ENV{'PATH_INFO'} ) {
+	$which_command = $show_topics_command;
+    }
+
+}
+
+
+# print the mime type for the client
+
+sub http_header {
+  $httpheader = 1;
+  return "Content-type: text/html\n\n";
+}
+
+
+# IF we dont get a correct command (or there's nothing in the url)
+# we print the front page instead
+
+sub front_page{
+    unless ($httpheader) {print &http_header};
+    open(DUMP, $netforum_entry) || &doh('Couldn\'t find front page');
+    while (<DUMP>){
+	print;
+    }
+    close(DUMP);
+    exit(0);
+}
+
+
+# This function translates an unformatted text to formatted
+# formatting option is passed to $vars
+
+sub markup_options{
+
+    local($in, $vars) = @_;
+    
+    if ($vars eq 'html'){return "$in"}
+    elsif($vars eq 'pre'){return "<pre>$in</pre>"}
+    elsif($vars eq 'translated'){
+	$in =~ s/\r//g;
+	$in =~ s/\n\n\n/\n<p>\n/g;	
+	$in =~ s/\n\n/\n<br>\n/g;	
+	return $in;
+	}
+    else{&doh("Not a formatting option: $vars")};
+}
+
+# This function translates a formatted text to unformatted
+# formatting option is passed to $vars
+
+sub remove_markup {
+
+	local ($in, $vars) = @_;
+	if($vars eq 'html'){return "$in"}
+	elsif($vars eq 'pre')	{
+	    $in =~ s/\<pre\>//g;
+	    $in =~ s/\<\/pre\>//g;
+	    return $in;
+	}
+	elsif($vars eq 'translated'){
+	    $in =~ s/\n\<br\>\n/\n\n/g;
+	    $in =~ s/\n\<p\>\n/\n\n\n/g;
+	    $in =~ s//\r/g;
+	    return $in;
+	}
+	else {
+	    return $in;
+	}
+}
+
+# Ye Olde error message system
+
+sub doh {
+
+    local($string, $foot) = @_;
+    unless ($httpheader) {print &http_header};
+    print<<EOH;
+<title>NetForum Error</title>
+EOH
+    &header;
+    print<<EOH;
+<h2 align=center>NetForum Error</h2>
+<hr>
+<h3>$string</h3>
+<p><hr>
+EOH
+    &footer unless ( $foot eq 'nofoot' ); # this fixes a possible inf loop with
+				# a possible footer error
+    exit(0);
+
+}
+
+# this prints the header files for each forum. it tests to see if
+# a particular forum has a header (by the file existing) and 
+# if not uses the standard system one
+
+sub header {
+
+    local ( $forum_header );
+
+    $forum_header = "$home_directory/$which_forum/header";
+
+    unless (-e $forum_header){
+	$forum_header = "$home_directory/lib/header";
+    }
+
+    open(DUMP, $forum_header) || 
+	&doh('Couldn\'t open header file: $forum_header');
+	
+    while(<DUMP>){
+#	s/PICTURE/$forum_gif/;	# HEY! shouldn't this line go?
+	print;
+    }
+    close(DUMP);
+    
+}
+
+
+# Like header this prints a footer at the bottom of each page
+# don't change the marked line or the netforum police will get ya.
+
+sub footer {
+
+    local($footer);
+
+
+    $footer = "$home_directory/$which_forum/footer";
+
+    unless( -e $footer ) { $footer = "$home_directory/lib/footer"; }
+
+    open(DUMP_AGAIN, $footer) || 
+	&doh('Couldn\'t find footer file','nofoot');  # nofoot fixes possible
+				# looping -- it keeps going & going ...
+
+    while(<DUMP_AGAIN>) {
+	print;
+    }
+
+    close(DUMP_AGAIN);
+
+### do not change this line !!! ###
+    print "<BR><a href=\"http://www.biostat.wisc.edu/netforum\">\n";
+    print "About NetForum</a> - v.$v\n<hr>";
+    print &ctime(time), "<BR>\n";
+}
+
+# Here we check to make sure that all tags that come in pairs
+# are acutally in pairs--this is not the most elegant solution and
+# could pobably use a little work. Also we check to make sure that
+# the user doesn't type in any thing offending (blink, img, applet) etc.
+
+sub check_hot_tamale{
+
+    local($i, $j);
+    foreach $item (@_){
+
+	next if (!($item =~ /\</o) ); # skip words that dont begin with <
+
+	foreach $i (@no_no_tags){
+	    if ($item =~ /\<$i/i) {
+		&doh("Sorry, the \"$i\" tag is not allowed.");
+	    }
+	}
+	foreach $j (@hot_tamale_tags){
+	    @tag_list = $item =~ /\<$j/ig;
+	    @close_tag_list = $item =~ /\<\/$j/ig;
+	    if (@tag_list > @close_tag_list){
+		&doh("Bad HTML: the \"$j\" tag is not closed.");
+	    }
+	}
+    }
+}
+
+# Encode html so that it doesn't get goofed up in the client server 
+# exchange
+
+sub encode{
+
+    foreach $item (@_){
+	$item =~ s/\r//g;
+	$item =~ s/\</======1/g;
+	$item =~ s/\>/======2/g;
+	$item =~ s/\"/======4/g;
+	$item =~ s/\\/======5/g;
+	$item =~ s/\//======6/g;
+	$item =~ s/\'/======7/g;
+    }
+}
+
+# decode the damage we did above 
+
+sub decode{
+    foreach $item (@_){
+	$item =~ s/\r//g;	# I dont think this can happen ...
+	$item =~ s/======1/\</g;
+	$item =~ s/======2/\>/g;
+	$item =~ s/======4/\"/g;
+	$item =~ s/======5/\\/g;
+	$item =~ s/======6/\//g;
+	$item =~ s/======7/\'/g;
+    }
+}
+
+
+
+sub block_html{
+    foreach $item (@_){
+	if ($item =~ /\>/){return 1};
+	if ($item =~ /\</){return 1};
+    }
+}
+
+# this give the list of possible formatting options 
+# this list is established by the assoc array %format_types
+
+sub format_list {
+
+    # $format is considered the default format
+    # type for this function
+
+    local($format) = @_;
+
+
+
+
+    if ( !defined($format) || $format eq '' ) {
+
+ 	    $format = $default_formatting;
+    }
+
+
+    $formats = %format_types;
+    if ($formats == 1){
+	print "<DL><DD>Text will be formatted as ";
+	foreach $type ( keys %format_types ) {
+
+	    print "<A HREF=\"/$netforum_url/$format_about_command";
+	    print $cvar_separator, "$type\">$format_types{$type}</A>\n";
+	    print "<INPUT TYPE=\"hidden\" NAME=\"formatting\" VALUE=\"$type\">\n";
+	}
+	print "</DL>\n";
+
+    }
+    else{
+#	print "<b>Formatting options:</b><p>";
+	print "<DL>\n";
+
+	foreach $type ( keys %format_types ) {
+
+
+	    print "<DD>";
+	    print "<INPUT TYPE=\"radio\" NAME=\"formatting\" VALUE=\"$type\"";
+
+	    if ( $format eq $type ) {
+
+		print " CHECKED>\n ";
+	    }
+	    else {
+		print ">\n ";
+	    }
+
+	    print "<A HREF=\"/$netforum_url/$format_about_command";
+	    print $cvar_separator, "$type\">$format_types{$type}</A>\n";
+	}
+
+	print "</DL>\n";
+
+    }
+
+
+
+}
+
+# if possible this opens the topic description file and 
+# prints that info to a page.
+
+sub get_topic_info {
+
+    local($topic_file);
+
+
+    &parse_topic_file("$home_directory/$which_forum/topics/$topic_number");
+
+    print "<h2>Topic: $topic_name</h2>\n";
+
+
+    if ($site){
+	print "\n<b>Topic Posted by:</b> <A HREF=\"$site\">$name</A>\n";
+    }
+    else {
+	print "<b>Topic Posted by:</b> $name\n";
+    }
+
+    if ($email){
+
+	print &email( $email ),"<BR>\n";
+    }
+
+    else { 
+	print "<BR>\n";
+    }
+    if ($insto_site){
+	print "<b>$institution_field_name:</b> <a href=\"$insto_site\">"; 
+	$a_site = 1;
+    }
+    if ($institution){
+	if (!($insto_site)) {
+	    print "<b>$institution_field_name:</b> $institution<BR>\n";
+	}
+	else {
+	    print "$institution</a><BR>\n"; 
+	}
+    }
+    if ($date){
+	print ("<b>Date Posted:</b> $date<BR>\n");
+    }
+    if ($comments){
+	print ("<b>Topic Description:</b> $comments<BR>\n");
+    }
+
+    print "\n<hr>\n";
+
+
+}
+
+# here we parse the topic file and read all the info into variables
+# that are used above
+
+sub parse_topic_file {
+
+    local($topic_file) = @_;
+    
+    open(TOPIC_INFO, $topic_file) || 
+	&doh("Could not open topic info file $topic_file");
+
+
+    while(<TOPIC_INFO>){
+	if (/$poster_site_key/){
+#	    chop;
+	    $site = $';
+	}
+	elsif (/$topic_name_key/){
+#	    chop;
+	    $topic_name = $';
+	}
+	elsif (/$poster_name_key/){
+#	    chop;
+	    $name = $';
+	}
+	elsif (/$poster_email_key/){
+#	    chop;
+	    $email = $';
+	}
+	elsif (/$institution_site_key/){
+#	    chop;
+	    $insto_site = $';
+	}
+	elsif (/$poster_institution_key/){
+#	    chop;
+	    $institution = $';
+	}
+	elsif (/$date_key/){
+#	    chop;
+	    $date = $';
+	}
+	elsif (/$comments_key/){
+#	    chop;
+	    $comments = $';
+	}
+	elsif (/$formatting_key/){
+#           chop;
+	    $formatting = $';
+	    $formatting =~ s/\s//g;
+	}
+	elsif (/$separator/) {
+	    # skip to end of file
+	    #seek(TOPIC_INFO, 0, 2) ;
+	}
+	else {
+	    $comments .= $_;
+	}
+    }				
+
+   close(TOPIC_INFO);
+
+}
+
+
+# this parses the good old a file 
+
+sub parse_a {
+
+    $filename = "$home_directory/$which_forum/a";
+
+    if ( $cgi_required ) {
+	$filename .= '.cgi';
+    }
+
+    unless (-e $filename )   {
+	&doh("Unable to find $filename");
+    }
+
+    open(A, $filename) ||
+	&doh("Can\'t open description file: $filename" );
+
+    while(<A>)
+    {
+	next if (/^\$netforum_url/);
+	last if ( /^\&/);	
+	if (/^\$/) {
+	    eval;
+	}
+    }
+    close(A);
+}
+
+# this is an error message used for debugging only users should really
+# never come accross this
+
+sub unimplemented {
+
+    unless ($httpheader) {print &http_header}
+    print "<TITLE>NetForum - Unimplemented Feature</TITLE>";
+
+    &header;
+
+    print "<H1> Unimplemented Feature</H1>\n";
+    print "That feature $in{'action'} hasn\'t been implemented yet!";
+    print "<BR>\n<HR>";
+
+    &admin_footer;		 
+
+}
+
+# This reads all of the messages from the message file
+
+sub read_messages {
+
+    local ( $topic_number ) = @_;
+    local ( $j );
+
+    $j = $num_messages;
+
+    $message_file_path = 
+         "$home_directory/$which_forum/topics/$topic_number.m";
+
+    open(MESSAGE, $message_file_path) || 
+	&doh("Couldn\'t open message file: $message_file_path");
+
+
+
+    while (($_ = <MESSAGE>) && $j != 0) {
+
+	if ( /$poster_site_key/ ){
+	    $poster_site[$j] = $';
+	}
+	elsif ( /$poster_name_key/ ){
+	    $poster_name[$j] = $';
+	}
+	elsif ( /$institution_site_key/ ){
+	    $institution_site[$j] = $';
+	}
+	elsif ( /$poster_institution_key/ ){
+	    $poster_institution[$j] = $';
+	}
+	elsif ( /$poster_email_key/ ){
+	    $poster_email[$j] = $';
+	    $email_ref = $poster_email[$j];
+	    if($nf_mail) {
+		$email_ref =~ s/@/$mail_separator/;
+		$email_list[$j] = "(<a href=\"/$netforum_url/$mail_command$cvar_separator$email_ref\">$poster_name[$j]</a>)<BR>";
+	    } else {
+		$email_list[$j] = " (<a href=\"mailto:$poster_email[$j]\">$poster_email[$j]</a>)";
+	    }
+	}
+	elsif ( /$date_key/ )  {
+	    $poster_date[$j] = $';
+	}
+	elsif ( /$message_key/) {
+	    $poster_message[$j] = $';
+	}
+	elsif ( /$subject_key/) {
+	    $poster_subject[$j] = $';
+	}
+	elsif ( /$separator/ ) { 
+	    $j--;
+	}
+	else {
+	    $anything_else[$j] .= $_;
+	}
+    }				
+
+    close(MESSAGE);
+       
+}
+
+
+# This gets the replies and prints a list of them
+# if the $intalbe variable is true the replies will be printed in a table
+# format -- otherwise they are just dumped on per line.
+
+sub get_replies{
+
+    local( $print_list ) = @_;
+
+
+    local ( *poster_name, *subject, $reply_file, *date );
+
+    $j = 0;
+    $counter = 1;
+
+    if ( $which_command == $show_messages_command ) {
+	$what_next = 1;
+    }
+    else {
+	$what_next = 0;
+    }
+
+    $reply_file = 
+       "$home_directory/$which_forum/responses/$topic_number\-$which_message";
+
+    open( REPLY_FILE, $reply_file ) ||
+	&doh("Couldn\'t open reply file: $reply_file");
+
+    while ( <REPLY_FILE> ) {
+	chop;
+	if ( /$subject_key/ ) {
+
+	    $subject[$j] = "<TR><TD><DD><a href=\"/$netforum_url/$show_replies_command$cvar_separator$topic_number.$which_message.$counter.$how_deep.$what_next\">$'</a></TD>\n";
+	}
+	elsif ( /$poster_name_key/ ) {
+
+	    $poster_name[$j] =  "<TD>$'</TD>";
+	}
+	elsif ( /$date_string/ ) {
+
+	    $date[$j] = "<TD>$'</TD></TR>\n";
+	    $j++;
+	    $counter++;
+
+
+	}
+    }
+		
+    
+   
+    close(REPLY_FILE);
+    
+    $count = 0;
+
+    print "<DL><TR><TD><DD><b>Replies:</b>";
+
+    if ( $print_list && $j > 1 ) {
+	print " (<a href=\"/$netforum_url/$show_replies_command$cvar_separator$topic_number\.$which_message\.0\.$how_deep\">list all replies</a>)<\TD>\n";
+    }
+    else { 
+	print "</TD>\n";
+    }
+
+   print "<TD></TD><TD></TD></TR>\n";
+
+    for( $k=0; $k < $j; $k++ ) {
+
+    	if( $subject[$k] ) {
+	    print $subject[$k];
+	}
+    	if( $poster_name[$k] ) {
+	    print $poster_name[$k];
+	}
+    	if( $date[$k] ) { 
+	    print $date[$k];
+	}
+	if($admin_flag){
+
+	    &admin_reply_toolbar($which_forum, $topic_number, 
+				 $which_message, $count );
+	    $count++;
+
+	}
+    } 
+    print "</DL>\n";
+
+}
+
+# load the group info into an array - this really should be an associative
+# array (but we're not that smart)
+
+sub load_group{
+
+    local($n, $group_file);
+    $n = 0;
+    $group_file = "$home_directory/$which_forum/group"; 
+    open(G, $group_file) || 
+	&doh("Couldn\'t open group file: $group_file");
+
+    while(<G>){
+	@group_list[$n++] = $_;
+    }
+
+#    @group = <G>;
+
+    close(G);
+    
+#    foreach $item ( @group ) {
+#	if ( $n ) {
+#	    $name = $item;
+#	    $n = 0;
+#	}
+#	else {
+#	    $group_list{ $name } = $item;
+#	    $n = 1;
+#	}
+#    }
+
+
+}
+
+# this is our own homebrew email form. It requires that a mail sending
+# agent such as sendmail be correctly configured in sys_config
+
+sub send_mail_form{
+
+    unless ($httpheader) {print &http_header;}
+
+
+    if ($command_vars eq 'g'){
+	&load_group;
+	print "<title>NetForum - Send Email to Forum Group Members</title>\n";
+	&header;
+	print "\n<h2>NetForum - Send Email to Forum Group Members</h2>\n<hr>";
+
+	@icon_list = ('show_group', 'list_topics', 'goto_admin', 'about_forum' );
+	&toolbar;
+
+
+	print "<HR><form action=\"/$netforum_url/$mail_command$cvar_separator";
+	print "g\" method=POST>\n";
+
+	print<<EOH;
+
+<table border cellpadding=5 cellspacing=0 width=90%>
+<tr><th align=left width=30%>
+Your Name:
+</th><td>
+<INPUT VALUE="" SIZE=40 NAME="name">
+</td></tr>
+<tr><th align=left>
+Your Email Address:
+</th><td>
+<INPUT VALUE="" SIZE=40 NAME="from_email">
+</td></tr>
+<tr><th align=left>
+Subject:
+</th><td>
+<INPUT VALUE="" SIZE=40 NAME="subject">
+</td></tr></table>
+<p>
+<table border=1 cellpadding=5 cellspacing=0 width=90%>
+<tr><td><b>Recipients:</b><br>
+Select one or more recipients from the email list of the forum: $forum_name 
+at right.
+You may select several recipients by holding down the 
+Command (Mac) or Control (Windows) key.
+</td>
+<td rowspan=2>
+<SELECT NAME="to" MULTIPLE SIZE=10>
+EOH
+
+    while (@group_list[$item]) { 
+	print "\t\t<option value=\"(@group_list[$item++]) ";
+	print "@group_list[$item--]\">@group_list[$item++]\n";
+	$item++;		
+    }				
+	    
+    print <<EOH;		# 
+
+
+</SELECT>
+</td></tr>
+<tr>
+<td>
+</td>
+</tr>
+</table>
+<p><table border=1 cellpadding=5 cellspacing=0 width=90%>
+<tr><td colspan=2>
+<TEXTAREA ROWS=20 COLS=60 NAME="body" WRAP=PHYSICAL></TEXTAREA>
+</td></tr>
+<tr><td align=center>
+<INPUT TYPE="submit" VALUE="     Send     ">
+</td>
+
+<td align=center>
+<INPUT TYPE="reset"  VALUE="    Reset    ">
+</td></tr></table>
+</form>
+<hr>
+EOH
+
+&footer;
+
+    } else {
+
+	$command_vars =~ s/$mail_separator/@/;
+	print "<title>NetForum - Send Email to $command_vars</title>\n";
+	&header;
+
+	print "<h2>NetForum - Send Email to $command_vars</h2>\n";
+	$command_vars =~ s/@/$mail_separator/;
+	print <<EOH;
+<hr>
+<form action="/$netforum_url/$mail_command$cvar_separator$command_vars" method=POST>
+<table border cellpadding=5 cellspacing=0>
+<tr>
+<th align=left width=30%>
+Your Name:
+</th>
+<td>
+<INPUT VALUE="" SIZE=40 NAME="name">
+</td>
+</tr>
+<tr>
+<th align=left>
+Your Email Address:
+</th>
+<td>
+<INPUT VALUE="" SIZE=40 NAME="from_email">
+</td>
+</tr>
+<tr>
+<th align=left>
+Subject:
+</th>
+<td>
+<INPUT VALUE="" SIZE=40 NAME="subject">
+</td>
+</tr>
+</table>
+<p>
+<table border=5 cellpadding=5 cellspacing=0>
+<tr>
+<td colspan=2>
+<TEXTAREA ROWS=20 COLS=60 NAME="body" WRAP=PHYSICAL></TEXTAREA>
+</td>
+</tr>
+<tr>
+<td align=center>
+<INPUT TYPE="submit" VALUE="     Send     ">
+</td>
+<td align=center>
+<INPUT TYPE="reset"	VALUE="    Reset    ">
+</td>
+</tr>
+</table>
+</form>
+<hr>
+EOH
+    &footer;
+
+    }
+
+}
+ 
+# this actually does the mail sending - once again we need a local 
+# sending agent to do the dirty work
+
+sub send_mail{
+                    
+    $name	= $in{'name'};
+    $from_email	= $in{'from_email'};
+    $subject	= $in{'subject'};
+    $body	= $in{'body'};
+    $realfrom	= $ENV{'REMOTE_HOST'} ? $ENV{'REMOTE_HOST'}: $ENV{'REMOTE_ADDR'};
+
+    if ($command_vars eq 'g'){
+	$t = $in{'to'};
+	if (!($t)){
+	    &doh('No address to send the mail to');
+	}
+	$t =~ s/\(/\?/;
+	$t =~ s/\(/\{\(/g;
+	$t =~ s/\?/\(/;
+	$t =~ s/\)/\) /;
+	@list = split('\{', $t);
+	$item = 0;
+	while (@list[$item]){
+	    $t = ($item +1);
+	    if (@list[$t]){
+		chop(@list[$item]);
+	    }
+	    $item++;
+	}
+    }
+    else{
+	$realaddr = $command_vars;
+        $realaddr =~ s/$mail_separator/@/;
+#	if ($addrs{$command_vars}) {
+#	    $realaddr = "$destaddr <$addrs{$command_vars}>";
+#	}
+    }
+
+
+     if (!($name && $subject && $body)) {
+	 &doh('You need to fill in all fields for the mail to be sent');
+     }
+     if (!($command_vars)){
+	 &doh('No address to send the mail to');
+     }
+
+
+     open(MAIL,"| $sendmail") || &doh("Couldn\'t find sendmail");
+     #open(MAIL, ">$home_directory/admin/mail");
+     &lock(MAIL);
+     print MAIL ("From: $name <$from_email>\n");
+     if ($command_vars eq 'g'){
+	 print MAIL ("To: ");
+	 $item = 0;
+	 @list[$item] =~ s/\n/ /g;
+	 print MAIL (@list[$item++]);
+	 while(@list[$item]){
+	     @list[$item] =~ s/\n/ /g;
+	     print MAIL (", @list[$item++]");
+	 }
+	 print MAIL ("\n");
+     }				# 
+     else{
+	 print MAIL ("To: $realaddr\n");
+     }
+    print MAIL ("Errors-To: $errorsto\n");
+    print MAIL ("Subject: $subject\n");
+    print MAIL ("X-Mail-Gateway: $gateway\n");
+    print MAIL ("X-Real-Host-From: $realfrom\n");
+    print MAIL ("$body\n");
+    close(MAIL);
+    &unlock(MAIL);
+    
+    
+
+
+    unless ($httpheader) {print &http_header};
+    print "<title>NetForum - Mail results</title>";
+    &header;
+    print "<H2>NetForum Mail results</H2>\n<hr>\n";
+
+
+    @icon_list = ( 'show_group', 'list_topics', 'goto_admin', 'about_forum' );
+    &toolbar;
+
+    print "<HR><P>\n";
+
+
+    if ($command_vars ne 'g'){
+
+	print "<b>Mail sent to:</B> $realaddr\n";
+    }
+
+    else{
+
+	print "<b>Mail sent to:</B>  ";
+	$item = 0;
+	print (@list[$item++]);
+	while(@list[$item]){
+	    print (", @list[$item++]");
+	}
+	print "\n";
+    }
+    
+    print "<p>\n<B>Subject</B>: $subject<br>\n<B>From</B>: ";
+    print "$name ($from_email) <br>\n";
+    print "<B>Really from</B>: $realfrom <p>\n";
+    print "<pre>\n$body\n</pre>\n<hr>";
+    
+    &footer;
+}
+
+
+# this prints a page describing the correct information about all of the
+# formatting options
+
+sub about_format{
+
+    local($glorg);
+    unless ($httpheader) {print &http_header};
+    if ($command_vars eq 'html'){
+	$glorg = "About the \"html\" formatting option";
+    }
+    elsif($command_vars eq 'pre'){
+	$glorg = "About the \"preformatted text\" formatting option";
+    }
+    elsif($command_vars eq 'translated'){
+	$glorg = "About the \"Translated text\" formatting option";
+    }
+    else{
+	&doh("Bad command variable \(\"$command_vars\"\)");
+    }	
+    print "<title>NetForum - $glorg</title>";
+    &header;
+    print "\n<h2>$glorg</h2>\n<hr>\n";
+    @icon_list = ('show_group', 'email_group', 'list_topics', 'about_forum' );
+    &toolbar;
+    if ($command_vars eq 'html'){
+	print<<EOH;
+<hr>
+Select this option if you want your message to be posted as HTML.
+ If you select this option, text will be wrapped automatically but linefeeds
+or carriage returns will have no effect.
+<hr>
+EOH
+    }
+    elsif($command_vars eq 'pre'){
+	print<<EOH;
+<hr>
+<pre>Select this option if you want your message to be posted
+as preformatted text.
+If you select this option, text will be not be automatically
+wrapped, but linefeeds and carriage returns will show.
+Preformatted text will also be shown in a fixed-width font.
+The text you are reading is displayed in your browser as
+preformatted text.</pre><hr>
+EOH
+    }
+    elsif($command_vars eq 'translated'){
+	print<<EOH;
+<hr>
+Selecting this option will post the text as html, but will do some basic
+html markup. It will:
+<dl>
+<dd><b>a)</b> translate all single blank lines to html line breaks ( &#60 br &#62 )
+<dd><b>b)</b> translate all double blank lines to html paragraph delimiters ( &#60 p &#62 )
+</dl>
+<p>
+What does this mean if you couldn\'t care less about HTML?
+<dl>
+<dd><b>a)</b> Enter a single line break in your form text area, 
+   and there will be no effect in the display in the browser window.
+<dd><b>b)</b> Enter two line breaks in your form 
+   text area (i.e. leave a blank line), 
+and the effect in the browser window display will be a simple line break.
+<dd><b>c)</b> Enter three line breaks in your 
+   form text area (i.e. leave two blank lines), 
+   and the effect in the browser window display 
+   will be two line breaks (i.e. a blank line).
+</dl>
+
+<hr>
+EOH
+     }
+     &footer;
+}
+# this prints the tool bars ( lists of icons that are links to other
+# pages. it requires that you have created a list called icon_list
+# it then runs through the list and prints the icons in the correct 
+# order
+
+sub toolbar {
+    # I would really like to replace this with an associatve array 
+    # and a eval block but that will have to wait
+
+    foreach $icon ( @icon_list )
+    {
+	
+	if ($icon eq 'add_topic'){
+
+	    # Show topic icon
+
+	    print "<a href=\"/$netforum_url/$add_topic_command\">";
+	    print "<img border=$image_border alt=\"Add a Topic\" ";
+	    print "src=\"$add_topic_toolbar_gif\"></a>\n";  
+	}			
+
+	elsif ($icon eq 'add_message' ) {
+	    # Add a message icon
+	    
+	    print "<a href=\"/$netforum_url/$add_message_command";
+	    print "$cvar_separator$topic_number\">";
+	    print "<img border=$image_border alt=\"Add a Message\" ";
+	    print "src=\"$add_message_toolbar_gif\"></a>\n";
+	}
+	elsif ( $icon eq 'expand_messages' ) {
+	    # Expand all messages icon
+	    print<<EOF;
+<a href="/$netforum_url/$expand_messages_command$cvar_separator$topic_number.$how_deep_convert">
+<img border="$image_border" alt="Expand All Messages" src="$expand_message_toolbar_gif"></a>
+EOF
+        }
+	elsif ( $icon eq 'contract_messages' ) {
+	    # contract messages
+	    print<<EOF;		
+<a href="/$netforum_url/$contract_messages_command$cvar_separator$topic_number.$how_deep_convert">
+<img border=$image_border alt="Contract All Messages"
+src="$contract_message_toolbar_gif"></a>
+EOF
+        }
+	elsif ( $icon eq 'back_to_message' ) {
+	    print "<a href=\"/$netforum_url/$view_message_expanded";
+	    print "$cvar_separator$topic_number.$which_message.$how_deep\">";
+	    print "<img border=$image_border ";
+	    print "alt=\"Back to original message\" ";
+	    print "src=\"$orig_message_toolbar_gif\"></a>\n";
+	}
+	elsif ( $icon eq 'all_replies' ) {
+	    print "<a href=\"/$netforum_url/$show_replies_command";
+	    print "$cvar_separator$topic_number\.$which_message\.0\.";
+	    print "$how_deep\"><img border=$image_border alt=\"Show ";
+	    print "all replies\" src=\"$all_responses_toolbar_gif\"></a>\n";
+	}
+	elsif ( $icon eq 'show_group' ) {
+	    #show group info 
+	    next unless ( -e "$home_directory/$which_forum/group" );
+	    print "<a href=\"/$netforum_url/$show_group_command\"><img border=$image_border alt=\"Show group Info\" src=\"$group_info_toolbar_gif\"></a>\n";
+	}
+	elsif ( $icon eq 'email_group' ) {
+	    # send group email
+	    next unless ( -e "$home_directory/$which_forum/group" );
+	    print "<a href=\"/$netforum_url/$mail_command$cvar_separator";
+	    print "g\"><img border=$image_border alt=\"Send email to group\" src=\"$email_toolbar_gif\"></a>\n";
+	}	
+	elsif ( $icon eq 'list_topics' ) {
+	    
+	    # goto topics list
+	    print "<a href=\"/$netforum_url/$show_topics_command\">";
+	    print "<img border=$image_border alt=\"Topics List\" ";
+	    print "src=\"$topics_toolbar_gif\"></a>\n";
+	}
+	elsif ( $icon eq 'goto_admin' ) {
+	    next unless ( $show_admin_button );
+
+	    if ( $cgi_required ) {
+
+		print "<A HREF=\"/$base_url/admin/admin.cgi\">";
+	    }
+	    else { 
+
+		print "<A HREF=\"/$base_url/admin/admin\">";
+	    }
+
+	    print "<IMG BORDER=$image_border";
+	    print " ALT=\"Goto Admin Page\" SRC=\"$goto_admin_gif\"></a>\n";
+	}
+	elsif ( $icon eq 'back_to_list' ) {
+# 	    if ( $subject_only ) {
+# 		print "<A HREF=\"/$netforum_url/$contract_messages_command";
+# 		print "$cvar_separator$topic_number.$how_deep\"><IMG BORDER=";
+# 		print "$image_border ALT=\"Back to message list\" SRC=\"";
+# 		print "$back_to_list_gif\"></A>\n";
+# 	    } else {
+# 		print "<A HREF=\"/$netforum_url/$expand_messages_command";
+# 		print "$cvar_separator$topic_number.$how_deep\"><IMG BORDER=";
+# 		print "$image_border ALT=\"Back to message list\" SRC=\"";
+# 		print "$back_to_list_gif\"></A>\n";
+
+	    print "<A HREF=\"/$netforum_url/$show_messages_command";
+	    print "$cvar_separator$topic_number.$how_deep\"><IMG BORDER=";
+	    print "$image_border ALT=\"Back to message list\" SRC=\"";
+	    print "$back_to_list_gif\"></A>\n";
+
+	}
+	elsif ( $icon eq 'help' ) {
+	    print "<A HREF=\"$docs/Docs/OnLine/general.html\" TARGET=\"DOC\">";
+	    print "<IMG BORDER=$image_border ALT=\"Help\" SRC=\"$help_gif\">";
+	    print "</A>\n";
+	}
+	else {
+	    # about forum
+#	    next unless ( -e "$home_directory/$which_forum/description" );
+	    print "<a href=\"/$netforum_url/$show_desc_command\">";
+	    print "<img border=$image_border alt=\"About this forum\" ";
+	    print "src=\"$about_forum_toolbar_gif\"></a>\n";
+	}
+    }
+}
+
+
+# HEY! this doesnt work
+
+sub update_front_page{
+
+	local($search_string, $line);
+	$search_string = "<!--$which_forum--!>";
+	@ARGV = $netforum_entry;
+	while (<>){
+	    if (/$search_string/){
+		$line = $`;
+		if ($topic_number == 1) {
+		    $line .= "$search_string(1 topic)\n";
+		}
+		else {
+		    $line .= "$search_string($n topics)\n";
+		}
+		print $line;
+	    }
+	    else {  
+		print;
+	    }
+	}
+}
+
+sub parse_cookie {
+
+
+    return unless defined( $ENV{'HTTP_COOKIE'} );
+
+    local ( $name, $value, @list );
+
+    # decode list first
+  
+    $_ = $ENV{'HTTP_COOKIE'};
+
+    s/\s//g;			# strip offending spaces
+
+    @list = split( /;/ );
+    
+    foreach $_ ( @list ) {
+	
+	s/\+/ /g;
+
+	( $name, $value ) = split ( /=/ );
+    
+	$cookie{$name} = $value;
+    }
+
+    $poster_name = $cookie{'NFName'};
+    $poster_institution = $cookie{'NFInstitution'};
+    $poster_email = $cookie{'NFEmail'};
+    $poster_site = $cookie{'NFSite'};
+    $institution_site = $cookie{'NFInstSite'};
+
+
+
+}
+
+sub print_cookies {
+
+    local ( $name,$email,$site,$institution,$institution_site ) = @_;
+
+    # encode all of the variables 
+
+
+    # first make \s a +
+
+    $name =~ s/\s/+/g;
+    $email =~ s/\s/+/g;
+    $site =~ s/\s/+/g;
+    $institution =~ s/\s/+/g;
+    $institution_site =~ s/\s/+/g;
+
+    # next encode all strange characters
+    
+    # print mime header 
+    # if there is already a contenttype printed its too late
+
+    return if ( $httpheader );
+
+    $httpheader = 1;
+
+    print "Content-type: text/html\n\n";
+    
+    return;
+
+    # the following is here simply to ensure that this is available for
+    # futrure versions -- ie for those who complained it doesn't do
+    # anything right now
+
+    print "Content-type: text/html\n";
+    # print the cookies
+    print "Set-Cookie: NFName=$name\n";
+    if ( $email ) { print "Set-Cookie: NFEmail=$email\n"; }
+    if ( $institution ) { print "Set-Cookie: NFInstitution=$institution\n"; }
+    if ( $institution_site ) { 
+	print "Set-Cookie: NFInstSite=$institution_site\n"; 
+    }
+    
+    if ( $site )  { print "Set-Cookie: NFSite=$site\n\n"; }
+
+
+}
+
+sub ReadParse {
+
+    local (*in) = @_ if @_;
+
+
+    local ($i, $key, $value, @list, $_);
+
+    # Read in text
+    if ($ENV{'REQUEST_METHOD'} eq "GET") {
+	$in = $ENV{'QUERY_STRING'};
+    } elsif ($ENV{'REQUEST_METHOD'} eq "POST") {
+	read(STDIN,$_,$ENV{'CONTENT_LENGTH'});
+    }
+
+    @list = split( /&/ );
+    
+    foreach $_ (@list) {
+	# Convert plus's to spaces
+	s/\+/ /g;
+
+	# Split into key and value.
+	($key, $value) = split(/=/, $_ ,2); # splits on the first =.
+	
+	# Convert %XX from hex numbers to alphanumeric
+
+	$value =~ s/%(..)/pack("c",hex($1))/ge;
+	$key =~ s/%(..)/pack("c",hex($1))/ge;
+	
+	# Associate key and value
+        # \0 is the multiple separator
+	# borrowed this idea from cgi-lib.pl by XXXX?
+
+	$in{$key} .= "\0" if (defined($in{$key})); 
+	$in{$key} .= $value;
+
+    }
+
+    return 1; # just for fun
+}
+
+
+# this returns the correct email string either using nf_mail or
+# mail to
+
+sub email {
+
+    local ( $email ) = @_;
+    
+    if($nf_mail) {
+
+	$aa = $email;
+	$aa =~ s/\@/$mail_separator/;
+
+	return " (<a href=\"/$netforum_url/$mail_command$cvar_separator$aa\">$email</a>)";
+
+    } else {
+
+	return "(<a href=\"mailto:$email\">$email</a>)";
+
+    }
+}
+
+
+sub check_topic {
+
+
+    local ($topic_name,$poster_name,$poster_institution,$institution_site,
+	   $poster_email,$poster_site,$user_name,$password) = @_;
+
+    local ( $error, $error_message );
+
+    $error = 0;
+
+
+    if ( !$topic_name ) {
+	$error = 1;
+	$error_message = "<LI> Topic name missing\n";
+    }
+
+    if ( !$poster_name ) {
+	$error = 1;
+	$error_message .= "<LI> Poster name missing\n";
+    }
+
+    if ( $institution_site ne 'http://' && !$poster_institution ) {
+	$error = 1;
+	$error_message .= "<LI> You cannot have an $institution_field_name site with out an $institution_field_name\n";
+
+
+    }
+
+
+    if (($anyone_add_username) && ($anyone_add_password)){
+	if ((!$username) || (!$password)){
+
+	    $error = 1;
+	    $error_message .= "<LI> Missing username/password fields\n";
+
+	}
+	if ( $anyone_add_username ne $username || 
+	     $anyone_add_password ne $password ){
+
+	    $error_message .= "<LI> Bad username/password\n";
+	}
+    }
+
+
+
+    if ($comments){ 
+	&decode( $comments );
+	&check_hot_tamale( $comments ); 
+    }
+	
+	
+    if (&block_html($topic_name,$poster_name,$poster_institution,
+		    $institution_site,$poster_email,$poster_site) == 1){
+	$error = 1;
+	$error_message .= "<LI> Sorry, there appears to be HTML in a field that does not accept HTML\n";
+    }
+
+    if ( $error ) {
+
+	&doh ( <<EndOfError );
+Netforum has found an error when you attempted to create a topic:
+<UL>
+$error_message
+</UL>
+<BR>
+
+EndOfError
+
+    }
+
+}
+
+sub check_message {
+
+    local ( $poster_name, $message, $subject, $poster_institution,
+ 	    $institution_site, $poster_email, $poster_site ) = @_;
+
+	    
+    local ( $error, $error_message );
+
+
+    if ( !$poster_name ) {
+
+	$error = 1;
+	$error_message = "<LI> Poster name missing\n";
+
+    }
+    
+    if ( !$message ) {
+
+	$error = 1;
+	$error_message .= "<LI> Message missing\n";
+
+    }
+
+    if ( !$subject ) {
+
+
+	$error = 1;
+	$error_message .= "<LI> Subject missing\n";
+
+    }
+
+    if( $institution_required && !$poster_institution) {
+
+
+	$error = 1;
+	$error_message .= "<LI> $institution_field_name missing\n";
+
+    }
+
+    if ( $institution_site ne 'http://' && !$poster_institution ) {
+
+
+	$error = 1;
+	$error_message .= "<LI> You cant have an $institution_field_name site with out an $institution_field_name\n";
+
+    }
+
+    &decode( $message );
+
+    &check_hot_tamale( $message );
+
+
+    if (&block_html($poster_name,$poster_institution,$institution_site,
+		    $poster_email,$poster_site,$subject) == 1){
+
+
+	$error = 1;
+	$error_message .= "<LI> Sorry, there appears to be HTML in a field that does not accept HTML\n";
+    }
+
+#    $formatted = &markup_options($message, $formatting);
+
+    if ( $error ) {
+
+	&doh ( <<EndOfError );
+Netforum has found an error in your message:
+<UL>
+$error_message
+</UL>
+<BR>
+
+EndOfError
+
+    }
+}
+
+# this prints pagination info at the bottom of the page 
+
+sub do_pages {
+
+    local( $how_deep ) = @_;  # this is where we are
+    local( $page_count, $first, $last );
+
+
+    # return if only one page of messages
+
+    return if ( $num_messages < $how_many_messages 
+	       || $how_many_messages == -1);
+
+    $first = 1;
+
+    $last = $how_many_messages;
+
+    $page_count = 1;
+
+    print "<CENTER>";
+
+    while ( $first < $num_messages ) {
+
+	if ( $page_count == $how_deep ) {
+	    
+	    print "| $first...$last ";
+	    
+	} else {
+
+	    print "| <a href=\"/$netforum_url/$page_messages_command";
+	    print "$cvar_separator$topic_number\.";
+	    print "$page_count.$subject_only\">";
+	    print "$first...$last</A> ";
+	}
+
+
+	$first += $how_many_messages;
+
+	$last += $how_many_messages;
+
+	if ( $last > $num_messages ) {
+	    $last = $num_messages;
+	}
+
+	$page_count++;
+    }
+
+
+    print " |</CENTER>\n";
+    print "<HR>\n";
+
+}
+
+1; # to be nice...
+

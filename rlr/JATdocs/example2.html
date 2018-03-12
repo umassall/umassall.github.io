@@ -1,0 +1,113 @@
+<HEADER>
+<TITLE>Java(tm) Agent Template, Version 0.3</TITLE>
+</HEADER>
+
+<BODY> 
+<H1>Example 2: The remote service specialization.</H1> 
+<hr> 
+
+The agents provided in the base JAT packages (Agent and ANS) are not intended
+to be used as-is, but should be subclassed to provide some specific
+functionality. The JAT_0.3 distribution includes an example JAT
+specialization which supports the use of remote
+services, managed by ServiceAgents, by a distributed group of
+ClientAgents. The implementation for this remote service architecture is
+contained in the RemoteService packages.
+A ServiceBroker agent (ANS) serves as a repository for registered services, in
+addition to its normal duties as an ANS. Each ServiceAgent, when started, will
+register the group of services it manages with the
+ServiceBroker. ClientAgents, when started, automatically retrieve the list of
+available services from the ServiceBroker. Each available service can be
+installed and executed by a ClientAgent via interaction with the
+ServiceAgent. This architecture is generic and can support a wide range
+of applications which can be represented by the remote service paradigm.<p>
+
+This example utilizes the agents in the RemoteService package to demonstate
+the registration, delivery and use of a sample remote service, the Fixture
+Design and Analysis Tool (FDAT). The analysis portion of this service was
+developed by CMU and is maintained on their network. I initially developed the
+Java interface (FDATI) as an applet but decided that it would make a "cool"
+example so reworked the code into a Service subclass. The FDAT provides
+stability analysis for a set of motion constraints, or fixtures, on a
+solid. Check out <a href="http://acorn.eit.com/softrep/java/FDATI.html">FDATI
+pages</a> for more info. Basically, the interface will display a solid model
+which the user can rotate, zoom and pan. Shift-clicking on the solid will add
+fixture points. When the user feels like they have a stable plan they can
+submit the fixture information to a cgi-bin script at CMU which interfaces
+with the analysis code.<p>
+<hr>
+Here is what you need to do:<p>
+
+<ol>
+<li> 
+Make certain you have modified the appropriate scripts/html files.
+<li>
+Start a ServiceBroker by executing the "broker" script. This agent has a
+specialized GUI with widgets for displaying available services. Note: this
+GUIdoes not directly display the system messages; you must click on the
+"System Messages" button to see the messages. 
+<li> 
+Start a FDATAgent by executing the "FDAT" script. A thumbnail representing
+the FDAT service should be displayed in the "Services" canvas. If you click on
+this icon, a description of the Service will appear below. This service will
+be automatically registered with the ServiceBroker.
+<li>
+Start a ClientAgent by executing the "client" script. This agent will
+automatically retrieve the available service from the broker. At this
+point you should have three agents with the FDAT service icon displayed in each
+GUI. 
+<li>
+Double-click on the FDAT icon in the ClientAgent GUI. This will install and
+execute the FDATService object.  You should now see a top-level window
+representing the FDATService. Select one of the three example models and press
+the "Display Model" button. You should now see a separate top-level window
+which displays the selected solid. Dragging the mouse across the screen will
+rotate the solid, shift clicking on the solid will add fixture points. You can
+also zoom, pan and change the display settings. Go ahead and try to design a
+stable fixturing plan for one of the parts. When you are finished
+creating the fixturing plan, click on the submit button. Submission results
+will be shown in a top level window.<p>
+</ol><p>
+
+<hr>
+OK, now here's how all of that actually happened:<p>
+<ul>
+<li> 
+One of the messages in the init file for the FDATAgent instructs
+the it to load the FDATService, as represented by its gif thumbnail and
+description file. After reading in this message, the FDATAgent sent a
+"register-service" message (defined in the "service" ontology) to the
+ServiceBroker. Also contained in the FDAT_init_file was a "add-models"
+message (defined in the "FDAT" ontology). This message informed the
+FDATAgent of the location of a set of example solid models.
+<li> 
+The ClientAgent, when executed, automatically sent an "ask-avialable" message
+(defined in the "service" ontology) to
+the ServiceBroker, which replied with a "tell-available" message (defined in
+the "service" ontology) containing the gif and description files for the
+FDATService and the name of the FDATAgent. 
+<li>
+When the icon was double-clicked, the ClientAgent sent (after retrieving the
+correct address) a "request-service"
+message (defined in the "service" ontology) to the FDATAgent, which replied
+with a "tell-service" message (defined in the "service" ontology) containing the location of the FDATService
+code. The ClientAgent then loaded, instantiated and executed the service
+code. When executed, the FDATService object loaded the "FDAT" ontology and
+send an "ask-models" message (defined in the "FDAT" ontology) to the
+FDATAgent, which replied with a "tell-models" message containing the names and
+locations of the set of example models. The FDATService then loaded the model
+files, parsed them to create "model" objects and finally opened the
+FDATService GUI. 
+<li>
+When the submit button in the FDATService GUI was pressed, the FDATService
+used the ClientAgent to send a submit-fixels message to the FDATAgent, which
+in turn sent the fixels to the cgi-bin script at CMU. After receiving the
+submission results from CMU, the FDATAgent sent an analysis-results message
+back to the ClientAgent.
+</ul>
+
+<hr>
+<ADDRESS>
+<i>frost@cdr.stanford.edu</i>
+</ADDRESS>
+</Body>

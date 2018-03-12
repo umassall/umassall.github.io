@@ -1,0 +1,98 @@
+Date: Sat, 4 Feb 2006 19:02:04 -0500
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_24"
+
+--=_multipart_boundary_24
+Content-Type: application/x-phpwiki;
+  pagename=RemoteLogOut;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1139097724;
+  author_id=ash;
+  markup=2;
+  hits=12;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+If your computer freezes, you can log out of it from another computer. That might help, and you don't have to reboot the computer (which might screw stuff up if someone else is running something on it). In general, rebooting should be a last resort. First, try to remote log out (explained below). If that doesn't work (e.g., if you can't ssh into the computer), then try something else (like rebooting, unless someone else has a better idea).
+
+* Open up a shell on another computer (doesn't matter if you log in or someone else is logged in)
+* ssh into the frozen computer using your username
+<verbatim>
+ash> ssh ash@olive
+ash@olive's password:
+stty: invalid argument `new'
+Try `stty --help' for more information.
+olive.cs.umass.edu>
+</verbatim>
+* use ps x to list the processes you're running
+<verbatim>
+olive.cs.umass.edu>ps x
+  PID TTY      STAT   TIME COMMAND
+ 8875 ?        S      0:00 -/bin/csh -c /usr/bin/ssh-agent /usr/share/apps/switchdesk/Xclients.gnome
+ 8956 ?        S      0:10 gnome-session
+ 8957 ?        S      0:04 /usr/bin/ssh-agent /usr/share/apps/switchdesk/Xclients.gnome
+ 8960 ?        S      0:02 /usr/libexec/gconfd-2 11
+ 8962 ?        S      0:00 /usr/libexec/bonobo-activation-server --ac-activate --ior-output-fd=16
+ 8964 ?        S      0:13 gnome-settings-daemon --oaf-activate-iid=OA
+and so on...
+</verbatim>
+* kill the process near the beginning of the list that has the word _session_ in it
+<verbatim>
+olive.cs.umass.edu>kill 8956
+</verbatim>
+Sometimes, you might need to be a little more forceful. This is what -9 is for, because kill isn't a strong enough word, apparently:
+<verbatim>
+olive.cs.umass.edu>kill -9 8956
+</verbatim>
+* This should work -- you should be logged out of the frozen computer now
+
+--=_multipart_boundary_24
+Content-Type: application/x-phpwiki;
+  pagename=RemoteLogOut;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1139097685;
+  author_id=ash;
+  markup=2;
+  hits=12;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+If your computer freezes, you can log out of it from another computer. That might help, and you don't have to reboot the computer (which might screw stuff up if someone else is running something on it). In general, rebooting should be a last resort. First, try to remote log out (explained below). If that doesn't work (e.g., if you can't ssh into the computer), then try something else (like rebooting, unless someone else has a better idea).
+
+* Open up a shell on another computer (doesn't matter if you log in or someone else is logged in)
+* ssh into the frozen computer using your username
+<verbatim>
+ash> ssh ash@olive
+ash@olive's password:
+stty: invalid argument `new'
+Try `stty --help' for more information.
+olive.cs.umass.edu>
+</verbatim>
+* use ps x to list the processes you're running
+<verbatim>
+olive.cs.umass.edu>ps x
+  PID TTY      STAT   TIME COMMAND
+ 8875 ?        S      0:00 -/bin/csh -c /usr/bin/ssh-agent /usr/share/apps/switchdesk/Xclients.gnome
+ 8956 ?        S      0:10 gnome-session
+ 8957 ?        S      0:04 /usr/bin/ssh-agent /usr/share/apps/switchdesk/Xclients.gnome
+ 8960 ?        S      0:02 /usr/libexec/gconfd-2 11
+ 8962 ?        S      0:00 /usr/libexec/bonobo-activation-server --ac-activate --ior-output-fd=16
+ 8964 ?        S      0:13 gnome-settings-daemon --oaf-activate-iid=OA
+and so on...
+</verbatim>
+* kill the process near the beginning of the list that has the name session in it
+<verbatim>
+olive.cs.umass.edu>kill 8956
+</verbatim>
+Sometimes, you might need to be a little more forceful. This is what -9 is for, because kill isn't a strong enough word, apparently:
+<verbatim>
+olive.cs.umass.edu>kill -9 8956
+</verbatim>
+* This should work -- you should be logged out of the frozen computer now
+
+--=_multipart_boundary_24--

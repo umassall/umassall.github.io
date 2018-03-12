@@ -1,0 +1,93 @@
+# WWWWAIS configuration file
+# 9/14/94
+# Kevin Hughes, kevinh@eit.com
+# Documentation at http://www.eit.com/software/wwwwais/wwwwais.html
+
+PageTitle "title.html"
+# If this is a string, it will be a title only.
+# If it specifies an HTML file, this file will be prepended to wwwwais results.
+
+SelfURL "http://www.cps.msu.edu/cgi-user/ryanlyn1/search/wwwwais"
+# The self-referencing URL for wwwwais.
+
+MaxHits 40
+# The maximum number of results to return.
+
+SortType score
+# How results are sorted. This can be "score", "lines", "bytes",
+# "title", or "type".
+
+AddrMask all
+# Only addresses specified here will be allowed to use the gateway.
+# For the above mask option, these rules apply:
+# 1) You can use asterisks in specifying the string, at either
+#    ends of the string:
+#    "192.100.*", "*100*", "*2.100.2"
+# 2) You can make lists of masks:
+#    "*192.58.2,*.2", "*.100,*171.128*", ".58.2,*100"
+# 3) A mask without asterisks will match EXACTLY:
+#    "192.100.58.2"
+# 4) Define as "all" to allow all sites.
+
+WaisqBin /home/www/webadmin/bin/waisq
+# The full path to your waisq program.
+WaissearchBin /home/www/webadmin/bin/waissearch
+# The full path to your waissearch program.
+SwishBin /user/cgi/ryanlyn1/search/swish
+# The full path to your swish program.
+
+SwishSource /user/cgi/ryanlyn1/search/mystuff.swish "Search Lynn's Web Site "
+SourceRules replace "/user/ryanlyn1/web/" "http://www.cps.msu.edu/~ryanlyn1"
+#WaisSource /usr/local/httpd/wais/index/index.src "Search EIT's Web (bolded results)"
+#SourceRules replace "/usr/local/www/" "/"
+#SourceRules prepend "http://www.eit.com/cgi-bin/print_hit_bold.pl"
+#SourceRules append "?$KEYWORDS#first_hit"
+#WaisSource quake.think.com 210 directory-of-servers "WAIS directory of servers"
+# WAIS source file descriptions.
+# For waisq sources:
+#    WaisSource full_path_to_source/source.src "description"
+# For waissearch sources:
+#    WaisSource host.name port source "description"
+
+UseIcons yes
+# Define as "yes" or "no" if you do or don't want to use icons.
+
+IconUrl http://www.eng.usf.edu/swish-icons
+# Where all your icons are kept.
+
+TypeDef .html "HTML file" $ICONURL/text.xbm text/html
+TypeDef .htm "HTML file" $ICONURL/text.xbm text/html
+TypeDef .txt "text file" $ICONURL/text.xbm text/plain
+TypeDef .ps "PostScript file" $ICONURL/image.xbm application/postscript
+TypeDef .eps "PostScript file" $ICONURL/image.xbm application/postscript
+TypeDef .man "man page" $ICONURL/text.xbm application/x-troff-man
+TypeDef .gif "GIF image" $ICONURL/image.xbm image/gif
+TypeDef .jpg "JPEG image" $ICONURL/image.xbm image/jpeg
+TypeDef .pict "PICT image" $ICONURL/image.xbm image/x-pict
+TypeDef .xbm "X bitmap image" $ICONURL/image.xbm image/x-xbitmap
+TypeDef .au "Sun audio file" $ICONURL/sound.xbm audio/basic
+TypeDef .snd "Mac audio file" $ICONURL/sound.xbm audio/basic
+TypeDef .mpg "MPEG movie" $ICONURL/movie.xbm video/mpeg
+TypeDef .mov "QuickTime movie" $ICONURL/movie.xbm video/quicktime
+TypeDef .Z "compressed file" $ICONURL/compressed.xbm application/compress
+TypeDef .gz "compressed file" $ICONURL/compressed.xbm application/gnuzip
+TypeDef .zip "zipped file" $ICONURL/compressed.xbm application/zip
+TypeDef .uu "uuencoded file" $ICONURL/uu.xbm application/uudecode
+TypeDef .hqx "Binhex file" $ICONURL/binhex.xbm application/mac-binhex40
+TypeDef .tar "tar'red file" $ICONURL/tar.xbm application/x-tar
+TypeDef .c "C source" $ICONURL/text.xbm text/plain
+TypeDef .pl "Perl source" $ICONURL/text.xbm text/plain
+TypeDef .py "Python source" $ICONURL/text.xbm text/plain
+TypeDef .tcl "TCL source" $ICONURL/text.xbm text/plain
+TypeDef .src "WAIS index" $ICONURL/index.xbm text/plain
+TypeDef .?? "unknown" $ICONURL/unknown.xbm text/plain
+# Information for figuring out file types based on suffix.
+# Suffix matching is case insensitive.
+#    TypeDef .suffix "description" file://url.to.icon.for.this.type/ MIME-type
+# You can use $ICONURL in the icon URL to substitute the root icon directory.
+
+
+
+
+
+

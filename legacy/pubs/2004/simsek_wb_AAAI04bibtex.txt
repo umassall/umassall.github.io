@@ -1,0 +1,6 @@
+@inproceedings{simsek:lcut,
+   Author = {\"{O}zg\"{u}r \c{S}im\c{s}ek and Alicia P. Wolfe and Andrew G. Barto},
+   Booktitle = {Proceedings of the AAAI-04 Workshop on Learning and Planning in Markov Processes - Advances and Challenges},
+   Title = {Local graph partitioning as a basis for generating temporally-extended actions in reinforcement learning},
+   Year = {2004}
+}

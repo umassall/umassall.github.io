@@ -1,0 +1,113 @@
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+<h1 align=center> <img hspace=20 vspace=0 border=0 align=center src=images/logob.gif> Direct Fractals </h1>
+
+One of the pictures below can be expanded by clicking on it.  A small region of a picture can
+be zoomed in on by clicking and dragging with the mouse.  Hit the SPACEBAR to
+reset the region viewed on the current picture, and hit ENTER to return to
+the original collection of pictures.  Zooming can also be done with the number
+keypad.  5 zooms in, 0 zooms out, and 1,2,3,4,6,7,8,9 pan in each of the
+eight cardinal directions (e.g. 1 shows the region south-west of the current
+one, 4 shows the west, etc).
+<p>
+<a href=../index.html>Back</a> to WebSim.
+
+<p><applet codebase="../classes" code=WebSim.class width=450 height=400>
+   <param name=sourceText value="
+`/*****************************************************************/
+`//embed
+`(0,0,200,200)
+`Picture {
+`  bar 3 //status bar at the top is 3 pixels high
+`  pass1 {antialias jitter true raysX 1 raysY 1 raysZ 1 raysT 1}
+`  pass2 {antialias jitter true raysX 3 raysY 3 raysZ 1 raysT 3}
+`  bothPasses {
+`     description 'This is a collection of direct fractals and test images'
+`     gallery { { maze
+`                 colorMap [0 <1,1,1>] //zero and negative are white
+`                          [0 <0,0,0>] //positive is black
+`                 description 'Infinite fractal maze with exactly 1 path between any two points'
+`               }
+`               { maze
+`                 valueMap [0 0] //nonpositive values map to 0.0
+`                          [0 1] //positive values map to 1.0
+`                 colorMap [.5 <1,1,1>] //white below .5
+`                          [.5 <0,0,0>] //black above .5
+`                 region (-16,-16) (16,16)
+`                 description 'Infinite fractal maze with exactly 1 path between any two points'
+`               }
+`               { fract1
+`                 colorMap [0 <.9,.9,1>]
+`                          [1 <0,0,1>]
+`                 description 'Direct fractal with wedge shapes'
+`               }
+`               { description 'A collection of test patterns with random colors'
+`                 gallery {
+`                   {rndColor <1,1,.0>}
+`                   {rndColor <0,1,1.0>}
+`                   {rndColor <1 1 1>}
+`                   {rndColor <0 0 0>}
+`                   {rndColor <1 0 1>}
+`                   {rndColor <1 0 0>}
+`                   {rndColor <0 1 0>}
+`                   {rndColor <0 0 1>}
+`                   {rndColor <.5 .5 .5>}
+`                 }
+`                 region (-2,-2) (2,2)
+`               }
+`               { maze
+`                 valueMap [0 0]
+`                          [0 1]
+`                 edges 1
+`                 colorMap [0  <1  1   1>]
+`                          [1  <0  0   1>]
+`                 description 'Infinite fractal maze with exactly 1 path between any two points'
+`               }
+`               { animation
+`                    first  0
+`                    last   1
+`                    frames 16
+`                    skipLast
+`                    { fract1
+`                      colorMap [0  <1  0   0>]
+`                               [.1 <1  .5  0>]
+`                               [.3 <1  1   0>]
+`                               [.5 <0  1   0>]
+`                               [.7 <0  0   1>]
+`                               [.9 <.5 0   1>]
+`                               [1  <1  0   1>]
+`                      description 'Direct fractal with wedge shapes'
+`                    }
+`                    description 'The frames of an animated fractal movie'
+`               }
+`     }
+`  }
+`}
+`embed
+`(200,80,200,200)
+`Picture {
+`  bar 3 //status bar at the top is 3 pixels high
+`  pass1 {antialias jitter true raysX 1 raysY 1 raysZ 1 raysT 1}
+`  pass2 {antialias jitter true raysX 3 raysY 3 raysZ 1 raysT 3}
+`  bothPasses {
+`     description 'This is a collection of direct fractals and test images'
+`     gallery { { maze
+`                 colorMap [0 <1,1,1>] //zero and negative are white
+`                          [0 <0,0,0>] //positive is black
+`               }
+`               { maze
+`                 colorMap [0 <0,0,1>] //zero and negative are blue
+`                          [0 <0,0,0>] //positive is black
+`               }
+`     }
+`  }
+`}
+`embed
+`(0,0,400,70)
+`credits
+`/*****************************************************************/
+">
+    <hr>This Java applet requires a Java-aware browser such as Netscape 2.0
+    for Solaris/Win95/WinNT.
+    <hr>
+</applet></p>
+
