@@ -1,0 +1,380 @@
+#!/usr/bin/perl
+#
+# This script should be run AFTER NetForum 2.0.x is configured 
+# some of the new configuration variables may be necessary.
+# Before running this script, I recommend that you configure NetForum 2.0
+# correctly and that it is tested using the test forum provided.
+# Also, the forums corresponding to NetForum 1.2.6 should be COPIED NOT MOVED
+# to the directory where NetForum 2.0.x is located. I recommend that 
+# the forums (and its corresponding files/sub dirs) are copied 
+# in case something goes wrong (so keep a backup of your old forums).
+# The old responses and messages will be deleted from the NetForum 2.0
+# directory and replaced with the new formatted ones. If something goes
+# wrong, try copying the old forums again to the NetForum 2.0.x directory
+# and run this script again.
+
+# NOTE:
+# After the script is done, you will need to copy the forum_config into the
+# the new forums if this script was not able to do it for you.
+
+#########################################################################
+#                                                                       #
+#      Copyright (c) 1995,96 Board of Regents of the                    #
+#      University of Wisconsin System                                   #
+#                                                                       #
+#                     NetForum 2.0.3                                    #
+#  CGI implementation of a Web-based discussion forum system            #
+#                                                                       #
+#  NetForum Project Team (Past and Present):                            #
+#    Roger Caplan                                                       #
+#    Mike Dykstra                                                       #
+#    Andrew McCulloh                                                    #
+#    Jose F. Siman                                                      #
+#  Art by:                                                              #
+#    Krista J. Stockebrand                                              #
+#    Doreen Maloney                                                     #
+#                                                                       #
+#         IMPORTANT NOTE: THIS SOFTWARE IS NOT FREE                     #
+#                                                                       #
+#  You are bound by the terms of the license distributed with the       #
+#  NetForum package. The license can also be found at                   #
+#     http://www.biostat.wisc.edu/netforum/license.html                 #
+#                                                                       #
+#                                                                       #
+#            IMPORTANT -- AS STATED IN THE LICENSE                      #
+#                                                                       #
+#  NO MODIFICATIONS TO THE NETFORUM SOFTWARE OR ACCOMPANYING MATERIALS  #
+#  INCLUDING DOCUMENATION AND ARTWORK ARE PERMITTED BY ANYONE, WITHOUT  #
+#  THE EXPRESSED WRITTEN CONSENT OF THE COPYRIGHT HOLDER.  IN OTHER     #
+#  WORDS, DON'T CHANGE THE CODE WITHOUT OUR OK                          #
+#                                                                       #
+#            IMPORTANT -- AS STATED IN THE LICENSE                      #
+#                                                                       #
+#  YOU MAY NOT REDISTRIBUTE THE NETFORUM SOFTWARE PACKAGE IN PART OR    #
+#  IN WHOLE IN ANY WAY.  IT IS A VIOLATION OF THE LICENSE TO DO SO      #
+#                                                                       #
+#                                                                       #
+#  This program is distributed in the hope that it will be useful,but   #
+#  WITHOUT ANY WARRANTY; without even the implied warranty of           #
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.            #
+#                                                                       #
+#                                                                       #
+#       All documentation can be found at:                              #
+#              http://www.biostat.wisc.edu/netforum                     #
+#                                                                       #
+#                                                                       #
+#       Email contact:                                                  #
+#              netforum-dev@biostat.wisc.edu                            #
+#                                                                       #
+#                                                                       #
+#       Snail-Mail contact:                                             #
+#              NetForum Development Team                                #
+#              1300 University Ave, Room 5770                           #
+#              Madison, Wi 53706                                        #
+#                                                                       #
+#########################################################################
+
+# forum1.2.6_to_2.0 v1.8  9/10/96
+# Author: Jose F. Siman 
+# siman@biostat.wisc.edu
+
+# Changes for 1.8
+# Fixed a problem of changing dirs when the user left spaces 
+# between commas and forum directories.
+# Added a check to see if a forum had already been converted so that
+# forumlist file did not contain duplicates.
+
+# Changes for 1.7
+# Added better handling of subjects of messages and replies
+# which in some cases produced empty subjects
+
+# Changes for 1.6
+# Removed newlines and invisible characters from subject
+# also, removed HTML tags (I think)
+
+# Changes for 1.5
+# May have fixed a bug that would not allow to do multiple forums at once?
+
+# Changes for 1.4
+# Fixed a bug that did not clear the number of messages and responses
+
+# Changes for 1.3
+# Fixed a bug that would not update the list file
+
+# Changes for 1.2:
+# Chmod to 0777 all files created
+
+# Changes for 1.1:
+# Subjects now contain the first 35 characters of the message 
+
+require "./lib/variables";
+
+$subject_key = "===subject:";
+$topic_name_key = "===topic_name:";
+$separator = "=========yorg=========";
+$poster_name_key = "===from:";
+$message_key = "===message:";
+
+# Since a new "subject" field was added to the messages in 2.0, this script adds 
+# a subject field to the message files. The subject field contains the first 35 
+# characters of the message field.
+
+$subject_content = "SUBJECT\n";
+
+# This routine should  convert forums from 1.2.6 to 2.0
+
+print "Please enter the names of your forums separated by commas:\n";
+$forums = <STDIN>;
+chop($forums);
+
+@forum_list = split(/,/, $forums);
+$forumlist = "../admin/forumlist";
+
+sub check_forum {
+	
+	local($f, $forum_name, $forum_owner) = @_;
+	local($found);
+	
+	$found = 0;
+	
+	open(FORUM_LIST, $forumlist) || die("Unable to open file: $forumlist");
+	while($line = <FORUM_LIST>) {
+		($forum, $fname, $owner_name, $owner) = split(/:/, $line);
+		if($forum eq $f) {
+			$found = 1;
+			last;
+		}
+	}
+	close(FORUM_LIST);
+	if(!($found)) {
+		print "\nIncluding forum $f in forumlist file...\n";
+		open(FORUM_LIST, ">>$forumlist") ||
+		die("Unable to open file: $forumlist");
+		print FORUM_LIST ("$f:$forum_name:$forum_owner:admin\n");
+		close(FORUM_LIST);
+	}
+	
+}
+
+	foreach $f (@forum_list){
+		$f =~ s/\s//g;
+		chdir("./$f") || die("Unable to change dir: $f");
+		if(-e "a"){
+			$a_file = "a";
+			$new_a = "a.new";
+		}
+		elsif(-e "a.cgi"){
+			$a_file = "a.cgi";
+			$new_a = "a.cgi.new";
+		}
+		else{
+			die("Unable to find \"a\" script");
+		}
+		open(A, $a_file) || die("Unable to open file: $a_file");
+		$perl_path = <A>;
+		while(<A>){
+			last if ( /^\&/ );
+			if ( /^\$/ ) {
+	    		eval;	
+			}
+		}
+		close(A);
+	
+	#update forumlist file:
+		&check_forum($f, $forum_name, $forum_owner);		
+	
+	#update a file:
+		print "Updating \"a\" file in forum $f...\n";
+		open(NEW_A, ">$new_a") || die("Unable to open file: $new_a");
+		print NEW_A "$perl_path 
+
+require \"ctime.pl\";
+require \"../lib/sys_config\";
+require \"../lib/forum_config\";
+if(\$allow_forum_config){
+require \"../$which_forum/forum_config\";
+}
+require \"../lib/main\";
+require \"../lib/variables\";
+require \"../lib/utilities\";
+
+
+\$which_forum = \"$which_forum\";\n";
+
+
+print NEW_A "\$script_name = \'$a_file\';\n";
+
+print NEW_A "\$netforum_url = \"\$base_url/\$which_forum/\$script_name\";\n\n"; 
+
+    if ($anyone_add eq 'no')
+    {
+	print NEW_A ("\$anyone_add = \'$anyone_add\';\n");
+	print NEW_A ("\$anyone_add_username = \'$anyone_add_username\';\n");
+	print NEW_A ("\$anyone_add_password = \'$anyone_add_password\';\n");
+    }
+
+    print NEW_A "\$forum_name = \"$forum_name\";\n";
+    print NEW_A "\$forum_owner = \"$forum_owner\";\n";
+    print NEW_A "\$forum_owner_code_name = \"admin\";\n";
+    print NEW_A "\$forum_monitor = \"$forum_monitor\";\n";
+    print NEW_A "\$forum_monitor_email = \"$forum_monitor_email\";\n";
+
+
+    if ( $forum_owner_site ) {
+	print NEW_A "\$forum_owner_site = \"$forum_owner_site\";\n";
+    }   
+
+    if ( $forum_monitor_site ) {
+	print NEW_A "\$forum_monitor_site = \"$forum_monitor_site\";\n";
+    }
+
+    print NEW_A "
+
+
+if (\$ENV{\'REQUEST_METHOD\'} eq \'GET\') {
+	\&get_url_vars;
+	\&get_command;
+}
+
+if (\$ENV{'REQUEST_METHOD'} eq \'POST\') {
+	\&ReadParse();
+	\&get_url_vars;
+	\&post_command;
+}\n\n";
+
+		close(NEW_A);
+		chmod 0777, $new_a;
+		unlink($a_file);
+		rename($new_a, $a_file);
+		
+		#change topics and messages
+		opendir(DIR, "./topics") || die("Unable to open dir: topics");
+		@topic_list = grep ( /\d+/, readdir( DIR ) );
+		closedir(DIR);
+		foreach $topic_file (@topic_list) {
+			$new_topic_file = "$topic_file.new";
+			$new_mesg_file = "$topic_file.m";
+			print "Updating topic: \" $topic_file \"  in forum $f...\n";
+
+			opendir(DIR, "./responses") || die("Unable to open dir: responses");
+			@reply_list = grep ( /$topic_file\-\d+/, readdir( DIR ) );
+			closedir(DIR);
+			print "Updating responses for: \" $topic_file \"  in forum $f...\n";
+			foreach $reply_file (@reply_list) {
+				$num_responses = 0;
+				$new_response_file = "$reply_file.new";
+				open (RESPONSE, "./responses/$reply_file") || die("Unable to open file: $reply_file");
+				open (NEW_RESPONSE, ">./responses/$new_response_file")
+				|| die("Unable to open file: $new_response_file");
+				$sep_line = <RESPONSE>;
+				if(!($sep_line =~ /$separator/))
+				{
+					print NEW_RESPONSE ($sep_line);
+				}
+				while($line = <RESPONSE>){
+					if($line =~ /$separator/){
+						$num_responses++;
+					}
+					elsif($line =~ /$date_key/){
+						$date_posted = $';
+						chop($date_posted);
+					}
+					print NEW_RESPONSE ($line);
+				}
+				close(RESPONSE);
+				close(NEW_RESPONSE);
+				unlink("./responses/$reply_file");
+				rename("./responses/$new_response_file", "./responses/$reply_file");
+				chmod 0777, "./responses/$reply_file";
+			 }
+			
+			 open(TOPIC, "./topics/$topic_file") || die("Unable to open file: $topic_file");
+			 open(NEW_TOPIC, ">./topics/$new_topic_file") 
+			 || die("Unable to open file: $new_topic_file");
+			 open(MESG, ">./topics/$new_mesg_file") || die("Unable to open file: $new_mesg_file");
+			 print "Updating messages for: \" $topic_file \"  in forum $f...\n";
+			 while($line = <TOPIC>){
+				print NEW_TOPIC ($line);
+				if($line =~ /$separator/){
+					close(NEW_TOPIC);
+					last;
+				}
+				elsif($line =~ /$topic_name_key/){
+					$topic_name = $';
+					chop($topic_name);
+				}
+			 }
+			 while($line = <TOPIC>){
+				if($line =~ /$message_key/){
+					$mess = $';		
+					#if(!($mess)) {
+						#$xline = <TOPIC>;
+						#if(!($xline =~ /$separator/)) {
+							#$mess = $xline;	
+						#}
+					#}
+					while($mlines = <TOPIC>) {
+						last if($mlines =~ /$separator/);
+						$mess .= $mlines;
+					}
+					$fmessage = $mess;
+					$mess =~ s/[\n\r\t\f]//g;
+					@subj = split(/ /, $mess);
+					#$subject_content = substr($mess, 0, 35);
+					#@subj = split(/ /, $subject_content);
+					foreach $s (@subj) {
+					# clean white spaces (just in case)
+						$s =~ s/\s//g;
+					# clean HTML
+						$s =~ s/[\<].*//g;
+						$s =~ s/[\<].*[\>]//g;
+						$s =~ s/.*[\>]//g;
+						$subject_text .= "$s ";
+						$l = length($subject_text);
+						last if($l > 35);
+					}
+					if(!($subject_text)) {
+						$subject_text = "HELLO";	
+					}
+					#$subject_content =~ s/[\<].*[\>]//;
+					print MESG ($subject_key, $subject_text, "\n");
+					$subject_text = "";
+					@subj = "";
+					$line = $message_key . $fmessage . $mlines;
+				}
+				print MESG ($line);
+				if($line =~/$separator/){
+					$num_messages++;
+				}				
+			 }
+			 close(TOPIC);
+			 close(MSG);
+			 unlink("./topics/$topic_file") || die("Unable to delete $topic_file");
+			 rename("./topics/$new_topic_file", "./topics/$topic_file");
+			 chmod 0777, "./topics/$topic_file";
+			 chmod 0777, "./topics/$new_mesg_file";
+			
+			
+			#update topic list:
+			 $new_list_file = "list.new";
+			 open(LIST_FILE, ">>./topics/$new_list_file")||
+			 die("Unable to open file: $new_list_file");
+			 print "Updating list file for: \" $topic_file \"  in forum $f...\n";
+			 print LIST_FILE "$topic_file:$num_messages:$num_responses:$topic_name:$date_posted\n";
+			 close(LIST_FILE);
+			 $num_messages = 0;
+			 $num_responses = 0;
+			 
+		}		
+		unlink("./topics/list");
+		rename("./topics/$new_list_file", "./topics/list");
+		chmod 0777, "./topics/list";
+		chdir("./..") || die("Unable to change dir ..");
+		@cp = ("cp", "./lib/forum_config", "./$f/forum_config");
+		system(@cp);
+		chmod 0777, "./$f/forum_config";
+		chmod 0777, "./$f/description";
+		chmod 0777, "./$f/group";
+		chmod 0777, "./$f/guidelines";
+	}		
+

@@ -1,0 +1,504 @@
+package sim.display;
+import Display;
+import watch.*;
+import pointer.*;
+import java.awt.*;
+import java.util.Vector;
+import parse.*;
+import sim.funApp.*;
+import matrix.*;
+import expression.*;
+
+/** This Display maintains a square window which contains a Plot or
+  * multiple Plots.  The user can zoom in and reset with the mouse and
+  * menu.  The refresh rate of redrawing can be different from the
+  * rate at which the Plot samples and stores data.  The entire Display
+  * can be forced to redraw by clicking on it.
+  *    <p>This code is (c) 1996,1997 Leemon Baird
+  *    <<a href=mailto:leemon@cs.cmu.edu>leemon@cs.cmu.edu</a>>,
+  *    <a href=http://www.cs.cmu.edu/~baird>http://www.cs.cmu.edu/~baird</a><br>
+  *    The source and object code may be redistributed freely.
+  *    If the code is modified, please state so in the comments.
+  * @version 1.01 20 May 97
+  * @author Leemon Baird
+  */
+public class Graph2D extends Display {
+//Version 1.01 20 May 97 Corrected bug in unparse - Mance Harmon
+//Version 1.0 15 May 97 Leemon Baird
+
+  /** will erase screen, then draw plot[0], then plot[1], etc. */
+  Plot plot[]=null;
+
+  /** zooming out multiplies the region size by this in each direction*/
+  static final double zoomRatio=2;
+
+  /** Min value of x to plot originally (menu item "top level" returns to this)*/
+  protected NumExp origMinX=new NumExp(0);
+  /** Max value of x to plot originally (menu item "top level" returns to this)*/
+  protected NumExp origMaxX=new NumExp(-1);
+  /** Min value of y to plot originally (menu item "top level" returns to this)*/
+  protected NumExp origMinY=new NumExp(0);
+  /** Max value of y to plot originally (menu item "top level" returns to this)*/
+  protected NumExp origMaxY=new NumExp(-1);
+
+  /** Variable whose changes trigger updates of the graph */
+  protected String trigger=null;
+  /** How many times the trigger variable must change to cause an update */
+  protected IntExp triggerFreq=new IntExp(1);
+
+
+  PDouble currMinX =new PDouble(0); //the region currently being zoomed in on
+  PDouble currMaxX =new PDouble(0);
+  PDouble currMinY =new PDouble(0);
+  PDouble currMaxY =new PDouble(0);
+  int xAxisX, xAxisY; //screen coord of point (maxX,  minY)
+  int yAxisX, yAxisY; //screen coord of point (minX,  maxY)
+  int startX, startY; //screen coord of point (startX,startY)
+  int zoomStartX, zoomStartY;   //where the mouse clicked during a click and drag
+  int zoomCornerX, zoomCornerY; //where the mouse is now  during a click and drag
+  int zoomWidth, zoomHeight; //size of area selected with mouse, in pixels
+  boolean outOfBoundsFlag; //did mouse start outside the plot region?
+  boolean mouseDownNow=false; //is the mouse currently dragging to select a zoom?
+  boolean zoomed =false; //currently zoomed in or out, thus disabling autoscaling?
+  double[] ones  ={1,1,1};
+  PMatrixD colorM=new PMatrixD(new MatrixD(ones).transpose());  //[red,green,blue] of background color
+  Color    color =Color.white;                                  //background color
+
+  /** add menu items to the window containing this GWin canvas. */
+  public void addMenus(MenuBar mb) {
+    Menu menu=new Menu("Zoom");
+    menu.add("Redraw");
+    menu.add("In");
+    menu.add("Out");
+    menu.add("Reset");
+    mb.add(menu);
+  } //end addMenus
+
+  /** respond to the menu choices */
+  public boolean action(Event e,Object w) {
+    if (((String)w).equals("Reset" )) {
+      zoomed=false;
+      zoom(origMinX.val,origMaxX.val,origMinY.val,origMaxY.val);
+      update(null,null,null); //load in the data for the new region
+    } else if (((String)w).equals("Redraw" )) {
+      update(null,null,null); //load in the data for the new region
+    } else if (((String)w).equals("Out" )) {
+      zoomed=true;
+      zoom(currMinX.val-(currMaxX.val-currMinX.val)*(zoomRatio-1)/2,
+           currMaxX.val+(currMaxX.val-currMinX.val)*(zoomRatio-1)/2,
+           currMinY.val-(currMaxY.val-currMinY.val)*(zoomRatio-1)/2,
+           currMaxY.val+(currMaxY.val-currMinY.val)*(zoomRatio-1)/2);
+      update(null,null,null); //load in the data for the new region
+    } else if (((String)w).equals("In" )) {
+      zoomed=true;
+      zoom(currMinX.val+(currMaxX.val-currMinX.val)*(1-1./zoomRatio)/2,
+           currMaxX.val-(currMaxX.val-currMinX.val)*(1-1./zoomRatio)/2,
+           currMinY.val+(currMaxY.val-currMinY.val)*(1-1./zoomRatio)/2,
+           currMaxY.val-(currMaxY.val-currMinY.val)*(1-1./zoomRatio)/2);
+      update(null,null,null); //load in the data for the new region
+    }
+    return super.action(e,w);
+  } //end action
+
+  /** Return the BNF description of how to parse the parameters of this object. */
+  public String BNF(int lang) {
+    return "'{' ("+
+                "('xMin' NumExp) | "+
+                "('xMax' NumExp) | "+
+                "('yMin' NumExp) | "+
+                "('yMax' NumExp) | "+
+                "('color' MatrixD) | "+
+                "('trigger' <string> IntExp) | "+
+                " 'flicker' ) * "+
+                " 'plots' '{' <sim.display.Plot>* '}' '}' //2D Graph. "+
+           "Plot each of the plots on top of each other (first one on the bottom) "+
+           "for the given range.  If xMin>xMax then the x axis autoscales, and "+
+           "similarly for y.  The graph is redrawn "+
+           "every time the given trigger variables changes the given number "+
+           "of times.  If 'flicker' is present, then double buffering is disabled,"+
+           "which saves memory but makes the image flicker when it's updated. "+
+           "The color vector is a [red,green,blue] vector giving the background color "+
+           "in the range 0.0 to 1.0";
+  }//end BNF
+
+  /** Output a description of this object that can be parsed with parse().
+    */
+  public void unparse(Unparser u, int lang) {
+    u.emit("{");
+    u.indent();
+      u.emitLine();
+      if (flicker.val) {
+        u.emit("flicker ");
+        u.emitLine();
+      }
+      u.emit("trigger '"+trigger+"' ");
+        u.emitUnparse(triggerFreq,lang);
+        u.emitLine();
+      u.emit("xMin ");  u.emitUnparse(origMinX,  lang);
+      u.emit("xMax ");  u.emitUnparse(origMaxX,  lang);
+      u.emit("yMin ");  u.emitUnparse(origMinY,  lang);
+      u.emit("yMax ");  u.emitUnparse(origMaxY,  lang);
+      u.emit("color "); u.emitUnparse(colorM.val,lang);
+      u.emit("plots {");
+      u.indent();
+        u.emitLine();
+        if (plot!=null)
+          for (int i=0;i<plot.length;i++)
+            u.emitUnparseWithClassName(plot[i],lang,false);
+        u.emitLine();
+      u.unindent();
+    u.unindent();
+    u.emit("}");
+    u.unindent();
+    u.emit("}");
+  } //end method unparse
+
+  /** Parse the input file to get the parameters for this object.
+    * @exception parse.ParserException parser didn't find the required token
+    */
+  public Object parse(Parser p,int lang) throws ParserException {
+    p.parseChar('{',true);
+    flicker.val=false;
+    while (true) {
+      if (p.parseID("flicker",false))
+        flicker.val=true;
+      else if (p.parseID("xMin",false))
+        origMinX=(NumExp)p.parseClass("NumExp",lang,true);
+      else if (p.parseID("xMax",false))
+        origMaxX=(NumExp)p.parseClass("NumExp",lang,true);
+      else if (p.parseID("yMin",false))
+        origMinY=(NumExp)p.parseClass("NumExp",lang,true);
+      else if (p.parseID("yMax",false))
+        origMaxY=(NumExp)p.parseClass("NumExp",lang,true);
+      else if (p.parseID("color",false)) {
+        colorM.val=(MatrixD)p.parseClass("MatrixD",lang,true);
+        try {
+          color=new Color((float)colorM.val.val(0),
+                          (float)colorM.val.val(1),
+                          (float)colorM.val.val(2));
+        } catch(MatrixException e) {
+          e.print();
+        }
+      } else if (p.parseID("trigger",false)) {
+        trigger=p.parseString(true);
+        triggerFreq=(IntExp)p.parseClass("IntExp",lang,true);
+      } else
+        break;
+    } //end while
+
+    p.parseID("plots",true);
+    p.parseChar('{',true);
+    Vector v=p.parseTypeList("sim.display.Plot",lang,false);
+    plot=new Plot[v.size()];
+    v.copyInto(plot);
+    for (int i=0;i<plot.length;i++)
+      plot[i].parentDisplay=this; //so they can call this.repaint() if necessary
+    p.parseChar('}',true);
+
+    p.parseChar('}',true);
+    currMinX.val = origMinX.val;  //set view region to be entire region chosen by user
+    currMaxX.val = origMaxX.val;
+    currMinY.val = origMinY.val;
+    currMaxY.val = origMaxY.val;
+    zoom(currMinX.val,currMaxX.val,currMinY.val,currMaxY.val);  //show entire plot, not a small region blown up
+    return this;
+  }//end parse
+
+  /** Remember the WatchManager for this object and create the window */
+  public void setWatchManager(WatchManager wm,String name) {
+    for (int i=0;i<plot.length;i++)
+      plot[i].setWatchManager(wm,name+"plot"+i+"/");
+
+    wm.registerVar(name+"triggerFreq",triggerFreq,this); //let others watch my variables
+    wm.registerVar(name+"minX(start)",origMinX,   this);
+    wm.registerVar(name+"maxX(start)",origMaxX,   this);
+    wm.registerVar(name+"minY(start)",origMinY,   this);
+    wm.registerVar(name+"maxY(start)",origMaxY,   this);
+    wm.registerVar(name+"minX(now)",  currMinX,   this);
+    wm.registerVar(name+"maxX(now)",  currMaxX,   this);
+    wm.registerVar(name+"minY(now)",  currMinY,   this);
+    wm.registerVar(name+"maxY(now)",  currMaxY,   this);
+    wm.registerVar(name+"flicker",    flicker,    this);
+    wm.registerVar(name+"background", colorM,     this);
+    super.setWatchManager(wm,name);
+  }
+
+  /** After everything is parsed and windows are created, all experiments
+    * are given a watchManager by Simulator, then it starts giving each
+    * Display a watchManager.  After each Display has setWatchManager
+    * called, it by default calls init() on itself.  This is where
+    * the Display should register each variable it wants to watch.
+    */
+  public void init()  {
+    PInt f=new PInt(1);
+    watchManager.registerWatch(trigger, triggerFreq, this);
+    watchManager.registerWatch(wmName+"origMinX(start)",f,this);
+    watchManager.registerWatch(wmName+"origMaxX(start)",f,this);
+    watchManager.registerWatch(wmName+"origMinY(start)",f,this);
+    watchManager.registerWatch(wmName+"origMaxY(start)",f,this);
+    watchManager.registerWatch(wmName+"origMinX(now)",  f,this);
+    watchManager.registerWatch(wmName+"origMaxX(now)",  f,this);
+    watchManager.registerWatch(wmName+"origMinY(now)",  f,this);
+    watchManager.registerWatch(wmName+"origMaxY(now)",  f,this);
+    watchManager.registerWatch(wmName+"flicker",        f,this);
+    watchManager.registerWatch(wmName+"background",     f,this);
+  }  // end of function init
+
+  /** One of the watched variables has been unregistered.
+    */
+  public void unregister(String watchedVar) {
+  } //end unregister
+
+  /** The variable changed, so redraw */
+  public void update(String changedName, Pointer changedVar, Watchable obj) {
+    super.update(changedName,changedVar,obj); //repaints screen if appropriate
+    if (changedVar==colorM)
+      try {
+        color=new Color((float)colorM.val.val(0),
+                        (float)colorM.val.val(1),
+                        (float)colorM.val.val(2));
+      } catch(MatrixException e) {
+        e.print();
+      }
+  } //end update
+
+  /** function mouseDown
+    * Event Handling for pressing mouseButton */
+  public boolean mouseDown (Event e, int x, int y)  {
+
+    mouseDownNow=true;
+
+    // check whether mouse is inside coord.sys.
+    if (! ( ((x<xAxisX)&&(x>startX)) && ((y>yAxisY)&&(y<startY)) ) ) {
+      outOfBoundsFlag = true;
+      return true;
+    }
+
+    // save coords.
+    zoomStartX = x;
+    zoomStartY = y;
+    zoomCornerX = zoomStartX;
+    zoomCornerY = zoomStartY;
+    zoomWidth = 0;
+    zoomHeight = 0;
+    outOfBoundsFlag = false;
+
+    return true;
+
+  }  // end of MouseDown
+
+
+  /** mouseDrag
+    * Event Handling for dragging Mouse
+    */
+  public boolean mouseDrag (Event e, int x, int y)  {
+    if (x<startX) x=startX;  //keep the mouse click in the legal region
+    if (x>xAxisX) x=xAxisX;
+    if (y>startY) y=startY;
+    if (y<yAxisY) y=yAxisY;
+
+    if (y!=zoomStartY) {  //ensure a region is selected with same ratio as whole plot
+      double r=(double)Math.abs(x-zoomStartX) /
+                       Math.abs(y-zoomStartY);
+      if (r>1)
+        x=(int)((x-zoomStartX)/r+zoomStartX);
+      else
+        y=(int)((y-zoomStartY)*r+zoomStartY);
+    }
+
+    // calc. width & height of new rect.
+    zoomWidth  = Math.abs(x - zoomStartX);
+    zoomHeight = Math.abs(y - zoomStartY);
+
+    // calc. upper left corner of new rect.
+    zoomCornerX = (x >= zoomStartX) ? zoomStartX : x;
+    zoomCornerY = (y >= zoomStartY) ? zoomStartY : y;
+    repaint();
+    return true;
+  }  // end of MouseDrag
+
+
+  /** funtion mouseUp
+    * Event Handling for releasing mouseButton
+    */
+  public boolean mouseUp (Event e, int x, int y)  {
+    mouseDownNow=false;
+    mouseDrag(null,x,y); //calculate zoomCornerX and zoomCornerY
+    if (zoomWidth==0 && zoomHeight==0) {
+        zoomed=false; //back to original region, so reenable autoscaling
+        zoom(origMinX.val,origMaxX.val,origMinY.val,origMaxY.val); //click without drag resets to whole picture
+        update(null,null,null); //load in the data for the new region
+        return true;
+    }
+    zoomed=true; //zoomed in or out, so disable autoscaling
+
+    if (zoomWidth==0) //don't zoom in on zero-sized region
+      zoomWidth++;
+    if (zoomHeight==0)
+      zoomHeight++;
+
+    // if zoom is incorrect (mouse out of c-sys. at start), exit function
+    if (outOfBoundsFlag == true)
+      return true;
+
+    // reset new min&max of displayed data according to zoom-rect.
+    { double w=currMaxX.val-currMinX.val,h=currMaxY.val-currMinY.val;
+      currMinX.val = currMinX.val + (zoomCornerX-startX) / (double)(xAxisX-startX) * w;
+      currMaxX.val = currMinX.val + (zoomWidth)      / (double)(xAxisX-startX) * w;
+      currMaxY.val = currMinY.val + (startY-zoomCornerY) / (double)(startY-yAxisY) * h;
+      currMinY.val = currMaxY.val - (zoomHeight)     / (double)(startY-yAxisY) * h;
+    }
+
+    zoom(currMinX.val,currMaxX.val,currMinY.val,currMaxY.val);
+    update(null,null,null); //load in the data for the new region
+    return true;
+
+  }  // end of MouseUp
+
+  // zoom in on a region and redraw it
+  private void zoom(double aMinX,double aMaxX,double aMinY,double aMaxY) {
+    currMinX.val=aMinX;
+    currMaxX.val=aMaxX;
+    currMinY.val=aMinY;
+    currMaxY.val=aMaxY;
+    update(null,null,null); //redraw so user can see the click and drag
+  } //end zoom
+
+  /** ensure the function approximator has its destroy() called too */
+  public void destroy() {
+    super.destroy();
+  }
+
+  //draw axes, erase the region, call all Plot objects to draw in the region
+  void drawAll(Graphics g) {
+    if (g==null)
+      return;
+
+    int    lMarks      =4;   //length of the tic marks
+    int    decPlaces   =3;    //how many decimal places to show for axis labels
+    int    maxZeros    =3;    //axis labels go to scientific notation if it would have this many zeros
+    String bigNum      =fix.Util.toString(-80.e-288D/9,decPlaces,maxZeros);  //assumed biggest number ever in a label
+    int    maxNumWidth =g.getFontMetrics().stringWidth(bigNum);             //width in pixels of bigNum
+    int    maxNumHeight=g.getFontMetrics().getHeight();                     //height in pixels of bigNum
+    int    leftIndent  =maxNumWidth+lMarks+3;  //left   margin of plot area in pixels
+    int    bottomIndent=maxNumHeight+lMarks+6; //bottom margin of plot area in pixels
+    int    topIndent   =maxNumHeight/2+3;      //top    margin of plot area in pixels
+    int    rightIndent =maxNumWidth/2+3;       //right  margin of plot area in pixels
+
+    g.setPaintMode();
+    g.setColor(Color.black);
+    double number;              //number at end of tic mark
+    int nX, nY;                 //where to draw tic mark
+    int width =bounds().width;  //height of the entire region this Display can draw to
+    int height=bounds().height; //width of the entire region this Display can draw to
+    int w=Math.min(width-leftIndent-rightIndent, //plot region is w by w square
+                   height-bottomIndent-topIndent);
+    xAxisX          = w+leftIndent + (int)((width -w-leftIndent-rightIndent )/2.);
+    xAxisY = startY = w+topIndent  + (int)((height-w-topIndent -bottomIndent)/2.);
+    yAxisX = startX = leftIndent   + (int)((width -w-leftIndent-rightIndent )/2.);
+    yAxisY          = topIndent    + (int)((height-w-topIndent -bottomIndent)/2.);
+
+    g.clearRect(0,0,width,height); //erase the entire window first
+
+    g.drawLine(startX, startY, xAxisX, xAxisY); //draw boundary of plot region
+    g.drawLine(startX, startY, yAxisX, yAxisY);
+    g.drawLine(xAxisX, xAxisY, xAxisX, yAxisY);
+    g.drawLine(yAxisX, yAxisY, xAxisX, yAxisY);
+
+    plotBuffer.clipRect(startX+1,yAxisY+1,xAxisX-startX-1,startY-yAxisY-1);
+
+    String ns=null; //temporarily hold the number converted to a string
+
+    if (!zoomed && (origMinX.val>origMaxX.val ||  //if autoscaling is on then
+                    origMinY.val>origMaxY.val)) { //let plots autoscale
+      currMinX.val=Double.POSITIVE_INFINITY;
+      currMaxX.val=Double.NEGATIVE_INFINITY;
+      currMinY.val=Double.POSITIVE_INFINITY;
+      currMaxY.val=Double.NEGATIVE_INFINITY;
+      for (int i=0;i<plot.length;i++)
+        plot[i].autoscaleBounds(currMinX,currMaxX,currMinY,currMaxY);
+      if (currMinX.val==Double.POSITIVE_INFINITY) currMinX.val=0;
+      if (currMaxX.val==Double.NEGATIVE_INFINITY) currMaxX.val=1;
+      if (currMinY.val==Double.POSITIVE_INFINITY) currMinY.val=0;
+      if (currMaxY.val==Double.NEGATIVE_INFINITY) currMaxY.val=1;
+      if (origMinX.val<origMaxX.val) { //if only autoscaling Y axis
+        currMinX.val=origMinX.val;
+        currMaxX.val=origMaxX.val;
+      }
+      if (origMinY.val<origMaxY.val) { //if only autoscaling X axis
+        currMinY.val=origMinY.val;
+        currMaxY.val=origMaxY.val;
+      }
+    } //end if autoscaling
+
+    for (double markNum=0; markNum<=1; markNum+=(double).125) //draw 8 tic marks
+      g.drawLine ((int)(startX+(xAxisX-startX)*markNum),
+                  startY,
+                  (int)(startX+(xAxisX-startX)*markNum),
+                  startY+lMarks);
+
+    double markNum=0; //what fraction of the way across the number or tic mark is drawn
+    int c=1+(int)((xAxisX-startX)/(1.1*maxNumWidth)); //how many numbers to draw on x axis
+
+    if      (c<3) c=2;
+    else if (c<5) c=3;
+    else          c=5;
+
+    for (int i=0;i<c;i++) {
+      markNum=((double)i)/(c-1);
+      number = currMinX.val + (currMaxX.val-currMinX.val)*markNum;
+      ns=fix.Util.toString(number,decPlaces,maxZeros);
+      nX = (int)(startX+(xAxisX-startX)*markNum)-(g.getFontMetrics().stringWidth(ns)/2);
+      nY = (int)(startY+lMarks+maxNumHeight+3);
+      g.drawString (ns, nX, nY);
+    }
+
+    c=1+(int)((startY-yAxisY)/(1.1*maxNumHeight)); //how many numbers to draw on y axis
+
+    if      (c<3) c=2;
+    else if (c<5) c=3;
+    else          c=5;
+
+    for (markNum=0; markNum<=1; markNum+=(double).125) //draw 8 tic marks
+      g.drawLine (startX,
+                  (int)(startY-(startY-yAxisY)*markNum),
+                  startX-lMarks,
+                  (int)(startY-(startY-yAxisY)*markNum));
+    for (int i=0;i<c;i++) {
+      markNum=((double)i)/(c-1);
+      number = currMinY.val + (currMaxY.val-currMinY.val)*markNum;
+      ns=fix.Util.toString(number,decPlaces,maxZeros);
+      nX = startX-leftIndent+(maxNumWidth-g.getFontMetrics().stringWidth(ns))/2;
+      nY = (int)((startY-(startY-yAxisY)*markNum)+maxNumHeight/2);
+      g.drawString (ns, nX, nY);
+    }
+
+    if (!flicker.val) {
+      plotBuffer.setColor(color);
+      plotBuffer.fillRect(startX+1,yAxisY+1,xAxisX-startX-1,startY-yAxisY-1);
+      for (int i=0;i<plot.length;i++) //draw each Plot on top of each other
+        plot[i].drawAll(plotBuffer,  currMinX.val,  currMaxX.val,
+                                     currMinY.val,  currMaxY.val,
+                                     startX,        startY,
+                                     xAxisX,        xAxisY,
+                                     yAxisX,        yAxisY);
+    } else {
+      g.setColor(color);
+      g.fillRect(startX+1,yAxisY+1,xAxisX-startX-1,startY-yAxisY-1);
+      g.clipRect(startX+1,yAxisY+1,xAxisX-startX-1,startY-yAxisY-1);
+      for (int i=0;i<plot.length;i++) //draw each Plot on top of each other
+        plot[i].drawAll(g,  currMinX.val,  currMaxX.val,
+                            currMinY.val,  currMaxY.val,
+                            startX,        startY,
+                            xAxisX,        xAxisY,
+                            yAxisX,        yAxisY);
+    }
+
+    if (mouseDownNow) { //redraw the user's black selection rectangle so it won't flicker
+      g.setColor(Color.black);
+      g.setXORMode (Color.white);
+      g.fillRect (zoomCornerX, zoomCornerY, zoomWidth, zoomHeight);
+      g.setPaintMode();
+    }
+  }//end drawAll
+}  //end of class Graph2D

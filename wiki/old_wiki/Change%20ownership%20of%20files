@@ -1,0 +1,37 @@
+Date: Thu, 1 Sep 2005 14:10:56 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: application/x-phpwiki;
+  pagename=Change%20ownership%20of%20files;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1125598256;
+  author_id=ash;
+  markup=2;
+  hits=2;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+<pre>
+CHMOD
+-who letters:
+u user (me)
+g group (all)
+o others (not u or g)
+a every single person
+
+-permission letters:
+r read
+w write
+x execute
+X execute only if file is in a directory
+s set user or group ID
+
+-operations:
++ add
+- take away
+= set exactly and remove all others
+
+>chmod a+r foo.txt
+grants read permissions to everyone for foo.txt
+</pre>

@@ -1,0 +1,88 @@
+<HTML>
+
+<head>
+<META name="description" content="Abstract and links to pdf's of the 2008 doctoral dissertation, Biologically-Based Functional Mechanisms of Motor Skill Acquisition, by Ashvin Shah, Neuroscience and Behavior Program, University of Massachusetts Amherst, 2008">
+<META name="keywords" content="Ashvin Shah, Motor Skill Acquisition, Computational Model, Reinforcement Learning, basal ganglia, prefrontal cortex, neuroscience, psychology, kinesiology, planning, coarticulation, automatization, automatic, reward, options, skills, optimal control, artificial intelligence, computer science, markov, dopamine, robotics, motor control, decision-making, value function, policy, bellman, temporal difference, sarsa">
+<title>Biologically-Based Functional Mechanisms of Motor Skill Acquisition, Ashvin Shah, 2008</title>
+  
+</head>
+
+
+<BODY>
+<BODY TEXT="#000066" link="#000099" vlink="#555599">
+<BODY BGCOLOR="#FFFFFF">
+
+<BR>
+
+
+<h3>Biologically-Based Functional Mechanisms of Motor Skill Acquisition</h3>
+
+Doctoral dissertation, <a href="http://sites.google.com/site/ashvin/">Ashvin Shah</a>, 2008
+<BR><A HREF="http://www.umass.edu/neuro/">Neuroscience & Behavior program</A>, 
+<A HREF="http://www.umass.edu/">University of Massachusetts Amherst</A><br>
+Advisor: <a href="http://www-all.cs.umass.edu/~barto/">Andrew G. Barto</a>, <a href="http://www.cs.umass.edu">Department of Computer Science</a>
+<BR><BR>
+Download (pdf, 2 MB):
+<BR>- <a href="shah_thesis08.pdf">official version</a>
+<BR>- <a href="shah_thesis08b_single.pdf">updated version</a> (corrects a few typos and makes some very minor changes in wording)
+<BR>
+<table width=600 align=left cellpadding=10>
+<td>
+<hr>
+
+<b>ABSTRACT</b><BR><BR>
+The adage <i>practice makes perfect</i> makes for sound advice when
+learning a novel motor skill. Be it typing a new password or hitting a
+forehand in tennis, proficiency increases with experience. Behavioral
+changes associated with motor skill acquisition can be broken down
+into three broad categories: 1) movements are executed faster and
+become more coordinated, 2) they come to rely on sensory information
+gained while executing the task, rather than just sensory information
+used during initial stages of learning the task, and 3) they seem to
+be executed with less conscious thought and attention. In addition,
+neural activity changes: many imaging and neural recording studies
+suggest that with experience, control is transferred from cortical
+planning areas to the basal ganglia. The two areas are thought to
+employ different learning and control schemes.  In general, planning
+can quickly take new information into account to make reasonable
+decisions, but its control mechanisms have large computational
+requirements. The basal ganglia use a simpler and less computationally
+expensive control scheme, but they require much experience before they
+can produce reasonable behavior.
+<BR><BR>
+In this thesis, I contribute to answering the question, ``what goes on
+during practice?'' More formally, I am interested in the mechanisms by
+which motor skills are acquired. I take a theoretical approach in that
+I hypothesize a multiple controller scheme, based on the learning and
+control mechanisms of cortical planning areas and the basal ganglia,
+and test it with simulations designed emulate generic motor skill
+tasks.  Because skill proficiency increases with experience, I am
+particularly interested in the role of the experience-dependent
+mechanisms of the basal ganglia in motor skill acquisition. Thus,
+learning mechanisms attributed to cortical areas are artificially
+restricted so that any change in model behavior is attributed to the
+learning mechanisms of the basal ganglia.
+<BR><BR>
+Model behaviors exhibit characteristics indicative of motor skills,
+supporting the plausibility of the multiple controller scheme as one
+used by our nervous system and suggesting that the learning mechanisms
+of the basal ganglia can contribute to developing most
+characteristics.  In addition, I show how the strategies developed by
+the models are functionally advantageous, providing a reason why such
+a scheme may be used.
+
+<hr>
+</td>
+
+</table>
+
+<BR clear=all>
+
+COMMITTEE:
+<br>- <a href="http://www-all.cs.umass.edu/~barto/">Andrew G. Barto</a> (chair), Department of Computer Science, UMass
+<br>- <a href="http://people.umass.edu/neb/">Neil E. Berthier</a>, Department of Psychology, UMass
+<br>- <a href="http://www.cs.ou.edu/~fagg/">Andrew H. Fagg</a>, Department of Computer Science, University of Oklahoma
+<br>- <a href="http://www.umass.edu/motorcontrol/members.html#richard">Richard van Emmerik</a>, Department of Kinesiology, UMass
+
+</BODY>
+</HTML>

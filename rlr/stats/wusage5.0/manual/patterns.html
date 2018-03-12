@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<TITLE>Patterns: Matching Documents and Sites</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h2>Patterns: Matching Documents and Sites</h2>
+</a>
+Many of the configuration file options, such
+as <code><a href="allow.html">allow</a></code>
+and <code><a href="totals.html">totals</a></code>,
+allow the use of patterns. Patterns are used
+to match several, many or all documents or sites
+with a single line in the configuration file.
+<p>
+The simplest pattern is a document name
+(or site name). For instance:
+<p>
+<code>/directory/name.html</code>
+<p>
+This pattern matches only the single
+document <code>/directory/name.html</code>.
+If it is listed for the <code><a href="ignore.html">ignore</a></code>
+option, then that document will be ignored
+in all statistics produced by wusage.
+<p>
+A slightly more complex pattern uses an
+<code>*</code> character to match any
+number of characters. This is identical
+to the way both MSDOS and Unix use the <code>*</code>
+character for commands such as Unix <code>ls</code>
+and MSDOS <code>dir</code>. For instance:
+<p>
+<code>*.gif</code>
+<p>
+This pattern matches all document names
+which end in the letters <code>.gif</code>.
+This is useful in the <code><a href="ignore.html">ignore</a></code>
+option, where it instructs wusage to completely
+ignore all accesses to GIF-format images. 
+<p>
+<strong>Note:</strong> the <code><a href="suffixes.html">
+suffixes</a></code> option is applied
+<strong>first,</strong> before options
+such as <code><a href="allow.html">allow</a></code>
+and <code><a href="ignore.html">ignore</a></code>. If you want
+to write a pattern that matches a document such
+as <code>/index.html</code>, take into account
+that the <code>index.html</code> part will be
+removed by the standard suffixes option and
+use the <code>/</code> by itself. For the
+index file of a subdirectory, the slash will
+also be removed to combine all accesses to
+that index into one document name.
+<p>
+The <code>*</code> character can appear more
+than once, and it can appear at any point
+in the pattern. (This is slightly different
+from the way MSDOS uses the <code>*</code>.)
+<p>
+The <code>?</code> character can also be used.
+<code>?</code> matches any <em>one</em> character
+in the document name or site name. 
+<p>
+Finally, the <code>|</code> character can be
+used to separate distinct patterns on the same
+line. If a document name or site name matches
+<em>any</em> of the patterns separated
+by the | character on that line, it is considered 
+to be a match for the complete pattern.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="intro2.html">Table of Contents</a><TD align="right"><a href="manylogs.html"> Next</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

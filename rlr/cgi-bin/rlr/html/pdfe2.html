@@ -1,0 +1,150 @@
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+<h1 align=center> <img hspace=20 vspace=0 border=0 align=center src=images/logob.gif> WebSim </h1>
+See the
+source HTML code for this page to see the simulation definition that
+is parsed and executed by the WebSim applet below.<p>
+<p>
+All of this code is (c) 1996 by the respective authors, is freeware, and
+ may be
+freely distributed as long as no fee is charged.  If modifications
+are made, please say so in the comments.<p>
+<p>
+<a href=../index.html>Back</a> to WebSim.
+
+<p><applet codebase="../classes" code=WebSim.class width=635 height=500>
+   <param name=sourceText value="
+`/*****************************************************************/
+`//learn a spiral with a neural network with sine nodes
+`embed
+`(0,0,200,60)
+`Simulator {
+`  experiment Backprop {
+`    learningRate 1
+`    momentum  0
+`    tolerance -1000  //infinite loop
+`    smooth    .0
+`    minInitWeight  -.2
+`    maxInitWeight   .2
+`//  experiment ConjGrad {
+`//    tolerance 1e-62 //this was .01, but infinite loops are better
+`    error
+`      batch { batchSize 10000
+`        PDFE { c 10
+`//        input  #DEF INPUT {RndUniformSquare}
+`          input  #DEF INPUT {RndUniformLine}
+
+`//        target #DEF TARGET {RndCircle}
+`//        target #DEF TARGET {RndUniformSquare}
+`//        target #DEF TARGET {RndUniformLine}
+`//        target #DEF TARGET {Dot}
+`//        target #DEF TARGET {Table {[0 0][.3 .6]   [0 0][.1 .4] [0 0][0 0]}}
+`          target #DEF TARGET {SpiralData { numSpirals 3}}
+
+`          funApp #DEF FUNCTION {Net {Identity Linear Sin/*Bipolar*/(10) Linear Identity}}
+`//        funApp #DEF FUNCTION {Net {Identity Linear Identity}}
+`//        funApp #DEF FUNCTION {SpiralFunction}
+`//        funApp #DEF FUNCTION {LookupTable  {(-.1) 1.1 30} //there are 3 triplets, each corresponding to a dimension of the
+`//                                           {(-.1) 1.1 1} //input vector (first is bias).  The elements of the tuples are ordered
+`//                                           {(-.1) 1.1 1}} //{min, max, #elements}
+`        }
+`      }
+`  }
+`   displays {
+`     embed
+`     (0,0,200,200)
+`     title {title 'Target PDF (green) and learned (blue)' display
+`     Graph2D {
+`       //trigger  'err/err/target x' freq 1
+`       trigger 'time' freq 1
+`       //xMin .475   yMin .475   xMax .525   yMax .525
+`       plots {
+`         plotXY {
+`           size 1000
+`           drawLines false
+`           ring true
+`           lineColor [0 .5 0] symbolColor [0 .8 0]
+`           freq 1000000 //take one snapshot at the beginning, then never recalculate
+`           trigger 'time'
+`           snapshotSamples  1000
+`           snapshotData     #USE TARGET
+`           snapshotXElement 0
+`           snapshotYElement 1
+`         }
+`         plotXY {
+`           size 100
+`           drawLines false
+`           symbolType 1 //circles
+`           symbolSize 6
+`           ring true
+`           lineColor [0 0 .5] symbolColor [0 0 .8]
+`           freq 1
+`           trigger 'time'
+`           snapshotSamples  100
+`           snapshotData     #USE INPUT
+`           snapshotFunApp   #USE FUNCTION
+`           snapshotXElement 0
+`           snapshotYElement 1
+`         }
+`       }
+`     }
+`     }
+`     embed
+`     (0,0,200,200)
+`     title {title 'error vs. timestep' display
+`     Graph2D {
+`       trigger  'time' freq 1
+`       plots {
+`         plotXY {
+`           size 200
+`           symbolType 1 //circles
+`           symbolSize 6
+`           lineColor [1 0 0] symbolColor [1 0 0]
+`           freq 1
+`           trigger  'time'
+`           x       'time'
+`           y       'avg error'
+`         }
+`       }
+`     }
+`     }
+`                embed
+`                (0,0,170,130)    //window (x,y,width,height)
+`                title {title 'Experiment Parameters' display
+`                ShowEdit { trigger 'time' freq -1 vars {
+`                     'learningRate'
+`                     'momentum'
+`                     'error'
+`                     'err/err/c'
+`                }}
+`                }
+`/*                embed
+`                (0,0,250,250)
+`                title {title 'Learned function for y' display
+`                Graph3D {
+`                          trigger 'time' freq 500
+`                          xElement 1 xSamples 10 xMin 0 xMax 1
+`                          yElement 2 ySamples 10 xMin 0 xMax 1
+`                          zElement 0
+`                          function #USE FUNCTION
+`                          plotFloor true   //plotTop true
+`                          floorColor [0,0,0]
+`                          plots {
+`                            Contour { contours 10
+`                                      spectrum true
+`                                      xElement  1   xSamples 10
+`                                      yElement  2   ySamples 10
+`                                      zElement  0
+`                                      function #USE FUNCTION
+`                            }
+`                          }
+`                }
+`                }*/
+`   }
+`}
+`/*****************************************************************/
+">
+    <hr>This Java applet requires a Java-aware browser such as Netscape 2.0
+    for Solaris/Win95/WinNT.
+    <hr>
+</applet></p>
+

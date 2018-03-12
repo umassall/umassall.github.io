@@ -1,0 +1,14 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.13pre) Gecko/20071129 CentOS/1.0.9-7.el4.centos SeaMonkey/1.0.9
+author=
+csum=
+ctime=1207162471
+host=128.119.241.208
+name=Main.Seminars
+rev=1
+targets=
+text=[[http://www.cs.umass.edu/~mlfriend/pmwiki/pmwiki.php | ML and Friends]]\\%0a[[http://macdb.cs.umass.edu/cal/ | CS Dept. Calender]]\\%0a[[http://www.umass.edu/sphhs/kinesiology/seminars/index.html | Kinesiology]]\\%0a[[http://www.umass.edu/neuro/colloquia/colloquia.htm | NSB]]\\%0a[[http://euryale.sbs.umass.edu/PsychWeb/Events/colloquia.html | Psychology]] list of seminars%0a
+time=1207162471
+author:1207162471=
+diff:1207162471:1207162471:=1,5d0%0a%3c [[http://www.cs.umass.edu/~mlfriend/pmwiki/pmwiki.php | ML and Friends]]\\%0a%3c [[http://macdb.cs.umass.edu/cal/ | CS Dept. Calender]]\\%0a%3c [[http://www.umass.edu/sphhs/kinesiology/seminars/index.html | Kinesiology]]\\%0a%3c [[http://www.umass.edu/neuro/colloquia/colloquia.htm | NSB]]\\%0a%3c [[http://euryale.sbs.umass.edu/PsychWeb/Events/colloquia.html | Psychology]] list of seminars%0a
+host:1207162471=128.119.241.208

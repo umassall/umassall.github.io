@@ -1,0 +1,53 @@
+Methods for announcing:
+1. Send e-mail to RLR researchers list
+2. Post to newsgroups: comp.ai  (why isn't there a comp.ai.ml?)
+3. Submit to search engines via www.submit-it.com
+------------------------------------------------------------------------
+
+ANNOUNCING: Reinforcement Learning Repository
+   October 10, 1997
+
+****************************************************************************
+     REINFORCEMENT LEARNING REPOSITORY AT MICHIGAN STATE UNIVERSITY
+****************************************************************************
+
+    The Autonomous Agents Laboratory at Michigan State University Computer
+Science Department is pleased to announce that a comprehensive repository
+on reinforcement learning is now available on the World Wide Web.  The
+home page is located at:
+
+        	http://www.cps.msu.edu/rlr
+
+     The goal of this repository is to promote research in reinforcement 
+learning, and to facilitate the dissemination of research results in this 
+area.  It currently includes the following information and links:
+
+** Survey articles and tutorials on reinforcement learning.
+
+** Publications on twelve areas of reinforcement learning:
+      Applications to robotics, Average-reward/Undiscounted methods,
+      Dynamic programming/Markov decision processes, Function
+      approximation, Hierarchical methods, Industrial applications,
+      Neuro-biological reinforcement learning, Partially-observable
+      problems, Planning, Shaping, TD-learning, Theoretical analysis
+	
+    * You may auto-submit your research publication via a web-based form.
+
+** Directory of researchers in reinforcement learning, with their e-mail
+   addresses and link to their home page.
+
+   * You may auto-submit your personal information as a reinforcement
+     learning researcher via a web-based form.
+
+** Sample domains in reinforcement learning.  Software is available to be
+   downloaded; reinforcement learning algorithms implemented include
+   Q-learning and SMART, an average-reward method.
+
+** Web-based electronic discussion forums on topics in reinforcement
+   learning.
+
+   The Autonomous Agent Laboratory encourages you to visit the
+Reinforcement Learning Repository, and give us feedback on how this site
+can further promote research in the area of reinforcement learning.
+
+

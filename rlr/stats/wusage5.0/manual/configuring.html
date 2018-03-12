@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<TITLE>Configuring Wusage 5.0</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h2>Configuring Wusage 5.0</h2>
+
+Wusage 5.0 supports a wide range of options. We have chosen
+a simple, understandable format for configuration files
+in order to make wusage as easy to set up as possible.
+<p>
+Every server analyzed by wusage will need a unique configuration 
+file. Some sites may wish to use more than one in order to study
+different sections of a web site in great detail.
+<p>
+A configuration file contains crucial information such as
+the name of the directory in which reports should be
+generated and the name of the file which contains the
+access log to be analyzed. A configuration file also
+indicates which documents, sites and domains are of
+interest to you, and which should be ignored. Last
+but not least, a configuration file describes 
+the look and feel of your reports.
+
+<h3>Creating a Configuration File with makeconf</h3>
+
+You can get started with a basic configuration file
+by running the program <code>makeconf</code> (included
+in the wusage package). <code>makeconf</code> will
+ask you a series of questions, including the name 
+of your access log directory and the name of the directory
+in which reports should be generated. <code>makeconf</code>
+will then produce a valid configuration file, which you
+can use immediately or edit further with the
+text editor of your choice.
+<p>
+To run <code>makeconf</code>, just <code>cd</code>
+to the directory where you untarred or unzipped wusage 5.0,
+and type <code>makeconf</code> (under DOS, OS/2, Windows 95
+and Windows NT) or <code>./makeconf</code> (under Unix) to start the program. 
+<p>
+<strong>Important Windows, Windows 95 and Windows NT note:</strong>
+<p>
+Run makeconf and wusage from the DOS (or NT) console prompt, not by 
+double-clicking on the program in file manager or on the desktop. You 
+will have an easier time reading the output of the program if it does 
+not immediately disappear after running. <strong>Do not have to shut down
+Windows to get to the DOS prompt;</strong> just select MSDOS in
+the main program group, or from the start menu in Windows 95. 
+<p>
+<em>"Does that mean makeconf is a DOS application?"</em>
+<p>
+No, makeconf is an "NT console application." This means that, although
+it has a character-based user interface, it has access to the full
+32-bit power and resources of the windows 95/NT platform and is
+not subject to the normal resource limitations of DOS applications.
+<p>
+<strong>Important OS/2 note:</strong>
+If you are using OS/2, run the programs from the OS/2 prompt, not 
+from the DOS compatibility box prompt. Otherwise, the program
+will run in the less powerful MSDOS compatibility mode with
+short file names only.
+<p>
+(<strong>Important Unix note:</strong> Unix users may need to type
+<code>./makeconf</code> to be sure that the program
+is found. If you get error messages when typing
+<code>makeconf</code>, the shell is probably finding
+a different program by that name. Type <code>./makeconf</code>
+to avoid any conflict.
+<h4>Working with makeconf</h4>
+You will be prompted for all the necessary information.
+When <code>makeconf</code> displays text in
+brackets, that text is the default for the question
+you are being asked. In some cases, the default is
+just an example. These cases are clearly marked; for instance,
+you must type in the location of your server access log files
+in order to analyze them. Most of the time, however, you can press 
+enter to accept the default and all will go well.
+<p>
+If you do not have the information you need to answer
+a question, just press control-C to exit the program,
+find the information you need and run <code>makeconf</code>
+again. Depending on your system, you may be able to
+find the information in another window without
+stopping the <code>makeconf</code> program.
+<p>
+<h4>Other Configuration Options</h4>
+Wusage has <strong>many other useful configuration options not
+covered by makeconf</strong>, which aims for simplicity. Be sure
+to check out the <a href="reference.html">configuration
+file reference guide</a> to learn about additional options.
+<h4>Moving On</h4>
+Once you have finished working with <code>makeconf</code>,
+you are ready to move on to <a href="running.html">
+running wusage</a>. 
+
+<a name="upgrade">
+<h3>Upgrading from Version 3.2</h3>
+</a>
+
+<blockquote>
+If you are currently using <strong>Wusage 3.2</strong>, you will want to read
+this section. <strong>If you are upgrading from Wusage 4.0 or 4.1, you
+don't need to take any special steps.</strong> Just check out the
+<a href="whatsnew.html">What's New</a> section to find out about
+new options you may wish to turn on in your configuration file.
+</blockquote>
+
+Wusage 4.0 and up have a new, much improved and much friendlier
+format for configuration files. To use old version 3.2
+configuration files, you will need to run the program
+<code>upgrade</code> (included in the wusage package).
+If you are not interested in converting old configuration
+files, skip ahead to the <a href="running.html">running wusage</a>
+section.
+<p>
+<strong>Example:</strong><p>
+<code>upgrade oldusage.conf</code> (or .con under DOS)
+<p>
+(<strong>Important Unix note:</strong> Unix users may need to type
+<code>./upgrade</code>, not just upgrade, to be sure that the program
+is found.)
+<p>
+<code>upgrade</code> will convert your configuration
+file to the new format and save a backup copy of the
+original.
+
+<h4>Taking Advantage of New Features</h4>
+Keep in mind that version 5.0 includes many new
+configuration file options. Don't miss out; check
+out the <a href="reference.html">configuration file
+reference</a> and the <a href="whatsnew.html">what's new</a>
+section. If you are using domain pie charts,
+you will also want to consider copying the
+new list of continents and national domains
+from the <code>sample.conf</code> (or sample.con) file.
+If you wish, paste the <code>domaingroups</code> section of 
+that file into your upgraded configuration file,
+and delete the outdated list.
+<h4>Converting wusage 3.2 Report Data</h4>
+
+After converting the configuration file, <code>upgrade</code>
+will ask whether you want to convert your old report
+data as well. 
+<p>
+<blockquote>
+Do you have all of your old access log data, perhaps in
+compressed form? If so, you may wish to skip this step
+and run wusage 5.0 once on <a href="manylogs.html">all of your old
+logs</a>
+at once to produce new reports. Version 5.0 produces more complete and 
+attractive information than version 3.2.
+</blockquote>
+<p>
+If you decide to convert your data, keep four things in mind:
+
+<dl>
+<dt><strong>Keep a backup copy.</strong>
+<dd>Make a backup copy of your usage directory
+if you want to run wusage 3.2 (the old version) again
+at some time in the future.
+
+<dt><strong>Old reports will be available, but not rewritten.</strong>
+<dd>Wusage will rename the report files and create
+a database for use with wusage 5.0. However, it will
+not rewrite the reports themselves, so <strong>you will not
+see a dramatic change in the old reports.</strong> Reports
+for new weeks <strong>will</strong> take advantage of the
+new features of wusage 5.0.  
+
+<dt><strong>You must run wusage 5.0 after running upgrade.</strong>
+<dd>After you run <code>upgrade</code>, be sure to <a href="running.html">
+run <code>wusage</code></a> with your upgraded configuration file
+in order to create a new index page.
+
+<dt><strong>wusage 3.2 recorded overall totals only.</strong>
+<dd>Once you have run both <code>upgrade</code> and
+<code>wusage</code>, the chart of total accesses over time
+will be available in the HTML page index.html or index.htm in the report
+directory. However, you will note that the chart of "Home Page Accesses" 
+is blank. This is normal. This occurs because version 3.2 did not 
+record that information. Once you have run wusage 5.0 for
+a few new weeks, you will begin to see useful data in
+this chart. Note that you can add additional charts
+in the <code>totals</code> section of the
+configuration file. 
+</dl>
+
+<hr>
+<table border="0"width="100%"><TR>
+<TD><a href="intro2.html">Table of Contents</a><TD align="right"><a href="running.html"> Next</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA <br>Phone/Fax
++1 206.325.3009</body>
+
+

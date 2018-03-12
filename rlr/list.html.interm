@@ -1,0 +1,249 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV=REFRESH>
+<TITLE>Researchers in Reinforcement Learning</TITLE>
+</HEAD>
+<body bgcolor="#FFFFBB">
+<FONT SIZE=+1>
+<CENTER>
+<H1>Researchers in Reinforcement Learning</H1>
+</CENTER>
+
+<img align=right src="imgs/tower.gif">
+<p>The following are self-admitted researchers in Reinforcement Learning.
+If you would like to have your name automatically added to this page,
+please <a href=register.html>fill out this form</a>. 
+
+<HR>
+<!nextperson><B>Asada, Minoru</B> with: Osaka University
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>Home page:</B> <A
+	   HREF=http://www-robotics.ccm.eng.osaka-u.ac.jp>http://www-robotics.ccm.eng.osaka-u.ac.jp</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Atkeson, Christopher</B> with: Georgia Institute of Technology
+<BLOCKQUOTE><B>Research interests: </B>
+ Applications to robotics | 
+<BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cc.gatech.edu/fac/Chris.Atkeson>http://www.cc.gatech.edu/fac/Chris.Atkeson</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Baird, Leemon</B> with: 
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>Home page:</B> <A
+	   HREF=http://>http://</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Barto, Andrew</B> with: University of Massachusetts, Amherst
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:barto@envy.cs.umass.edu>barto@envy.cs.umass.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://envy.cs.umass.edu/People/barto/barto.html>http://envy.cs.umass.edu/People/barto/barto.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Bertsekas, Dmitri</B> with: Massachusetts Institute of Technology
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>Home page:</B> <A
+	   HREF=http://web.mit.edu/dimitrib/www/home.html>http://web.mit.edu/dimitrib/www/home.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Boutilier, Craig</B> with: University of British Columbia
+<BLOCKQUOTE><B>Research interests: </B>
+ Average-reward/undiscounted methods | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:cebly@cs.ubc.co>cebly@cs.ubc.co</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.ubc.ca/spider/cebly/craig.html>http://www.cs.ubc.ca/spider/cebly/craig.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Boyan, Justin</B> with: Carnegie-Mellon University
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:Justin.Boyan@cs.cmu.edu>Justin.Boyan@cs.cmu.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.cmu.edu/~jab>http://www.cs.cmu.edu/~jab</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Crites, Robert</B> with: University of Massachusetts, Amherst
+<BLOCKQUOTE><B>Research interests: </B>
+ TD-learning | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:crites@cs.umass.edu>crites@cs.umass.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://envy.cs.umass.edu/People/crites/crites.html>http://envy.cs.umass.edu/People/crites/crites.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Dayan, Peter</B> with: Massachusetts Institute of Technology
+<BLOCKQUOTE><B>Research interests: </B>
+ TD-learning | 
+<BR>
+<B>Home page:</B> <A
+	   HREF=http://>http://</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Dean, Thomas</B> with: Brown University
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:tld@cs.brown.edu>tld@cs.brown.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.brown.edu/people/tld/>http://www.cs.brown.edu/people/tld/</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Dietterich, Thomas</B> with: Oregon State University
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:tgd@cs.orst.edu>tgd@cs.orst.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.orst.edu/~tgd/>http://www.cs.orst.edu/~tgd/</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Dorigo, Marco</B> with: Universite Libre de Bruxelles, Belgium
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:mdorigo@ulb.ac.be>mdorigo@ulb.ac.be</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://iridia.ulb.ac.be/dorigo/dorigo.html>http://iridia.ulb.ac.be/dorigo/dorigo.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Gordon, Geoff</B> with: Carnegie-Mellon University
+<BLOCKQUOTE><B>Research interests: </B>
+ Function approximation | 
+<BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Hanks, Steven</B> with: University of Washington
+<BLOCKQUOTE><B>Research interests: </B>
+ MDP-based planning | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:hanks@cs.washington.edu>hanks@cs.washington.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.washington.edu/people/faculty/hanks.html>http://www.cs.washington.edu/people/faculty/hanks.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Kaelbling, Leslie Pack</B> with: Brown University
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:lpk@cs.brown.edu>lpk@cs.brown.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.brown.edu/people/lpk/>http://www.cs.brown.edu/people/lpk/</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Mahadevan, Sridhar</B> with:
+	Michigan State University
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:mahadeva@cps.msu.edu>mahadevap@cps.msu.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cps.msu.edu/~mahadeva>http://www.cps.msu.edu/~mahadeva</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Moore, Andrew</B> with: Carnegie-Mellon University
+<BLOCKQUOTE><B>Research interests: </B>
+ Applications to robotics | 
+ Applications to manufacturing | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:awm@cs.cmu.edu>awm@cs.cmu.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.cmu.edu/~awm/hp.html>http://www.cs.cmu.edu/~awm/hp.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Parr, Ronald</B> with: University of California, Berkeley
+<BLOCKQUOTE><B>Research interests: </B>
+ Partially-observable problems | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:parr@cs.berkeley.edu>parr@cs.berkeley.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://HTTP.CS.Berkeley.EDU/~parr/>http://HTTP.CS.Berkeley.EDU/~parr/</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Peng, Jing</B> with: Amherst Systems
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>Home page:</B> <A
+	   HREF=http://web.cps.msu.edu/~mahadeva/abstracts/jing-peng>http://web.cps.msu.edu/~mahadeva/abstracts/jing-peng</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Puterman, Martin</B> with: University of British Columbia
+<BLOCKQUOTE><B>Research interests: </B>
+ Optimality criteria | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:marty@markov.commerce.ubc.ca>marty@markov.commerce.ubc.ca</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://markov.commerce.ubc.ca/marty/home.html>http://markov.commerce.ubc.ca/marty/home.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Reeker, Larry</B> with: National Science Foundation
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>Home page:</B> <A
+	   HREF=http://>http://</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Shavlik, Jude</B> with: University of Wisconsin
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:shavlik@cs.wisc.edu>shavlik@cs.wisc.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.wisc.edu/~shavlik/>http://www.cs.wisc.edu/~shavlik/</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Singh, Satinder</B> with: University of Colorado
+<BLOCKQUOTE><B>Research interests: </B>
+ TD-learning | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:baveja@cs.colorado.edu>baveja@cs.colorado.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.colorado.edu/~baveja>http://www.cs.colorado.edu/~baveja</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Sutton, Richard</B> with: University of Massachusetts, Amherst
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:rich@cs.umass.edu>rich@cs.umass.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://envy.cs.umass.edu/People/sutton/sutton.html>http://envy.cs.umass.edu/People/sutton/sutton.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Tadepalli, Prasad</B> with: Oregon State University
+<BLOCKQUOTE><B>Research interests: </B>
+ Average-reward/undiscounted methods | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:tadepall@cs.orst.edu>tadepall@cs.orst.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cs.orst.edu/~tadepall>http://www.cs.orst.edu/~tadepall</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Tesauro, Gerrald</B> with: IBM T.J. Watson Laboratory
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>Home page:</B> <A
+	   HREF=http://www.av.ibm.com/WhosWho/GerryTesauro>http://www.av.ibm.com/WhosWho/GerryTesauro</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Thrun, Sebastian</B> with: Carnegie-Mellon University
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:thrun+@heaven.learning.cs.cmu.edu>thrun+@heaven.learning.cs.cmu.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://>http://</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Ungar, Lyle</B> with: University of Pennsylvania
+<BLOCKQUOTE><B>Research interests: </B>
+ TD-learning | 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:ungar@cis.upenn.edu>ungar@cis.upenn.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cis.upenn.edu/~ungar/home.html>http://www.cis.upenn.edu/~ungar/home.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Van Roy, Ben</B> with: Massachusetts Institute of Technology
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:bvr@mit.edu>bvr@mit.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.mit.edu/people/bvr/home.html>http://www.mit.edu/people/bvr/home.html</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Williams, Ronald</B> with: Northeastern University
+<BLOCKQUOTE><B>Research interests: </B>
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:rjw@ccs.neu.edu>rjw@ccs.neu.edu</A><BR>
+</BLOCKQUOTE><HR>

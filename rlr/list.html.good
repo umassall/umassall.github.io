@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV=REFRESH>
+<TITLE>Researchers in Reinforcement Learning</TITLE>
+</HEAD>
+<body bgcolor="#FFFFBB">
+<FONT SIZE=+1>
+<CENTER>
+<H1>Researchers in Reinforcement Learning</H1>
+</CENTER>
+
+<img align=right src="imgs/tower.gif">
+<p>The following are self-admitted researchers in Reinforcement Learning.
+If you would like to have your name automatically added to this page,
+please <a href=register.html>fill out this form</a>. 
+
+<HR>
+<!nextperson><B>Decker, Mary</B> with:
+	Hope Systems, Inc.
+<BLOCKQUOTE><B>Research interests: </B> Interest 1 
+ Interest 4 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:md@hope.com>md@hope.com</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.hope.com>http://www.hope.com</A><BR>
+</BLOCKQUOTE><HR>
+<!nextperson><B>Mahadevan, Sridhar</B> with:
+	Michigan State University
+<BLOCKQUOTE><B>Research interests: </B> Interest 1 
+ Interest 3 
+ Interest 5 
+<BR>
+<B>E-mail:</B> <A
+	   HREF=mailto:mahadevap@cps.msu.edu>mahadevap@cps.msu.edu</A><BR>
+<B>Home page:</B> <A
+	   HREF=http://www.cps.msu.edu/~mahadeva>http://www.cps.msu.edu/~mahadeva</A><BR>
+</BLOCKQUOTE><HR>

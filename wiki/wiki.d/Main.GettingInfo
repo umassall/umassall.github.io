@@ -1,0 +1,20 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.13) Gecko/20060418 CentOS/1.7.13-1.4.1.centos4
+author=
+csum=
+ctime=1158699794
+host=128.119.241.208
+name=Main.GettingInfo
+rev=3
+targets=
+text=!Getting info from your computer%0a%0a* To find the path to a linux tool use "which". For example (command followed by output):%0a->[=>=]which xfig%0a->/exp/rcf/share/X11R5/bin/xfig%0a->[=>=]which acroread%0a->/exp/rcf/share/X11R5/bin/acroread%0a%0a* To find version information use the command line option "-v" or "-version". For example:%0a->[=>=]gv -v%0a->gv 3.5.8%0a->[=>=]xfig -v%0a->Executing /exp/rcf/share/X11R5/bin/xfig-3.2 -v%0a->Xfig 3.2 patchlevel 2 (Protocol 3.2)%0a%0a* The processor info, RAM, and OS version info are found through the following linux commands, respectively: ">more /proc/cpuinfo," ">more /proc/meminfo," ">uname -a," where you ssh into the machine and execute those commands.  Also, 'dmesg' gives lots of info. %0a%0a
+time=1158700003
+author:1158700003=
+diff:1158700003:1158699814:=16,17c16,20%0a%3c * The processor info, RAM, and OS version info are found through the following linux commands, respectively: ">more /proc/cpuinfo," ">more /proc/meminfo," ">uname -a," where you ssh into the machine and execute those commands.  Also, 'dmesg' gives lots of info. %0a%3c %0a---%0a> * Computer Information:%0a> ->[=>=]uname -a%0a> ->Linux ananke.cs.umass.edu 2.4.18-10 #1 Wed Aug 7 11:39:21 EDT 2002 i686 unknown%0a> ->[=>=]dmesg%0a> -> gives lots of info%0a\ No newline at end of file%0a
+host:1158700003=128.119.241.208
+author:1158699814=
+diff:1158699814:1158699794:=11c11%0a%3c ->gv 3.5.8%0a---%0a> ->[=>=]gv 3.5.8%0a
+host:1158699814=128.119.241.208
+author:1158699794=
+diff:1158699794:1158699794:=1,20d0%0a%3c !Getting info from your computer%0a%3c %0a%3c * To find the path to a linux tool use "which". For example (command followed by output):%0a%3c ->[=>=]which xfig%0a%3c ->/exp/rcf/share/X11R5/bin/xfig%0a%3c ->[=>=]which acroread%0a%3c ->/exp/rcf/share/X11R5/bin/acroread%0a%3c %0a%3c * To find version information use the command line option "-v" or "-version". For example:%0a%3c ->[=>=]gv -v%0a%3c ->[=>=]gv 3.5.8%0a%3c ->[=>=]xfig -v%0a%3c ->Executing /exp/rcf/share/X11R5/bin/xfig-3.2 -v%0a%3c ->Xfig 3.2 patchlevel 2 (Protocol 3.2)%0a%3c %0a%3c * Computer Information:%0a%3c ->[=>=]uname -a%0a%3c ->Linux ananke.cs.umass.edu 2.4.18-10 #1 Wed Aug 7 11:39:21 EDT 2002 i686 unknown%0a%3c ->[=>=]dmesg%0a%3c -> gives lots of info%0a\ No newline at end of file%0a
+host:1158699794=128.119.241.208

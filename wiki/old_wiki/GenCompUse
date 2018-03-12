@@ -1,0 +1,124 @@
+Date: Thu, 20 Jul 2006 14:42:02 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_1"
+
+--=_multipart_boundary_1
+Content-Type: application/x-phpwiki;
+  pagename=GenCompUse;
+  flags="";
+  author=ash;
+  version=4;
+  lastmodified=1153420922;
+  author_id=ash;
+  markup=2;
+  hits=27;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+This page describes general usage policies. The computer on your desk is the lab's, not your personal computer. Here are some general guidlines:
+
+
+* You can run stuff on other people's computers. You should use autoson to do this, but autoson isn't always appropriate. If you don't use autoson, make sure to nice the process to +15, unless there's some reason to make it a higher priority (and you should communicate this to the appropriate people if you do nice something to a higher priority).
+
+
+* In general, people have agreed that you can run a process on the computer on your desk with a nice level of higher priority (i.e., 0).
+
+
+* People might need to physically sit at and use your computer if you're not there. While we obviously will not log you out if we don't have to, be prepared to be logged out -- do not leave the computer in a state such that it is bad if someone came along and logged you out. If you need to stay logged in, you should put a note on the computer so someone knows that logging you out will be bad.
+
+
+* All computers in lab should be on at all times. If the power goes out, the computers do not turn on automatically. If you notice computers are not on, turn them on.
+
+
+* disable screen savers. on a gnome linux machine, click on the red hat icon, and go to preferences > control center > screen saver . Set to blank screen. definatley do not have a password protected screen saver, as then I will physically press the off button.
+
+
+* Since others might be using your computer, rebooting it might be bad. run a top (by typing "top" at a command line) to see what processes are running and who's running them. You can do this in a shell on the computer, or by ssh'ing into the computer from another one. If possible, check with the people who are running something on your computer if you can reboot. If you simply must reboot immediately, then make sure you email people who might be running something on it.
+
+--=_multipart_boundary_1
+Content-Type: application/x-phpwiki;
+  pagename=GenCompUse;
+  flags="";
+  author=ash;
+  version=3;
+  lastmodified=1139100309;
+  author_id=ash;
+  markup=2;
+  hits=27;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+This page describes general usage policies. The computer on your desk is the lab's, not your personal computer. Here are some general guidlines:
+
+* You can run stuff on other people's computers. You should use autoson to do this, but autoson isn't always appropriate. If you don't use autoson, make sure to nice the process to +15, unless there's some reason to make it a higher priority (and you should communicate this to the appropriate people if you do nice something to a higher priority).
+
+* In general, people have agreed that you can run a process on the computer on your desk with a nice level of higher priority (i.e., 0).
+
+* People might need to physically sit at and use your computer if you're not there. While we obviously will not log you out if we don't have to, be prepared to be logged out -- do not leave the computer in a state such that it is bad if someone came along and logged you out. If you need to stay logged in, you should put a note on the computer so someone knows that logging you out will be bad.
+
+* All computers in lab should be on at all times. If the power goes out, the computers do not turn on automatically. If you notice computers are not on, turn them on.
+
+* disable screen savers. on a gnome linux machine, click on the red hat icon, and go to preferences > control center > screen saver . Set to blank screen. definatley do not have a password protected screen saver, as then I will physically press the off button.
+
+* Since others might be using your computer, rebooting it might be bad. run a top (by typing "top" at a command line) to see what processes are running and who's running them. You can do this in a shell on the computer, or by ssh'ing into the computer from another one. If possible, check with the people who are running something on your computer if you can reboot. If you simply must reboot immediately, then make sure you email people who might be running something on it.
+
+--=_multipart_boundary_1
+Content-Type: application/x-phpwiki;
+  pagename=GenCompUse;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1139099014;
+  author_id=ash;
+  markup=2;
+  hits=27;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+This page describes general usage policies. The computer on your desk is the lab's, not your personal computer. Here are some general guidlines:
+
+* You can run stuff on other people's computers. You should use autoson to do this, but autoson isn't always appropriate. If you don't use autoson, make sure to nice the process to +15, unless there's some reason to make it a higher priority (and you should communicate this to the appropriate people if you do nice something to a higher priority).
+
+* In general, people have agreed that you can run a process on the computer on your desk with a nice level of higher priority (i.e., 0).
+
+* People might need to physically sit at and use your computer if you're not there. While we obviously will not log you out if we don't have to, be prepared to be logged out -- do not leave the computer in a state such that it is bad if someone came along and logged you out. If you need to stay logged in, you should put a note on the computer so someone knows that logging you out will be bad.
+
+* All computers in lab should be on at all times. If the power goes out, the computers do not turn on automatically. If you notice computers are not on, turn them on.
+
+* disable screen savers. on a gnome linux machine, click on the red hat icon, and go to preferences > control center > screen saver . Set to blank screen. definatley do not have a password protected screen saver, as then I will physically press the off button.
+
+* Since others might be using your computer, rebooting it might be bad. run a top (by typing "top" at a command line) to see what processes are running and who's running them. You can do this in a shell on the computer, or by ssh'ing into the computer from another one. If possible, check with the people who are running something on your computer if you can reboot. If you simply must reboot immediately, then make sure you email people who might be running something on it.
+
+* spiny, the mac in the common area, is not able to be used by autoson. However, you can use it. You can ssh into it, but you might not be able to run certain things on it (Mac OS doesn't network easily, it turns out). It's the best machine in the lab right now. So, feel free to use its resources by running stuff on it (probably by physically sitting at it and running something). If you do that, put a note up saying to not log you out (and make sure you remove it when you're done). However, the main reason we got spiny was for video conferencing, so that takes precedence.
+
+--=_multipart_boundary_1
+Content-Type: application/x-phpwiki;
+  pagename=GenCompUse;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1139098910;
+  author_id=ash;
+  markup=2;
+  hits=27;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+This page describes general usage policies. The computer on your desk is the lab's, not your personal computer. Here are some general guidlines:
+
+* You can run stuff on other people's computers. You should use autoson to do this, but autoson isn't always appropriate. If you don't use autoson, make sure to nice the process to +15, unless there's some reason to make it a higher priority (and you should communicate this to the appropriate people if you do nice something to a higher priority).
+
+* In general, people have agreed that you can run a process on the computer on your desk with a nice level of higher priority (i.e., 0).
+
+* People might need to physically sit at and use your computer if you're not there. While we obviously will not log you out if we don't have to, be prepared to be logged out -- do not leave the computer in a state such that it is bad if someone came along and logged you out. If you need to stay logged in, you should put a note on the computer so someone knows that logging you out will be bad.
+
+* All computers in lab should be on at all times. If the power goes out, the computers do not turn on automatically. If you notice computers are not on, turn them on.
+
+* disable screen savers. on a gnome linux machine, click on the red hat icon, and go to preferences > control center > screen saver . Set to blank screen.
+
+* Since others might be using your computer, rebooting it might be bad. run a top (by typing "top" at a command line) to see what processes are running and who's running them. You can do this in a shell on the computer, or by ssh'ing into the computer from another one. If possible, check with the people who are running something on your computer if you can reboot. If you simply must reboot immediately, then make sure you email people who might be running something on it.
+
+* spiny, the mac in the common area, is not able to be used by autoson. However, you can use it. You can ssh into it, but you might not be able to run certain things on it (Mac OS doesn't network easily, it turns out). It's the best machine in the lab right now. So, feel free to use its resources by running stuff on it (probably by physically sitting at it and running something). If you do that, put a note up saying to not log you out (and make sure you remove it when you're done). However, the main reason we got spiny was for video conferencing, so that takes precedence.
+
+--=_multipart_boundary_1--

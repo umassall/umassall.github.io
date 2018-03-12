@@ -1,0 +1,22 @@
+These files were copied into here on 9/11/03. 
+Here are their original locations: 
+
+rlr//cgi-bin/rlr/counter/counter.pl
+rlr/cgi-bin/rlr/pub.pl
+rlr/cgi-bin/rlr/reg.mult.pl
+
+I'm modifying them because: 
+ Looks like some of these scripts (e.g.
+/nfs/entropy/p3/www-anw/httpd/htdocs/rlr/reg.pl) explicitly reference
+/exp/rcf/share/bin/perl, which doesn't exist under linux. Change those
+references to /usr/bin/perl and you should be all set.
+
+(occured after the switch to entropy). 
+
+I cound these files with :
+
+grep -rl "/exp/rcf/share/bin/perl" ./* > crapola.txt
+
+from the directory: 
+/nfs/entropy/p3/www-anw/httpd/htdocs/rlr/
+

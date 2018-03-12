@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>totals</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h4>totals</h4>
+</a>
+<pre>
+totals
+#These are recommended
+* Overall Accesses
+/ Home Page Accesses
+#An example: match documents belonging to a particular user
+/~boutell*
+end totals
+</pre>
+The <code>totals</code> option, which extends for
+several lines and must end with the line
+<code>end totals</code>, is used to declare
+a special interest in certain documents
+or sets of documents. Each line of the <code>totals</code>
+option contains a <a href="patterns.html">pattern</a>
+and a title for that pattern. Wusage will count
+the total number of accesses to and bytes served
+of that pattern, and in the case of daily,
+weekly and monthly reports, a bar graph of that pattern's
+popularity over time will be generated. <strong>A separate 
+bar chart is generated for each item.</strong> To compare several
+items on the same bar chart, see the 
+<a href="totalsgroup.html"><code>totalsgroup</code> option.</a> 
+<p>
+The two patterns shown above match all
+documents and the home page document,
+respectively. Each character of each document name 
+is matched against each pattern in the
+<code>totals</code> list. An <code>*</code> in a pattern 
+matches any number of characters in a document name. 
+Patterns have additional features; for more information,
+see the <code><a href="patterns.html">patterns</a></code>
+section. If the <code>totals ... end totals</code>
+option is not specified, no totals will be
+generated. 
+<p>
+The <code>totals</code> option may appear as many times
+as desired, usually in alternation with 
+<code><a href="totalsgroup.html">totalsgroup</a></code>
+options, but the same pattern should not appear
+more than once. 
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+
+

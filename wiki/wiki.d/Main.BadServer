@@ -1,0 +1,17 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.10) Gecko/20070226 CentOS/1.0.8-0.2.el4.centos SeaMonkey/1.0.8
+author=
+csum=
+ctime=1173840509
+host=128.119.241.208
+name=Main.BadServer
+rev=2
+targets=
+text=!! This page lists dates when installling the new server will be horrible.%0a%0a||cellspacing=20%0a||!Dates ||!Reason ||%0a||April 1 - April 20 ||ICML camera ready papers due ||
+time=1173840647
+author:1173840647=
+diff:1173840647:1173840509:=1,5c1%0a%3c !! This page lists dates when installling the new server will be horrible.%0a%3c %0a%3c ||cellspacing=20%0a%3c ||!Dates ||!Reason ||%0a%3c ||April 1 - April 20 ||ICML camera ready papers due ||%0a\ No newline at end of file%0a---%0a> !! This page lists dates when installling the new server will be horrible.%0a\ No newline at end of file%0a
+host:1173840647=128.119.241.208
+author:1173840509=
+diff:1173840509:1173840509:=1d0%0a%3c !! This page lists dates when installling the new server will be horrible. %0a\ No newline at end of file%0a
+host:1173840509=128.119.241.208

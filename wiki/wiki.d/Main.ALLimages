@@ -1,0 +1,17 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.22 Safari/537.36
+author=CJ
+csum=
+ctime=1234470462
+host=66.102.14.24
+name=Main.ALLimages
+rev=2
+targets=
+text=The .ppt file and image files for the ALL door sign, ALL poster, and various images are in two places: %0a%0a# /scratch/ALL_posters_and_stuff on limbic%0a# ~/Desktop/ALL_posters_and_stuff on the ALL guest account on sarahtonin%0a%0aObviously, the images used for the webpage are also on the www-anw account.%0a%0aThere are also some lab documents in the github repo: [[https://github.com/perimosocordiae/ALL/tree/master/LabDocuments]]
+time=1374865172
+author:1374865172=CJ
+diff:1374865172:1234470462:=6,8c6%0a%3c Obviously, the images used for the webpage are also on the www-anw account.%0a%3c %0a%3c There are also some lab documents in the github repo: [[https://github.com/perimosocordiae/ALL/tree/master/LabDocuments]]%0a\ No newline at end of file%0a---%0a> Obviously, the images used for the webpage are also on the www-anw account.%0a\ No newline at end of file%0a
+host:1374865172=66.102.14.24
+author:1234470462=
+diff:1234470462:1234470462:=1,6d0%0a%3c The .ppt file and image files for the ALL door sign, ALL poster, and various images are in two places: %0a%3c %0a%3c # /scratch/ALL_posters_and_stuff on limbic%0a%3c # ~/Desktop/ALL_posters_and_stuff on the ALL guest account on sarahtonin%0a%3c %0a%3c Obviously, the images used for the webpage are also on the www-anw account. %0a\ No newline at end of file%0a
+host:1234470462=128.119.241.197

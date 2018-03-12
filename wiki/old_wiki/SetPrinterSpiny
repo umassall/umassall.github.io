@@ -1,0 +1,21 @@
+Date: Thu, 20 Jul 2006 15:32:43 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: application/x-phpwiki;
+  pagename=SetPrinterSpiny;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1153423963;
+  author_id=ash;
+  markup=2;
+  hits=6;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+!Set the default printer on Spiny
+
+To prevent accidental printing to other printers (especially the poster printer!), set *allprinter* to be the default printer on your account on spiny:
+     # open "System Preferences"
+     # click on "Print & Fax" under "Hardware," the second row
+     # bring up the "Printing" menu (left of the three options near the top
+     # under "Selected Printer in Print Dialog," which is near the bottom, select "allprinter," as opposed to "last printer used."

@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE>logdir</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h4>logdir</h4>
+</a>
+<pre>
+logdir          /path/to/access/log/directory/
+</pre>
+
+<code>logdir</code> indicates the directory in which
+your server's log files are kept. If you specify a
+directory name for this option, wusage will analyze
+<strong>all</strong> standard log files found in that
+directory. (Files which do not contain valid log
+data will be ignored.) This option is very useful
+if your server creates a new log file each day,
+or if you have several log files from different
+mirror sites. Note that wusage can still handle
+all of your log files even if several files have
+entries for the same period in time. Although more
+than 20 log files that <strong>overlap in time</strong>
+will slow wusage down considerably, any number of
+nonoverlapping log files should not present a problem.
+See your web server's documentation and configuration files
+or talk to your internet service provider
+for more information about the location of the
+server log files. The <code>logdir</code> option can be overridden
+by the <code>-l</code> command line option. See
+the section on <a href="manylogs.html">reading from
+many log files</a> for more information about working
+with more than one log file.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

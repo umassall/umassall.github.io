@@ -1,0 +1,7 @@
+@inproceedings{simsek-wolfe-barto:icml-05,
+	Author = {{\" O}zg{\" u}r {\c S}im{\c s}ek and Alicia P. Wolfe and Andrew G. Barto},
+	Booktitle = {Proceedings of the Twenty-Second International Conference on Machine Learning},
+	Location = {Bonn, Germany},
+	Publisher = {},
+	Title = {Identifying useful subgoals in reinforcement learning by local graph partitioning},
+	Year = {2005}}

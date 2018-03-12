@@ -1,0 +1,545 @@
+MatrixD native code loaded
+MatrixF native code loaded
+<html>
+<title>BNF for WebSim code embedded in Web Pages</title>
+<h1 align=center><img hspace=20 vspace=0 border=0 align=center src=images/logob.gif>BNF for WebSim (short Comments)</h1>
+WebSim parses a string embedded in a Web page.  This string uses 
+the language given below to describe the program to run.  This BNF listing
+was automatically generated from the BNF() methods in each class. The
+start symbol is &quotWebSim&quot.
+<p>
+<pre>
+Credits                   ::=                        // print the credits.
+Credits2                  ::=                        // print the credits.
+DisplayList               ::= '{' ( ['embed'] ['('   // List of displays.
+                              IntExp [','] IntExp   
+                              [','] IntExp [',']    
+                              IntExp ')'] &ltDisplay&gt 
+                              )* '}'                
+FindBNF                   ::= ['html'] ['summary']   // Find BNF for all objects.
+                              'codebase' &ltstring&gt   
+                              'widths' IntExp       
+                              IntExp IntExp         
+ProjWin                   ::= ['embed'] ['('IntExp   // Window for a single Project.
+                              [','] IntExp [',']    
+                              IntExp [',']          
+                              IntExp')'] &ltProject&gt  
+ShowEdit                  ::= '{' (('trigger'        // Show variables.
+                              &ltstring&gt) | ('freq'   
+                              expression.IntExp) |  
+                              ('all' &ltstring&gt) |    
+                              ('vars' '{'           
+                              pointer.PString+      
+                              '}'))* '}'            
+ShowThreads               ::=                        // Show all threads in a 
+                                                     // window.
+TestMatrix                ::=                        // Test the MatrixD object.
+Title                     ::= '{' (('title'          // Title on a Display.
+                              &ltstring&gt) |           
+                              ('display'            
+                              &ltDisplay&gt))* '}'      
+WebSim                    ::= ['unparse'] ProjWin *  // Parse and run a 
+                                                     // WebSim program.
+expression.IntExp         ::= NumVarExp              // A constant integer 
+                                                     // expression.
+expression.IntVarExp      ::= NumVarExp              // An integer expression.
+expression.NumExp         ::= NumVarExp              // A constant numeric 
+                                                     // expression.
+expression.NumVarExp      ::= NumVarTerm (('+' |     // A numeric expression.
+                              '-') NumVarTerm )*    
+expression.NumVarFact     ::= &ltinteger&gt | &ltdouble&gt   // A factor used by NumVarExp.
+                              | '-' NumVarFact |    
+                              ('(' NumVarExp ')') | 
+                              ('floor' '('          
+                              NumVarExp ')') |      
+                              ('ceil' '(' NumVarExp 
+                              ')') | ('mod' '('     
+                              NumVarExp ')') |      
+                              ('power' '('          
+                              NumVarExp ')') |      
+                              ('sqrt' '(' NumVarExp 
+                              ')') | ('ln' '('      
+                              NumVarExp ')') |      
+                              ('log10' '('          
+                              NumVarExp ')') |      
+                              ('exp' '(' NumVarExp  
+                              ')') | ('sin' '('     
+                              NumVarExp ')') |      
+                              ('cos' '(' NumVarExp  
+                              ')') | ('tan' '('     
+                              NumVarExp ')') |      
+                              ('asin' '(' NumVarExp 
+                              ')') | ('acos' '('    
+                              NumVarExp ')') |      
+                              ('atan' '(' NumVarExp 
+                              ')') |                
+expression.NumVarTerm     ::= NumVarFactor (('*' |   // A product or ratio 
+                              '/') NumVarTerm )*     // used by NumVarExp.
+matrix.MatrixD            ::= ( ('[' [(NumExp        // A matrix or vector.
+                              [','])* NumExp] ']')  
+                              | ('[' ('[' [(NumExp  
+                              [','])* NumExp] ']'   
+                              [','])* ('[' [(NumExp 
+                              [','])* NumExp] ']')  
+                              ']' )) ['transpose']  
+matrix.MatrixF            ::= ( ('[' [(NumExp        // A matrix or vector.
+                              [','])* NumExp] ']')  
+                              | ('[' ('[' [(NumExp  
+                              [','])* NumExp] ']'   
+                              [','])* ('[' [(NumExp 
+                              [','])* NumExp] ']')  
+                              ']' )) ['transpose']  
+picture.Animation         ::= ( ('first' NumExp) |   // The frames of an Animation.
+                              ('last' NumExp) |     
+                              ('frames' IntExp) )*  
+                              &ltpicture.PicPipe&gt     
+picture.Antialias         ::= 'jitter' ('true' |     // Antialias each pixel.
+                              'false') 'raysX'      
+                              IntExp 'raysY' IntExp 
+                              'raysZ' IntExp        
+                              'raysT' IntExp        
+picture.ColorMap          ::= picture.ColorMapEntry  // linearly-interpolated 
+                              +                      // mapping from double 
+                                                     // to color.
+picture.ColorMapEntry     ::= '[' NumExp [',']       // one line of a color map.
+                              picture.ColorVector   
+                              ']'                   
+picture.ColorVector       ::= '&lt' NumExp [',']       // A single color.
+                              NumExp [','] NumExp [ 
+                              [','] NumExp [',']    
+                              NumExp ] '&gt'          
+picture.Description       ::= &ltstring&gt               // A string describing 
+                                                     // the picture being drawn.
+picture.Edges             ::= IntExp                 // Trace figure edges.
+picture.Gallery           ::= '{'                    // A list of pictures to tile.
+                              picture.PicPipePipelin
+                              e * '}'               
+picture.PicPipePipeline   ::= '{' picture.PicPipe *  // A Picture pipeline.
+                              '}'                   
+picture.Picture           ::= '{'['bar' IntExp]      // Picture to fade in.
+                              'pass1'               
+                              picture.picPipePipelin
+                              e 'pass2'             
+                              picture.picPipePipelin
+                              e 'bothPasses'        
+                              picture.picPipePipelin
+                               '}'                  
+picture.Region            ::= '(' NumExp [',']       // A region to zoom into.
+                              NumExp ')' [','] '('  
+                              NumExp [','] NumExp   
+                              ')'                   
+picture.RndColor          ::= [ picture.ColorVector  // Random colors.
+                              ]                     
+picture.ValueMap          ::= picture.ValueMapEntry  // Piecewise linear function.
+                              +                     
+picture.ValueMapEntry     ::= '[' NumExp [',']       // One line of a value map.
+                              NumExp ']'            
+picture.directFractal     ::=                        // fractal circles
+   .Fract1                                          
+picture.directFractal     ::=                        // a fractal maze (CS110 cover)
+   .Maze                                            
+pointer.PDouble           ::=                       
+pointer.PInt              ::=                       
+pointer.PObject           ::=                       
+pointer.PString           ::= &ltstring&gt               // a string in single quotes
+sim.ForExperiment         ::= '{' ('variable'        // Repeats an Experiment.
+                              &ltstring&gt | 'initVal'  
+                              &ltdouble&gt | 'finalVal' 
+                              &ltdouble&gt 'increment'  
+                              &ltdouble&gt)*            
+                              'experiment'          
+                              &ltsim.Experiment&gt '}'  
+sim.Simulator             ::= '{' (('experiment'     // run a simulation.
+                              &ltsim.Experiment&gt) |   
+                              ('displays'           
+                              DisplayList))* '}'    
+sim.TDLambda              ::= '{' (('mdp'            // TD(lambda).
+                              &ltsim.mdp.MDP&gt) |      
+                              ('funApp'             
+                              &ltsim.funApp.FunApp&gt)  
+                              | ('dt' NumExp)  |    
+                              ('incremental'        
+                              &ltboolean&gt) | ('seed'  
+                              IntExp) | ('lambda'   
+                              NumExp) | ('gamma'    
+                              NumExp) | ('explore'  
+                              NumExp) |('rate'      
+                              NumExp) | ('smooth'   
+                              NumExp) |             
+                              ('tolerance' NumExp)  
+                              | ('expDecay'         
+                              NumExp))* '}'         
+sim.data.Dot              ::=                        // Always generates the 
+                                                     // vector (.
+sim.data.OnesRnd          ::= '{' 'numOutputs'       // Random vector of ones 
+                              IntExp'}'              // and random numbers.
+sim.data.RemoteTable      ::= '{' 'download'         // downloads a remote 
+                              &ltboolean&gt 'location'   // table of records and 
+                              &ltstring&gt 'filename'    // converts to 
+                              &ltstring&gt 'inputs'      // input/output vectors 
+                              (IntExp [','])+        // for training.
+                              'outputs' (IntExp     
+                              [','])+ ( ('savefile' 
+                              &ltboolean&gt) |          
+                              ('username' &ltstring&gt) 
+                              | ('password'         
+                              &ltstring&gt) |           
+                              ('normalize' IntExp   
+                              IntExp) |             
+                              ('nullAttribute'      
+                              IntExp) |             
+                              ('unparseTable'       
+                              &ltboolean&gt)* '}'       
+sim.data.RndCircle        ::=                        // Points on a circle.
+sim.data.RndDisk          ::=                        // Points in a circle.
+sim.data.RndOnes          ::= IntExp                 // Create random vectors 
+                                                     // with this many elements.
+sim.data.RndUniformLine   ::=                        // random numbers on a line.
+sim.data.RndUniformSquare ::=                        // Points in a square.
+sim.data.SpiralData       ::= '{' 'numSpirals'       // Random points around 
+                              NumExp'}'              // a spiral within the 
+                                                     // [-1,1] square.
+sim.data.Table            ::= '{' ( MatrixD MatrixD  // table of input/output 
+                              )* '}'                 // vectors for training.
+sim.data.XOR              ::=                        // 2 input 1 output XOR 
+                                                     // data with bias.
+sim.display.Contour       ::= '{' (('function'       // Contour plot.
+                              &ltsim.funApp.FunApp&gt)  
+                              | ('contours'         
+                              expression.IntExp) |  
+                              ('spectrum'           
+                              &ltboolean&gt) | ('color' 
+                              pointer.PMatrixD) |   
+                              ('xElement'           
+                              expression.IntExp) |  
+                              ('xSamples'           
+                              expression.IntExp) |  
+                              ('yElement'           
+                              expression.IntExp) |  
+                              ('ySamples'           
+                              expression.IntExp) |  
+                              ('zElement'           
+                              expression.IntExp) |  
+                              ('zMin'               
+                              expression.NumExp) |  
+                              ('zMax'               
+                              expression.NumExp))*  
+                              '}'                   
+sim.display.Graph2D       ::= '{' (('trigger'        // 2D plot.
+                              &ltstring&gt) | ('freq'   
+                              expression.IntExp) |  
+                              ('xMin'               
+                              expression.NumExp) |  
+                              ('xMax'               
+                              expression.NumExp) |  
+                              ('yMin'               
+                              expression.NumExp) |  
+                              ('yMax'               
+                              expression.NumExp) |  
+                              ('color'              
+                              pointer.PMatrixD) |   
+                              ('flicker' &ltboolean&gt) 
+                              | ('showNumbers'      
+                              &ltboolean&gt) |          
+                              ('propZoom'           
+                              &ltboolean&gt) |          
+                              ('squareView'         
+                              &ltboolean&gt) | ('plots' 
+                              '{'                   
+                              &ltsim.display.Plot&gt+   
+                              '}'))* '}'            
+sim.display.Graph3D       ::= '{' (('flicker'        // 3D surface plot.
+                              &ltboolean&gt) |          
+                              ('rotateX'            
+                              expression.NumExp) |  
+                              ('rotateY'            
+                              expression.NumExp) |  
+                              ('rotateZ'            
+                              expression.NumExp) |  
+                              ('trigger' &ltstring&gt)  
+                              | ('freq'             
+                              expression.IntExp) |  
+                              ('xSamples'           
+                              expression.IntExp) |  
+                              ('ySamples'           
+                              expression.IntExp) |  
+                              ('xMin'               
+                              expression.NumExp) |  
+                              ('xMax'               
+                              expression.NumExp) |  
+                              ('yMin'               
+                              expression.NumExp) |  
+                              ('yMax'               
+                              expression.NumExp) |  
+                              ('zMin'               
+                              expression.NumExp) |  
+                              ('zMax'               
+                              expression.NumExp) |  
+                              ('xElement'           
+                              expression.IntExp) |  
+                              ('yElement'           
+                              expression.IntExp) |  
+                              ('zElement'           
+                              expression.IntExp) |  
+                              ('function'           
+                              &ltsim.funApp.FunApp&gt)  
+                              | ('plotFloor'        
+                              &ltboolean&gt) |          
+                              ('plotTop' &ltboolean&gt) 
+                              | ('floorColor'       
+                              pointer.PMatrixD) |   
+                              ('topColor'           
+                              pointer.PMatrixD) |   
+                              ('bottomColor'        
+                              pointer.PMatrixD) |   
+                              ('plots' '{'          
+                              &ltsim.display.Plot&gt+   
+                              '}') | ('inputs'      
+                              pointer.PMatrixD))*   
+                              '}'                   
+sim.display.Grid          ::= '{' (('size'           // Regular grid.
+                              expression.NumExp) |  
+                              ('type'               
+                              expression.IntExp))*  
+                              '}'                   
+sim.display.PlotXY        ::= '{' (('freq'           // //Autoscaling 2D plot.
+                              expression.IntExp) |  
+                              ('size'               
+                              expression.IntExp) |  
+                              ('symbolType'         
+                              expression.IntExp) |  
+                              ('symbolSize'         
+                              expression.IntExp) |  
+                              ('ring' &ltboolean&gt) |  
+                              ('drawLines'          
+                              &ltboolean&gt) |          
+                              ('noMerge' &ltboolean&gt) 
+                              | ('lineColor'        
+                              pointer.PMatrixD) |   
+                              ('symbolColor'        
+                              pointer.PMatrixD) |   
+                              ('x' &ltstring&gt) | ('y' 
+                              &ltstring&gt) |           
+                              ('trigger' &ltstring&gt)  
+                              | ('snapshotData'     
+                              &ltsim.data.Data&gt) |    
+                              ('snapshotFunApp'     
+                              &ltsim.funApp.FunApp&gt)  
+                              | ('snapshotXElement' 
+                              expression.IntExp) |  
+                              ('snapshotYElement'   
+                              expression.IntExp) |  
+                              ('snapshotSamples'    
+                              expression.IntExp))*  
+                              '}'                   
+sim.display.SaveDisplay   ::= '{' (('animate'        // Save GIFs periodically.
+                              &ltboolean&gt) |          
+                              ('filename' &ltstring&gt) 
+                              | ('trigger'          
+                              &ltstring&gt) | ('freq'   
+                              expression.IntExp) |  
+                              ('maxFrames'          
+                              expression.IntExp) |  
+                              ('display'            
+                              &ltDisplay&gt))* '}'      
+sim.errFun                ::= '{' 'k' NumExp '}'     // Advantage Learning.
+   .AdvantageLearning                               
+sim.errFun.Batch          ::= '{' 'batchSize'        // Call the ErrFun this 
+                              IntExp                 // many times and 
+                              &ltsim.errFun.ErrFun&gt    // averages the errors 
+                              '}'                    // into a single error.
+sim.errFun.ErrAvg         ::= '{'                    // Call all these error 
+                              &ltsim.errFun.ErrFun&gt *  // functions and average 
+                              '}'                    // their errors.
+sim.errFun.LocalLearning  ::= '{' 'incremental'      // learn a input/output 
+                              &ltboolean&gt 'data'       // mapping.
+                              &ltsim.data.Data&gt       
+                              'funApp'              
+                              &ltsim.funApp.FunApp&gt   
+                              '}'                   
+sim.errFun.PDFE           ::= '{['c' NumExp]         // emulate a target PDF.
+                              'input'               
+                              &ltsim.data.Data&gt       
+                              'target'              
+                              &ltsim.data.Data&gt       
+                              'funApp'              
+                              &ltsim.funApp.FunApp&gt   
+                              '}'                   
+sim.errFun.QLearning      ::=                        // Q Learning.
+sim.errFun                ::= '{' ('MDP'             // Reinforcement 
+   .ReinforcementLearning     &ltsim.mdp.MDP&gt |        // Learning Experiment Wrapper.
+                              'funApp'              
+                              &ltsim.funApp.FunApp&gt   
+                              'dt' NumExp | 'gamma' 
+                              NumExp |              
+                              'incremental'         
+                              &ltboolean&gt |           
+                              'trajectories'        
+                              &ltboolean&gt'exploration'
+                               NumExp | 'algorithm' 
+                              &ltsim.errFun.RLErrFun&gt 
+                              | 'method' ('resGrad' 
+                              | 'direct' |          
+                              ('residual' (NumExp | 
+                              'adapt' NumExp*))))*  
+                              '}'                   
+sim.errFun                ::= '{' 'incremental'      // learn a input/output 
+   .SupervisedLearning        &ltboolean&gt 'data'       // mapping.
+                              &ltsim.data.Data&gt       
+                              'funApp'              
+                              &ltsim.funApp.FunApp&gt   
+                              '}'                   
+sim.errFun.ValueIteration ::=                        // Value Iteration.
+sim.funApp                ::= '{'                   
+   .InterferenceFunction                            
+sim.funApp.LookupTable    ::= ('{' NumExp NumExp     // Lookup Table.
+                              IntExp '}')+          
+sim.funApp.Net            ::= '{' ('Identity' |      // Neural network which 
+                              'HardlimitingSquashing // computes the first 
+                              ' | 'Bipolar' |        // and second 
+                              'Monopolar' |          // derivitives wrt the 
+                              'ExponentialInverted'  // weights and inputs.
+                              | 'HyperbolicTan' |   
+                              'Sin' | 'Gaussian')   
+                              ('Linear' |           
+                              'Quadratic1'|         
+                              'Quadratic2')         
+                              (('Identity' |        
+                              'HardlimitingSquashing
+                              ' | 'Bipolar' |       
+                              'Monopolar' |         
+                              'ExponentialInverted' 
+                              | 'HyperbolicTan' |   
+                              'Sin' | 'Gaussian')   
+                              '(' IntExp ')'        
+                              ('Linear' |           
+                              'Quadratic1'|         
+                              'Quadratic2') ) *     
+                              (('Identity' |        
+                              'HardlimitingSquashing
+                              ' | 'Bipolar' |       
+                              'Monopolar' |         
+                              'ExponentialInverted' 
+                              | 'HyperbolicTan' |   
+                              'Sin' | 'Gaussian')   
+sim.funApp.SpiralFunction ::=                        // spiral function.
+sim.funApp.ValuePolicy    ::= '{' (('statesOnly'     // A function that takes 
+                              &ltboolean&gt) | ('dt'     // a state and returns 
+                              expression.NumExp) |   // the value of the 
+                              ('gamma'               // state with the 
+                              expression.NumExp) |   // optimal action.
+                              ('mdp' &ltsim.mdp.MDP&gt) 
+                              | ('funApp'           
+                              &ltsim.funApp.FunApp&gt))*
+                               '}'                  
+sim.gradDesc.Backprop     ::= '{' (('learningRate'   // backprop with momentum.
+                              expression.NumExp) |  
+                              ('momentum'           
+                              expression.NumExp) |  
+                              ('smooth'             
+                              expression.NumExp) |  
+                              ('tolerance'          
+                              expression.NumExp) |  
+                              ('minInitWeight'      
+                              expression.NumExp) |  
+                              ('maxInitWeight'      
+                              expression.NumExp) |  
+                              ('error'              
+                              &ltsim.errFun.ErrFun&gt))*
+                               '}'                  
+sim.gradDesc.ConjGrad     ::= '{' ( 'tolerance'      // Conjugate Gradient.
+                              NumExp | 'step'       
+                              NumExp |              
+                              'initWeights' NumExp  
+                              [','] NumExp)*        
+                              'error'               
+                              &ltsim.errFun.ErrFun&gt | 
+                              'mode' NumExp '}'     
+sim.gradDesc.IDD          ::= '{' ('theta' NumExp |  // Incremental Delta Delta.
+                              'smooth' NumExp |     
+                              'tolerance' NumExp |  
+                              'initWeights' NumExp  
+                              [','] NumExp)*        
+                              'error'               
+                              &ltsim.errFun.ErrFun&gt'}'
+sim.mdp.GridWorld         ::= ('granularity' IntExp) // 2D Continuous Grid World.
+sim.mdp.HC                ::= ('epochSize' IntExp)*  // Linear-Quadratic Regulator.
+sim.mdp.HCDemo            ::= ('epochSize' IntExp)*  // Linear-Quadratic Regulator.
+sim.mdp.Hall              ::=                        // A Hall Markov chain.
+sim.mdp.LQR               ::= ('discrete' &ltboolean&gt  // Linear-Quadratic Regulator.
+                              'epochSize' IntExp)*  
+sim.mdp.XORmdp            ::=                        // XOR Markov Decision Process.
+&ltDisplay&gt                 ::= 'ShowEdit'              ShowEdit |
+                              'Title'                 Title |
+                              'Graph2D'               sim.display.Graph2D |
+                              'Graph3D'               sim.display.Graph3D |
+                              'SaveDisplay'           sim.display.SaveDisplay
+&ltProject&gt                 ::= 'Credits'               Credits |
+                              'Credits2'              Credits2 |
+                              'FindBNF'               FindBNF |
+                              'ShowThreads'           ShowThreads |
+                              'TestMatrix'            TestMatrix |
+                              'Picture'               picture.Picture |
+                              'Simulator'             sim.Simulator
+&ltpicture.PicPipe&gt         ::= 'Animation'             picture.Animation |
+                              'Antialias'             picture.Antialias |
+                              'ColorMap'              picture.ColorMap |
+                              'Description'           picture.Description |
+                              'Edges'                 picture.Edges |
+                              'Gallery'               picture.Gallery |
+                              'PicPipePipeline'       picture.PicPipePipeline |
+                              'Region'                picture.Region |
+                              'RndColor'              picture.RndColor |
+                              'ValueMap'              picture.ValueMap |
+                              'Fract1'                picture.directFractal.Fract1 |
+                              'Maze'                  picture.directFractal.Maze
+&ltsim.Experiment&gt          ::= 'ForExperiment'         sim.ForExperiment |
+                              'TDLambda'              sim.TDLambda |
+                              'Backprop'              sim.gradDesc.Backprop |
+                              'ConjGrad'              sim.gradDesc.ConjGrad |
+                              'IDD'                   sim.gradDesc.IDD
+&ltsim.data.Data&gt           ::= 'Dot'                   sim.data.Dot |
+                              'OnesRnd'               sim.data.OnesRnd |
+                              'RemoteTable'           sim.data.RemoteTable |
+                              'RndCircle'             sim.data.RndCircle |
+                              'RndDisk'               sim.data.RndDisk |
+                              'RndOnes'               sim.data.RndOnes |
+                              'RndUniformLine'        sim.data.RndUniformLine |
+                              'RndUniformSquare'      sim.data.RndUniformSquare |
+                              'SpiralData'            sim.data.SpiralData |
+                              'Table'                 sim.data.Table |
+                              'XOR'                   sim.data.XOR
+&ltsim.display.Plot&gt        ::= 'Contour'               sim.display.Contour |
+                              'Grid'                  sim.display.Grid |
+                              'PlotXY'                sim.display.PlotXY
+&ltsim.errFun.ErrFun&gt       ::= 'AdvantageLearning'     sim.errFun.AdvantageLearning |
+                              'Batch'                 sim.errFun.Batch |
+                              'ErrAvg'                sim.errFun.ErrAvg |
+                              'LocalLearning'         sim.errFun.LocalLearning |
+                              'PDFE'                  sim.errFun.PDFE |
+                              'QLearning'             sim.errFun.QLearning |
+                              'ReinforcementLearning' sim.errFun.ReinforcementLearning |
+                              'SupervisedLearning'    sim.errFun.SupervisedLearning |
+                              'ValueIteration'        sim.errFun.ValueIteration
+&ltsim.errFun.RLErrFun&gt     ::= 'AdvantageLearning'     sim.errFun.AdvantageLearning |
+                              'QLearning'             sim.errFun.QLearning |
+                              'ReinforcementLearning' sim.errFun.ReinforcementLearning |
+                              'ValueIteration'        sim.errFun.ValueIteration
+&ltsim.funApp.FunApp&gt       ::= 'InterferenceFunction'  sim.funApp.InterferenceFunction |
+                              'LookupTable'           sim.funApp.LookupTable |
+                              'Net'                   sim.funApp.Net |
+                              'SpiralFunction'        sim.funApp.SpiralFunction |
+                              'ValuePolicy'           sim.funApp.ValuePolicy
+&ltsim.mdp.MDP&gt             ::= 'GridWorld'             sim.mdp.GridWorld |
+                              'HC'                    sim.mdp.HC |
+                              'HCDemo'                sim.mdp.HCDemo |
+                              'Hall'                  sim.mdp.Hall |
+                              'LQR'                   sim.mdp.LQR |
+                              'XORmdp'                sim.mdp.XORmdp
+&ltstring&gt                  ::= a string in single or double quotes
+&ltinteger&gt                 ::= an integer (no decimal point)
+&ltdouble&gt                  ::= a floating point number with a decimal point
+&ltboolean&gt                 ::= 'true' | 'false'
+</pre>
+</html>
+WebSim quitting

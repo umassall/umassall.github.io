@@ -1,0 +1,37 @@
+#!/opt/bin/perl -si
+
+require "ctime.pl";
+require "/user/cgi/rlr/netforum/lib/sys_config";
+require "/user/cgi/rlr/netforum/lib/forum_config";
+if($allow_forum_config){
+require "/user/cgi/rlr/netforum/dp/forum_config";
+}
+require "/user/cgi/rlr/netforum/lib/main";
+require "/user/cgi/rlr/netforum/lib/variables";
+require "/user/cgi/rlr/netforum/lib/utilities";
+
+
+$which_forum = "dp";
+$script_name = 'a';
+$netforum_url = "$base_url/$which_forum/$script_name";
+
+$forum_name = "DP/MDP";
+$forum_owner = "Administrator
+";
+$forum_owner_code_name = "admin";
+$forum_monitor = "Natalia Hernandez";
+$forum_monitor_email = "hernan49\@cse.msu.edu";
+
+
+
+if ($ENV{'REQUEST_METHOD'} eq 'GET') {
+	&get_url_vars;
+	&get_command;
+}
+
+if ($ENV{'REQUEST_METHOD'} eq 'POST') {
+	&ReadParse();
+	&get_url_vars;
+	&post_command;
+}
+

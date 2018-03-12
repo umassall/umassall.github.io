@@ -1,0 +1,25 @@
+Important notes and gotchas on RLR:
+-----------------------------------
+
+1. The .html files which are added to automatically, including list.html
+   (researchers), pubs.html, and whatsnew.html, must have permissions of
+   777.  This is because the user the cgi script runs as is "nobody".
+
+2. The main .html file, index.html, sets up frames only.  menubar.html is
+   the file which defines the image map bar on the left hand side of the
+   browser window, and rl-main.html is the introduction page.
+
+3. The cgi scripts are in the directory /user/cgi/rlr
+
+4. The search data needs to be updated periodically.  It is in the
+   directory /user/cgi/rlr/search.  The program to update the search data
+   is:
+	 swish -c swish.conf  
+   This will run thru the directory /user/web/htdocs/rlr, and all of its
+   subdirectories, and create the file rlr.swish.  (Make sure that the
+   permissions on rlr.swish are 644).
+
+5. The access statistics program is in the stats subdirectory.
+   accesswatch.pl is the program to run -collects daily stats. only.
+
+

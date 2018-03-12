@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Register your Research Publication</title>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35723838-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body bgcolor="FFFFBB">
+<h2>Register your research publication</h2>
+<img align=right src="imgs/submit2.gif">
+<p>Filling out and submitting this form will automatically add your
+publication to the HTML page of RL publications.
+<form method="POST" action="cgi-bin/rlr/pub.pl">
+<br>
+<h3>Part one: Information about the Author(s)</h3>
+First author's <b>first</b> name:
+<input type="text" name="firstname1" size="20"><br>
+First author's <b>last</b> name:
+<input type="text" name="lastname1" size="20"><br>
+
+First author's e-mail address:
+<input type="text" name="email" size="30"><br>
+<br>
+
+Additional authors' first and last names:
+<input type="text" name="othernames" size="60"><br>
+
+<br>
+<hr>
+<h3>Part 2: Information about your publication</h3>
+Title of your publication:
+<textarea name="title" cols="70" rows="2"></textarea><br>
+<br>
+URL for your publication:
+<input type="text" name="puburl" size="50" value="http://"><br>
+<br>
+Journal, conference proceedings, etc., where your paper appeared
+(or will appear):
+<input type="text" name="journal" size="50" value="unpublished"><br>
+<br>
+
+Format of your publication:<br>
+<input type="radio" name="format" value="ps"> Postscript<br>
+<input type="radio" name="format" value="gps"> Gzipped-Postscript<br>
+<input type="radio" name="format" value="cps"> Compressed Postscript<br>
+<input type="radio" name="format" value="wd"> Microsoft Word<br>
+<input type="radio" name="format" value="ot"> Other, enter the format:
+<input type="text" name="otherformat" size="25"><br>
+<br>
+Approximate size of your publication (give the unit, e.g., KB, also):
+<input type="text" name="pubsize" size="12"><br>
+
+<hr>
+<h3>Part 3: Details about your publication</h3>
+
+Choose <b>at least ONE and up to TWO</b> of the following primary
+categories for your paper:<br>
+<input type="checkbox" name="ar" value="yes"> Applications to robotics<br>
+<input type="checkbox" name="un" value="yes"> Average-reward/undiscounted
+methods<br>
+<input type="checkbox" name="di" value="yes"> Distributed and Multi-Agent RL<br>
+<input type="checkbox" name="dp" value="yes"> DP/MDP<br>
+<input type="checkbox" name="fa" value="yes"> Function approximation<br>
+<input type="checkbox" name="hm" value="yes"> Hierarchical methods<br>
+<input type="checkbox" name="in" value="yes"> Industrial applications<br>
+<input type="checkbox" name="nb" value="yes"> Neuro-biological RL<br>
+<input type="checkbox" name="po" value="yes"> Partially observable
+problems<br>
+<input type="checkbox" name="pl" value="yes"> Planning<br>
+<input type="checkbox" name="ps" value="yes"> Policy-space Search Methods<br>
+<input type="checkbox" name="sh" value="yes"> Shaping<br>
+<input type="checkbox" name="td" value="yes"> TD-learning<br>
+<input type="checkbox" name="th" value="yes"> Theoretical analysis<br>
+<br>
+Brief abstract of your work.  These will be indexed to allow other
+researchers to search on keywords.  
+<textarea cols="70" rows="7" name="abstract"></textarea>
+<br><br>
+<hr>
+<h3>Part 4: Submit</h3>
+<input type="submit" value="Add your article to the RL publications page">
+<input type="reset"  value="Cancel your submission">

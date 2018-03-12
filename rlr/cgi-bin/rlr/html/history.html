@@ -1,0 +1,131 @@
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+<h1 align=center> <img hspace=20 vspace=0 border=0 align=center src=images/logob.gif>WebSim Revision History</h1>
+<br>
+
+<img hspace=10 src=images/logos.gif>1.28 28 July 97
+      Parsing is now automated for Simulator, Backprop, ValuePolicy, and
+      every class of type Display or Plot.
+      Changed all the HTML files to reflect the resulting changes in the language.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.27 18 July 97
+      WebSim now runs on Netscape Win95/WinNT/MacOS/OSF1(DECUnix).
+      SunOs 4 and SunOs 5 still crash in the X-windows library.
+      Code now allows automated BNF/parse/unparse/setVar/setWatch,
+      using the new getParameters method.  Only Grid, Title, Contour, Simulator,
+      and PlotXY have been changed so far to use this new feature.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.26 4 July 97
+      Can now save Postscript as either normal Postscipt or
+      a Postscript file representing a single big bitmap.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.25 3 July 97
+      Bug fixes, especially for many of the unparse() methods and Unparser.java,
+      so "save all" menu works better now.  Many of the demos are improved.
+      Changes to Directories.java may make it work better on non-Windows platforms.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.24 25 June 97
+      Improved and debugged many objects, including Graph2D, and ShowEdit.
+      Added Grid. Added ReinforcementLearning and changed
+      AdvantageLearning, QLearning and ValueIteration accordingly.
+      VRML interface now works with Cosmo Player Beta 3a, and the
+      demo uses a window embedded in the Web page.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.23 17 May 97
+      Improved VRML interface.  Reorganized all the Displays..
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.22 13 May 97
+      VRML interface and #DEF/#USE added.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.21 12 May 97
+      Numerical expressions can now be parsed.  In lists of
+      numbers, a list like [1 -2 3] will now have to be written as
+      [1 (-2) 3]  or, even better, [1, -2, 3] to avoid the (1-2) being
+      interpreted as a single expression.  The list [1 2 3] is still OK.
+      Also, the public variable WebSim.watchManager can now be used to
+      coordinate different Applets running in the same VM.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.20 10 May 97
+      Downloading, parsing, and opening new windows are now faster.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.19 8 May 97
+      Pause/Resume works on Netscape 4.0 beta 3, and the zip files can now
+      be read by some unzipping programs that were confused before.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.18 6 May 97
+      A new class sim.funApp.Net creates neural networks with any number of layers,
+      each of which implements radial basis functions, sigmoids, linear functions.
+      or various other functions.  It also knows how to calculate its own second
+      derivatives.  This obsoletes the old sim.funApp.MLP and sim.funApp.Linear.
+      Menus are now in embedded windows, appearing as pulldown choice lists.  (These
+      will be converted to proper popup menus as soon as Netscape and IE have nonbeta
+      releases supporting Java 1.1).  There is now a "websim" menu on all project windows
+      that can pause everything, resume everything, turns graphics on and off,
+      and save a snapshot of everything
+      to disk as an HTML file.  When that file is loaded in, everything picks up where
+      it left off.  Numerous bug fixes and workarounds for Netscape bugs now allow WebSim
+      to work fine with Netscape 4.0 beta 3 (which includes a very buggy
+      beta of Symantec's jit 2.0).  JAR files are now being used, which work with the
+      Netscape beta.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.17 18 Apr 97
+      A new class, sim.data.RemoteTable, now allows
+      Websim to download data sets from the Internet (e.g. the UC Irvine
+      repository) and use them for supervised learning, etc.  Also,
+      bugs in the unparse() method of many classes have been fixed.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.16 15 Apr 97
+      A new class, sim.errFun.Batch, now allows pseudo epochwise batch training on infinite
+      training sets by averaging together N evaluations of an error function.
+      A new class sim.errFun.errAvg now allows several error functions to be combined
+      so that gradient descent on their average is actually performed.
+      Some bugs are fixed, and the majority of the native code for MatrixD and MatrixF
+      is working.
+      Also, the the class TestMatrix.java has benchmarking code to see how Java
+      compares to C, and the results of some benchmarks are in the comments in
+      that file.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.15 7 Apr 97
+      Bug fixes and some native code for MatrixD.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.13 1 Apr 97
+      SaveDisplay object now saves a sequence of snapshots of a Display,
+      either as a set of separate GIF files, or as a single animated GIF.
+      All windows can save images as Postscript now, in addition to GIF.
+      The Contour object makes contour plots that can be zoomed in on with
+      the mouse.
+      The "#" button now brings up many more parameters for
+      Graph2D, Graph3D, Contour, ShowEdit.  See the BNF comments for what they mean.
+      Parameter windows (ShowEdit windows) now respond to arrow keys.
+      The code runs under the Symantec CAFE jit beta, as well as JDK 1.0 and 1.1.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.12 20 Feb 97
+      Added menu to save as GIF to all windows.
+      Created SaveGIF Display to create animations on the hard drive.
+      Fixed WebSim so everything stops when you leave the current Web page.
+      Minor improvements to ShowEdit and the two buttons in GWin.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.11 16 Feb 97.
+      Added a second button to each display that shows all
+      watchable variables.  Made ShowEdit easier to use.
+      Fixed bugs with the behavior of windows.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.10 11 Feb 97.
+      Replaced ShowNumbers with ShowEdit which allows watchable
+      parameters to be editted by the user at runtime.  Converted
+      all objects to use parseClass("IntExp",) instead of
+      parseInt(), and parseClass("NumExp",) instead of
+      parseNum().  Fixed a bug in Random (it wouldn't
+      work when given a seed outside a certain range, or
+      when generating such a seed from the clock automatically).
+      Added the ability to put a title on any window.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.01 24 Oct 96.
+      Simplified the unparse() method, made BNF() more
+      powerful and added new BNF() comments to many classes.
+      Much-improved Random and sim.QLearning. Modified MDP/MLP
+      interfaces.
+      <br><br>
+<img hspace=10 src=images/logos.gif>1.00 7 Oct 96. Initial WebSim release.
+<p>
+<a href=../index.html>Back</a> to WebSim.
+

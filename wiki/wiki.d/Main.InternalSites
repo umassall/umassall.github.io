@@ -1,0 +1,21 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36
+author=CJ
+csum=
+ctime=1453491977
+host=66.60.236.212
+name=Main.InternalSites
+rev=3
+targets=
+text=This list attempts to document the semi-random set of webservers running on nemo.%0aNote that some of these are password-protected, and the password is almost always the lab password.%0a%0a* Our self-hosted GitLab instance: [[http://nemo.cs.umass.edu:8181/]]%0a* Our paper/reference database (RefBase): [[http://nemo.cs.umass.edu/]]%0a* Internal paper reviews (ALL-review): [[http://nemo.cs.umass.edu:7979/]]%0a* The Darby group's spectroscopy site (Superman): [[http://nemo.cs.umass.edu:54321/]]%0a* The old GitWeb server (use GitLab instead): [[http://nemo.cs.umass.edu:1234/]]
+time=1453492600
+author:1453492600=CJ
+diff:1453492600:1453492008:=5,6d4%0a%3c * Our paper/reference database (RefBase): [[http://nemo.cs.umass.edu/]]%0a%3c * Internal paper reviews (ALL-review): [[http://nemo.cs.umass.edu:7979/]]%0a7a6%0a> * Internal paper reviews (ALL-review): [[http://nemo.cs.umass.edu:7979/]]%0a
+host:1453492600=66.60.236.212
+author:1453492008=CJ
+diff:1453492008:1453491977:=1a2%0a> %0a4,7c5,8%0a%3c * Our self-hosted GitLab instance: [[http://nemo.cs.umass.edu:8181/]]%0a%3c * The Darby group's spectroscopy site (Superman): [[http://nemo.cs.umass.edu:54321/]]%0a%3c * Internal paper reviews (ALL-review): [[http://nemo.cs.umass.edu:7979/]]%0a%3c * The old GitWeb server (use GitLab instead): [[http://nemo.cs.umass.edu:1234/]]%0a\ No newline at end of file%0a---%0a>  * Our self-hosted GitLab instance: [[http://nemo.cs.umass.edu:8181/]]%0a>  * The Darby group's spectroscopy site (Superman): [[http://nemo.cs.umass.edu:54321/]]%0a>  * Internal paper reviews (ALL-review): [[http://nemo.cs.umass.edu:7979/]]%0a>  * The old GitWeb server (use GitLab instead): [[http://nemo.cs.umass.edu:1234/]]%0a\ No newline at end of file%0a
+host:1453492008=66.60.236.212
+author:1453491977=CJ
+csum:1453491977=initial list
+diff:1453491977:1453491977:=1,8d0%0a%3c This list attempts to document the semi-random set of webservers running on nemo.%0a%3c %0a%3c Note that some of these are password-protected, and the password is almost always the lab password.%0a%3c %0a%3c  * Our self-hosted GitLab instance: [[http://nemo.cs.umass.edu:8181/]]%0a%3c  * The Darby group's spectroscopy site (Superman): [[http://nemo.cs.umass.edu:54321/]]%0a%3c  * Internal paper reviews (ALL-review): [[http://nemo.cs.umass.edu:7979/]]%0a%3c  * The old GitWeb server (use GitLab instead): [[http://nemo.cs.umass.edu:1234/]]%0a\ No newline at end of file%0a
+host:1453491977=66.60.236.212

@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE>What is Wusage?</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h4>allowsites</h4>
+</a>
+<pre>
+allowsites
+#A pattern matching anything (this is the default)
+*               
+#A pattern matching only sites in the boutell.com domain,
+#including boutell.com itself
+*boutell.com
+end allowsites
+</pre>
+The <code>allowsites</code> option, which extends for
+several lines and must end with the line
+<code>end allowsites</code>, indicates which sites
+will be considered by wusage. Accesses from sites that
+do not match any of the patterns listed
+for the <code>allowsites</code> option will be
+ignored completely by wusage. Each character
+of the site name is matched against the pattern.
+An <code>*</code> in the pattern matches any
+number of characters in the site name.
+Patterns have additional features; for more information about 
+patterns, see the <code><a href="patterns.html">patterns</a></code>
+section. If the <code>allowsites ... end allowsites</code>
+option is absent, accesses from all sites will be considered.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

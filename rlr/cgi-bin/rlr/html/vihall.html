@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+
+<H1><IMG SRC="images/logob.gif" HSPACE=20 HEIGHT=64 WIDTH=64 ALIGN=CENTER>
+WebSim</H1>
+
+<H5><BR>
+All of this code is (c) 1996 by the respective authors, is freeware, and
+may be freely distributed. If modifications are made, please say so in
+the comments.</H5>
+
+<P>
+<HR WIDTH="100%">This page requires a Java-aware browser and may take several
+minutes to download. Please be patient.
+<HR WIDTH="100%"></P>
+
+<H1 ALIGN=CENTER>Simulation Definition:</H1>
+
+<P><B>See the source HTML code for this page to see the simulation definition
+that is parsed and executed by the <A HREF="../index.html">WebSim</A> applet.<BR>
+<BR>
+
+
+<P><APPLET codebase="../classes" code=WebSim.class width=620 height=320><PARAM name=sourceText value="
+`/*****************************************************************/
+`embed
+`(0,0,524,60)
+`Simulator {
+`  experiment Backprop {
+`    learningRate .1
+`    momentum  0.9
+`    tolerance 1e-8
+`    smooth    .999
+`    error ReinforcementLearning {
+`      mdp             Hall
+`      algorithm       ValueIteration
+`      method          resGrad
+`      dt              0.1
+`      gamma           0.9
+`      incremental     false
+`      trajectories    true
+`      exploration     1.0
+`      funApp          #DEF FUNCTION {Net {Identity Linear Bipolar(8) Linear Identity}}
+`    }
+`   }
+`   displays {
+`      embed
+`      (0,0,200,200)
+`      title {title 'Learned value vs. state' display
+`      Graph3D {
+`                rotateX 10 rotateY -93 rotateZ 0
+`                trigger 'time' freq 1
+`                function  ValuePolicy {
+`                            mdp Hall
+`                            funApp #USE FUNCTION
+`                            statesOnly true
+`                            dt 0.1 gamma 0.9
+`                          }
+`                inputs  [1 0]
+`                xElement 1 xSamples 21 xMin -1 xMax 1
+`                yElement 0 ySamples  2 xMin  1 xMax 1
+`                zElement 0
+`      }
+`      }
+`
+`     embed
+`     (0,0,200,200)
+`     title {title 'Log error vs. timestep' display
+`     Graph2D {
+`       trigger 'time' freq 1
+`       plots {
+`         plotXY {
+`           size 100
+`           lineColor [0 .5 0] symbolColor [0 .8 0]
+`           trigger 'time' freq 1
+`           x       'time'
+`           y       'log error'
+`         }
+`       }
+`     }
+`     }
+`   }
+`}
+`/*****************************************************************/
+">
+<HR>This Java applet requires a Java-aware browser such as Netscape 2.0
+for Solaris/Win95/WinNT.
+<HR></APPLET></P>
+
+</BODY>
+</HTML>
+*****************/
+">
+<HR>This Java applet requires a Java-aware browser such as Netscape 2.0
+for Solaris/Win95/WinNT.
+<HR></APPLET></P>
+
+</BODY>
+</HTML>

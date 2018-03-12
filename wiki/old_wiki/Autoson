@@ -1,0 +1,234 @@
+Date: Fri, 3 Feb 2006 15:23:51 -0500
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_36"
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=ash;
+  version=9;
+  lastmodified=1138998231;
+  author_id=ash;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+When running experiments (e.g., 30 runs of the same thing), it's best to use Autoson, which automatically runs jobs across all of the computers we have access to or some subset of them. If you've never used it before, be prepared to spend an hour or so figuring it out.
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+Emily Horrell in LPR is the current expert, though you can ask Ashvin or probably many other people as well. However, don't do so until you've skimmed through all this stuff and tried to run it yourself, otherwise Ash will get mad.
+
+* [Andy Fagg's autoson write-up | http://www-all.cs.umass.edu/autoson_local/autoson/index.html]
+
+* Amy wrote an [augui | http://www-all.cs.umass.edu/augui/augui.html] application, which graphically shows jobs.
+
+* [What Ash does to run a Matlab script | AshMatlabAutoson] 30 times with autoson.
+
+* What Sarah does to run a program(not in Matlab) on a specific machine in the lab is [ here].
+* [More Autoson Info | AutoSonInfo]
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=ash;
+  version=8;
+  lastmodified=1138996363;
+  author_id=ash;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+When running experiments (e.g., 30 runs of the same thing), it's best to use Autoson, which automatically runs jobs across all of the computers we have access to or some subset of them. If you've never used it before, be prepared to spend an hour or so figuring it out.
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+Emily Horrell in LPR is the current expert, though you can ask Ashvin or probably many other people as well. However, don't do so until you've skimmed through all this stuff and tried to run it yourself, otherwise Ash will get mad.
+
+* [Andy Fagg's autoson write-up | http://www-all.cs.umass.edu/autoson_local/autoson/index.html]
+
+* [Simple Autoson Stuff | SimpleAutoson]
+
+* Amy wrote an [augui | http://www-all.cs.umass.edu/augui/augui.html] application, which graphically shows jobs.
+
+* What Sarah does to run a program(not in Matlab) on a specific machine in the lab is [ here].
+* [More Autoson Info | AutoSonInfo]
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=sosentos;
+  version=7;
+  lastmodified=1138987837;
+  author_id=sosentos;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+When running experiments (e.g., 30 runs of the same thing), it's best to use Autoson, which automatically runs jobs across all of the computers we have access to or some subset of them. If you've never used it before, be prepared to spend an hour or so figuring it out.
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+Emily Horrell in LPR is the current expert, though you can ask Ashvin or probably many other people as well. However, don't do so until you've skimmed through all this stuff and tried to run it yourself, otherwise Ash will get mad.
+
+* [Andy Fagg's autoson write-up | http://www-all.cs.umass.edu/autoson_local/autoson/index.html]
+
+* [What Ash does to run a matlab simulation 30 times (with different random seeds) | http://www-all.cs.umass.edu/ash_runs_autoson.txt]. This also has some other simple stuff on it.
+
+* Amy wrote an [augui | http://www-all.cs.umass.edu/augui/augui.html] application, which graphically shows jobs.
+
+* What Sarah does to run a program(not in Matlab) on a specific machine in the lab is [ here].
+* [More Autoson Info | AutoSonInfo]
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=ash;
+  version=6;
+  lastmodified=1133968236;
+  author_id=ash;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+When running experiments (e.g., 30 runs of the same thing), it's best to use Autoson, which automatically runs jobs across all of the computers we have access to or some subset of them. If you've never used it before, be prepared to spend an hour or so figuring it out.
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+Emily Horrell in LPR is the current expert, though you can ask Ashvin or probably many other people as well. However, don't do so until you've skimmed through all this stuff and tried to run it yourself, otherwise Ash will get mad.
+
+* [Andy Fagg's autoson write-up | http://www-all.cs.umass.edu/autoson_local/autoson/index.html]
+
+* [What Ash does to run a matlab simulation 30 times (with different random seeds) | http://www-all.cs.umass.edu/ash_runs_autoson.txt]. This also has some other simple stuff on it.
+
+* Amy wrote an [augui | http://www-all.cs.umass.edu/augui/augui.html] application, which graphically shows jobs.
+
+* [More Autoson Info | AutoSonInfo]
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=ash;
+  version=5;
+  lastmodified=1133968216;
+  author_id=ash;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+When running experiments (e.g., 30 runs of the same thing), it's best to use Autoson, which automatically runs jobs across all of the computers we have access to or some subset of them. If you've never used it before, be prepared to spend an hour or so figuring it out.
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+Emily Horrell in LPR is the current expert, though you can ask Ashvin or probably many other people as well. However, don't do so until you've skimmed through all this stuff and tried to run it yourself, otherwise Ash will get mad.
+
+* [Andy Fagg's autoson write-up | http://www-all.cs.umass.edu/autoson_local/autoson/index.html]
+
+* [What Ash does to run a matlab simulation 30 times (with different random seeds) | http://www-all.cs.umass.edu/ash_runs_autoson.txt]. This also has some other simple stuff on it.
+
+* Amy wrote an [augui | http://www-all.cs.umass.edu/augui/augui.html] application, which graphically shows jobs.
+
+* [More Autoson Info | AutoSon]
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=colinb;
+  version=4;
+  lastmodified=1125679401;
+  author_id=colinb;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+When running experiments (e.g., 30 runs of the same thing), it's best to use Autoson, which automatically runs jobs across all of the computers we have access to or some subset of them. If you've never used it before, be prepared to spend an hour or so figuring it out.
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+Emily Horrell in LPR is the current expert, though you can ask Ashvin or probably many other people as well. However, don't do so until you've skimmed through all this stuff and tried to run it yourself, otherwise Ash will get mad.
+
+* [Andy Fagg's autoson write-up | http://www-all.cs.umass.edu/autoson_local/autoson/index.html]
+
+* [What Ash does to run a matlab simulation 30 times (with different random seeds) | http://www-all.cs.umass.edu/ash_runs_autoson.txt]. This also has some other simple stuff on it.
+
+* Amy wrote an [augui | http://www-all.cs.umass.edu/augui/augui.html] application, which graphically shows jobs.
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=colinb;
+  version=3;
+  lastmodified=1125679242;
+  author_id=colinb;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+When running experiments (e.g., 30 runs of the same thing), it's best to use Autoson, which automatically runs jobs across all of the computers we have access to or some subset of them. If you've never used it before, be prepared to spend an hour or so figuring it out.
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+Emily Horrell in LPR is the current expert, though you can ask Ashvin or probably many other people as well. However, don't do so until you've skimmed through all this stuff and tried to run it yourself, otherwise Ash will get mad.
+
+* Here is Andy Fagg's autoson write-up: http://www-all.cs.umass.edu/autoson_local/autoson/index.html
+
+* Here is a text file of what Ash does to run a matlab simulation 30 times (with different random seeds): http://www-all.cs.umass.edu/ash_runs_autoson.txt . This also has some other simple stuff on it.
+
+* Amy wrote an augui application, which graphically shows jobs. Here's a write-up on it: http://www-all.cs.umass.edu/augui/augui.html
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1125597559;
+  author_id=ash;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+Emily Horrell in LPR is the current expert, though you can ask Ashvin or probably many other people as well. However, don't do so until you've skimmed through all this stuff and tried to run it yourself, otherwise Ash will get mad.
+
+* Here is Andy Fagg's autoson write-up: http://www-all.cs.umass.edu/autoson_local/autoson/index.html
+
+* Here is a text file of what Ash does to run a matlab simulation 30 times (with different random seeds): http://www-all.cs.umass.edu/ash_runs_autoson.txt . This also has some other simple stuff on it.
+
+* Amy wrote an augui application, which graphically shows jobs. Here's a write-up on it: http://www-all.cs.umass.edu/augui/augui.html
+
+--=_multipart_boundary_36
+Content-Type: application/x-phpwiki;
+  pagename=Autoson;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1125597344;
+  author_id=ash;
+  markup=2;
+  hits=64;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+Autoson automatically runs jobs across machines and what not. Here are some links to help you out.
+
+* Andy Fagg's http://www-all.cs.umass.edu/autoson_local/autoson/index.html autoson write-up.
+
+--=_multipart_boundary_36--

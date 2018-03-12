@@ -1,0 +1,843 @@
+<HTML>
+<HEAD>
+<TITLE>GIFs on the FLY</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<!-- ===================================================================== -->
+<HR>
+<H1>fly: create GIF images on the fly</H1>
+<!-- ===================================================================== -->
+<HR>
+<P> Author:
+    <A HREF="http://www.unimelb.edu.au/%7Egleeson/">Martin Gleeson,</A>
+    <A HREF="mailto:gleeson@unimelb.edu.au">
+	gleeson@unimelb.edu.au.</A>
+</P>
+<P> <B>fly</B> is a C program that creates GIF images on
+    the fly from CGI and other programs. Using Thomas Boutell's
+    <a href="http://www.boutell.com/gd/">gd</a> graphics library
+    for fast GIF creation, it provides a command-file interface for
+    creating and modifying GIF images.
+</P>
+<P> Current version: 1.4.2, 26th June 1997
+</P>
+<p><strong>Table of Contents</strong>
+</p>
+<OL>
+    <LI><A HREF="#getting">Obtaining the source.</A>
+    <LI><A HREF="#installing">Installing <B>fly</B>.</A>
+    <LI><A HREF="#using">How to use <B>fly</B>.</A>
+    <LI><A HREF="#feedback">Feedback.</A>
+    <LI><A HREF="#outthere"><B>Fly</B> on the Web.</A>
+    <LI><A HREF="#lists">Mailing Lists.</A>
+    <LI><A HREF="#future">The Future.</A>
+    <LI><A HREF="#bugs">Bugs &amp; FAQs.</A>
+    <LI><A HREF="#contrib">Contributors.</A>
+    <LI><A HREF="#notes">Release notes.</A>
+</OL>
+<P></P>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="getting">Obtaining fly</A>
+</H2>
+<H3> via FTP
+</H3>
+<P>  <B>fly</B> source code is available in the following formats:
+<DL><DT>unix tar:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.tar">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.tar
+     </A> (410k)</DD>
+<DT>unix tar, compressed:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.tar.Z">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.tar.Z
+     </A> (137k)</DD>
+<DT>unix tar, GNU zipped:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.tar.gz
+     </A> (82k)</DD>
+<DT>pkzip:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.zip">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.zip
+     </A> (85k)</DD>
+</DL>
+<P>  Source code is available for MMS (Module Management System) on VMS and OpenVMS:
+<DL><DT>In tar+GNU zipped format:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.vms-src.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.vms-src.tar.gz
+     </A> (51k)</DD>
+</DL>
+<!-- ===================================================================== -->
+<HR>
+<P>  Precompiled binaries are available for some operating systems:
+</P>
+<DL>
+<DT>Windows NT & Windows 95 (x86):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.WinNT.zip">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.WinNT.zip
+     </A> (59k ZIP file)</DD>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.exe">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.exe
+     </A> (134k executable)</DD>
+<DT>DEC OSF/1 v3 aka Digital UNIX (DEC Alpha):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.OSF1-alpha.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.OSF1-alpha.tar.gz
+     </A> (40k)</DD>
+<DT>OpenVMS for DEC Alpha:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.OpenVMS-alpha.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.OpenVMS-alpha.tar.gz
+     </A> (51k)</DD>
+<DT>IBM AIX 3.2.5 for RS/6000:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.AIX-rs6000.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.AIX-rs6000.tar.gz
+     </A> (39k)</DD>
+<DT>SGI IRIX 5.2:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.IRIX-5.2-sgi.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.IRIX-5.2-sgi.tar.gz
+     </A> (36k)</DD>
+<DT>SGI IRIX 5.3:</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.IRIX-5.3-sgi.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.IRIX-5.3-sgi.tar.gz
+     </A> (37k)</DD>
+<DT>Linux 1.3.82 (Intel x86):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.Linux-i586.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.Linux-i586.tar.gz
+     </A> (33k)</DD>
+<DT>SunOS 4.1.3 (SPARC):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.SunOS-4.1.3-sun4.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.SunOS-4.1.3-sun4.tar.gz
+     </A> (38k)</DD>
+<DT>Solaris 2.3 (SPARC):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.SunOS-5.3-sun4.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.SunOS-5.3-sun4.tar.gz
+     </A> (35k)</DD>
+<DT>Solaris 2.5 (SPARC):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.SunOS-5.5-sun4.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.SunOS-5.5-sun4.tar.gz
+     </A> (35k)</DD>
+<DT>FreeBSD 2.0.5 (Intel x86):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.FreeBSD-i486.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.FreeBSD-i486.tar.gz
+     </A> (34k)</DD>
+<DT>Archimedes (RISC-OS):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.archimedes.spark">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.archimedes.spark
+     </A> (76k)</DD>
+<DT>Risc PC StrongArm (RISC-OS):</DT>
+     <DD><A HREF="ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.RPC-SA.tar.gz">
+     ftp://www.unimelb.edu.au/pub/www/tools/unix/fly/fly-1.4.2.RPC-SA.tar.gz
+     </A> (56k)</DD>
+</DL>
+<P>  HP/UX binaries are available from the HP/UX Porting and Archive Centre at
+     <a href="http://hpux.csc.liv.ac.uk/">&lt;URL:http://hpux.csc.liv.ac.uk/&gt;</a>.
+     Search for &quot;fly&quot; and look under the X11/Graphics section.
+<H3> via E-Mail
+</H3>
+<P>  Because some users have reported difficulties in retrieving <B>fly</B>
+     by ftp, due to slow internet links, I have created an autoresponse
+     system where the <B>fly</B> distribution can be mailed to you.
+</P>
+<P>  To obtain <B>fly</B> via email, send a message to
+     <tt>fly@www.unimelb.edu.au</tt> with no subject, and the
+     following line in the body of the message:<br><br>
+     <tt>send <i>&lt;filename&gt;</i></tt><br><br>
+     where <tt><i>&lt;filename&gt;</i></tt> is one of the filenames above (e.g.
+     <tt>fly.tar.gz</tt>, <tt>fly.exe</tt>, <tt>fly.SunOS-5.5-sun4.tar.gz</tt> etc.)
+</P>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="installing">Installing fly</A>
+</H2>
+<P>  If you have obtained <B>fly-<I>n</I>.tar.Z</B> or <B>fly-<I>n</I>.tar.gz</B>, enter the
+     following commands at the unix prompt:
+</P>
+<DL>
+<DT> <KBD> uncompress fly-<I>n</I>.tar.Z </KBD> or <KBD>gunzip fly-<I>n</I>.tar.gz</KBD>
+</DT>
+     <DD> This will decompress the compressed archive.
+     </DD>
+<DT> <KBD> tar xfv fly-<I>n</I>.tar </KBD>
+</DT>
+     <DD> This will un-tar the archive, placing its contents
+          in a directory called <B>fly</B>
+     </DD>
+<DT> <KBD> cd fly-<I>n</I>; make </KBD>
+</DT>
+     <DD> If all goes well, this will compile the program
+          giving you an executable called <B>fly</B>
+     </DD>
+</DL>
+<!-- ===================================================================== -->
+<HR>
+<P>  If you have obtained <B>fly-<I>n</I>.WinNT.zip</B>, enter the
+     following command at the DOS prompt:
+</P>
+<DL>
+<DT> <KBD>pkunzip -d fly-<I>n</I>.zip</KBD>
+</DT>
+     <DD> This will unzip the archive. <em>Note: it is
+          <strong>essential</strong> that you use the <strong>-d
+          switch</strong> to force pkunzip to create the necessary
+          directories</em>.<br>
+          You will need a C compiler (and possibly some experience) to
+          compile fly.
+     </DD>
+</DL>
+<P>Windows users can also use <a href="http://www.winzip.com/">WinZip</a>
+   to extract the files with all the compression formats used on this page
+   including zip, tar, and gz.
+</P>
+<!-- ===================================================================== -->
+<HR>
+<P>  If you have obtained the NT/Win95 zip file, <B>fly-win.zip</B>, enter the
+     following command at the DOS prompt:
+</P>
+<P> <KBD>pkunzip -d fly-<I>n</I>.zip</KBD>
+</P>
+<P> This will unzip the archive.
+</P>
+<P>  If you have obtained the NT/Win95 binary, <B>fly-<I>n</I>.exe</B>, no
+     installation is necessary.
+</P>
+<!-- ===================================================================== -->
+<HR>
+<P>  If you obtained one of the precompiled binaries, enter the following
+     commands:
+</P>
+<DL>
+     <DT></DT>
+     <DD><KBD>gunzip fly-<I>n</I>.<I>OS</I>.tar.gz</KBD><BR>
+     <KBD>tar xfv fly-<I>n</I>.<I>OS</I>.tar</KBD></DD>
+</DL>
+
+<!-- ===================================================================== -->
+<HR>
+<H4> Troubleshooting
+</H4>
+<P>  If you are attempting to compile from source and don't have gcc, you
+     will get an error message along the lines of <tt>'gcc: command not
+     found'</tt> and make will exit. Just change the lines in the Makefile
+     and the Makefile in the gd1.2 directory that read:<br>
+     <tt>CC = gcc</tt><br>
+     to:<br>
+     <tt>CC = cc</tt><br>
+     and it should work. If it still doesn't compile, try one of the
+     pre-compiled binaries, or contact me.
+</P>
+<P><img src="/images/new.gif" alt="[New!]"><b>Hans Schrader
+   &lt;hans.schrader@geol.uib.no&gt;</b> has written an excellent <a
+   href="http://hjs.geol.uib.no/TechCorner/Fly/Counter/test.html">Guide</a>
+   to getting fly and Matt Wright's Counter script working on Win95 with Perl32.
+</P>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="using">Using fly</A>
+</H2>
+<H3>Invoking fly</H3>
+<P> <STRONG><EM>Note that the command line arguments for v1.1 and later are
+    different from v1.0 and earlier.</EM></STRONG>
+</P>
+<P>  The standard manner used to invoke <B>fly</B> is:<BR>
+<kbd> fly -i &lt;input file&gt; -o &lt;output file&gt;</kbd>
+</P>
+<P>  You can omit the input file, and fly takes its directives from stdin,
+     and if you omit the output file, the output goes to stdout.
+</P>
+<ul>
+    <li>Using the <kbd>-q</kbd> switch sets fly to quiet mode - no on-screen
+        reporting.
+    <li>A quick reference to directives may be seen by using the <kbd>-h</kbd>
+        switch.
+</ul>
+<!-- ===================================================================== -->
+<HR>
+<H3> The command file
+</H3>
+<P>  The command file uses a number of directives. It must start with one
+     of the following lines:
+</P>
+<DL><DT><kbd>existing /path/to/file.gif</kbd></DT>
+         <DD>if modifying an existing image, OR</DD>
+    <DT><kbd>new<br>size x,y</kbd></DT>
+         <DD>for creating a new image of width <B>x</B> pixels, height
+     <B>y</B> pixels.</DD>
+</DL>
+<P>  After the initial command, any of the commands below may be used.<br>
+</P>
+<P>  To create more than one image from a command file, use the directive
+     <B><kbd>end</kbd></B>, followed by either
+</P>
+<DL><DT><kbd>existing /path/to/file.gif<br>name &lt;filename.gif&gt;</kbd></DT>
+         <DD>if modifying an existing image, OR</DD>
+    <DT><kbd>new<br>size x,y<br>name &lt;filename.gif&gt;</kbd></DT>
+         <DD>for creating a new image.</DD>
+</DL>
+<P>  <B>Note:</B>
+     <ul>
+         <li>All x,y values are in pixels measured from the top left of the
+             image. For a 256x256 image, top left is 0,0 and bottom right
+             is 255,255. All x1,y1,x2,y2 pairs must specify the top left and
+             bottom right of the shape, where appropriate.
+        </li>
+         <li>All RGB colour values are in integer format, not hexadecimal.
+        </li>
+         <li>Arc sweeps are <B>clockwise.</B>
+        </li>
+     </ul>
+<!-- ===================================================================== -->
+<HR>
+<h4>Directives & explanations
+</h4>
+<dl>
+    <dt><strong><kbd>line x1,y1,x2,y2,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates a line from coordinates <B>x1,y1</B> to coordinates
+             <B>x2,y2</B> of colour <B>R,G,B</B>.
+       </dd>
+    <dt><strong><kbd>dline x1,y1,x2,y2,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates a <I>dashed</I> line from coordinates <B>x1,y1</B> to
+             coordinates <B>x2,y2</B> of colour <B>R,G,B</B>.
+       </dd>
+    <dt><strong><kbd>rect x1,y1,x2,y2,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates a rectangle from coordinates <B>x1,y1</B> to coordinates
+             <B>x2,y2</B> with edging of colour <B>R,G,B</B>.
+       </dd>
+    <dt><strong><kbd>frect x1,y1,x2,y2,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates a filled rectangle from coordinates <B>x1,y1</B> to
+             coordinates <B>x2,y2</B> filled with colour <B>R,G,B</B>. 
+       </dd>
+    <dt><strong><kbd>square x1,y1,s,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates a square qith the top left corner at coordinates
+             <B>x1,y1</B>, with side <B>s</B> in length, with edge
+             of colour <B>R,G,B</B>.
+       </dd>
+    <dt><strong><kbd>fsquare x1,y1,s,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates a square qith the top left corner at coordinates
+             <B>x1,y1</B>, with side <B>s</B> in length, filled with
+             colour <B>R,G,B</B>.
+       </dd>
+        <dd> Creates a filled rectangle from coordinates <B>x1,y1</B> to
+             coordinates <B>x2,y2</B> filled with colour <B>R,G,B</B>. 
+       </dd>
+    <dt><strong><kbd>poly R,G,B,x1,y1...,x<I>n</I>,y<I>n</I></kbd></strong>
+   </dt>
+        <dd> Creates a polygon (has to be closed) through the points
+             <B>x1,y1</B> to <B>x2,y2</B> to ... to <B>x<I>n</I>,y<I>n</I></B>,
+             of colour <B>R,G,B</B>.<BR>
+             Note that the colour values appear before the coordinates in this
+             directive.
+       </dd>
+    <dt><strong><kbd>fpoly R,G,B,x1,y1...,x<I>n</I>,y<I>n</I></kbd></strong>
+   </dt>
+        <dd> Creates a polygon (has to be closed) through the points
+             <B>x1,y1</B> to <B>x2,y2</B> to ... to <B>x<I>n</I>,y<I>n</I></B>,
+             filled with colour <B>R,G,B</B>.<BR>
+             Note that the colour values appear before the coordinates in this
+             directive.
+       </dd>
+    <dt><strong><kbd>arc x1,y1,w,h,start,finish,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates an arc of colour <B>R,G,B</B> centered at coordinates
+             <B>x1,y1</B>, of width <B>w</B> and height <B>h</B>, starting
+             at <B>start</B> degrees and finishing at <B>finish</B> degrees.
+       </dd>
+    <dt><strong><kbd>fcircle x1,y1,d,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates a circle centered at coordinates <B>x1,y1</B>, of
+             diameter <B>d</B>, filled with colour <B>R,G,B</B>.
+       </dd>
+    <dt><strong><kbd>circle x1,y1,d,R,G,B</kbd></strong>
+   </dt>
+        <dd> Creates a circle of colour <B>R,G,B</B> centered at coordinates
+             <B>x1,y1</B>, of diameter <B>d</B>.
+       </dd>
+    <dt><strong><kbd>fill x,y,R,G,B</kbd></strong>
+   </dt>
+        <dd> Flood fills with the colour <B>R,G,B</B> from the coordinates
+             <B>x,y</B> to the edge of the area of the original color of x,y. 
+       </dd>
+    <dt><strong><kbd>filltoborder x,y,R1,G1,B1,R2,B2,G2</kbd></strong>
+   </dt>
+        <dd> Flood fills with colour <B>R2,G2,B2</B> from <B>x,y</B> to the
+             border of colour <B>R1,G1,B1</B>. 
+       </dd>
+    <dt><strong><kbd>string R,G,B,x,y,&lt;size&gt;,&lt;string&gt;</kbd>
+       </strong>
+   </dt>
+        <dd> Writes a string starting at <B>x,y</B> (in the colour
+             <B>R,G,B</B>), of font size <B>&lt;size&gt;</B>, where size
+             can be one of <B>tiny</B>, <B>small</B>, <B>medium</B>,
+             <B>large</B> or <B>giant</B>. 
+       </dd>
+    <dt><strong><kbd>stringup R,G,B,x,y,&lt;size&gt;,&lt;string&gt;</kbd>
+       </strong>
+   </dt>
+        <dd> Writes a string vertically starting at <B>x,y</B> (in the colour
+             <B>R,G,B</B>), of font size <B>&lt;size&gt;</B>, where size
+             can be one of <B>tiny</B>, <B>small</B>, <B>medium</B>,
+             <B>large</B> or <B>giant</B>. The string will go up from the
+             coordinates supplied.
+       </dd>
+    <dt><strong><kbd>copy x,y,x1,y1,x2,y2,filename.gif</kbd></strong>
+   </dt>
+        <dd> Copies region <B>x1,y1 - x2,y2</B> of <B>filename.gif</B> to the
+             coordinates <B>x,y</B> of the image being created/modified. <br>
+			 If <B>x1,y1,x2,y2</B> are all <B>-1</B>, copy the entire image.
+       </dd>
+    <dt><strong><kbd>copyresized x1,y1,x2,y2,dx1,dy1,dx2,dy2,filename.gif
+       </kbd></strong>
+   </dt>
+        <dd> Copies region <B>x1,y1 - x2,y2</B> of <B>filename.gif</B> to the
+             area <B>dx1,dy1 - dx2,dy2</B> of the image being created/modified,
+             resizing the image to fit.<br>
+			 If <B>x1,y1,x2,y2</B> are all <B>-1</B>, copy the entire image.
+       </dd>
+    <dt><strong><kbd>getpixel x,y</kbd></strong>
+   </dt>
+        <dd> Gets the colour index of the point at <B>x,y</B>. 
+       </dd>
+    <dt><strong><kbd>setpixel x,y,R,G,B</kbd></strong>
+   </dt>
+        <dd> Sets the point at <B>x,y</B> to the colour <B>R,G,B</B>. 
+       </dd>
+    <dt><strong><kbd>setbrush filename.gif</kbd></strong>
+   </dt>
+        <dd> Sets the current &quot;brush&quot; to <B>filename.gif.</B>
+             Subsequent directives of <kbd>line</kbd>, <kbd>dline</kbd>,
+             <kbd>rect</kbd>, <kbd>poly</kbd> and <kbd>arc</kbd> will use the
+             selected &quot;brush&quot; to draw their lines, until a call of
+            <kbd>killbrush.</kbd>
+       </dd>
+    <dt><strong><kbd>killbrush</kbd></strong>
+   </dt>
+        <dd> Turns off the brush selection. Calls to <kbd>line</kbd>,
+             <kbd>dline</kbd>, <kbd>rect</kbd>, <kbd>poly</kbd> and
+             <kbd>arc</kbd> will then use the standard single-pixel
+             width brush.
+       </dd>
+    <dt><strong><kbd>settile filename.gif</kbd></strong>
+   </dt>
+        <dd> Sets the current &quot;tile&quot; to <B>filename.gif.</B>
+             Subsequent directives of <kbd>fill</kbd>,
+             <kbd>filltoborder</kbd>, and <kbd>fpoly</kbd> will use the
+             selected &quot;tile&quot; as a fill pattern, until a call
+             of <kbd>killtile.</kbd>
+       </dd>
+    <dt><strong><kbd>killtile</kbd></strong>
+   </dt>
+        <dd> Turns off the tile selection. Calls to <kbd>fill</kbd>,
+             <kbd>filltoborder</kbd> and <kbd>fpoly</kbd> will then use
+             the specified colour for fills.
+       </dd>
+    <dt><strong><kbd>setstyle R1,G1,B1, R2, G2, B2, ..., Rn,Gn,Bn</kbd>
+       </strong>
+   </dt>
+        <dd> Various line calls can use a style, specified by one or more
+             colour settings for each pixel, that is repeated for the length
+             of the &quot;line&quot;.  All subsequent directives of
+             <kbd>line</kbd>, <kbd>dline</kbd>, <kbd>rect</kbd>,
+             <kbd>poly</kbd> and <kbd>arc</kbd> will use the selected
+             &quot;style&quot; to draw their lines, until a call of
+             <kbd>killstyle.</kbd>
+       </dd>
+    <dt><strong><kbd>killstyle</kbd></strong>
+   </dt>
+        <dd> Turns off the style selection. Calls to <kbd>line</kbd>,
+             <kbd>dline</kbd>, <kbd>rect</kbd>, <kbd>poly</kbd> and
+             <kbd>arc</kbd> will then use the standard single-pixel
+             width brush.
+       </dd>
+	<dt><strong><kbd>transparent R,G,B</kbd></strong>
+		<dd> Makes the colour <B>R,G,B</B> the transparent colour.
+       </dd>
+    <dt><strong><kbd>sizex</kbd></strong>
+   </dt>
+        <dd> Returns the width of the image in pixels.
+       </dd>
+    <dt><strong><kbd>sizey</kbd></strong>
+   </dt>
+        <dd> Returns the height of the image in pixels.
+       </dd>
+    <dt><strong><kbd>interlace</kbd></strong>
+   </dt>
+        <dd> Makes the image output by fly an interlaced GIF. 
+       </dd>
+</dl>
+<!-- ===================================================================== -->
+<HR>
+<H4> Comments in the command file
+</H4>
+<p>  At any point in the command file, you can insert
+     a comment line starting with &quot;#&quot;.
+</p>
+<p>  Example:
+</p>
+<pre>new
+size 256,256
+#
+# start with a background fill
+fill 1,1,255,255,255
+#
+# then a circle in the middle
+circle 128,128,180,0,0,0
+#
+<I>etc.</i>
+</pre>
+<!-- ===================================================================== -->
+<HR>
+<H4> Examples
+</H4>
+<P>  If you are using fly from within a CGI program, here are some examples:
+<DL>
+<DT><STRONG>Perl</STRONG></DT>
+<DD><PRE>#!/usr/local/bin/perl
+
+$flyprog = &quot;/usr/local/bin/fly&quot;;
+$outfile = &quot;temp.gif&quot;;
+
+open(FLY,&quot;| $flyprog -o $outfile &quot;);
+print FLY &quot;new\n&quot;;
+print FLY &quot;size 256,256\n&quot;;
+print FLY &quot;fill 1,1,255,255,255\n&quot;;
+print FLY &quot;circle 128,128,180,0,0,0\n&quot;;
+print FLY &quot;fill 128,128,255,255,0\n&quot;;
+print FLY &quot;arc 128,128,120,120,0,180,0,0,0\n&quot;;
+print FLY &quot;circle 96,96,10,0,0,0\n&quot;;
+print FLY &quot;circle 160,96,10,0,0,0\n&quot;;
+print FLY &quot;fill 96,96,0,0,0\n&quot;;
+print FLY &quot;fill 160,96,0,0,0\n&quot;;
+close(FLY);
+</PRE>
+</DD>
+<DT><STRONG>csh</STRONG></DT>
+<DD><PRE>
+#!/bin/csh
+# test out fly!
+
+cat &gt; /tmp/fly.$$ &lt;&lt;EOD
+new
+size 256,256
+fill 1,1,255,255,255
+circle 128,128,180,0,0,0
+fill 128,128,255,255,0
+arc 128,128,120,120,0,180,0,0,0
+circle 96,96,10,0,0,0
+circle 160,96,10,0,0,0
+fill 96,96,0,0,0
+fill 160,96,0,0,0
+EOD
+
+fly -i /tmp/fly.$$ -o test.gif
+</PRE>
+</DD>
+<DT><STRONG>C</STRONG></DT>
+<DD>If you're using C, then you might as well <A
+HREF="http://www.boutell.com/gd/">use gd!!</A>
+</DD>
+</DL>
+<P>   Can you guess what the above examples produce?
+      <A HREF="example.gif">Here's the answer!</A>
+</P>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="feedback">Feedback</A>
+</H2>
+<UL><LI> Let me know if you're using fly - send email to
+         <a href="mailto:gleeson@unimelb.edu.au"> gleeson@unimelb.edu.au</a>.
+    <LI> If you experience any problems compiling or using fly, let me know,
+         and please include a copy of the errors that appear on the screen.
+    <LI> If you'd like to see a particular feature included in fly that's not
+         already there, just drop me a note with the details.
+</UL>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="outthere">Fly on the Web</A>
+</H2>
+<P>  A selection of web sites using fly:
+<UL>
+    <LI><A HREF="http://www.digitalstuff.com/web-a-sketch/">Web-A-Sketch</A>
+    <LI><A HREF="http://www.worldwidemart.com/scripts/counter.shtml">Matt's
+                Counter</A>
+    <LI><A HREF="http://www.lyot.obspm.fr/~domisse/w3perl/">w3perl</A>
+    <LI><A HREF="http://www.lns.com/sf/">Incident Tracking System</A>
+    <LI><A HREF="http://www.syracuse.com/weather/graphs/">Syracuse OnLine
+                 Weather Station</A>
+    <LI><A HREF="http://info.nwnet.net/%7Ebrandon/newsreport/">NewsReport</A>
+    <LI><A HREF="http://www.dendriet.com/ping/eng-index.html">PingToP</A>
+    <LI><A HREF="http://www.magpage.com/~flynnmj/ISCS.html">Inner Sphere
+        Cartography Society</A>
+    <LI><A HREF="http://fairmodel.econ.yale.edu/">Fairmodel</A>
+    <LI>Australian <A HREF="http://www.erin.gov.au/spatial/ncr/">Nature Conservation
+        Reserves Place Finder</A>
+    <LI><A HREF="http://www.counterstats.com/">COUNTERSTATS.COM</A>
+    <LI><A HREF="http://iris.biosci.ohio-state.edu/projects/tpp/">The <i>Pelecinus</i> Project.</A>
+    <LI><A HREF="http://www.nih.go.jp/~jun/cgi-bin/frameplot.pl">FramePlot</A>
+    <LI><A HREF="http://www.skurup.se/~joxx/">DymoJet Strips</A> (look for "DymoJet").
+    <LI><A HREF="http://www.qpais.co.uk/moda-djg/potass.htm">Modelling Crop Response to Potassium</A>
+</UL>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="lists">Fly Mailing Lists</A>
+</H2>
+<P>  I've set up two mailing list for users of fly: <tt><b>fly-users</b></tt>
+     is a general discussion list for users of fly, and
+     <tt><b>fly-announce</b></tt> is for important announcements, including
+     updates and new versions of fly.
+</P>
+<P>  To subscribe, send a message to
+     <tt><b>majordomo@pixel.its.unimelb.edu.au</b></tt> with no subject, and one
+     (or both) of the following lines in the body of the message:
+</P>
+<P>  <tt>subscribe fly-users</tt><br><br>
+     <tt>subscribe fly-announce</tt>
+</P>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="future">The Future (otherwise known as a to-do list).</A>
+</H2>
+<P>  I'm currently porting fly to the Macintosh. It will be an XCMD that
+     can be used from Hypercard, MacPerl, Frontier (I think), and anything
+     else that can use XCMDs or XFCNs.
+</P>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="bugs">Bugs &amp; Frequently Asked Questions</A>
+</H2>
+<!-- ===================================================================== -->
+<HR>
+<P>  There is a bug in the polygon code in the gd library that causes
+     blank 'streaks' on some occasions when drawing filled polygons. I am
+     currently waiting on a bug fix for this from the author of gd.
+</P>
+<!-- ===================================================================== -->
+<HR>
+<P>  If you're using fly with perl on Windows NT or Windows 95, this may
+     be of interest to you:
+
+From: <a href="http://www.endcontsw.com/people/evangelo/Perl_for_Win32_FAQ.html">
+          http://www.endcontsw.com/people/evangelo/Perl_for_Win32_FAQ.html</a>
+
+<PRE>
+7.3. How do I return a graphics file from a CGI script?
+
+One of the big differences between UNIX and Win32 platforms is
+that on Win32 there's a difference between text or ASCII files
+and binary file. To return a graphics file, you need to specify
+that the file is a binary file, and that the standard output
+stream should accept binary data. Try something like this: 
+
+    $MY_FILE_NAME = 'Penelope.jpg';
+    $CHUNK_SIZE = 4096;
+
+    open( MY_FILE, &quot;&lt;$MY_FILE_NAME&quot; )
+         or die( &quot;Can't open $MY_FILE_NAME: $!\n&quot; );
+
+    print &quot;Content-type: image/jpeg\r\n&quot;;
+    print &quot;\r\n&quot;;
+
+<b>    binmode( MY_FILE ); # These are crucial!
+    binmode( STDOUT ); </b>
+
+    while ( $cb = read( MY_FILE, $data, $CHUNK_SIZE ) )
+    {
+        print $data;
+    }
+
+    close( MY_FILE );
+</PRE>
+
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="contrib">Contributors</A>
+</H2>
+<P>Claus Hofmann &lt;claush@ipfr.bau-verm.uni-karlsruhe.de&gt; - see
+   release notes for v0.95b.
+</P>
+<P>John Bowe &lt;bowe@osf.org&gt; - better Makefile, argument parsing, quiet
+   mode, comment lines, and other suggestions.
+</P>
+<P>Jean-Louis Damez &lt;F1NZC@amsat.org&gt; - Compilation of the
+   Windows NT/95 version.
+</P>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H2><A NAME="notes">Release notes</A>
+</H2>
+<DL>
+<DT> Version: <B>1.4.2 26th June 1997</B></DT>
+<DD> Bug fix: error when using copyresized with -1,-1,-1,-1 coordinates.
+</DD>
+<DT> Version: <B>1.4.1 29th January 1997</B></DT>
+<DD> Bug fix: fixed fatal error on Solaris when sending output to stdout.
+</DD>
+<DT> Version: <B>1.4 23rd January 1997</B></DT>
+<DD> - Multiple GIFs from the one command file - use the new <b>end</b>
+       command<br>
+     - New commands: <b>getpixel</b> returns the colour index of a pixel;
+                   <b>square</b> and <b>fsquare</b> draw a square or filled square;
+                   <b>fcircle</b> draws a filled circle;<br>
+     - Some extra examples in the file examples/test.fly
+</DD>
+<DT> Version: <B>1.3.1 13th February 1996</B></DT>
+<DD> - verbose output now goes to stderr rather than stdout <strong>only
+     </strong>when gif output goes to stdout.<br>
+     Bug fix: <kbd>fly -h</kbd> wouldn't work due to uninitialised filehandle.
+</DD>
+<DT> Version: <B>1.3 23rd January 1996</B></DT>
+<DD> Addition of comment lines and some bug fixes, both thanks to John Bowe
+     &lt;bowe@osf.org&gt;:<br>
+     - verbose output now goes to stderr rather than stdout.<br>
+     - bad first line caused core dump.
+</DD>
+<DT> Version: <B>1.2 22nd January 1996</B></DT>
+<DD> Addition of <kbd>circle</kbd> directive, and more examples (incl. CGI).
+</DD>
+<DT> Version: <B>1.1.3 4th January 1996</B></DT>
+<DD> Bug fix: first <kbd>string</kbd> directive interpreted as
+     <kbd>stringup</kbd> directive on some platforms.
+</DD>
+<DT> Version: <B>1.1.2 2nd January 1996</B></DT>
+<DD> Various bug fixes for platform-specific peculiarities (BSDI, SunOS,
+     HP/UX).
+</DD>
+<DT> Version: <B>1.1.1 21st December 1995</B></DT>
+<DD> Bugfix for quiet mode: <kbd>copy</kbd> and <kbd>copyresized</kbd>
+     were talking when they shouldn't.
+</DD>
+<DT> Version: <B>1.1 19th December 1995</B></DT>
+<DD> <UL>
+        <LI>New command line options:<br>
+               <kbd>fly [-h] [-q] [-i inputfile] [-o outputfile]</kbd><br>
+               if inputfile and/or outputfile omitted, directives and output
+               go to stdin and/or stdout.
+        <LI>New directives: <kbd>stringup</kbd>, <kbd>setstyle</kbd>,
+               <kbd>settile</kbd>, <kbd>fpoly</kbd>.
+        <LI>Better argument parsing and quiet mode, thanks to John Bowe.
+     </UL>
+</DD>
+<DT> Version: <B>1.0 24th November 1995</B></DT>
+<DD> Release version, including support for 5 font sizes in <KBD>string</KBD>.
+</DD>
+<DT> Version: <B>0.99b 20th November 1995</B></DT>
+<DD> Better Makefile (thanks to John Bowe), takes into account if you
+     already have gd installed.
+</DD>
+<DT> Version: <B>0.98b 8th November 1995</B></DT>
+<DD> Changed a calloc to a malloc due to BSDI problem.
+</DD>
+<DT> Version: <B>0.97b 5th November 1995</B></DT>
+<DD> Miscellaneous bug fixes.
+</DD>
+<DT> Version: <B>0.96b 1st November 1995</B></DT>
+<DD> Fixed major bug in polygon code.
+</DD>
+<DT> Version: <B>0.95b 18th October 1995</B></DT>
+<DD>Additions contributed by Claus Hofmann
+    &lt;claush@ipfr.bau-verm.uni-karlsruhe.de&gt;
+    <UL>
+      <LI>addition of <kbd>transparent</kbd> directive.
+      <LI>addtion of code to check if colour already allocated before
+          allocating
+      <LI>addition of feature to copy whole image if all coords are -1
+   </UL>
+</DD>
+<DT> Version: <B>0.94b 11th October 1995</B></DT>
+<DD> 1. Added support for gdImageSX, gdImageSY. 
+     2. Added support for gdSetBrush.
+</DD>
+<DT> Version: <B>0.93b 10th October 1995</B></DT>
+<DD> Added support for gdCopyResized, for copying and scaling. 
+</DD>
+<DT> Version: <B>0.92b 6th October 1995</B></DT>
+<DD> 1. Added support for gdImageString, to enable writing of strings, in
+     small or large fonts, onto GIFs created by fly.<BR>
+     2. Changed write out command to support OS/2<BR>
+     Thanks to Andreas Rudolf &lt;rudolf@vnet.ibm.com&gt;<BR>
+</DD>
+<DT> Version: <B>0.91b 16th August 1995</B></DT>
+<DD> Fixed problem reading from stdin (the problem was that it didn't! :-)
+     <BR>
+     Thanks to Nick Kennedy &lt;nbk@ariel.its.unimelb.edu.au&gt;
+</DD>
+<DT> Version: <B>0.9b 12 August 1995</B></DT>
+<DD> First Release.
+</DD>
+</DL>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<H3> Credits and license terms
+</H3>
+<P>  <b>fly 1.4.2</b> is copyright 1995-1997, The University of Melbourne.
+     Permission is granted to copy and distribute this work provided that
+     this notice remains intact.  Credit for using this program must be given
+     to both The University of Melbourne and the Quest Protein Database Center,
+     Cold Spring Harbor Labs, in all derived works. This does not affect
+     your ownership of the derived work itself, and the intent is to assure
+     proper credit for The University of Melbourne and Quest, not to interfere
+     with your use of fly or gd.
+</P>
+<P>  ("Derived works" includes all programs that utilize <b>fly</b> or the gd
+     library.  Credit must be given in user-visible documentation.) 
+</P>
+<P>  <STRONG>If you want to mirror this page, ask for my permission first.
+     </STRONG>
+</P>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<PRE>Created:       21st June 1995
+Last modified: 24th July 1997
+Access:        Unrestricted.
+Copyright &#169 1995-1997 <A HREF="http://www.unimelb.edu.au/">The University of Melbourne.</A>
+&lt;URL:http://www.unimelb.edu.au/fly/fly.html&gt;</PRE>
+<!-- ===================================================================== -->
+<HR>
+<!-- ===================================================================== -->
+<HR>
+<TABLE BORDER="0" WIDTH="100%">
+ <TR>
+  <TD>
+    <ADDRESS>
+    <A HREF="http://www.unimelb.edu.au/%7Egleeson/">Martin Gleeson,</A>
+    <A HREF="mailto:gleeson@unimelb.edu.au">gleeson@unimelb.edu.au</A>
+   </ADDRESS>
+ </TD>
+  <TD ALIGN="RIGHT">
+    <P> <A HREF="http://www.unimelb.edu.au/html-check/validation-form.html">
+        <IMG SRC="valid_html.gif"
+             ALT="HTML 3.2 Checked!"></A>
+   </P>
+ </TD>
+</TR>
+</TABLE>
+<!-- ===================================================================== -->
+<HR>
+</BODY>
+</HTML>

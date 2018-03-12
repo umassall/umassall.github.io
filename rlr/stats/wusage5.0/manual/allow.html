@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE>allow</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h4>allow</h4>
+</a>
+<pre>
+allow
+#A pattern matching anything (this is the default)
+*               
+#A pattern matching only things beginning with /~boutell
+/~boutell*
+end allow
+</pre>
+The <code>allow</code> option, which extends for
+several lines and must end with the line
+<code>end allow</code>, indicates which documents
+will be considered by wusage. Documents that
+do not match any of the patterns listed
+for the <code>allow</code> option will be
+ignored completely by wusage. Each character
+of the document name is matched against the pattern.
+An <code>*</code> in the pattern matches any
+number of characters in the document name. 
+Patterns have additional features; for more information about 
+patterns, see the <code><a href="patterns.html">patterns</a></code>
+section. Note that the <code><a href="suffixes.html">suffixes</a></code> 
+option is applied first. If the <code>allow ... end allow</code>
+option is absent, all documents will be allowed.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

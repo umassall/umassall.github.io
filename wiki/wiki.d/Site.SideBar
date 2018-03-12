@@ -1,0 +1,15 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.22 Safari/537.36
+author=CJ
+csum=updating sidebar
+host=66.102.14.24
+name=Site.SideBar
+passwdedit=@_site_edit
+rev=1
+targets=Main.HomePage,Site.AllRecentChanges,Main.AllPages,Main.WikiSandbox,PmWiki.PmWiki,PmWiki.BasicEditing,PmWiki.DocumentationIndex,PmWiki.FAQ,Site.SideBar
+text=* [[Main/HomePage | Home]]%0a* [[Site/AllRecentChanges | Recent Changes]]%0a* [[Main/AllPages | All Pages]]%0a* [[Main/WikiSandbox | Sandbox]]%0a%0a%25sidehead%25 [[PmWiki/PmWiki]] %0a* [[PmWiki/Basic Editing]]%0a* [[PmWiki/Documentation Index]]%0a* [[PmWiki/FAQ | PmWiki FAQ ]]%0a%0a%25right%25 [-[[Site.SideBar?action=edit | edit SideBar]]-]%0a
+time=1374864752
+author:1374864752=CJ
+csum:1374864752=updating sidebar
+diff:1374864752:1125550800:=1,6c1,5%0a%3c * [[Main/HomePage | Home]]%0a%3c * [[Site/AllRecentChanges | Recent Changes]]%0a%3c * [[Main/AllPages | All Pages]]%0a%3c * [[Main/WikiSandbox | Sandbox]]%0a%3c %0a%3c %25sidehead%25 [[PmWiki/PmWiki]] %0a---%0a> * [[Main/HomePage]]%0a> * [[Main/WikiSandbox]]%0a> %0a> %25sidehead%25 [[PmWiki/PmWiki]]%0a> * [[PmWiki/Initial Setup Tasks]]  %0a10,11c9,19%0a%3c %0a%3c %25right%25 [-[[Site.SideBar?action=edit | edit SideBar]]-]%0a---%0a> * [[PmWiki/PmWikiPhilosophy]]%0a> * [[PmWiki/Release Notes]]%0a> * [[PmWiki/ChangeLog]]%0a> %0a> %25sidehead%25 [[http://www.pmwiki.org | pmwiki.org ]]%0a> * [[Cookbook:CookbookBasics | Cookbook (addons) ]]%0a> * [[Cookbook:Skins | Skins (themes) ]]%0a> * [[PITS:PITS | PITS (issue tracking) ]]%0a> * [[PmWiki/Mailing Lists]]%0a> %0a> %25right%25 [-[[Site.SideBar?action=edit | edit SideBar]]-]%0a\ No newline at end of file%0a
+host:1374864752=66.102.14.24

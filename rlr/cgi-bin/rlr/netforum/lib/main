@@ -1,0 +1,2213 @@
+#!/opt/bin/perl -si
+
+
+# $Id: main,v 1.34 1996/09/17 17:41:51 mcculloh Exp $
+
+#########################################################################
+#                                                                       #
+#      Copyright (c) 1995,96 Board of Regents of the                    #
+#      University of Wisconsin System                                   #
+#                                                                       #
+#                     NetForum 2.0.3                                    #
+#  CGI implementation of a Web-based discussion forum system            #
+#                                                                       #
+#  NetForum Project Team (Past and Present):                            #
+#    Roger Caplan                                                       #
+#    Mike Dykstra                                                       #
+#    Andrew McCulloh                                                    #
+#    Jose Siman                                                         #
+#  Art by:                                                              #
+#    Krista J. Stockebrand                                              #
+#    Doreen Maloney                                                     #
+#                                                                       #
+#         IMPORTANT NOTE: THIS SOFTWARE IS NOT FREE                     #
+#                                                                       #
+#  You are bound by the terms of the license distributed with the       #
+#  NetForum package. The license can also be found at                   #
+#     http://www.biostat.wisc.edu/netforum/license.html                 #
+#                                                                       #
+#                                                                       #
+#            IMPORTANT -- AS STATED IN THE LICENSE                      #
+#                                                                       #
+#  NO MODIFICATIONS TO THE NETFORUM SOFTWARE OR ACCOMPANYING MATERIALS  #
+#  INCLUDING DOCUMENATION AND ARTWORK ARE PERMITTED BY ANYONE, WITHOUT  #
+#  THE EXPRESSED WRITTEN CONSENT OF THE COPYRIGHT HOLDER.  IN OTHER     #
+#  WORDS, DON'T CHANGE THE CODE WITHOUT OUR OK                          #
+#                                                                       #
+#            IMPORTANT -- AS STATED IN THE LICENSE                      #
+#                                                                       #
+#  YOU MAY NOT REDISTRIBUTE THE NETFORUM SOFTWARE PACKAGE IN PART OR    #
+#  IN WHOLE IN ANY WAY.  IT IS A VIOLATION OF THE LICENSE TO DO SO      #
+#                                                                       #
+#                                                                       #
+#  This program is distributed in the hope that it will be useful,but   #
+#  WITHOUT ANY WARRANTY; without even the implied warranty of           #
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.            #
+#                                                                       #
+#                                                                       #
+#       All documentation can be found at:                              #
+#              http://www.biostat.wisc.edu/netforum                     #
+#                                                                       #
+#                                                                       #
+#       Email contact:                                                  #
+#              netforum-dev@biostat.wisc.edu                            #
+#                                                                       #
+#                                                                       #
+#       Snail-Mail contact:                                             #
+#              NetForum Development Team                                #
+#              1300 University Ave, Room 5770                           #
+#              Madison, Wi 53706                                        #
+#                                                                       #
+#########################################################################
+
+
+
+
+
+####################################### GET ###
+
+sub get_command {
+    if ($which_command == $show_topics_command){&show_topics}
+    elsif ($which_command == $add_topic_command){&add_topic}
+    elsif ($which_command == $show_messages_command){&show_messages}
+    elsif ($which_command == $expand_messages_command){&show_messages}
+    elsif ($which_command == $contract_messages_command){&show_messages}
+    elsif ($which_command == $view_message_expanded){&show_specific_message}
+    elsif ($which_command == $view_message_contracted){&show_specific_message}
+    elsif ($which_command == $mail_command){&send_mail_form}
+    elsif ($which_command == $add_message_command){&add_message}
+#    elsif ($which_command == $topic_desc_command){&get_topic_info}
+    elsif ($which_command == $show_replies_command){&show_replies}
+    elsif ($which_command == $add_reply_command){&add_reply}
+    elsif ($which_command == $show_group_command){&show_group}
+    elsif ($which_command == $show_desc_command){&show_desc}
+    elsif ($which_command == $format_about_command){&about_format}
+    elsif ($which_command == $page_messages_command){&show_messages}
+    elsif (!($which_command)){$which_command = $show_topics_command;
+			      &show_topics}
+    else {&doh("Bad forum request: $which_command")};
+}
+
+# Here we print all messages to the screen. There are two possiblilites
+# either the messages are shown as subject line poster and date -- compressed
+# mode, or expando mode with every thing. Only a certain number of messages
+# are displayed -- depending on how you have the thing set up
+
+sub show_messages {
+
+    local($topic_file_path, $i);
+
+    if ($which_command == $page_messages_command) {
+	($topic_number, $how_deep, $subject_only) = split('\.',$command_vars);
+    } else {
+	($topic_number, $how_deep) = split('\.', $command_vars);
+    }
+    # Get message information from list file 
+    # (number of messages and topic name)	
+	
+    $topic_file_path = "$home_directory/$which_forum/topics/list";
+    open (TOPIC, $topic_file_path) ||
+	&doh("Couldn\'t open topic file: $topic_file_path");
+    
+
+    while( <TOPIC> )  {	 
+	
+	($number, $num_messages, $num_replies, $name, $date) = split(/:/,$_,5);
+    	last if($number == $topic_number); 	
+    }				
+
+    close(TOPIC);
+    
+    $num_messages =~ s/\s//g;
+    $number =~ s/\s//g;
+
+    $i = $num_messages;
+    $topic_name = $name;
+
+    if ( $which_command == $contract_messages_command ) {
+	$subject_only = 1;
+    }
+    elsif ( $which_command == $expand_messages_command ) {
+	$subject_only = 0;
+    }
+	
+    if ( !$how_deep ) {
+
+	$how_deep = 1;
+    }
+
+    $convert = $how_many_messages_expanded / $how_many_messages_compressed; 
+
+    if ( $subject_only == 1 ) {
+	$convert = 1 / $convert;
+	$how_many_messages = $how_many_messages_compressed;
+    } else {
+
+	$how_many_messages = $how_many_messages_expanded;
+    }
+
+    $how_deep_convert = int( $convert * ( $how_deep - 1 ) ) + 1;
+
+    if ( $how_many_messages == -1 ) {
+	
+	$finish = $num_messages;
+	$start = 1;
+	$how_deep_convert = 1;
+    }
+    elsif ( $how_many_messages * $how_deep > $i ) {
+
+	$finish = $num_messages;
+ 	$start = $how_many_messages * ( $how_deep - 1) + 1;
+
+    }
+    else {
+
+	$finish = $how_many_messages * $how_deep;
+ 	$start = $how_many_messages * ( $how_deep - 1) + 1;
+
+    }
+
+    # Build the toolbar
+    
+    if ( $subject_only ) {
+	@icon_list = ( 'add_message', 'expand_messages', 'show_group', 'email_group', 'list_topics', 'goto_admin', 'help', 'about_forum' );
+    }
+    else {
+	@icon_list = ( 'add_message', 'contract_messages', 'show_group', 'email_group',  'list_topics', 'goto_admin', 'help', 'about_forum' );
+    }
+
+    &read_messages($topic_number);
+       
+    unless ($httpheader) {print &http_header};
+    print "<title>NetForum - Messages In Topic: $topic_name</title>\n";
+    &header;
+
+    print "<H3>Forum: $forum_name</H3>";
+
+    &get_topic_info;
+
+    &toolbar;
+
+    print "\n<hr>\n";
+
+
+    if ( !($i) ){
+	print "\n<p>\n<DL>";
+	print "<dd><b>No Messages</b>\n";
+	print "</DL><p>\n<hr>\n";
+	&footer;
+	exit(0);
+    }
+
+    print "<CENTER><EM>Newer messages are at the top</EM></CENTER>\n<HR>\n";
+
+    
+    if ( $start != 1 ) {
+	print "<CENTER><EM>";
+	print "<a href=\"/$netforum_url/$page_messages_command";
+	print "$cvar_separator$topic_number\.";
+	print $how_deep - 1,".$subject_only\">";
+	print "Previous $how_many_messages messages</A>\n";
+	print "</EM></CENTER>\n<HR>\n";
+    }
+
+
+    if ( $subject_only ) {
+	print "<TABLE>\n";
+	foreach $i ($start..$finish) {
+
+	    print "<TR>";
+
+ 	    $which_message = $num_messages - $i + 1;
+
+	    if($poster_subject[$i]) {
+
+		print "<TD><A HREF=\"/$netforum_url/$view_message_expanded";
+      		print "$cvar_separator$topic_number.$which_message.$how_deep\">";
+		print "$poster_subject[$i]</A></TD> ";
+
+	    }
+	    print "  <TD>$poster_name[$i]</TD> ";
+
+	    if($poster_date[$i]) {
+		print "<TD>$poster_date[$i]</TD>";
+	    }
+	    print "</TR>\n";
+
+	    if($allow_replies) {
+
+		if (-e "$home_directory/$which_forum/responses/$topic_number\-$which_message") {
+
+		    &get_replies(0); 
+
+	    	}
+	    }			
+	}
+	print "</TABLE>\n";
+	print "<BR>\n";
+	print "<HR>\n";
+
+    }	    
+    # Here we print in expando mode
+
+    else {
+	foreach $i ($start..$finish){
+
+	    $which_message = $num_messages - $i + 1;
+
+	    
+	    if($poster_site[$i]) {
+		print "<b>Posted by:</b><a href=\"$poster_site[$i]\">";
+		print "$poster_name[$i]</a> ";
+	    }			 
+	    else {
+		print "<b>Posted by:</b> $poster_name[$i] ";
+	    }
+
+	    if($email_list[$i]) {
+		print " $email_list[$i]<BR>\n";
+	    }
+	    else {
+		print "<BR>\n";
+	    }
+
+	    if($institution_site[$i] && $poster_institution[$i]) {
+		print "<b>$institution_field_name:</b><a href=\"$institution_site[$i]\">";
+		print "$poster_institution[$i]</a> <BR>";
+	    }
+	    elsif($institution_site[$i]) {
+		print "<b>$institution_field_name:</b><a href=\"$institution_site[$i]\">";
+		print "$institution_site[$i]</a><BR>";
+	    }
+	    elsif($poster_institution[$i]) {
+		print "<b>$institution_field_name:</b>$poster_institution[$i] <BR>";
+	    }
+	    if($poster_date[$i]) {
+		print "<b>Date posted:</b> $poster_date[$i]<br>\n";
+	    }
+	    if($poster_subject[$i]) {
+		print "<b>Subject:</b> $poster_subject[$i]<br>\n";
+	    }
+	    if($poster_message[$i]) {
+		print "\n<b>Message:</b><br> $poster_message[$i] <BR>";
+	    }
+	    if($anything_else[$i]) {
+
+		print $anything_else[$i];
+	    }
+
+	    if($allow_replies) {	
+		print "<BR>";
+	    	if (-e "$home_directory/$which_forum/responses/$topic_number\-$which_message") {
+		    print "\n<P>\n";
+
+		    print "<TABLE>\n";
+		    &get_replies(1);
+		    print "</TABLE>\n";
+
+		}
+	    
+	    	print "\n<p>\n<a href=\"/$netforum_url/";
+		print "$add_reply_command$cvar_separator$topic_number\.";
+		print "$which_message\.$how_deep\"><img alt=\"Reply to this";
+		print " message\" border=\"$image_border\"";
+	    	print "src=\"$respond_toolbar_gif\"></a>\n\n";
+
+	    }
+	    print "<HR>";
+	}
+    }
+
+
+    if ( $finish != $num_messages ) {
+	$left = $finish + $how_many_messages > $num_messages ? $num_messages - $finish : $how_many_messages;
+	print "<CENTER><EM>";
+	print "<a href=\"/$netforum_url/$page_messages_command";
+	print "$cvar_separator$topic_number\.";
+	print $how_deep + 1,".$subject_only\">";
+	print "Next $left messages</A>\n";
+	print "</EM></CENTER>\n<HR>\n";
+    }
+
+    # print pagination info
+    &do_pages($how_deep);
+    
+#    print "<HR>\n";
+
+    # if the list is long print another toolbar
+    if ( $finish - $start == $how_many_messages - 1 
+	 || $how_many_messages == -1 ) {
+	&toolbar;
+	print "<HR>\n";
+
+    }
+
+
+#    if ( !($finish - $start < $how_many_messages - 1) ) {
+
+#	print "<HR>";
+#	&toolbar unless ( ($finish - $start) != $how_many_messages - 1 );
+#    }
+#    print "\n<hr>\n\n";
+
+    &footer;
+	
+}
+
+# this will display a single message in expando mode
+
+sub show_specific_message {
+
+
+    ( $topic_number, $which_message, $how_deep ) = split(/\./, $command_vars);
+
+
+    # Get message information from list file 
+    # (number of messages and topic name)
+	
+     $topic_file_path = "$home_directory/$which_forum/topics/list";
+     open (TOPIC, $topic_file_path) ||
+ 	&doh("Couldn\'t open topic file: $topic_file_path");
+
+     while ( <TOPIC> ) {
+ 	($number, $num_messages, $num_replies, $name, $date) = split(/:/,$_,5);
+ 	$num_messages =~ s/\s//g;
+ 	$number =~ s/\s//g;
+ 	last if($number == $topic_number);
+     }
+
+     close(TOPIC);
+
+
+    # HEY! read topic info now
+
+    unless ($httpheader) {print &http_header;}
+ 
+    print "<title>NetForum - $name</title>\n"; 
+    &header; 
+
+    print "<H3>Forum: $forum_name</H3>";			 
+
+    &get_topic_info;
+
+    # show messages toolbar:
+
+    @icon_list = ( 'back_to_list', 'show_group', 'email_group', 'list_topics', 
+		  'goto_admin', 'help', 'about_forum' );
+
+   
+    &toolbar;
+
+    print "<hr>";
+
+    $how_many_messages = $how_many_messages_compressed;
+
+    if ( $which_message != $num_messages ) {
+
+	
+	print "<A HREF=\"/$netforum_url/$view_message_expanded";
+	print "$cvar_separator$topic_number.", $which_message + 1, ".";
+	if ( $which_message == 
+	    $num_messages - $how_many_messages * ($how_deep - 1) ) {
+
+	    print $how_deep - 1;
+	} else {
+	    print $how_deep;
+	}
+
+	print "\">Previous message</A>\n<HR>\n";
+    
+    }
+
+
+    # read the messages now.
+    # this is not the most elegant way as you must open the topics
+    # info file to get the number of messages, yuck
+
+    &print_message( $topic_number, $which_message );
+
+    if($allow_replies) {
+
+	if (-e "$home_directory/$which_forum/responses/$topic_number\-$which_message") {
+
+	    print "\n<P>\n";
+# HEY! here is a kludge -- fix this in utilities, the print <TABLE> that is...
+	    print "<TABLE>\n";
+	    &get_replies(1);
+	    print "</TABLE>\n";
+
+	}
+
+	print "\n<br>\n<p>\n<a href=\"/$netforum_url/$add_reply_command";
+	print "$cvar_separator$topic_number\.$which_message\.$how_deep\"";
+	print "><img alt=\"Reply to this message\" border=\"$image_border\"";
+	print "src=\"$respond_toolbar_gif\"></a>\n\n";
+
+
+    }
+
+    print "<BR><HR>\n";  
+
+    if ( $which_message > 1 ) {
+
+	print "<A HREF=\"/$netforum_url/$view_message_expanded";
+	print "$cvar_separator$topic_number.", $which_message - 1, ".";
+
+	
+	if ( $which_message  - 1 == $num_messages - $how_many_messages * $how_deep ) {
+	    print $how_deep + 1;
+	} else {
+	    print $how_deep;
+	}
+
+	print "\">Following message</A>\n<HR>\n";
+
+    }
+
+
+    &footer;
+	
+}				
+
+
+# this presents the user with a forum that allows them to add a new topic
+
+sub add_topic {
+
+#    &parse_cookie unless ( $no_cookies );
+
+    unless ( $institution_site ) {
+	$institution_site = 'http://';
+    }
+    unless ($poster_site){$poster_site = 'http://';}
+
+    unless ($httpheader) {print &http_header;}
+    print "<title>NetForum - $forum_name - Add Topic</title>\n";
+    &header;
+    print "\n<h2>$forum_name - Add Topic</h2>\n<hr>\n";
+
+    print "<CENTER><EM>\n";
+    print "Filling out this form will create a new topic, to add messages\n";
+    print "to an existing topic choose that topic from the topic list\n";
+    print "</EM></CENTER>\n<HR>\n";
+
+    @icon_list = ( 'show_group', 'email_group', 'list_topics', 'goto_admin', 'help', 'about_forum' );
+    &toolbar;
+    
+    print "\n<hr>\n<form action=\"/$netforum_url/";
+
+    if ( $preview_all && $preview_topics ) {
+
+	print "$preview_topic_command\"";
+
+    }
+    else {
+	
+	print "$post_topic_command\"";
+    }
+    
+    print "method=POST>\n";
+
+    if ( $anyone_add_username && $anyone_add_password ) {
+ 	print <<EOH;
+<img src="$small_alert_gif">
+<b>Adding topics to this board is restricted to board owners.<br>
+Please enter your username and password:</b>
+<p>
+<DL>
+<dd><b>Username</b>:
+<dd><input value="$username" size=30 name="username"><br>
+<dd><b>Password</b>:
+<dd><input type="password" value="$password" size=30 name="password"><br>
+</DL>
+<hr>
+EOH
+	
+    }
+
+    print <<EOH;
+<b>Required Information:</b><p>
+<DL>
+<dd><b>Topic Name</b>:
+<dd><input value="$topic_name" size=60 name="topic_name"><p>
+<dd><b>Your Name</b>:
+<dd><input value="$poster_name" size=40 name="poster_name"><br>
+</DL>
+EOH
+
+    if ( $institution_required ) {
+	print "<DL><dd><b>$institution_field_name</b>:\n";
+	print "<dd><input value=\"$poster_institution\" size=40";
+	print " name=\"poster_institution\"><br>";
+	print "</DL><hr><b>Optional Information:</b><p>\n<DL>";
+    }
+    else {
+	print "<hr><b>Optional Information:</b><p>";
+	print "<DL><dd><b>$institution_field_name</b>:\n";
+	print "<dd><input value=\"$poster_institution\" size=40";
+	print " name=\"poster_institution\"><br>";
+    }
+
+
+    print <<EOH;
+<dd><b>Your $institution_field_name\'s Web Site</b>:
+<dd><input value="$institution_site" size=40 name="institution_site">
+<br>
+<dd><b>Your Email Address</b>:
+<dd><input value="$poster_email" size=40 name="poster_email"><br>
+<dd><b>Your Web home page</b>:
+<dd><input value="$poster_site" size=40 name="poster_site"><p>
+<dd><b>Topic Description:</b>
+<dd><textarea rows=8 cols=60 name="comments" wrap=physical>$comments</textarea>
+</DL>
+<hr>
+EOH
+
+    print "<B>Formatting Options for Description:</B>\n<P>\n";
+
+    if ( $which_command == $add_topic_command ) {
+	$formatting = $default_formatting;
+    }
+    
+    &format_list($formatting);
+    
+    print "<p>\n<hr>\n<center>\n";
+
+    if ( $preview_all && $preview_topics ) {
+	print "<input TYPE=\"submit\" value=\"Preview Topic Information\">\n";
+    }
+    else {
+	print "<input TYPE=\"submit\" value=\"Post Topic\">\n";
+    }
+
+    print <<EOH;
+<input TYPE="reset" value=" Reset Topic ">
+</center>
+</form>
+<hr>
+EOH
+    &footer;
+}
+
+
+
+sub show_desc {
+
+    unless ($httpheader) {print &http_header;}
+
+    print "<title>NetForum - $forum_name Description</title>";
+    &header;
+    print "\n<h2>$forum_name Description</h2>\n<hr>\n";
+    @icon_list = ( 'show_group', 'email_group', 'goto_admin', 'help', 'list_topics');
+    &toolbar;
+    print "\n<hr>\n";
+
+    print "<b>Owner:</b> ";
+
+    if (($forum_owner_site =~ /http\:\/\//) && 
+	($forum_owner_site ne 'http://')) {
+
+	print "<a href=\"$forum_owner_site\">";
+    }
+
+    print $forum_owner;
+
+    if (($forum_owner_site =~ /http\:\/\//) && 
+	($forum_owner_site ne 'http://')){
+
+	print "</a>";
+    }
+    if ($forum_owner_email) {
+
+	print &email($forum_owner_email), "<BR>\n";
+
+    } else {
+
+	print "\n<br>\n";
+    }
+
+    print "<b>Contact:</b> ";
+    if ($forum_monitor_site =~ /http\:\/\// && 
+	$forum_monitor_site ne 'http://' ) {
+
+	print "<a href=\"$forum_monitor_site\">";
+    }
+
+    print $forum_monitor;
+    if ($forum_monitor_site =~ /http\:\/\//
+	&& $forum_monitor_site ne 'http://'){
+	print "</a> \n";
+    }
+    if($forum_monitor_email) {	
+    	
+	print &email( $forum_monitor_email ), "<BR>\n";
+    }
+    else {
+    	print "\n<BR>\n";
+    }
+
+    print "<hr>\n";
+
+    if ( -e "$home_directory/$which_forum/description") {
+	open(DFILE, "$home_directory/$which_forum/description") || 
+	    &doh('Can\'t open description file');
+	while (<DFILE>){print;}
+	close(DFILE);
+	print "<hr>";
+    }
+
+    if ( -e "$home_directory/$which_forum/guidelines") {
+	open(GFILE, "$home_directory/$which_forum/guidelines") || 
+	    &doh('Can\'t find guidelines file');
+	while (<GFILE>){print;}
+	close(GFILE);
+	print "<hr>";
+    }
+    &footer;
+}
+
+sub show_group {
+
+    unless ($httpheader) { print &http_header; }
+    &load_group;
+
+    print "<title>NetForum - $forum_name - Group Info</title>\n";
+    &header;
+    print "\n<h2>$forum_name - Group Info</h2>\n<hr>\n";
+
+    print "<b>Owner:</b> ";
+
+    if ($forum_owner_site =~ /http\:\/\// && 
+	$forum_owner_site ne 'http://' ){
+	print "<a href=\"$forum_owner_site\">";
+    }
+
+    print $forum_owner;
+
+    if ($forum_owner_site =~ /http\:\/\// && 
+	$forum_owner_site ne 'http://'){
+
+	print "</a>";
+    }
+
+
+    if ($forum_owner_email) {
+
+	print &email( $forum_owner_email );
+    }
+    else {
+	print "\n<br>\n";
+    }
+    print "<b>Contact:</b> ";
+    if ($forum_monitor_site =~ /http\:\/\//
+	&& $forum_monitor_site ne 'http://') {
+
+	print "<a href=\"$forum_monitor_site\">";
+    }
+    print $forum_monitor;
+
+    if ($forum_monitor_site =~ /http\:\/\//
+	&& $forum_monitor_site ne 'http://'){
+
+	print "</a>";
+    }
+
+    print &email ( $forum_monitor_email );
+
+    print "<p>\n<b>Note:</b> You may send email to individuals by clicking ";
+    print "on their email address, or, to send email to more than one";
+    print " member, click on the \"Email Group\" toolbar item.\n<hr>\n";
+
+    @icon_list = ( 'email_group', 'list_topics', 'goto_admin', 'help', 'about_forum' );
+    &toolbar;
+
+    print "<hr>\n<ul>\n";
+#    foreach $name ( keys %group_list ) {
+
+#	print "<li>$name";
+#	print &email( $group_list{ $name } );
+
+#    }				
+
+    $count = 1;
+
+    foreach $name ( @group_list ) {
+
+	if ( $count % 2 ) {
+	    print "<LI> $name ";
+	} else {
+	    print &email( $name );
+	}
+
+	$count++;
+    }
+
+
+    print "</ul>\n";
+    if (-e "$home_directory/$which_forum/description"){
+
+	open(DESC, "$home_directory/$which_forum/description") || 
+	    &doh('Can\'t open description file');
+	print "<hr>\n";
+
+	while (<DESC>){
+	    print;
+	}
+	close(DESC);
+    }
+
+    print "<hr>";
+    &footer;
+}
+
+
+
+
+sub add_reply {
+
+#    &parse_cookie unless( $no_cookies );
+
+    unless ($institution_site){
+	$institution_site = 'http://';
+    }
+    unless ($poster_site){$poster_site = 'http://';}
+
+    # read the origional message 
+
+    ($topic_number, $which_message ) = split ( /\./, $command_vars );
+    
+
+    unless ($httpheader) {print &http_header;}
+    print "<title>NetForum - $forum_name - Add Reply</title>\n";
+    &header;
+    print "\n<h3>Forum: $forum_name</h3>\n";
+ 
+    &get_topic_info;
+
+    @icon_list = ( 'show_group', 'email_group', 'list_topics', 'goto_admin', 'help', 'about_forum' );
+
+    &toolbar;
+
+    print "<HR>\n";
+
+    print "<h3>Original Message:</h3>\n\n";
+
+    &print_message( $topic_number, $which_message );
+    
+    print "\n<hr>\n<form action=\"/$netforum_url/";
+    
+    if ( $preview_all && $preview_replies ) {
+
+	print "$preview_reply_command$cvar_separator$command_vars\"";
+
+    }
+    else {
+	
+	print "$post_reply_command$cvar_separator$command_vars\"";
+    }
+    
+    print "method=POST>\n";
+    
+    print <<EOH;
+<h3>Reply:</h3>
+<b>Required Information:</b><p>
+<DL>
+<dd><b>Your Name</b>:
+<dd><input value="$poster_name" size=40 name="poster_name"><br>
+<dd><b>Subject</b>:
+<dd><input value="$subject" size=40 name="subject"><br>
+
+EOH
+
+    if($institution_required)	{
+	print<<EOH;
+<dd><b>$institution_field_name</b>:
+<dd><input value="$poster_institution" size=40 name="poster_institution"><br>
+</DL>
+<hr><b>Optional Information:</b><p>
+EOH
+    } else {
+	print<<EOH;
+</DL>
+<hr><b>Optional Information:</b><p>
+<DL>
+<dd><b>$institution_field_name</b>:
+<dd><input value="$poster_institution" size=40 name="poster_institution"><br>
+
+EOH
+    }
+    print <<EndOfForum;
+
+<dd><b>Your $institution_field_name\'s Web Site</b>:
+<dd><input value="$institution_site" size=40 name="institution_site"><br>
+<dd><b>Your Email Address</b>: 
+<dd><input value="$poster_email" size=40 name="poster_email"><br>
+<dd><b>Your Web home page</b>: 
+<dd><input value="$poster_site" size=40 name="poster_site"><p>
+</DL>
+<HR>
+<dd><b>Message:</b> 
+<DL><dd><textarea rows=8 cols=60 name="message" wrap=physical>$message</textarea>
+</DL>
+<p>
+<hr>
+<b>Formatting options for message:</b>
+<p>
+EndOfForum
+
+
+    &format_list($formatting);
+		
+    print <<EOH;
+<p>
+<hr>
+<center>
+EOH
+    if ( $preview_all && $preview_replies ) {
+	print "<input TYPE=\"submit\" value=\"Preview Reply \">\n";
+    }				 
+    else {			
+	print "<input TYPE=\"submit\" value=\"Post Reply\">\n";
+    }				
+
+    print<<EOH;
+<input TYPE="reset" value=" Reset message ">
+</center>
+</form>
+<hr>
+EOH
+
+    &footer;
+}				
+
+
+sub show_replies {		
+    
+    local($flag, $topic_number, $which_message, $which_reply, $counter, 
+	  $how_deep, $is, $ps, @replies, $item); 
+
+    ($topic_number, $which_message, $which_reply, $how_deep, $where_from) = 
+	split('\.', $command_vars);
+
+    if  ( $where_from ) {
+	$where_now = $show_messages_command;
+    }
+    else {
+	$where_now = $view_message_expanded;
+    }
+
+
+    # get topic and forum names
+
+    $topic_file = "$home_directory/$which_forum/topics/$topic_number";
+
+    open ( TOPIC, $topic_file ) || 
+	&doh ("Unable to open topic file: $topic_file" );
+
+    while ( <TOPIC> ) {
+
+	if ( /$topic_name_key/ ) {
+	    $topic_name = $';
+	}
+    }
+
+    # read replies
+
+    $counter = 1; 
+
+    $reply_file =  
+	"$home_directory/$which_forum/responses/$topic_number\-$which_message";
+
+    open(REPLY, $reply_file ) || &doh("Can\'t open reply file: $reply_file");
+
+    while (<REPLY>){
+
+
+
+	if (/$separator/){
+	    $counter++;
+	}
+	
+	elsif (/$subject_key/){
+	    $replies[$counter] .= 
+		"\n<b>Subject:</b> $'\n<br>\n<b>Reply Posted by:</b> ";
+	}
+	elsif (/$poster_site_key/){
+	    $replies[$counter] .= "<a href=\"$'\">"; 
+	    $ps = 1;
+	}
+	elsif (/$poster_name_key/){
+	    $replies[$counter] .= "$'"; 
+	    if ($ps) {
+		$replies[$counter] .= "</a>  ";
+	    }
+		
+	}
+	elsif (/$poster_email_key/){
+
+	    $replies[$counter] .= &email( $' );
+	}
+	elsif (/$institution_site_key/) {
+	    $replies[$counter] .= 
+		"<BR>\n<b>$institution_field_name:</b> <a href=\"$'\">"; 
+	    $is = 1;
+	}			
+	elsif (/$poster_institution_key/){
+	    if ($is){
+		$replies[$counter] .= "$'</a>\n";
+	    }		
+	    else{
+		$replies[$counter] .= "<BR>\n<b>$institution_field_name:</b> $'\n";
+	    }
+	    $pi = 1;		
+	}
+	elsif (/$date_key/){
+
+	    if ($pi) {
+	    	$replies[$counter] .= "<BR>\n<b>Date Posted:</b> $'\n";
+	    }
+	    else {
+		
+		$replies[$counter] .= "<BR>\n<b>Date Posted:</b> $'\n";
+	    }
+	}
+	elsif (/$message_key/){
+	    $replies[$counter] .= "<BR>\n<b>Message:</b><br> $'";
+	}
+	else{
+	    $replies[$counter] .= "$_ ";
+	}
+    }
+    close(REPLY);
+
+    @icon_list = ('back_to_list');
+
+    if ( $which_reply != 0 ) {
+	push ( @icon_list , 'all_replies' );
+    }
+    push (@icon_list, 'show_group', 'email_group', 'list_topics', 'goto_admin', 'help', 'about_forum');
+
+    unless ($httpheader) {print &http_header};
+    print "<title>NetForum - Message Replies</title>\n";
+    &header;
+    print "\n<h2>NetForum - Message Replies</h2>\n<hr>\n"; 
+
+    print "<H3>Forum: $forum_name</H3>";
+
+    &get_topic_info;
+
+    &toolbar;
+
+    print "<hr>\n";
+
+    print "<B>Original Message:</B>\n<P>\n";
+
+
+
+    &print_message($topic_number, $which_message );
+
+    if ( $which_reply != 0 && $which_reply > 1 ) {
+	print "<HR>\n<a href=\"/$netforum_url/$show_replies_command";
+	print "$cvar_separator$topic_number\.$which_message\.";
+	print $which_reply - 1;
+	print "\.$how_deep\">";
+	print "Previous reply\</A>\n";
+    }			
+
+
+    if ($which_reply == 0){
+	foreach $item (@replies){
+	    if ($item) {
+		print "\n<hr>\n";
+		print "<B>Reply:</B> <P>\n";
+	    }
+	    print $item;	
+	}
+	print "\n<hr>\n";
+	&toolbar;
+    }
+    else{
+	print "\n<hr>\n";
+	print "<B>Reply:</B> <P>\n";
+
+	print $replies[$which_reply];
+    }
+
+
+    print "\n<hr>\n";
+
+    print "\n<a href=\"/$netforum_url/";
+    print "$add_reply_command$cvar_separator$topic_number\.";
+    print "$which_message\.$how_deep\"><img alt=\"Reply to this";
+    print " message\" border=\"$image_border\"";
+    print "src=\"$respond_toolbar_gif\"></a>\n<HR>\n";
+
+    if ( $which_reply != 0 && $which_reply < $counter - 1 ) {
+	print "<a href=\"/$netforum_url/$show_replies_command";
+	print "$cvar_separator$topic_number\.$which_message\.";
+	print $which_reply + 1;
+	print "\.$how_deep\">Next reply</A>\n<HR>\n";
+    }
+
+    &footer;
+}
+
+
+
+sub add_message {
+
+    # get the cookies
+
+#    &parse_cookie unless( $no_cookies );
+
+
+    unless ($institution_site) { $institution_site = 'http://'; }
+
+    unless ($poster_site){ $poster_site = 'http://'; }
+
+    unless ($httpheader) { print &http_header; }
+
+    print "<title>NetForum - $forum_name - Add Message</title>\n";
+    &header;
+    print "\n<h2>$forum_name - Add Message</h2>\n<hr>\n";
+
+    @icon_list = ('show_group', 'email_group', 'list_topics', 'goto_admin', 
+		  'help', 'about_forum' );
+    &toolbar;
+
+    print "\n<hr>\n<form action=\"/$netforum_url/";
+
+    if ( $preview_all && $preview_messages ) {
+
+	print "$preview_message_command";
+
+    }
+    else {
+	
+	print "$post_message_command";
+    }
+
+    print "$cvar_separator$command_vars\" method=POST>\n";
+
+    print <<EOH;
+<b>Required Information:</b>
+<p>
+<DL>
+<dd><b>Your Name</b>:
+<dd><input value="$poster_name" size=40 name="poster_name"><br>
+<dd><b>Subject</b>:
+<dd><input value="$subject" size=40 name="subject"><br>
+EOH
+
+
+    if ( $institution_required ) {
+	print "<dd><b>$institution_field_name</b>:\n";
+	print "<dd><input value=\"$poster_institution\" ";
+	print "size=40 name=\"poster_institution\">\n";
+	print "</DL>\n<br>\n<HR>\n";
+	print "<b>Optional Information:</b>\n<p>\n";
+
+
+    } else {
+
+
+    	print <<EOH;
+</DL>
+<br>
+<hr>
+<b>Optional Information:</b><p>
+<DL>
+<dd><b>$institution_field_name</b>:
+<dd><input value="$poster_institution" size=40 name="poster_institution">
+
+EOH
+
+   }
+
+    print <<EOH;
+<dd><b>Your $institution_field_name\'s Web Site</b>:
+<dd><input value="$institution_site" size=40 name="institution_site"><br>
+<dd><b>Your Email Address</b>:
+<dd><input value="$poster_email" size=40 name="poster_email"><br>
+<dd><b>Your Web home page</b>:
+<dd><input value="$poster_site" size=40 name="poster_site">
+</DL>
+<p>
+<HR>
+<DL>
+<dd><b>Message:</b>
+<dd><textarea rows=8 cols=60 name="message" wrap=physical>$message</textarea>
+</DL>
+<p>
+<hr>
+<b>Formatting options for message:</b>
+<p>
+EOH
+
+	
+    &format_list($formatting);	
+
+    print "<p>\n<hr>\n<center>\n";
+
+    if ( $preview_all && $preview_messages ) {
+
+	print "<input TYPE=\"submit\" value=\"Preview message\">\n";
+    }
+    else {
+
+	print "<input TYPE=\"submit\" value=\"Post message\">\n";
+    }
+    print <<EndOfForum;
+
+<input TYPE="reset" value=" Reset message ">
+</center>
+</form>
+<hr>
+
+EndOfForum
+
+    &footer;
+}
+
+sub show_topics {
+
+    local($item, $file_path, $num_messages);
+
+    unless ($httpheader) {print &http_header;}
+    print "<title>NetForum - $forum_name - Topics</title>\n";
+    
+    &header;
+
+    print "\n<h2>Forum: $forum_name</h2>\n\n";
+    print "<b>Owner:</b> ";
+
+    if (($forum_owner_site =~ /http\:\/\//) && 
+	 $forum_owner_site ne 'http://' ) {
+
+	print "<a href=\"$forum_owner_site\">";
+    }
+
+    print $forum_owner;
+
+    if (($forum_owner_site =~ /http\:\/\//) && 
+	$forum_owner_site ne 'http://' ) {
+
+	print "</a>";
+    }
+    if ($forum_owner_email) {
+
+	print &email ( $forum_owner_email ),"<BR>\n";
+
+    } else {
+
+	print "\n<br>\n";
+    }
+
+    print "<b>Contact:</b> ";
+    if ($forum_monitor_site =~ /http\:\/\// && 
+	$forum_monitor_site ne 'http://') {
+
+	print "<a href=\"$forum_monitor_site\">";
+    }
+
+    print $forum_monitor;
+    if ($forum_monitor_site =~ /http\:\/\// && 
+	$forum_monitor_site ne 'http://') {
+	print "</a>";
+    }
+
+    if( $forum_monitor_email ) {	
+    	
+	print &email( $forum_monitor_email ), "<BR>\n";
+    } else {
+    	print "\n<BR>\n";
+    }
+    if (-e "$home_directory/$which_forum/description"){
+	open(DESC, "$home_directory/$which_forum/description") || 
+	    &doh('Can\'t open description file');
+	print "<B>Description:</b>\n";
+	while (<DESC>){
+	    print;
+	}
+	close(DESC);
+    }
+    print "\n<hr>\n";
+
+    @icon_list = ('add_topic', 'show_group', 'email_group', 'goto_admin', 'help', 'about_forum' );
+    &toolbar;
+    print "<hr>";
+    print "<FONT SIZE=+1>";
+    print "<B>Discussion Topics:</B>";
+    print "</FONT>";
+    print " (click on the topic to view messages)\n";
+
+    # load the topic information from disk
+
+    $list_file = "$home_directory/$which_forum/topics/list";
+	
+    if (!(-s $list_file)) {
+	print "\n<dd><b>No Topics</b>\n";
+    }
+    else
+    {
+	open(TOPICS_LIST, $list_file) ||
+	    &doh("Couldn\'t find topics list file: $list_file");
+		
+	print "<UL>\n";
+
+	while($line = <TOPICS_LIST>) {
+	    ($topic_number, $num_messages, $num_replies, $item, $udate) = 
+		split(/:/, $line,5);
+
+	    $topic_number =~ s/\s//g;
+
+	    next if ($item eq $empty_topic);
+
+	    print "<li><A HREF=\"/$netforum_url/$show_messages_command$cvar_separator$topic_number\">";
+	    print "<b>$item</b></a>\n";
+	    print "<DL>\n";
+
+	    if ($num_messages == 0) {
+		print "<dd> (no messages)\n";
+	    } 
+	    else {
+		print "<dd> ($num_messages";
+		if ($num_messages == 1) {
+		    print " message, ";
+		}
+		else {
+		    print " messages, ";
+		}
+		if($allow_replies) {
+
+		    print "$num_replies";
+		    if($num_replies ==1) {
+			print " reply, ";
+		    }
+		    else {
+			print " replies, ";
+		    }
+		    print "last message/reply posted $udate)\n";
+		}
+		else {
+		    print "last message posted $udate)\n";
+		}
+	    }
+	    print "</DL>\n";
+
+	}		
+    }			
+
+    print "</ul>\n<hr>\n";
+    &footer;    
+
+}
+
+
+
+####################################### POST ###
+
+
+
+sub post_command{
+
+    if   ($which_command == $preview_topic_command){&preview_topic}
+    elsif($which_command == $edit_topic_command){&edit_topic}
+    elsif($which_command == $post_topic_command){&post_topic}
+    elsif($which_command == $mail_command){&send_mail}
+    elsif($which_command == $preview_message_command){&preview_message}
+    elsif($which_command == $preview_reply_command){&preview_reply}
+    elsif($which_command == $edit_reply_command){&edit_reply}
+    elsif($which_command == $edit_message_command){&edit_message}
+    elsif($which_command == $post_reply_command){&post_reply}
+    elsif($which_command == $post_message_command){&post_message}
+    else { &doh('Bad forum request (in main)'); }
+}
+
+
+
+sub preview_topic {
+
+    local($formatted);
+    $username = $in{'username'};
+    $password = $in{'password'};
+    $topic_name = $in{'topic_name'};
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $comments = $in{'comments'};
+    $formatting = $in{'formatting'};
+
+    &check_topic($topic_name,$poster_name,$poster_institution,
+		 $institution_site,$poster_email,$poster_site,$user_name,
+		 $password);
+
+#    unless ($httpheader) {print &http_header};
+
+    &print_cookies($poster_name,$poster_email,$poster_site,$poster_institution,$institution_site);
+
+    if ( $anyone_add eq 'no' ) {
+	&doh("Username, password incorrect") 
+	    unless ($anyone_add_username eq $username
+		    && $anyone_add_password eq $password );
+    }
+
+    $formatted = &markup_options($comments,$formatting);
+
+    print "<title>NetForum - $topic_name - Preview Topic</title>\n";
+    &header;
+
+    print "\n<h3 align=center>This is how the topic information ";
+    print "will appear in the forum:</h3>\n<hr>\n<br>\n";
+    print "<b>Topic Name:</b> $topic_name<br>\n";
+
+    if (($poster_site =~ /http:\/\//) && ($poster_site ne 'http://')){
+	print "<b>Topic Posted by: </b> ";
+	print "<a href=\"$poster_site\">$poster_name</a> ";
+    }
+    else {
+	print "<b>Topic Posted by:</b> $poster_name ";
+    }
+
+    if ($poster_email){
+
+	print &email( $poster_email );
+
+    }
+
+    print "\n<br>\n"; 
+
+    if ( $poster_institution ) {
+
+	if (($institution_site =~ /http:\/\//) &&
+	    ($institution_site ne 'http://')){
+	    print "<b>$institution_field_name: </b>";
+	    print "<A href=\"$institution_site\">";
+	    print "$poster_institution</A>\n<br>\n";
+	}
+	else {
+	    print "<b>$institution_field_name:</b> $poster_institution\n";
+	    print "<br>\n";
+	}
+    }
+
+    print ("<b>Date Posted:</b>", &ctime(time), "\n<br>\n");
+
+    if ($comments) {
+	print "<b>Topic Description:</b>\n$formatted\n<p>\n";
+    }
+
+    &encode($topic_name);
+    &encode($comments);
+    &encode($formatted);
+
+    print<<EOH;
+
+<FORM ACTION="/$netforum_url/$edit_topic_command" METHOD=POST>
+<input type=hidden name="username" value="$username">
+<input type=hidden name="password" value="$password">
+<input type=hidden name="topic_name" value="$topic_name">
+<input type=hidden name="poster_name" value="$poster_name">
+<input type=hidden name="poster_institution" value="$poster_institution">
+<input type=hidden name="institution_site" value="$institution_site">
+<input type=hidden name="poster_email" value="$poster_email">
+<input type=hidden name="poster_site" value="$poster_site">
+<input type=hidden name="comments" value="$comments">
+<input type=hidden name="formatting" value="$formatting">
+<hr>
+<center>
+<INPUT TYPE="submit" VALUE=" Edit some more ">
+</center>
+</form>
+
+<FORM ACTION="/$netforum_url/$post_topic_command" METHOD=POST>
+<input type=hidden name="username" value="$username">
+<input type=hidden name="password" value="$password">
+<input type=hidden name="topic_name" value="$topic_name">
+<input type=hidden name="poster_name" value="$poster_name">
+<input type=hidden name="poster_institution" value="$poster_institution">
+<input type=hidden name="institution_site" value="$institution_site">
+<input type=hidden name="poster_email" value="$poster_email">
+<input type=hidden name="poster_site" value="$poster_site">
+<input type=hidden name="formatting" value="$formatting">
+<input type=hidden name="comments" value="$comments">
+<center>
+<INPUT TYPE="submit" VALUE="Post the topic">
+</center>
+</form>
+<hr>
+EOH
+    &footer;
+}
+
+
+sub preview_reply {
+
+    local($formatted);
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $message = $in{'message'};
+    $subject = $in{'subject'};
+    $formatting = $in{'formatting'};
+
+    &check_message( $poster_name, $message, $subject, $poster_institution,
+		    $institution_site, $poster_email, $poster_site );
+
+    $formatted = &markup_options($message, $formatting);
+
+#    unless ($httpheader) {print &http_header};
+
+    &print_cookies($poster_name,$poster_email,$poster_site,
+		   $poster_institution,$institution_site);
+
+    print "<title>NetForum - Preview Reply</title>\n";
+    &header;
+    print "\n<h3 align=center>This is how the reply will appear ";
+    print "in the forum:</h3>\n<hr>\n<br>\n";
+
+
+    if (($poster_site =~ /http:\/\//) && 
+	($poster_site ne 'http://')){
+
+	print "<b>Reply Posted by: </b> <a href=\"$poster_site\">$poster_name</a> ";
+    }
+    else {
+	print "<b>Reply Posted by:</b> $poster_name ";
+    }
+
+    if ($poster_email){
+
+	print &email ( $poster_email );
+
+    }
+
+    print "\n<br>\n";
+
+    if ( $poster_institution ) {
+    if (($institution_site =~ /http:\/\//) && 
+	($institution_site ne 'http://')){
+
+	print "<b>$institution_field_name:</b> ";
+	print "<a href=\"$institution_site\">$poster_institution</a>\n<br>\n";
+    }
+    else { 
+	print "<b>$institution_field_name:</b> $poster_institution\n<br>\n"; 
+    }}
+
+    print "<b>Date Posted:</b>", &ctime(time), "\n<br>\n";
+
+    # print the formatted message
+
+    print "<B>Subject:</B>\n$subject<BR>\n";
+    print "<b>Message:</b><br>\n$formatted\n<p>\n"; 
+
+
+    # now encode the actual message and subject
+
+    &encode($message);
+    &encode($subject);
+    
+    print<<EOH;
+<FORM ACTION="/$netforum_url/$edit_reply_command$cvar_separator$command_vars" METHOD=POST>
+<input type=hidden name="poster_name" value="$poster_name">
+<input type=hidden name="poster_institution" value="$poster_institution">
+<input type=hidden name="institution_site" value="$institution_site">
+<input type=hidden name="poster_email" value="$poster_email">
+<input type=hidden name="poster_site" value="$poster_site">
+<input type=hidden name="message" value="$message">
+<input type=hidden name="subject" value="$subject">
+<input type=hidden name="formatting" value="$formatting">
+<hr>
+<center>
+<INPUT TYPE="submit" VALUE=" Edit some more ">
+</center>
+</form>
+<FORM ACTION="/$netforum_url/$post_reply_command$cvar_separator$command_vars" METHOD=POST>
+<input type=hidden name="poster_name" value="$poster_name">
+<input type=hidden name="poster_institution" value="$poster_institution">
+<input type=hidden name="institution_site" value="$institution_site">
+<input type=hidden name="poster_email" value="$poster_email">
+<input type=hidden name="poster_site" value="$poster_site">
+<input type=hidden name="message" value="$message">
+<input type=hidden name="formatting" value="$formatting">
+<input type=hidden name="subject" value="$subject">
+<center>
+<INPUT TYPE="submit" VALUE="Post reply">
+</center>
+</form>
+<hr>
+
+EOH
+    &footer;
+}
+
+sub preview_message {
+
+    local($formatted);
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $subject = $in{'subject'};
+    $message = $in{'message'};
+    $formatting = $in{'formatting'};
+
+
+    &check_message( $poster_name, $message, $subject, $poster_institution,
+		    $institution_site, $poster_email, $poster_site );
+
+    $formatted = &markup_options($message, $formatting);
+
+    &print_cookies($poster_name,$poster_email,$poster_site,$poster_institution,$institution_site);
+    
+
+    print "<title>NetFroum - Preview Message</title>\n";
+    &header;
+    print "\n<h3 align=center>This is how the message will appear in ";
+    print "the forum:</h3>\n<hr>\n<br>\n";
+
+    if (($poster_site =~ /http:\/\//) && 
+	($poster_site ne 'http://')){
+	print "<b>Message Posted by: </b> <a href=\"$poster_site\">$poster_name</a> ";
+    }
+    else { print "<b>Message Posted by:</b> $poster_name "; }
+
+    if ($poster_email){
+	print &email ( $poster_email );
+    }
+    
+    print "\n<br>\n"; 
+
+    if ( $poster_institution ) {
+    if (($institution_site =~ /http:\/\//) && 
+	($institution_site ne 'http://')){
+
+	print "<b>$institution_field_name: </b> <a href=\"$institution_site\">$poster_institution</a>\n<br>\n";
+    }
+    else { 
+	print "<b>$institution_field_name: </b> $poster_institution\n<br>\n"; 
+    }}
+
+    print "<b>Date Posted:</b>", &ctime(time), "\n<br>\n";
+
+    print "<b>Subject:</b>\n$subject\n<p>\n"; 
+    print "<b>Message:</b><p>\n$formatted\n<p>\n"; 
+
+    &encode($message);
+    &encode($subject);
+
+    print<<EOH;
+
+<FORM ACTION="/$netforum_url/$edit_message_command$cvar_separator$command_vars" METHOD=POST>
+<input type=hidden name="poster_name" value="$poster_name">
+<input type=hidden name="poster_institution" value="$poster_institution">
+<input type=hidden name="institution_site" value="$institution_site">
+<input type=hidden name="poster_email" value="$poster_email">
+<input type=hidden name="poster_site" value="$poster_site">
+<input type=hidden name="subject" value="$subject">
+<input type=hidden name="message" value="$message">
+<input type=hidden name="formatting" value="$formatting">
+<hr>
+<center>
+<INPUT TYPE="submit" VALUE=" Edit some more ">
+</center>
+</form>
+
+<FORM ACTION="/$netforum_url/$post_message_command$cvar_separator$command_vars" METHOD=POST>
+<input type=hidden name="poster_name" value="$poster_name">
+<input type=hidden name="poster_institution" value="$poster_institution">
+<input type=hidden name="institution_site" value="$institution_site">
+<input type=hidden name="poster_email" value="$poster_email">
+<input type=hidden name="poster_site" value="$poster_site">
+<input type=hidden name="subject" value="$subject">
+<input type=hidden name="message" value="$message">
+<input type=hidden name="formatting" value="$formatting">
+<center>
+<INPUT TYPE="submit" VALUE="Post the Message">
+</center>
+</form>
+<hr>
+
+EOH
+    &footer;
+}
+
+
+
+
+sub post_topic {
+
+    $username = $in{'username'};
+    $password = $in{'password'};
+    $topic_name = $in{'topic_name'};
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $comments = $in{'comments'};
+    $formatting = $in{'formatting'};
+
+    if ( $anyone_add eq 'no' ) {
+	&doh("Username, password incorrect") 
+	    unless ($anyone_add_username eq $username
+		    && $anyone_add_password eq $password );
+    }
+
+    &check_topic($topic_name,$poster_name,$poster_institution,
+		 $institution_site,$poster_email,$poster_site,
+		 $user_name,$password);
+
+    &create_topic_file;
+    if($email_messages_to_monitor){
+	&email_topic_to_monitor($topic_name, $poster_name, $poster_email, $comments);
+    }
+    print "Location: $url/$netforum_url/$show_topics_command\n\n";
+}
+
+
+sub post_message{
+
+    local( $date );
+
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $message = $in{'message'};
+    $formatting = $in{'formatting'};
+    $subject = $in{'subject'};
+
+    &check_message( $poster_name, $message, $subject, $poster_institution,
+		    $institution_site, $poster_email, $poster_site );
+	
+    #HEY! testing if this was missing.
+    &decode($message);
+    &decode($subject);
+
+    # Jose: changed message file to 1.m
+	
+    $message_file = ">>$home_directory/$which_forum/topics/$command_vars.m";
+
+    open (DUMP, $message_file) || 
+	&doh("Couldn\'t open message file $message_file");
+
+    &lock(DUMP);
+
+    if (($poster_site =~ /http:\/\//) && 
+	($poster_site ne "http://")) {
+	print DUMP "$poster_site_key$poster_site\n";
+    }
+
+    print DUMP "$poster_name_key$poster_name\n";
+
+    if ($poster_email) {
+	print DUMP "$poster_email_key$poster_email\n";
+    }
+    if (($institution_site =~ /http:\/\//) && 
+	($institution_site ne "http://")) {
+
+	print DUMP "$institution_site_key$institution_site\n";
+    }
+    if ($poster_institution) {
+	print DUMP "$poster_institution_key$poster_institution\n";
+    }
+
+    $date = &ctime(time);
+
+    $formatted = &markup_options($message,$formatting);
+
+    print DUMP ($date_key, $date);
+    print DUMP "$subject_key$subject\n";
+    print DUMP ($message_key, $formatted, "\n");
+    print DUMP ($separator, "\n");
+    &unlock(DUMP);
+    close(DUMP);
+
+    # Get message information from list file and store new info
+		
+    $topic_file_path = "$home_directory/$which_forum/topics/list";
+    open (TOPIC, $topic_file_path) ||
+	&doh("Couldn\'t open topic file: $topic_file_path");
+    &lock($topic_file_path);
+    $n=0;
+    while($line[$n] = <TOPIC>)
+    {
+	($number, $num_messages, $num_replies, $name, $udate) = 
+	    split(/:/, $line[$n],5);
+
+	$num_messages =~ s/\s//g;
+	$number =~ s/\s//g;
+	if($number == $command_vars)
+	{	
+	    #increment messages and update date
+	    $num_messages++;
+	    $line[$n] = "$number:$num_messages:$num_replies:$name:$date";
+	    $topic_name = $name;
+	}
+	$n++;
+    }
+    close(TOPIC);
+    &unlock($topic_file_path);
+	
+    open (TOPIC, ">$topic_file_path") ||
+	&doh("Couldn\'t open topic file: $topic_file_path");
+    &lock($topic_file_path);
+    print TOPIC (@line);
+    close(TOPIC);
+    &unlock($topic_file_path);
+
+	if($email_messages_to_monitor){
+		&email_messages_to_monitor("message",$topic_name, $message, $poster_name, $poster_email, $subject);
+	}
+
+    print "Location: $url/$netforum_url/$show_messages_command$cvar_separator$command_vars\n\n";
+
+}
+
+sub email_topic_to_monitor {
+
+    local($topic_name, $poster_name, $poster_email, $comments) = @_;
+    local($gateway);
+    $gateway = "NetForum: $forum_name";
+    $realfrom   = $ENV{'REMOTE_HOST'} ? $ENV{'REMOTE_HOST'}: $ENV{'REMOTE_ADDR'};
+    
+    open(MAIL, "| $sendmail") || &doh("Couldn\'t find sendmail");
+    &lock(MAIL);
+    print MAIL ("From: $poster_name <$poster_email>\n");
+    print MAIL ("To: $forum_monitor_email\n");
+    print MAIL ("Errors-To: $forum_monitor_email\n");
+    print MAIL ("Subject: NetForum topic notice.\n");
+    print MAIL ("X-Mail-Gateway: $gateway\n");
+    print MAIL ("X-Real-Host-From: $realfrom\n");
+    print MAIL ("A topic has been added to a forum for which you are ");
+    print MAIL ("the contact: \n\n");
+    print MAIL ("Forum: $forum_name; $url/$base_url/$which_forum/$script_name/1\n");
+    print MAIL ("Topic: $topic_name \n");
+    print MAIL ("Topic Description: $comments \n");
+    print MAIL ("Posted by: $poster_name");
+    if($poster_email){
+      print MAIL (" ($poster_email)\n");
+    }
+    close(MAIL);
+    &unlock(MAIl);
+}
+
+sub email_messages_to_monitor {
+
+    # $kind represents if it is a message or a reply
+    local($kind, $topic_name, $message, $poster_name, $poster_email, $subject) = @_;
+    local($gateway);
+    
+    $gateway = "NetForum: $forum_name";
+    $realfrom   = $ENV{'REMOTE_HOST'} ? $ENV{'REMOTE_HOST'}: $ENV{'REMOTE_ADDR'};
+    $mess_kind = "message";
+    if($kind eq "reply"){
+	$mess_kind = "reply";
+    }
+    open(MAIL, "| $sendmail") || &doh("Couldn\'t find sendmail");
+    &lock(MAIL);
+    print MAIL ("From: $poster_name <$poster_email>\n");
+    print MAIL ("To: $forum_monitor_email\n");
+    print MAIL ("Errors-To: $forum_monitor_email\n");
+    print MAIL ("Subject: NetForum $mess_kind notice.\n");
+    print MAIL ("X-Mail-Gateway: $gateway\n");
+    print MAIL ("X-Real-Host-From: $realfrom\n");
+    print MAIL ("A $mess_kind has been added to a forum for which you ");
+    print MAIL ("are the contact: \n\n");
+    print MAIL ("Forum: $forum_name; $url/$base_url/$which_forum/$script_name/1\n");
+    print MAIL ("Topic: $topic_name \n");
+    print MAIL ("Subject: $subject \n");
+    print MAIL ("Message: $message\n\n");
+    print MAIL ("Posted by: $poster_name");
+    if($poster_email){
+      print MAIL (" ($poster_email)\n");
+    }
+    close(MAIL);
+    &unlock(MAIL);
+}
+
+sub post_reply {
+
+    local($topic_number, $which_message, $how_deep, $date);
+
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $message = $in{'message'};
+    $subject = $in{'subject'};
+    $formatting = $in{'formatting'};
+    
+    
+    ($topic_number, $which_message, $how_deep) = split('\.', $command_vars);
+
+    &check_message( $poster_name, $message, $subject, $poster_institution,
+		    $institution_site, $poster_email, $poster_site );
+
+    #HEY! checking if this is a problem:
+    &decode($message);
+    &decode($subject);
+
+    $formatted = &markup_options($message,$formatting);
+    $response_file = 
+       "$home_directory/$which_forum/responses/$topic_number\-$which_message";
+
+    if (-e $response_file ) {
+	open (DUMP, ">>$response_file") || &doh("Couldn\'t open reply file");
+    }
+    else {
+	open (DUMP, ">$response_file") || &doh("Couldn\'t open reply file");
+#	print DUMP "$separator\n";
+    }
+    &lock(DUMP);
+    print DUMP ("$subject_key$subject\n");
+    if (($poster_site =~ /http:\/\//) && 
+	($poster_site ne "http://")) {
+	print DUMP "$poster_site_key$poster_site\n";
+    }
+    print DUMP "$poster_name_key$poster_name\n";
+    if ($poster_email) {
+	print DUMP "$poster_email_key$poster_email\n";
+    }
+    if (($institution_site =~ /http:\/\//) && 
+	($institution_site ne "http://")) {
+	print DUMP "$institution_site_key$institution_site\n";
+    }
+    if ($poster_institution) {
+	print DUMP "$poster_institution_key$poster_institution\n";
+    }
+    $date = &ctime(time);
+    print DUMP ($date_key, $date);
+    print DUMP ($message_key, $formatted, "\n");
+    print DUMP ($separator, "\n");
+    &unlock(DUMP);
+    close(DUMP);
+    chmod 0777, $response_file;
+
+    $topic_list = "$home_directory/$which_forum/topics/list";
+    
+    open (TOPIC, $topic_list) ||
+	&doh("Couldn\'t open topic file: $topic_list");
+	&lock($topic_list);
+	$n=0;
+	while( $line[$n] = <TOPIC> ) {
+	    ($number, $num_messages, $num_replies, $name, $udate) = 
+		split(/:/, $line[$n],5);
+
+	    $num_messages =~ s/\s//g;
+	    $number =~ s/\s//g;
+	    $name =~ s/:/ /g;
+
+	    if($number == $topic_number) {
+		$num_replies++;
+		$line[$n] = "$number:$num_messages:$num_replies:$name:$date";
+		$topic_name = $name;
+	    }
+	    $n++;
+	}
+    close(TOPIC);
+    &unlock($topic_list);
+    
+    open (TOPIC, ">$topic_list") ||
+	&doh("Couldn\'t open topic file: $topic_list");
+    &lock($topic_list);
+    print TOPIC (@line);
+    close(TOPIC);
+    &unlock($topic_list);
+
+	if($email_messages_to_monitor){
+		&email_messages_to_monitor("reply", $topic_name, $message, $poster_name, $poster_email, $subject);
+	}
+
+    print ("Location: $url/$netforum_url/$show_messages_command$cvar_separator$topic_number\.$how_deep\n\n");
+
+}
+
+
+sub edit_topic{
+
+    $username = $in{'username'};
+    $password = $in{'password'};
+    $topic_name = $in{'topic_name'};
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $comments = $in{'comments'};
+    $formatting = $in{'formatting'};
+
+    $no_cookies = 1;
+
+    &decode($comments);
+    &decode($topic_name);
+
+    &add_topic;
+}
+
+
+
+
+sub edit_message{
+
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $subject = $in{'subject'};
+    $message = $in{'message'};
+    $formatting = $in{'formatting'};
+    
+    $no_cookies = 1;
+
+    &decode($message);
+    &decode($subject);
+
+    &add_message;
+}
+
+
+
+sub edit_reply{
+
+    $poster_name = $in{'poster_name'};
+    $poster_institution = $in{'poster_institution'};
+    $institution_site = $in{'institution_site'};
+    $poster_email = $in{'poster_email'};
+    $poster_site = $in{'poster_site'};
+    $message = $in{'message'};
+    $subject = $in{'subject'};
+    $formatting = $in{'formatting'};
+
+    $no_cookies = 1;
+
+    &decode($message);
+    &decode($subject);
+    &add_reply;
+}
+
+
+
+sub create_topic_file {
+
+    local($new_file_path,$n);
+
+    $topics_file = "$home_directory/$which_forum/topics/list";
+	
+    $date = &ctime(time);
+    
+    $topic_number=1;
+
+    &decode($comments);
+    &decode($topic_name);
+
+    $formatted = &markup_options($comments, $formatting);
+    $topic_name =~ s/:/ /g;
+
+    if (!(-e "$home_directory/$which_forum/topics/list")) {
+	open(T, ">$home_directory/$which_forum/topics/list");
+	# Save in format: Number:Messages:replies:Name:date
+	print T ("$topic_number:0:0:$topic_name:$date");
+	close(T);
+    } else {
+
+	open(T, "<$home_directory/$which_forum/topics/list") 
+	    || &doh("Couldn\'t open topic list file");
+	&lock(T);
+	while ( <T> ) {
+	    @topics_list[$topic_number++] = $_;
+	    # replace everything but topic numbers
+	    next if(/\#/);
+	    ($temp_number, $num_messages,$replies,$temp_name,$temp_date) = 
+		split(/:/, $_,5);
+	    $temp_number =~ s/\s//g;
+	    # assure that new topic number is unique (add 1 later)
+	    if($temp_number > $topic_number) {
+		$topic_number = $temp_number;
+	    }
+	}
+	close(T);
+	&unlock(T);
+	# increment $topic_number for uniqueness:
+	$topic_number++;
+	# the following should never be true but you never know...
+	if (-e "$home_directory/$which_forum/topics/$topic_number") {
+	    &doh("$home_directory/$which_forum/topics/$topic_number already exists!");
+	}
+		
+	open(TT, ">>$home_directory/$which_forum/topics/list") 
+	    || &doh("Couldn\'t open topic list file");
+	&lock(TT);
+	print TT ("$topic_number:0:0:$topic_name:$date");
+	close(TT);
+	&unlock(TT);
+    }			
+	
+    
+    $new_file_path = ">$home_directory/$which_forum/topics/$topic_number";
+
+#    &decode($comments); #moved this to the top of the function
+
+    open(NEW_FILE, $new_file_path) || &doh("Unable to open topic file: $new_file_path\n");
+
+    &lock(NEW_FILE);
+    print NEW_FILE ($topic_name_key, $topic_name, "\n");
+    if ( ($poster_site =~ /http:\/\//) && 
+	 ($poster_site ne "http://") ) {
+	print NEW_FILE ($poster_site_key, $poster_site,"\n");
+    }
+    print NEW_FILE ($poster_name_key, $poster_name,"\n");
+    if ($poster_email) {
+	print NEW_FILE ($poster_email_key, $poster_email,"\n");
+    }
+    if ( $institution_site =~ /http:\/\// && 
+	 $institution_site ne "http://"  ) {
+	print NEW_FILE ($institution_site_key, $institution_site, "\n");
+    }
+    if ( $poster_institution ) {
+	print NEW_FILE ($poster_institution_key, $poster_institution, "\n");
+	
+    }
+
+    $date = &ctime(time);
+    $date =~ s/\r\n//g;
+    print NEW_FILE ($date_key, $date);
+    if ($comments) {
+	print NEW_FILE ($comments_key, $comments, "\n");
+    }
+#    if ($formatting) {
+	
+#	$formatting =~ s/\s//g;
+#    	print NEW_FILE ($formatting_key, $formatting, "\n");
+#    }
+
+    print NEW_FILE ($separator, "\n");
+    &unlock(NEW_FILE);
+    close(NEW_FILE);
+    chmod 0777, "$home_directory/$which_forum/topics/$topic_number";
+    
+    # create message file for new topic
+
+    $message_file = ">$home_directory/$which_forum/topics/$topic_number.m";
+    open(MESSAGE_FILE, $message_file);
+    &lock(MESSAGE_FILE);
+    &unlock(MESSAGE_FILE);
+    close(MESSAGE_FILE);
+    chmod 0777, "$home_directory/$which_forum/topics/$topic_number.m";
+    
+
+}
+
+sub print_message {
+
+    local ( $topic_number, $which_message ) = @_;
+
+    local ( @poster_site, @poster_name, @institution_site, @poster_institution,
+	    @poster_email, @poster_date, @poster_message, @poster_subject,
+ 	    @anything_else, $j );
+
+    $j = 1;
+
+    $message_file_path = 
+         "$home_directory/$which_forum/topics/$topic_number.m";
+
+    open(MESSAGE, $message_file_path) || 
+	&doh("Couldn\'t open message file: $message_file_path");
+
+    while (($_ = <MESSAGE>) && $j != $which_message+ 1) {
+
+	if ( /$poster_site_key/ ){
+	    $poster_site[$j] = $';
+	}
+	elsif ( /$poster_name_key/ ){
+	    $poster_name[$j] = $';
+	}
+	elsif ( /$institution_site_key/ ){
+	    $institution_site[$j] = $';
+	}
+	elsif ( /$poster_institution_key/ ){
+	    $poster_institution[$j] = $';
+	}
+	elsif ( /$poster_email_key/ ){
+
+	    $email_list[$j] = &email( $');
+
+	}
+	elsif ( /$date_key/ )  {
+	    $poster_date[$j] = $';
+	}
+	elsif ( /$message_key/) {
+	    $poster_message[$j] = $';
+	}
+	elsif ( /$subject_key/) {
+	    $poster_subject[$j] = $';
+	}
+	elsif ( /$separator/ ) { 
+	    $j++;
+	}
+	else {
+	    $anything_else[$j] .= $_;
+	}
+    }				
+
+    close(MESSAGE);
+       
+
+    if($poster_site[$which_message]) {
+	print "<b>Posted by:</b><a href=\"$poster_site[$which_message]\">";
+	print "$poster_name[$which_message]</a> ";
+    }		 
+    else {		
+	print "<b>Posted by:</b> $poster_name[$which_message] ";
+    }
+    if($email_list[$which_message]) {
+	print " $email_list[$which_message]<BR>\n";
+    }
+    else {
+	print "<BR>\n";
+    }
+    if( $institution_site[$which_message] && 
+        $poster_institution[$which_message]) {
+
+	print "<b>$institution_field_name:</b>";
+	print "<a href=\"$institution_site[$which_message]\">";
+	print "$poster_institution[$which_message]</a> <BR>";
+    }
+    elsif($institution_site[$which_message]) {
+	print "<b>$institution_field_name:</b>";
+	print "<a href=\"$institution_site[$which_message]\">";
+	print "$institution_site[$which_message]</a><BR>";
+    }
+    elsif($poster_institution[$which_message]) {
+	print "<b>$institution_field_name:</b>";
+	print "$poster_institution[$which_message]<BR>\n";
+    }
+    if($poster_date[$which_message]) {
+	print "<b>Date posted:</b> $poster_date[$which_message]<br>\n";
+    }
+    if($poster_subject[$which_message]) {
+	print "<b>Subject:</b> $poster_subject[$which_message]<br>\n";
+    }
+    if($poster_message[$which_message]) {
+	print "<b>Message:</b><br> $poster_message[$which_message]";
+    }
+    if($anything_else[$which_message])
+    {
+	print $anything_else[$which_message];
+    }
+
+}
+
+1;
+
+

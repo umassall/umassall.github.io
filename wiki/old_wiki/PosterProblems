@@ -1,0 +1,60 @@
+Date: Thu, 20 Oct 2005 16:02:57 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_13"
+
+--=_multipart_boundary_13
+Content-Type: application/x-phpwiki;
+  pagename=PosterProblems;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1129838577;
+  author_id=ash;
+  markup=2;
+  hits=11;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+Oh my God, why do I need TWO WHOLE DAYS to print ONE STUPID POSTER? Well, many many many many many things can go wrong. cscf called the poster Khash and Ash did in October 2005 the "three day poster."
+
+* The network could be having problems.
+* The poster printer could be screwed up.
+* Your poster could be screwed up.
+* Other people's posters could be screwed up.
+* The computer you print from could be screwed up.
+
+Those are just four general ways printer poster will turn your hair grey. Each method could have extensive subheadings, but a wiki does not allow for infinite bulleted lists.
+
+Here are some problems and solutions. Please amend and add as needed.
+
+* The poster printer does not print eps files well, if at all. They showed up as grey boxes when Khash and Ash did the three day poster. What we did was: 1) measured the size of the pictures as they were on the powerpoint slide. 2) moved the eps files to tiberius, the iMac in cscf. 3) used photoshop to open the eps files making sure to set the size to what we wanted them to be. 4) saved the image as a tiff. 5) put the tiff images in place of the eps files in the powerpoint document.
+
+* The poster printer couldn't handle the fact that the page size was set to 36". Don't ask way, it should have been able to handle it. So, if you make sure the poster is about 31" max at one of the dimensions, it should be better. Not OK, just better. There will be other problems, I'm sure.
+
+* What many people did was cp the pdf version of the poster (see that cscf webpage from a previous poster printing menu) to a Windows machine in cscf, and print from there. Don't ask why. You should know better by now.
+
+--=_multipart_boundary_13
+Content-Type: application/x-phpwiki;
+  pagename=PosterProblems;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1129838077;
+  author_id=ash;
+  markup=2;
+  hits=11;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+Oh my God, why do I need TWO WHOLE DAYS to print ONE STUPID POSTER? Well, many many many many many things can go wrong. cscf called the poster Khash and Ash did in October 2005 the "three day poster."
+
+* The network could be having problems.
+* The poster printer could be screwed up.
+* Your poster could be screwed up.
+* Other people's posters could be screwed up.
+* The computer you print from could be screwed up.
+
+Those are just four general ways printer poster will turn your hair grey. Each method could have extensive subheadings, but a wiki does not allow for infinite bulleted lists.
+
+--=_multipart_boundary_13--

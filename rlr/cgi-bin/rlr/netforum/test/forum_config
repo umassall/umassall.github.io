@@ -1,0 +1,106 @@
+#!/usr/bin/perl
+# Forum Configuration Variables
+# Set this variable to the pixel width of the border around
+# toolbar images when viewed by Netscape users.  
+# Netscape's default is 2.
+
+$image_border = 0;
+
+
+# Set $how_many_messages to how many expanded messages you want displayed 
+# within a browser window (i.e., 5)
+
+$how_many_messages_expanded = 5;
+
+
+# Set $how_many_messages to how many compressed messages you want displayed 
+# within a browser window (i.e., 5)
+
+$how_many_messages_compressed = 10;
+
+
+# This text will be placed in the "X-Mail-Gateway:" email header.
+
+$gateway = "InfoLink Netforum Mail Gateway";
+
+
+# These are the possible formatting types: IF you want less
+# at your site remove some from the list.
+
+%format_types = ('html', 'HTML', 'pre', 'Preformatted Text', 'translated', 'Translated Text');
+
+
+# This is the default formatting that all text entry will use
+# the valid choices are 'html', 'pre', and 'translated'.
+
+$default_formatting = 'html';
+
+
+# If this is set to 1 individuals will be required to enter their 
+# institution when they post a message.
+
+$institution_required = 0;
+
+
+# Set this variable to the name of the title of institution/organization 
+# field that users will fill up when posting messages/replies
+
+$institution_field_name = "Organization";
+
+
+# Set this varaible to false (0) if you want to skip the preview
+# pages. this is probably only a good idea if you exclude html
+# otherwise people may make mistakes and not notice until the
+# message is posted
+
+$preview_all = 1;
+
+$preview_topics = 1;
+
+$preview_messages = 1;
+
+$preview_replies = 1;
+
+
+# This should be set to true (1) if to want to use
+# netforum's built-in mail facilities. Set it to 0 if you want
+# to use mailto
+
+$nf_mail = 0;
+
+
+# This should be set to true (1) if you want to display only the subject
+# lines of the messages.
+
+$subject_only = 1;
+
+# Set this variable to 1 if you want to allow people to reply to messages
+# Set it to 0 if you don't want to allow replies to messages
+
+$allow_replies = 1;
+
+# Set this variable to 1 if you want to send messages and replies
+# to the forum owner by email
+
+$email_messages_to_monitor = 0;
+
+# These are HTML tags that you want to avoid in messages. If there are
+# tags that you want to allow, remove them from the list. If there are
+# tags you do not want, add them to this list. Do NOT insert a line
+# break (carriage return) between lines!
+
+@no_no_tags = ('img','input','textarea','h1','h2','hr','form','input','select','option','textare','table','isindex','basefront','tr','td','caption','body','html','font','head','meta','title','blink','applet','script');
+
+
+# Set this variable on if you want to display the admin
+# button in the forums' toolbar.  Be aware that having a link to the 
+# administrative features from the forums could place some security
+# risks in your NetForum
+
+$show_admin_button = 0;
+
+# Set this variable to the path to your buttons
+
+$button_path = "$docs/gifs/button1";
+
+1; # return true 

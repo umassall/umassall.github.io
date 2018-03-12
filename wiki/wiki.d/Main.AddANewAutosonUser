@@ -1,0 +1,14 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.13pre) Gecko/20071129 CentOS/1.0.9-7.el4.centos SeaMonkey/1.0.9
+author=
+csum=
+ctime=1210345505
+host=128.119.241.208
+name=Main.AddANewAutosonUser
+rev=1
+targets=
+text=(From Emily's AdminGuise):%0a[@%0a1.  Become username "autouser" %0a2.  cd to home%0a3.  Add new user to autoson.queue.users%0a4.  become new user%0a5.  Add these two things to their path (.cshrc file):  /anw/software/bin  /anw/software/bin/`uname -m`  %0a@]
+time=1210345505
+author:1210345505=
+diff:1210345505:1210345505:=1,8d0%0a%3c (From Emily's AdminGuise):%0a%3c [@%0a%3c 1.  Become username "autouser" %0a%3c 2.  cd to home%0a%3c 3.  Add new user to autoson.queue.users%0a%3c 4.  become new user%0a%3c 5.  Add these two things to their path (.cshrc file):  /anw/software/bin  /anw/software/bin/`uname -m`  %0a%3c @]%0a\ No newline at end of file%0a
+host:1210345505=128.119.241.208

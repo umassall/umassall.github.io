@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV=REFRESH>
+<TITLE>Publications on Neuro-biological RL</TITLE>
+</HEAD>
+<body bgcolor="#FFFFBB">
+<CENTER>
+<H1>Publications on Neuro-biological RL</H1>
+</CENTER>
+
+<img align=right src="imgs/sower.gif">
+<p>If you would like to have your publication automatically added to this
+page, please <a href=regpub.html>fill out this form</a>. 
+<br><hr>
+<!nextperson>
+<!nextperson><B>Anderson, 
+Russell</B>
+( <A
+	   HREF=mailto:rwa@milo.berkeley.edu>rwa@milo.berkeley.edu</A>)<BR>
+<blockquote><A HREF=http://www.geocities.com/Athens/4155/abs.html>Biased Random-Walk Learning: A Neurobiological Correlate to Trial-and-Error</A><BR>
+<i>Progress in Neural Networks</i>
+
+(Postscript - 248KB)
+<A HREF=http://web.cps.msu.edu/rlr/pub/Anderson1.html>Abstract</A>: 
+<BR>Neural network models offer a theoretical testbed for the study of 
+learning at the network level. ...
+</BLOCKQUOTE><HR>
+<!nextperson><B>Berns, 
+G.S.</B>  T.J. Sejnowski
+<blockquote>
+<b>A computational model of basal ganglia function with output selection
+and
+reinforcement learning</b>, T.J.
+Sejnowski <i>Society for Neuroscience Abstracts, 20:2 (1994</i>
+
+<A HREF=http://web.cps.msu.edu/rlr/pub/Berns3.html>Abstract</A>: 
+<BR>We propose a computational model of the basal ganglia based closely on known anatomy and physiology....
+</BLOCKQUOTE><HR>
+
+<!nextperson><B>Bremermann, 
+Hans</B>
+ , Russell W. Anderson<blockquote><A HREF=http://www.geocities.com/Athens/4155>How the Brain Adjusts Synapses -- Maybe</A><BR>
+<i>Atomated Reasoning, Kluwer, NY (1991)</i>
+
+(Hardcopy Only - )
+<A HREF=http://web.cps.msu.edu/rlr/pub/Bremermann1.html>Abstract</A>: 
+<BR>chemotaxis algorithm
+neurobiological learning ...
+</BLOCKQUOTE><HR>
+<!nextperson><B>Caironi, 
+Pierguido</B>
+<blockquote><B>E-mail:</B> <A
+	   HREF=mailto:caironi@elet.polimi.it>caironi@elet.polimi.it</A><BR>
+<A HREF=ftp://www.elet.polimi.it/pub/data/Pierguido.Caironi/tr97_50.ps.gz>Gradient-Based Reinforcement Learning: Learning Combinations of Control Policies</A><BR>
+<i>Technical Report 97.50, Dip. Elettronica e Informazione, Politecnico di Milano</i>
+
+( gzipped Postscript - 381 KB)
+<A HREF=http://web.cps.msu.edu/rlr/pub/Caironi1.html>Abstract</A>: 
+<BR>This report presents two innovative model-based reinforcement
+learning algorithms for continuous st...
+</BLOCKQUOTE><HR>
+<!nextperson><B>Pouget,
+A.</B>
+ , Deffayet, C. and Sejnowski, T. J.<blockquote>
+<b>Reinforcement learning predicts the site of plasticity for auditory
+remapping in the barn owl</b>
+<i>In: G. Tesauro, D.
+Touretzky
+and J. 
+Alspector (Eds.) Advances in Neural Information Processing Systems 7,
+
+ MIT Press, Cambridge, MA, 125-132 (1995).</i>
+ 
+<A HREF=http://web.cps.msu.edu/rlr/pub/Pouget1.html>Abstract</A>:   
+<BR>(no abstract available)...
+</BLOCKQUOTE><HR>
+

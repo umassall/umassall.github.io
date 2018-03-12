@@ -1,0 +1,17 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.13pre) Gecko/20071129 CentOS/1.0.9-7.el4.centos SeaMonkey/1.0.9
+author=
+csum=
+ctime=1213580787
+host=128.119.241.208
+name=Main.LandmarkPapers
+rev=2
+targets=
+text='''Psychology'''\\%0a[[http://psychclassics.yorku.ca/Thorndike/Animal/ | Animal Intelligence]], EL Thorndike, 1911\\%0a[[http://psychclassics.yorku.ca/Hebb/ | Drives and the C.N.S. (Conceptual Nervous System)]], DO Hebb, 1955\\%0a[[http://psychclassics.yorku.ca/Hull/Hierarchy/part1.htm | The Concept of the Habit-Family Hierarchy and Maze Learning: Part I]], CL Hull, 1934\\%0a[[http://psychclassics.yorku.ca/Hull/Hierarchy/part2.htm | The Concept of the Habit-Family Hierarchy and Maze Learning: Part II]], CL Hull, 1934\\%0a[[http://psychclassics.yorku.ca/Lashley/neural.htm | Basic Neural Mechanisms in Behavior]], KL Lashley, 1930\\%0a[[http://psychclassics.yorku.ca/Pavlov/ | Conditioned Reflexes: An Investigation of the Physiological Activity of the Cerebral Cortex]], IP Pavlov, 1927\\%0a%0a%0a%0a
+time=1213580808
+author:1213580808=
+diff:1213580808:1213580787:=3c3%0a%3c [[http://psychclassics.yorku.ca/Hebb/ | Drives and the C.N.S. (Conceptual Nervous System)]], DO Hebb, 1955\\%0a---%0a> [[http://psychclassics.yorku.ca/Hebb/ | Drives and the C.N.S. (Conceptual Nervous System)]], DO Hebb, 1955%0a7,10c7,10%0a%3c [[http://psychclassics.yorku.ca/Pavlov/ | Conditioned Reflexes: An Investigation of the Physiological Activity of the Cerebral Cortex]], IP Pavlov, 1927\\%0a%3c %0a%3c %0a%3c %0a---%0a> [[http://psychclassics.yorku.ca/Pavlov/ | Conditioned Reflexes: An Investigation of the Physiological Activity of the Cerebral Cortex]], IP Pavlov, 1927%0a> %0a> %0a> %0a
+host:1213580808=128.119.241.208
+author:1213580787=
+diff:1213580787:1213580787:=1,10d0%0a%3c '''Psychology'''\\%0a%3c [[http://psychclassics.yorku.ca/Thorndike/Animal/ | Animal Intelligence]], EL Thorndike, 1911\\%0a%3c [[http://psychclassics.yorku.ca/Hebb/ | Drives and the C.N.S. (Conceptual Nervous System)]], DO Hebb, 1955%0a%3c [[http://psychclassics.yorku.ca/Hull/Hierarchy/part1.htm | The Concept of the Habit-Family Hierarchy and Maze Learning: Part I]], CL Hull, 1934\\%0a%3c [[http://psychclassics.yorku.ca/Hull/Hierarchy/part2.htm | The Concept of the Habit-Family Hierarchy and Maze Learning: Part II]], CL Hull, 1934\\%0a%3c [[http://psychclassics.yorku.ca/Lashley/neural.htm | Basic Neural Mechanisms in Behavior]], KL Lashley, 1930\\%0a%3c [[http://psychclassics.yorku.ca/Pavlov/ | Conditioned Reflexes: An Investigation of the Physiological Activity of the Cerebral Cortex]], IP Pavlov, 1927%0a%3c %0a%3c %0a%3c %0a
+host:1213580787=128.119.241.208

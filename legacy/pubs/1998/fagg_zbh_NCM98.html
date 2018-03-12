@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD><TITLE>NCM 1998 Poster Abstract</TITLE>
+</HEAD><BODY><FORM METHOD="POST"  ENCTYPE="application/x-www-form-urlencoded">
+<CENTER><H1>NCM 1998 Poster Abstract</H1></CENTER><P>
+<P>
+<CENTER><H2>A Simple Pulse-Step Model of Control for Arm Reaching Movements</H2></CENTER><P>
+<CENTER><FONT size=+1><A HREF="http://www-anw.cs.umass.edu/~fagg">Andrew H. Fagg</A> <SUP><B>1</B></SUP>, Leo Zelevinsky <SUP><B>1</B></SUP>, Andrew G. Barto <SUP><B>1</B></SUP>, <BR>and James C. Houk <SUP><B>2</B></SUP></FONT></CENTER><P>
+<CENTER><SUP> <B> 1</B></SUP>Adaptive Networks Laboratory
+<BR>Department of Computer Science
+<BR>UMass-Amherst
+<BR><P>
+<SUP> <B> 2</B></SUP>Department of Physiology
+<BR>Northwestern University School of Medicine
+<BR><P>
+</CENTER><P>
+The observation that human reaching movements often exhibit
+bell-shaped tangential velocity profiles and straight paths has been
+interpreted by many to mean that a detailed trajectory of the arm must
+be planned prior to movement execution.  Here, we present a simple
+model of pulse-step reach control that does not maintain an explicit
+representation of the trajectory to be followed.
+<P>
+
+The arm model consists of a shoulder and an elbow joint, positioned
+such that movements are made in the horizontal plane.  The joints are
+actuated by two pairs of opposing muscles, each of which is regulated
+by a stretch reflex.  Voluntary commands control the thresholds of the
+reflexes.  Although two opposing muscles produce a unique joint
+equilibrium position, the dynamics of the stretch reflex creates a
+"stiction region" around the equilibrium.  Once the joint enters this
+region, it slows rapidly, effectively halting the joint's movement.
+This formulation of muscle/reflex dynamics has the advantage of
+allowing rapid arm movements while limiting the potential for
+oscillations around the end-point of movement.
+<P>
+
+For a given start and target position, the control program is
+represented by a pair of open-loop, pulse-step commands that are sent
+to the muscle pairs actuating the two joints.  The pulse-step program
+is specified by a set of seven parameters: magnitudes of the joint
+pulse and step commands (4 parameters), relative initiation time of
+the elbow and shoulder pulses (1), and the times of transition from
+pulse to step (2).  A hierarchical search process is used to find the
+appropriate set of parameters for a given movement.  The search is
+guided by the error in the movement endpoint, and a measure of the
+straightness of the movement.
+<P>
+Despite the low dimensionality of the motor program representation, it
+is often possible to achieve a bell-shaped velocity profile and an
+approximately straight path.  This approach is similar Karniel and
+Inbar (1997), with a critical difference being that only the agonist
+muscle bursts are specified directly.  The braking antagonist burst
+naturally falls out of the stretch reflex model.  In continuing work,
+we are examining biologically-realistic mechanisms for representing
+and updating the control program.
+<P>
+<B>Keywords:</B> reach control model, pulse-step control, stretch reflex<P>
+<A HREF="http://www-anw.cs.umass.edu/~fagg">Additional information about this work</A><P>
+<P>
+<P><HR><P>
+<A HREF="http://www-ncm.cs.umass.edu/index.html"><IMG ALIGN="CENTER" BORDER=3 SRC="http://www-ncm.cs.umass.edu/images/home.gif" ALT="NCM Home"></A>
+Return to <A HREF="index.html">Abstract List</A>
+<P><HR><P>
+<CENTER>Comments and/or requests may be sent to:<ADDRESS><A HREF="mailto:ncm-adm@www-ncm.cs.umass.edu">ncm-adm@www-ncm.cs.umass.edu</A></ADDRESS></CENTER><P>
+</BODY></HTML>

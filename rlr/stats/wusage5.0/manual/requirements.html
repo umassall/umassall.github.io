@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE>Requirements</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h2>What else do I need to run wusage?</h2>
+</a>
+If you have one of the supported versions of Unix,
+MS-DOS, IBM OS/2, or Microsoft Windows, Windows 95 or NT, 
+all you need is a web server which produces an access log file 
+in one of three standard log file formats. These formats are known
+as the "common" log file format (most servers output this),
+the EMWAC log file format (some versions of the EMWAC server
+for Windows NT output this), and the Microsoft IIS log file
+format. Wusage 5.0 recognizes certain variations on the common
+log format, including at least one variation produced by the
+Oracle web server. Additional fields <strong>after</strong> the
+regular "common log format" fields are also acceptable, and
+Wusage can analyze these if they are formatted properly; see
+the <a href="server.html">server configuration tips</a> section
+for more information.
+Wusage will also support other formats if there is a demand for them.
+Feel free to <a href="http://www.boutell.com/wusage/contact.html">
+contact us</a> if you have a need for other formats.
+(If the above link does not work for you, send
+email to <a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+instead.)
+<p>
+Here is an excerpt from a log file in the common
+log file format:
+<pre>
+dragon.ti.com - - [23/Feb/1996:11:27:45 -0800] "GET /%7Egrant/charter.html HTTP/1.0" 200 18118
+</pre>
+Here is an excerpt from a log file in an extended form of the
+common log file format, with referring URL and user agent fields
+added in the <a href="server.html">recommended way:</a>
+<pre>
+foo.bar.com - - [20/Apr/1997:16:48:44 -0700] "GET /boutell/index.html HTTP/1.0" 200 5898 "http://www.altavista.digital.com/query" "Mozilla/3.01 (Macintosh; I; PPC)"
+</pre>
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="obtain.html"> Next</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102 USA <BR>
+Phone/Fax
++1 206.325.3009</body>
+

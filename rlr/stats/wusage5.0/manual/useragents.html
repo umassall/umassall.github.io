@@ -1,0 +1,63 @@
+
+<HTML>
+<HEAD>
+<TITLE>useragents</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<a name="useragents">
+<h4>useragents</h4>
+</a>
+<pre>
+useragents on
+useragents nopie
+useragents off
+</pre>
+<strong>This option is only useful if your server logs
+contain user agent information as a quoted field after
+the regular common log format fields, or if you have
+a separate user agent log. See the <a href="server.html">server notes</a>
+section for information on configuring popular web servers to
+log this information in the best possible way. If you have a separate
+user agent log, use the <code><a href="coptions.html">-u</a></code>
+command line option and the <code><a href="coptions.html">-l filename</a></code>
+command line option when starting wusage. This produces a special
+summary report called <code>agents.html</code> in the report
+directory. It is best to configure your server to log the information in 
+the main log file so it can be included in regular reports. If your log does 
+not contain user agent data, this report will not
+contain useful information!</strong>
+<p>
+If present, the <code>useragents</code> option indicates
+that wusage should output information about the
+user agents (web browsers) that were used to access
+the server. <strong>Note that browsers do not always identify
+themselves.</strong> If the <code>useragents</code> option 
+is absent, or set to <code>off</code>, a useragents report will
+not be generated. If it is set to <code>nopie</code>,
+the report is generated, but a pie chart is not drawn.
+This option is useful to determine what web browsers
+were used to access the site. <strong>You may receive unexpected
+results if your logs do not contain user agent information.</strong>
+See also 
+<code><a href="topuseragents.html">topuseragents</a></code>.
+
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

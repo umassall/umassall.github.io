@@ -1,0 +1,128 @@
+#!/opt/bin/perl
+# By Brian Exelbierd (bex@ncsu.edu) 6-9-95
+#
+# guestbook.pl
+#	Process entries to the guestbook.  Used in my tutorial.
+#
+# This program uses Steve Brenner's cgi-lib.pl library to handle the input
+# 
+# Modified by Lynn Ryan on 8/22/97 for the RL people database.
+#   Uses an included read-parse routine rather than the cgi-lib ReadParse
+
+# initialization section
+
+$exclusive_lock = 2;
+$unlock = 8;
+
+$document_root = "/user/web/htdocs/groups/rlr";
+$guest_file = "/list.html";
+$full_path = $document_root . $guest_file;
+
+$url_root = "http://web.cps.msu.edu/rlr";
+$full_url = $url_root . $guest_file;
+
+$webmaster = "ryanlyn1\@cps.msu.edu";
+
+# Read and parse the input pairs into the associative array 
+#   $FORM{varname}
+
+if ($ENV{'REQUEST_METHOD'} eq 'POST') {
+     read(STDIN, $buffer, $ENV{'CONTENT_LENGTH'});
+     @pairs = split(/&/, $buffer);
+     foreach $pair (@pairs) {
+         ($name, $value) = split(/=/, $pair);
+         $value =~ tr/+/ /;
+         $value =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("C", hex($1))/eg;
+             $FORM{$name} = $value;
+     }
+
+     if (open(GUESTBOOK,">>" . $full_path) ) {
+         flock (GUESTBOOK, $exclusive_lock);
+
+
+    print GUESTBOOK "<B>$FORM{'lastname'}, $FORM{'firstname'}</B> with: $FORM{'organization'}\n";
+    print GUESTBOOK "<BLOCKQUOTE><B>Research interests: </B>\n";
+    if ($FORM{'fa'} eq "yes")  {
+        print GUESTBOOK " Function approximation | \n";
+    }
+    if ($FORM{'hm'} eq "yes") {
+        print GUESTBOOK " Hierarchical methods | \n";
+    }
+    if ($FORM{'ar'} eq "yes") {
+        print GUESTBOOK " Applications to robotics | \n";
+    }
+    if ($FORM{'am'} eq "yes") {
+        print GUESTBOOK " Applications to manufacturing | \n";
+    }
+    if ($FORM{'po'} eq "yes") {
+        print GUESTBOOK " Partially-observable problems | \n";
+    }
+    if ($FORM{'td'} eq "yes") {
+        print GUESTBOOK " TD-learning | \n";
+    }
+    if ($FORM{'un'} eq "yes") {
+        print GUESTBOOK " Average-reward/undiscounted methods | \n";
+    }
+    if ($FORM{'sh'} eq "yes") {
+        print GUESTBOOK " Shaping | \n";
+    }
+    if ($FORM{'md'} eq "yes") {
+        print GUESTBOOK " MDP-based planning | \n";
+    }
+    if ($FORM{'op'} eq "yes") {
+        print GUESTBOOK " Optimality criteria | \n";
+    }
+    print GUESTBOOK "<BR>\n";
+
+    if ($FORM{'email'} ne "" ) {	
+	print GUESTBOOK "<B>E-mail:</B> <A
+	   HREF=mailto:$FORM{email}>$FORM{email}</A><BR>\n";
+    }
+    if ($FORM{'homepage'} ne "" ) {	
+	print GUESTBOOK "<B>Home page:</B> <A
+	   HREF=$FORM{homepage}>$FORM{homepage}</A><BR>\n";
+    }
+    print GUESTBOOK "</BLOCKQUOTE><HR>\n";
+
+    flock(GUESTBOOK, $unlock);
+    close(GUESTBOOK);
+
+# now output the thanks page, and give them an opportunity to link to 
+# the researcher-list page
+
+    &thank_you;
+   }
+}
+else { 	
+		# Format an error message for the user
+
+    print "Content-type: text/html\n\n";
+    print "<HTML>\n";
+    print "<HEAD>\n";
+    print "<TITLE>Comment Form Error</TITLE>\n";
+    print "</HEAD>\n";
+    print "<BODY>\n";
+    print "<H1>Comment Form Error</H1>\n";
+    print "<HR>\n";
+    print "<P>\n";
+    print "Form input was not processed.  Please mail your ";
+    print "remarks to $webmaster\n";
+    print "</BODY>\n";
+    print "</HTML>\n";
+}
+
+sub thank_you {
+
+    print "Content-type: text/html\n\n";
+    print "<HTML>\n";
+    print "<HEAD><TITLE>Thank you for registering as an RL researcher.</TITLE></HEAD>\n";
+    print "<BODY BGCOLOR=\"FFFFFF\" TEXT=\"000000\" LINK=\"0000FF\">\n";
+    print "<H2>Thank you</H2>\n";
+    print "<HR>\n";
+    print "Thank you, $FORM{firstname} $FORM{lastname}, for submitting
+	your name as a RL researcher.\n\n";
+    print "If you would like to see the updated researchers page, click
+	<A HREF=$full_url>here</A>.\n";
+    print "</BODY></HTML>\n";
+}
+

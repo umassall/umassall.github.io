@@ -1,0 +1,142 @@
+Date: Sat, 22 Jul 2006 11:31:06 -0400
+Mime-Version: 1.0 (Produced by PhpWiki 1.3.11)
+Content-Type: multipart/mixed;
+  boundary="=_multipart_boundary_9"
+
+--=_multipart_boundary_9
+Content-Type: application/x-phpwiki;
+  pagename=GetInfo;
+  flags="";
+  author=ash;
+  version=5;
+  lastmodified=1153582266;
+  author_id=ash;
+  markup=2;
+  hits=6;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! Here are some commands to help you get info...
+
+(at least on a linux machine)
+
+* OS version: " > uname -a"
+* RAM info: " > more /proc/meminfo"
+* CPU info: " > more /proc/cpuinfo"
+* lots of info I don't know: " > dmesg"
+* path of an application " > which _app_" (_ex._ " >which xfig")
+* version of an application: " > _app_  -v" (_ex._ " >xfig -v")
+
+--=_multipart_boundary_9
+Content-Type: application/x-phpwiki;
+  pagename=GetInfo;
+  flags="";
+  author=ash;
+  version=4;
+  lastmodified=1153454555;
+  author_id=ash;
+  markup=2;
+  hits=6;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! Here are some commands to help you get info...
+
+(at least on a linux machine)
+
+* OS version: " >uname -a"
+* RAM info: " >more /proc/meminfo"
+* CPU info: " >more /proc/cpuinfo"
+* lots of info I don't know: " >dmesg"
+* path of an application " >which _app_" (_ex._ " >which xfig")
+* version of an application: " >_app_  -v" (_ex._ " >xfig -v")
+
+--=_multipart_boundary_9
+Content-Type: application/x-phpwiki;
+  pagename=GetInfo;
+  flags="";
+  author=ash;
+  version=3;
+  lastmodified=1153426341;
+  author_id=ash;
+  markup=2;
+  hits=6;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! Here are some commands to help you get info...
+
+(at least on a linux machine)
+
+* OS version: " >uname -a"
+* RAM info: " >more /proc/meminfo"
+* CPU info: " >more /proc/cpuinfo"
+* lots of info I don't know: " >dmesg"
+* path of an application " >which _app_" (_ex._ " >which xfig")
+* version of an application: " >_app_ -v" (_ex._ " >xfig -v")
+
+--=_multipart_boundary_9
+Content-Type: application/x-phpwiki;
+  pagename=GetInfo;
+  flags="";
+  author=ash;
+  version=2;
+  lastmodified=1153426271;
+  author_id=ash;
+  markup=2;
+  hits=6;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! Here are some commands to help you get info...
+
+(at least on a linux machine)
+
+* OS version: " >uname -a"
+* RAM info: " >more /proc/meminfo"
+* CPU info: " >more /proc/cpuinfo"
+* lots of info I don't know: " >dmesg"
+* path of an application " >which _app_"
+  > which xfig<br>
+  /exp/rcf/share/X11R5/bin/xfig
+  >which acroread
+  /exp/rcf/share/X11R5/bin/acroread
+* version of an application: " >_app_ -v"
+  >gv -v
+  gv 3.5.8
+  >xfig -v
+  Xfig 3.2 patchlevel 3d (Protocol 3.2)
+
+--=_multipart_boundary_9
+Content-Type: application/x-phpwiki;
+  pagename=GetInfo;
+  flags="";
+  author=ash;
+  version=1;
+  lastmodified=1153426217;
+  author_id=ash;
+  markup=2;
+  hits=6;
+  charset=utf-8
+Content-Transfer-Encoding: binary
+
+! Here are some commands to help you get info...
+
+(at least on a linux machine)
+
+* OS version: " >uname -a"
+* RAM info: " >more /proc/meminfo"
+* CPU info: " >more /proc/cpuinfo"
+* lots of info I don't know: " >dmesg"
+* path of an application " >which [app]"<BR>
+  > which xfig<br>
+  /exp/rcf/share/X11R5/bin/xfig<BR><BR>
+  >which acroread<BR>
+  /exp/rcf/share/X11R5/bin/acroread
+* version of an application: " >[app] -v"<BR>
+  >gv -v<BR>
+  gv 3.5.8<BR><BR>
+  >xfig -v<BR>
+  Xfig 3.2 patchlevel 3d (Protocol 3.2)
+
+--=_multipart_boundary_9--

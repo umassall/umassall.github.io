@@ -1,0 +1,23 @@
+version=pmwiki-2.1.26 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_6; en-us) AppleWebKit/525.27.1 (KHTML, like Gecko) Version/3.2.1 Safari/525.27.1
+author=
+csum=
+ctime=1158935228
+host=128.119.241.197
+name=Main.ALLpictures
+rev=4
+targets=
+text=
+time=1236267263
+author:1236267263=
+diff:1236267263:1206037166:=0a1,12%0a> * Here is where we place stuff like ALL logo picture files and other stuff helpful for making a poster or presentation. %0a> %0a> * Basically, most stuff is on spiny, the mac in the common room, under the local user ''spinyall''%0a> **log into spinyall (password is the usual) on the mac either on the mac itself or by sshing (ssh spinyall@spiny.cs.umass.edu).%0a> **The files are on the Desktop, under Posters (/Users/spinyall/Desktop/Posters if you're sshing). %0a> ***they include the ALL door sign, the ALL poster, and some other posters. %0a> ***Also, under the dir Posters/Pictures, you'll find picture files of many of the pictures used in the ALL poster, and others as well. Included are pdfs of the ALL logo in various forms.%0a> ***I also copied the contents of this directory onto the local hard drive of limbic, under /scratch/SPINY/PicturesAndPosters%0a> %0a> * some picture and poster stuff are on entropy under the www-anw account:%0a> ** /nfs/entropy/u1/www-anw/httpd/htdocs/Posters has, among other things, the .ppt of the ALL general poster%0a> ** /nfs/entropy/u1/www-anw/httpd/htdocs/ALL_Logo has pdf's of the ALL Logo%0a
+host:1236267263=128.119.241.197
+author:1206037166=
+diff:1206037166:1159116573:=9,12d8%0a%3c %0a%3c * some picture and poster stuff are on entropy under the www-anw account:%0a%3c ** /nfs/entropy/u1/www-anw/httpd/htdocs/Posters has, among other things, the .ppt of the ALL general poster%0a%3c ** /nfs/entropy/u1/www-anw/httpd/htdocs/ALL_Logo has pdf's of the ALL Logo%0a
+host:1206037166=128.119.241.208
+author:1159116573=
+diff:1159116573:1158935228:=7,8c7%0a%3c ***Also, under the dir Posters/Pictures, you'll find picture files of many of the pictures used in the ALL poster, and others as well. Included are pdfs of the ALL logo in various forms.%0a%3c ***I also copied the contents of this directory onto the local hard drive of limbic, under /scratch/SPINY/PicturesAndPosters%0a---%0a> ***Also, under the dir Posters/Pictures, you'll find picture files of many of the pictures used in the ALL poster, and others as well. Included are pdfs of the ALL logo in various forms.%0a\ No newline at end of file%0a
+host:1159116573=128.119.241.208
+author:1158935228=
+diff:1158935228:1158935228:=1,7d0%0a%3c * Here is where we place stuff like ALL logo picture files and other stuff helpful for making a poster or presentation. %0a%3c %0a%3c * Basically, most stuff is on spiny, the mac in the common room, under the local user ''spinyall''%0a%3c **log into spinyall (password is the usual) on the mac either on the mac itself or by sshing (ssh spinyall@spiny.cs.umass.edu).%0a%3c **The files are on the Desktop, under Posters (/Users/spinyall/Desktop/Posters if you're sshing). %0a%3c ***they include the ALL door sign, the ALL poster, and some other posters. %0a%3c ***Also, under the dir Posters/Pictures, you'll find picture files of many of the pictures used in the ALL poster, and others as well. Included are pdfs of the ALL logo in various forms. %0a\ No newline at end of file%0a
+host:1158935228=128.119.241.208
