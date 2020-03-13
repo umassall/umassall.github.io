@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+<TITLE>NetForum - Version History </TITLE>
+</HEAD>
+
+
+<BODY bgcolor=#ffffff TEXT="#000000"  
+ALINK="#FF0000" TOPMARGIN=0">
+
+<NOBR>
+<IMG SRC="../gifs/netlogo.gif">
+</NOBR>
+<P>
+
+<h1>NetForum Version History</h1>
+
+<HR>
+<STRONG>Version 2.0.3</STRONG><BR>
+Fixed problems in 2.0.2 and added additional documentation to the admin
+script.<P>
+
+<B>Bug Fixes</B>
+<UL>
+<LI> A problem occured when $preview_topic was turned off. It resulted
+in a "divide by zero" message in the error_log of some servers. 
+<LI> When configuring a forum and selecting different formatting types,
+NetForum would use the selected formatting types but it would not
+display them on the configuration page the next time a user configured
+a forum.
+<LI> Fixed a bug in which the word "Organization" would appear even though
+no organization had been entered.
+<LI> Fixed a bug in which some fields such as "Organization" and "Topic
+description" would not appear on a new line when previewing message and
+posting topics.
+<LI> Fixed a problem with some browsers (such as Netscape 3.0) where 
+annoying warnings would be displayed because of NetForum trying to use 
+cookies. All the cookies' code has been commented out and we will delay
+the usage of cookies on NetForum until we are able to test this feature
+on different browsers and servers.
+<LI> Renamed list_forum.gif to list_forums.gif in the button3 directory.
+<LI> Cleaned up extra horizontal lines that were displayed at the end
+of a list of messages.
+<LI> Translated text now works as advertised.
+<LI> Fixed a problem in the admin script where more replies than selected
+would be deleted when editing a topic's messages.
+<LI> Cleaned up the admin script code in various places, particularly in
+managing forum owners.
+</UL>
+
+<B>New Features </B>
+<UL>
+<LI> Added additional on-line documentation to the admin script.
+<LI> Added more descriptive email messages when forum contact gets 
+notified of message/reply posting.
+<LI> Forum contact can now also get notified when a topic is created.
+</UL>
+
+<STRONG>Version 2.0.2</STRONG><BR>
+<UL>
+<LI>Fixed a bug on the utilities script that did not allow the proper use of
+-1 as $how_many_messages_compressed or $how_many_messages_expanded 
+</UL>
+<STRONG>Version 2.0.1</STRONG><BR>
+Bug fixes to version 2.0.0 and some new features.<P>
+
+<B>Bug Fixes</B>
+<UL>
+<LI> Topics' password protection feature now works properly.
+<LI> Topics no longer conflict with each other when having more than
+     10 topics. 
+<LI> Added help throughout all the admin script.
+<LI> Fixed backslash problem in admin script when using Perl5
+<LI> Fixed problem when using NetForum mail where person's email
+    would not be displayed.
+<LI> Fixed bug that would display all replies at the beginning of
+    messages when viewing in compressed mode (some versions of 2.0.0)
+<LI> Problem when leaving organization field empty where message saying:
+    "Cannot have an organization site without an organization field" has 
+    been fixed.
+<LI> Commented the $netforum_entry variable in the sys_config file. The 
+    netforum.html file is not required so this variable does not have
+    functionality. Perhaps we will use it in later versions.
+</UL>
+
+<B>New Features </B>
+<UL>
+<LI> Added one more configuration option where you can now send messages
+and replies by email to the forum contact when they are posted through 
+NetForum.
+</UL>
+
+<HR>
+
+<STRONG>Version 2.0.0</STRONG><BR>
+Major code revision and improvements.
+<UL>
+  <LI> Administrative functions from the web:
+  Now the NetForum maintainer can work from the
+  comfort of their own web browser. Delete
+  forums, topics, and messages. Edit every
+  possible forum/topic/message parameter.
+
+  <LI> Allowing the user to change system variables from the admin
+    script.
+
+  <LI> Writing a perl/shell script that will install the whole
+      thing. The
+      administrators can use the administrative functions to set
+      the remaining parameters.
+
+  <LI> Forums can now be configured individually with a variety 
+       of parameters.
+
+  <LI> The program has been broken into several parts
+	  now. All of the administrative functions are in
+	  the admin script. All the variables are in their
+	  own script and so are all of the "utilities,"
+       functions used by every script.
+
+  <LI> More meaningful error messages.
+  </UL>
+
+
+<hr>
+<STRONG>Version 1.2.6</STRONG><BR>
+This version is no longer supported or available for download. We recommend
+that you upgrade to version 2.0
+<HR>
+
+<FONT FACE="HELV" SIZE=2>
+Copyright &copy 1995, 1996  Board of Regents of the University 
+of Wisconsin System. All rights reserved.		
+</FONT>
+
+</BODY>
+</HTML>
+

@@ -1,0 +1,93 @@
+<html>
+<body text="#000000" BGCOLOR="#FFFFFF">
+<h1 align=center>
+   <img hspace=20 vspace=0 border=0 align=center src=logob.gif>
+   WebSim Save Thu Jul 10 13:58:37  1997
+</h1>
+<applet
+        codebase="../classes"
+        code="WebSim.class" width=635 height=500>
+<param name=sourceText value="
+`SavedState
+`
+`embed
+`(0,0,300,130)
+`Simulator  {
+`  experiment
+`    Backprop  {
+`   {0, 1, 1 ,[             (0.0/7.0), 2.0,
+`                           (1.0/7.0), 2.0,
+`                           (2.0/7.0), 2.0,
+`                           (3.0/7.0), 2.0,
+`                           (4.0/7.0), 2.0,
+`                           (5.0/7.0), 2.0,
+`                           (6.0/7.0), 2.0,
+`                           (7.0/7.0), 2.0,
+`   1., 1., 1., 1., 1., 1., 1., 1.
+`      ] transpose, true,}
+`      learningRate 0.001 momentum 0 smooth 0.9 tolerance 0 minInitWeight -1 maxInitWeight   1
+`      error Batch {
+`        batchSize 1
+`        SupervisedLearning {
+`          incremental true
+`          data Table {
+`            [0.1]  [0]
+`            [0.3]  [1]
+`            [0.5]  [0]
+`            [0.7]  [1]
+`            [0.9]  [0]
+`            }
+`          funApp #DEF FUNCTION {Net {Identity Quadratic2 ExponentialInverted(
+`          8 ) Linear Identity}
+`          }}}
+`      }
+`
+`    displays {
+`
+`//      embed
+`      (0,0,700,700)
+`      Title  {
+`        title 'Interference'
+`        display Graph3D {
+`          rotateX 5 rotateY 45 rotateZ 0
+`          trigger 'time' freq 20
+`          xElement 0 xSamples 10 xMin 0 xMax 1
+`          yElement 1 ySamples 10 xMin 0 xMax 1
+`          zElement 0             zMin 0 zMax 1.2
+`                function #DEF INTERFERENCE_FUNCTION {
+`                   InterferenceFunction { funApp #USE FUNCTION }
+`                }
+`                plotFloor true
+`                floorColor [0,0,0]
+`          plots {
+`                    Contour { contours 10
+`                              spectrum true
+`                              xElement  0   xSamples 5
+`                              yElement  1   ySamples 5
+`                              zElement  0
+`                              function #USE INTERFERENCE_FUNCTION
+`                    }
+`            }
+`        }
+`      }
+`
+`      embed (0,0,220,130)
+`      Title  {
+`        title 'Experiment Parameters'
+`        display ShowEdit {
+`         vars {
+`          'learningRate'
+`          'time'
+`          'momentum'
+`         }
+`        }
+`      }
+`
+`    }
+`  }
+`  ">
+  <hr>This Java applet requires a Java-aware browser
+      such as Netscape 2.0 or higher<hr>
+  </applet>
+  </body>
+  </html>

@@ -1,0 +1,63 @@
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+<h1 align=center> <img hspace=20 vspace=0 border=0 align=center src=images/logob.gif> WebSim </h1>
+See the
+source HTML code for this page to see the simulation definition that
+is parsed and executed by the WebSim applet below.<p>
+<p>
+All of this code is (c) 1996 by the respective authors, is freeware, and
+ may be freely distributed.  If modifications
+are made, please say so in the comments.<p>
+<p>
+This shows learning of an
+ill-conditioned linear function by a linear function
+approximator, using conjugate gradient in batch mode.
+<p>
+<a href=../index.html>Back</a> to WebSim.
+
+<p><applet codebase="../classes" code=WebSim.class width=635 height=250>
+   <param name=sourceText value="
+`/*****************************************************************/
+`embed
+`(0,0,300,200)
+`Simulator {
+`   experiment ConjGrad {
+`     tolerance 1e-20 //this was .01, but infinite loops are better
+`     initWeights  -1, 1  //random initial weights in this range
+`     mode 0 //Polak-Ribiere
+`     error SupervisedLearning {
+`       incremental false //epoch-wise training
+`       data     table {  //each row is an input vector, output vector
+`                  [1 0   0] [0]   //  0 XOR 0 = 0
+`                  [1 0 .01] [1]   //  0 XOR 1 = 1
+`                  [1 1   0] [1]   //  1 XOR 0 = 1
+`                  [1 1 .01] [0]   //  1 XOR 1 = 0
+`                }
+`       funApp   #DEF FUNCTION {Net {Identity Linear Bipolar(20) Linear Identity}}
+`     }
+`   }
+`   displays {
+`     embed
+`     (0,0,200,200)
+`     title {title 'Log error vs. timestep' display
+`     Graph2D {
+`       trigger 'time' freq 1
+`       plots {
+`         plotXY {
+`           size 100
+`           lineColor [0 .5 0] symbolColor [0 .8 0]
+`           trigger 'time' freq 1
+`           x       'time'
+`           y       'log error'
+`         }
+`       }
+`     }
+`     }
+`   }
+`}
+`/*****************************************************************/
+">
+    <hr>This Java applet requires a Java-aware browser such as Netscape 2.0
+    for Solaris/Win95/WinNT.
+    <hr>
+</applet></p>
+

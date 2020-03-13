@@ -1,0 +1,116 @@
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+<h1 align=center> <img hspace=20 vspace=0 border=0 align=center src=images/logob.gif> WebSim </h1>
+See the
+source HTML code for this page to see the simulation definition that
+is parsed and executed by the WebSim applet below.<p>
+<p>
+All of this code is (c) 1996 by the respective authors, is freeware, and
+may be freely distributed.  If modifications
+are made, please say so in the comments.<p>
+
+This works with Netscape using the
+<a href=http://cosmo.sgi.com/cgi-bin/download.cgi>Cosmo Player beta 3a</a>
+plugin.  Both beta 5 and beta 3a are available for download, but only
+beta 3a has supports Java.  This beta Cosmo is slow and crashes frequently, but
+it does give a hint of what the final realease will look like.<p>
+
+This is a form of Isaacs' differential game, the "homocidal chauffeur".
+The car tries to hit the bike, and the bike tries to get away.  The
+car is faster, but the bike has a tighter turn radius.  This demo currently
+doesn't demonstrate learning.  Instead, the car always heads straight for
+the bike, and the bike always heads at a right angle to the direction that
+the car is coming from.  That bad policy for the bike means it always gets hit.
+Right click on the window to select a different viewpoint, either from above,
+inside the car, or on the bike.  Left click and hold down on the round blue
+control to have the screen update continuously.
+
+<CENTER>
+<EMBED SRC="../vrml/hc.wrl" border=5 WIDTH=300 HEIGHT=300 SGI_DASHBOARD=TRUE>
+<applet codebase="../classes" code=WebSim.class width=250 height=300>
+   <param name=sourceText value="
+`/*****************************************************************/
+`embed
+`(0,0,200,60)
+`Simulator {
+`   experiment Backprop {
+`     learningRate  0.1
+`     momentum      0.1
+`     tolerance     0.0
+`     smooth        0.9
+`     minInitWeight  -1
+`     maxInitWeight   1
+`     error ReinforcementLearning {
+`       algorithm       AdvantageLearning { k 1.5 }
+`       method          residual 0.35
+`       dt              0.3
+`       gamma           0.9
+`       incremental     true
+`       mdp             HCDemo
+`       trajectories    true
+`       exploration     0
+`       funApp          #DEF FUNCTION {Net {Identity Linear Bipolar(10)
+`                                          Linear Bipolar(5) Linear Identity}}
+`     }
+`   }
+`   displays {
+`/*     embed
+`     (0,0,200,200)
+`     title {title 'Log error vs. timestep' display
+`     Graph2D {
+`       trigger 'time' freq 1
+`       plots {
+`         plotXY {
+`           size 100
+`           lineColor [0 .5 0] symbolColor [0 .8 0]
+`           trigger 'time' freq 1
+`           x       'time'
+`           y       'log error'
+`         }
+`       }
+`     }
+`     }
+`*/     embed
+`     (0,0,200,200)
+`     title {title 'Car (red) and Bike (green)' display
+`     Graph2D {
+`       trigger 'time' freq 1
+`       xMin -40 xMax 120
+`       yMin -40 yMax 120
+`       plots {
+`         grid { type 0 size 40 }
+`         plotXY {
+`           size 100
+`           lineColor [1 0 0] symbolColor [1 0 0]
+`           symbolType 2
+`           symbolSize 12
+`           trigger 'time' freq 1
+`               drawLines false
+`               ring true size 1
+`               x 'err/mdp/missileX'
+`               y 'err/mdp/missileY'
+`         }
+`         plotXY {
+`           size 100
+`           lineColor [0 1 0] symbolColor [0 1 0]
+`           symbolType 1 //circle
+`           symbolSize 10
+`           trigger 'time' freq 1
+`               drawLines false
+`               ring true size 1
+`               x 'err/mdp/planeX'
+`               y 'err/mdp/planeY'
+`         }
+`       }
+`     }
+`     }
+`   }
+`}
+`/*****************************************************************/
+">
+</CENTER>
+    <hr>This Java applet requires a Java-aware browser such as Netscape 2.0
+    for Solaris/Win95/WinNT.
+    <hr>
+    <a href=../index.html>Back</a> to WebSim.
+
+</applet></p>

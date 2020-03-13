@@ -1,0 +1,89 @@
+#!/usr/bin/perl
+
+$webmaster = "webadmin\@eng.usf.edu";
+
+if ($ENV{'REQUEST_METHOD'} eq 'POST') {
+
+		# Get the input
+
+    read(STDIN, $buffer, $ENV{'CONTENT_LENGTH'});
+
+		# Split the name-value pairs
+
+    @pairs = split(/&/, $buffer);
+
+		# Load the FORM variables
+
+    foreach $pair (@pairs) {
+        ($name, $value) = split(/=/, $pair);
+        $value =~ tr/+/ /;
+        $value =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("C", hex($1))/eg;
+
+        $FORM{$name} = $value;
+    }
+
+	# Open up the email message to send the feedback
+	# to the webmaster
+				
+  #  open (MESSAGE,"| /usr/sbin/sendmail -t");
+    open (MESSAGE,"| /usr/lib/sendmail -t");
+
+		# Format email header information
+
+    print MESSAGE "To: $webmaster\n";
+    if ($FORM{email} ne "") {
+        print MESSAGE "Reply-To: $FORM{email}\n";
+    }
+
+		# Write the actual email message
+
+    print MESSAGE "Subject: Comments from $ENV{'REMOTE_HOST'}\n\n";
+    print MESSAGE "Name: $FORM{name}\n\n";
+    print MESSAGE "Comments are:\n";
+    print MESSAGE "$FORM{comments}\n";
+    close (MESSAGE);
+
+		# Thank the user and acknowledge 
+		# the feedback
+    &thank_you;
+} 
+else { 	
+		# Format an error message for the user
+
+    print "Content-type: text/html\n\n";
+    print "<HTML>\n";
+    print "<HEAD>\n";
+    print "<TITLE>Comment Form Error</TITLE>\n";
+    print "</HEAD>\n";
+    print "<BODY>\n";
+    print "<H1>Comment Form Error</H1>\n";
+    print "<HR>\n";
+    print "<P>\n";
+    print "Form input was not processed.  Please mail your ";
+    print "remarks to $webmaster\n";
+    &up_to;
+    print "</BODY>\n";
+    print "</HTML>\n";
+}
+sub thank_you {
+
+    print "Content-type: text/html\n\n";
+    print "<HTML>\n";
+    print "<HEAD>\n";
+    print "<TITLE>Thank You</TITLE>\n";
+    print "</HEAD>\n";
+    print "<BODY>\n";
+    print "<H1>Thank You</H1>\n";
+    print "<HR>\n";
+    print "<P>\n";
+    print "Your comments have been emailed to the Webmaster.\n";
+    &up_to;
+    print "</BODY>\n";
+    print "</HTML>\n";
+}
+sub up_to {
+
+   print "<hr>\n";
+   print "<a href=\"http://www.eng.usf.edu/\"><img src=\"/images/home.gif\" alt=\"\" align=middle> Up to College of Engineering Home page</a>\n";
+}
+

@@ -1,0 +1,22 @@
+39,40c39,45
+< WaisSource /user/cgi/rlr/search/rlr.swish "Search the RL Repository"
+< SourceRules replace "/user/web/htdocs/groups/rlr/" "http://www.cps.msu.edu/rlr/"
+---
+> SwishSource /user/cgi/rlr/search/rlr.swish "Search the Reinforcement Learning Repository "
+> SourceRules replace "/user/web/htdocs/groups/rlr/" "http://www.cps.msu.edu/rlr"
+> #WaisSource /usr/local/httpd/wais/index/index.src "Search EIT's Web (bolded results)"
+> #SourceRules replace "/usr/local/www/" "/"
+> #SourceRules prepend "http://www.eit.com/cgi-bin/print_hit_bold.pl"
+> #SourceRules append "?$KEYWORDS#first_hit"
+> #WaisSource quake.think.com 210 directory-of-servers "WAIS directory of servers"
+50c55
+< IconUrl http://www.eit.com/software/wwwwais/icons
+---
+> IconUrl http://www.cps.msu.edu/rlr/search/swish-icons
+82a88,93
+> 
+> 
+> 
+> 
+> 
+> 

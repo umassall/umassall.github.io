@@ -1,0 +1,53 @@
+
+<HTML>
+<HEAD>
+<TITLE>ignorereferrers</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h4>ignorereferrers</h4>
+</a>
+<pre>
+ignorereferrers
+#A pattern matching all referrers from our own site;
+#useful to filter out internal links, making external
+#links to our site stand out. Note the asterisk at the end!
+
+http://www.boutell.com*
+end ignorereferrers
+</pre>
+The <code>ignorereferrers</code> option, which extends for
+several lines and must end with the line
+<code>end ignorereferrers</code>, indicates which referrer
+URLs will be ignored by wusage for purposes of generating
+the <a href="referrers.html">referrers report</a>. Referring
+URLs which match any of the patterns listed
+for the <code>ignorereferrers</code> option will be
+ignored only for purposes of the referrers report; they are
+included normally in other reports. Each character
+of the referring URL is matched against the pattern.
+An <code>*</code> in the pattern matches any
+number of characters in the referring URL.
+Patterns have additional features; for more information about 
+patterns, see the <code><a href="patterns.html">patterns</a></code>
+section. If the <code>ignorereferrers ... end ignorereferrers</code>
+option is absent, no sites will be ignored.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

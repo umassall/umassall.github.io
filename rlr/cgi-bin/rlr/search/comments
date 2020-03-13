@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+    print "Content-type: text/html\n\n";
+    print "<HTML>\n";
+    print "<HEAD>\n";
+    print "<TITLE>Thank You</TITLE>\n";
+    print "</HEAD>\n";
+    print "<BODY>\n";
+    print "<H1>Thank You</H1>\n";
+    print "<HR>\n";
+    print "<P>\n";
+    print "Your comments have been emailed to the Webmaster.\n";
+    &up_to;
+    print "</BODY>\n";
+    print "</HTML>\n";
+

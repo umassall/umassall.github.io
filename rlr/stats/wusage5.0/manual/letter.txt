@@ -1,0 +1,72 @@
+Your registration is a legal agreement between you and Boutell.Com,
+Incorporated.  Your purchase of this registration key indicates acceptance
+of these terms and conditions.  
+
+1. License: The License Agreement grants the purchaser of this
+	    registration key a License to use the number of copies
+            of Wusage purchased.  You may transfer each Licensed
+            Copy of the Software from one computer to another so long 
+            as it is not used on more than one computer at a time.  
+            You may download and unlock additional copies only in the
+	    instance of destruction or loss of the originals, or in
+	    order to upgrade to a more recent version.  You are only
+	    permitted to analyse the logs of one (1) World Wide
+	    Web server per Licensed Copy held.  For the purposes
+	    of this License a World Wide Web server is defined
+	    as a distinct IP address responding with a unique 
+	    root document. Subdirectories of a single server do not
+            require separate Licenses.  
+
+	    *  If you have ANY questions about
+	       how many copies you require,  contact us at 206 325
+	       3009. We will prosecute companies and individuals using
+	       or reselling unlicensed copies of Wusage. *
+
+2. Transfer:   Wusage Licenses are not transferable.
+
+3. Copyright:  The Software and Documentation are owned by Boutell.Com.
+	       The Software and Documentation are protected by United
+	       States and international copyright laws and international
+	       treaty provisions.  You may not remove, obscure, or alter
+	       any notice of patent, copyright, trademarks, trade secrets
+	       or other proprietary rights.
+
+4. Term:       This License is effective until terminated.  This License 
+	       and your right to use this Software terminate automatically
+	       if you violate any part of this Agreement.
+
+5. Limitation of Liability Disclaimer:  Boutell.Com has made reasonable
+	       checks of this Software to confirm that it will perform in
+	       normal use on compatible equipment substantially as 
+	       described in our Documentation, as published most recently
+	       prior to your download of the Software.  However, due to 
+	       the inherently complex nature of computer software, 
+	       Boutell.Com does not warrant that the Software or
+	       Documentation is completely error-free, will operate
+	       without interruption, is compatible with all 
+	       equipment or software configurations, or will
+	       otherwise meet your needs.  ACCORDINGLY, THE SOFTWARE
+	       AND DOCUMENTATION ARE PROVIDED AS-IS, AND YOU ASSUME
+	       ALL RISKS ASSOCIATED WITH THEIR USE.
+
+	       Boutell.Com provides free technical support for registered
+	       owners of this software.
+
+	       BOUTELL.COM, INC MAKES NO OTHER WARRANTIES EXPRESSED
+	       OR IMPLIED, WITH RESPECT TO THE SOFTWARE OR THE 
+	       DOCUMENTATION.
+
+	       In no event will Boutell.Com be liable for indirect,
+	       incidental, or consequential damages, including, without
+	       limitations, the loss of income, use, or information, 
+	       nor shall the liability of Boutell.Com exceed the amount
+	       paid for this registration.  *Some localities do not allow
+	       the exclusion or limitation of incidental or consequential
+	       damages, so the above limitation or excluision may not
+	       apply to you.  You may also have other legal rights, which
+	       vary from place to place.*
+
+This Agreement constitutes the entire Agreement between you and
+Boutell.Com and supersedes any prior written or oral agreement concerning
+this Software. 
+

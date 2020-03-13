@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>Running Wusage</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+
+<h2>Running wusage</h2>
+</a>
+
+Now that you have a wusage configuration file, you are
+ready to begin taking advantage of wusage. 
+<p>
+First, note that if you are producing daily, weekly
+or monthly reports, <strong>you do not have to run
+Wusage more often than once per day, week or month.</strong> 
+recommended that you run wusage shortly after
+midnight, on the first day of the new week or month
+if you are using weekly or monthly reports.
+<p>
+<strong>New in version 5.0:</strong> if you want
+to see <strong>information about the current day, week
+or month in progress,</strong> feel free to run Wusage
+more often than once per day, week or month. You will find
+that a report for the time period in progress is included
+in the index of reports, although this partial report
+is <strong>not</strong> included in historical graphs,
+in order to avoid inaccuracy.
+<p>
+<strong>VERY, VERY, VERY IMPORTANT:</strong> NEVER delete
+your log file data until Wusage has had a chance to
+produce a <strong>complete report for that time period.</strong>
+If you are producing weekly reports, <strong>don't delete or
+remove your log data for any part of that week until wusage
+has been run on the entire week's data at once.</strong>
+<p>
+To execute wusage, <code>cd</code> to the directory
+containing the program and enter the following command:
+<pre>
+wusage -c wusage.conf    (or wusage.con under DOS)
+</pre>
+(<strong>Important Unix note:</strong> Unix users may need to type
+<code>./wusage</code>, not just wusage, to be sure that the program
+is found.)
+
+<strong>Note: </strong>here it is assumed that your
+<a href="configuring.html">configuration file</a> has been
+created and has the name wusage.conf (or wusage.con under DOS). 
+<p>
+If this is the first time you have run the program,
+a welcoming message will be displayed. Under normal
+circumstances, <strong>no output will be printed
+on the screen by wusage.</strong> If your log file
+is large, it may take some time for wusage to
+complete its run, <strong>especially if the 
+DNS option has been selected.</strong> If your
+log already contains hostnames for most sites,
+or if speed is an issue, do not select the DNS option
+in your configuration file, or set the
+DNS option to <code>fast</code>, which looks up
+names that appear in your reports only but does
+not work with the <code><a href="ignoresites.html">ignoresites</a></code>
+and <code><a href="domains.html">domains</a></code> options.
+<p>
+<strong>Note:</strong> if your log file is empty,
+wusage may indicate that no input was available.
+This is normal and the message will go away when
+your log file actually contains accesses. 
+If you do have accesses in log file and you still
+get this message, your log file may not be in
+a format that Wusage supports.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="intro2.html">Table of
+Contents</a><TD align="right"><a href="interpreting.html"> Next</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+
+

@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<TITLE>Command Line Options</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<a name="coptions">
+<h3>Command Line Options</h3>
+</a>
+The wusage program supports the following command
+line options:
+<dl>
+<dt><code>-c config_file_name</code>
+<dd>The -c option should be followed by the name of the
+configuration file (typically wusage.conf or wusage.con under DOS). This
+is
+the only <strong>required</strong> command line option.
+<dt><code>-u</code> (always used with <code>-l</code>)
+<dd>The -u option is used to specify that wusage should
+analyze a stand-alone <strong>user agent log</strong>.
+This option is always used in conjunction with the
+<code>-l filename</code> option, which indicates where
+the user agent log file is located. <strong>This option produces
+a report called <code>agents.html</code></strong> in the
+report directory. This special filename is used to avoid
+overwriting the normal output of wusage. <strong>It is better
+to <a href="server.html">configure your web server</a> to
+log this information in the regular server log</strong> so it
+can be analyzed as part of your normal reports. 
+<dt><code>-r</code> (always used with <code>-l</code>)
+<dd>The -r option is used to specify that wusage should
+analyze a stand-alone <strong>referrer log</strong>.
+This option is always used in conjunction with the
+<code>-l filename</code> option, which indicates where
+the referrer log file is located. <strong>This option produces
+a report called <code>referrers.html</code></strong> (note
+the spelling) in the report directory. This special filename is used 
+to avoid overwriting the normal output of wusage. <strong>It is better
+to <a href="server.html">configure your web server</a> to
+log this information in the regular server log</strong> so it
+can be analyzed as part of your normal reports. 
+
+<dt><code>-b MM/DD or MM/DD/YY or MM/DD/YYYY</code>
+<dd>The -b option is used to specify the date from
+which wusage should begin producing reports. If the
+-b option is not specified, wusage generates reports
+beginning with the day or week immediately following
+the last day or week generated on a previous run,
+or from the first date in the log file if wusage
+has not been run before. If the -b option is specified, 
+wusage will produce reports <strong>from that date 
+forward</strong> to the present day, or another ending date 
+specified by the -e option. Three date formats are supported:
+MM/DD (example: 9/29), MM/DD/YY (example: 9/29/1980),
+and MM/DD/YYYY (example: 9/29/1980). This option
+is useful if you have accidentally run wusage on
+a partial log file and wish to run it again to
+re-generate the reports for the missing days using
+data in another log file.
+<dt><code>-e MM/DD or MM/DD/YY or MM/DD/YYYY</code>
+<dd>The -e option is used to specify the date on 
+which wusage should stop producing reports. If
+the -e option is specified, wusage will produce
+reports <strong>up to and including that date</strong>.
+Otherwise, wusage will produce reports through the
+most recent complete day or week. Three date formats are 
+supported: MM/DD (example: 9/29), MM/DD/YY (example: 9/29/1980),
+and MM/DD/YYYY (example: 9/29/1980). This option
+is useful if you wish to run wusage on only a
+certain time period found in a large log file,
+especially if you are generating a summary report.
+<dt><code>-s</code>
+<dd>The -s option specifies that wusage should
+generate a summary report. This option
+overrides the <code><a href="frequency.html">frequency</a></code>
+configuration file option.
+<dt><code>-v</code>
+<dd>The -v option displays the version number
+of wusage.
+<dt><code>-l log_file_or_directory or -</code>
+<dd>The -l option is used to override the 
+<code><a href="logfile.html">logfile</a></code> or <code><a
+href="logdir.html">logdir</a></code>
+configuration
+file option. If the -l option is given, the specified
+log file or directory of log files will be analyzed instead. If the
+special
+log file name <code>-</code> (a single dash) is given,
+wusage will expect to read its input from 
+standard input. This is particularly useful
+when working with <a href="manylogs.html">pipelines</a>
+of several commands such as the Unix cat and
+zcat commands.
+</dl>
+<strong>Note: </strong> because wusage has so
+many useful options, it is primarily
+controlled by <a href="reference.html">
+configuration file options</a> rather than
+command line options.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="intro2.html">Table of Contents</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+

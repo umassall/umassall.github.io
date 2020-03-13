@@ -1,0 +1,193 @@
+<HEAD>
+<TITLE>NetForum - Configuration</TITLE>
+</HEAD>
+
+
+<BODY bgcolor=#ffffff TEXT="#000000"  
+ALINK="#FF0000" TOPMARGIN=0 >
+
+<NOBR>
+<IMG SRC="../../gifs/netlogo.gif" alt="NetForum Logo">
+</NOBR>
+
+
+<P>
+<BR>
+<P>
+
+
+<TABLE BORDER=0 >
+<TR>
+<TD VALIGN=TOP ROWSPAN=2>
+<TABLE VALIGN=TOP>
+
+<TR><TD><a href="maintenance.html"><strong>Admin Documentation Index</strong></a
+>
+<TR><TD><a href="createforum.html"><strong>Create a Forum</strong></a>
+<TR><TD><a href="editsite.html"><strong>Edit Site</strong></a>
+<TR><TD><a href="editforum.html"><strong>Edit Forum</strong></a>
+<TR><TD><a href="forumconfig.html"><strong>Forum Configuration</strong></a>
+<TR><TD><a href="edittopic.html"><Strong>Edit Topics and Messages</strong></a>
+<TR><TD><a href="manageowners.html"><Strong>Manage Forum Owners</strong></a>
+
+</TABLE>
+
+<TD>
+
+
+<!-- Headline Text -->
+
+
+<h3>NetForum Documentation</h3>
+<HR>
+
+<!-- End of Headline Text-->
+
+</TD>
+
+<TR>
+<TD>
+
+<H2>Configuration</H2>
+<HR>
+In order to get the admin file running you will need edit some files.
+You will need  to configure the following files:
+<ul>
+  <li> NetForum/lib/sys_config
+  <li> NetForum/admin/admin
+</ul>
+You will also need to change the first line of the following files to 
+reflect the path to Perl on your system:
+
+<ul>
+  <li> NetForum/lib/sys_config
+  <LI> NetForum/lib/forum_config
+  <li> NetForum/lib/main
+  <LI> NetForum/lib/utilities
+  <LI> NetForum/lib/variables
+  <li> NetForum/admin/admin
+</ul>
+
+If your system requires a <b>.cgi</b> extension for CGI scripts, you will need 
+to rename the file:<BR>
+
+<ul>
+  <li>NetForum/admin/admin
+</ul>
+
+to:
+
+<ul>
+  <li>NetForum/admin/admin.cgi 
+</ul>
+
+To find the path to perl you can type <CODE>which perl</CODE> at the command
+line. This will give you the directory containing perl. Copy this, using
+your favorite text editor to each of the files listed above.
+Do not remove the text "-si" following the path to Perl<blink>!!</blink>
+
+You will also probably want to customise the file nf_docs/netforum.html<p>
+
+
+<IMG SRC="../../gifs/install_config.gif" alt="Install Config"><p>
+<hr>
+<h2>The "sys_config" file</h2>
+This is the file where the system-wide configurations are set. It is not where information specific to individual
+forums is set.<p>
+The first three entries must be configured before the program will run. In your
+favorite text editor make the following changes:
+
+<P>
+<b>$url = "http://www.biostat.wisc.edu";</b>
+<p>
+Set the variable "$url" to the full URL of your Web site. Do not place a trailing slash
+ (i.e., a "/" at the end).
+<Hr>
+<p>
+<b>$base_url = "cgi-bin/NetForum";</b>
+<p>
+This is the partial URL to the "NetForum" directory you received. 
+Do not place a trailing or a leading slash. ScriptAliases are fine.
+<HR>
+<p>
+<b>$home_directory = "/usr/local/bin/httpd/cgi-bin/NetForum";</b>
+<p>
+This is the full file system path to the "NetForum" directory you received. 
+Place a leading slash, but no trailing slash.
+<HR>
+<p>
+
+The remaining entries can be configured from the text editor or from
+the administrative forums provided with the program.
+
+<P>
+Now you should be able to run the admin script. From your favorite web
+browser enter the following url: 
+<CODE>http://your.web.site/base_url/admin/admin</CODE> 
+Where <CODE>your.web.site</CODE> is the machine name at your web
+site and <CODE>base_url</CODE> is the directory that the executable lies in.
+For example, given the values set above you would type 
+<CODE>http://www.biostat.wisc.edu/cgi-bin/NetForum/admin/admin</CODE>
+or 
+<CODE>http://www.biostat.wisc.edu/cgi-bin/NetForum/admin/admin.cgi</CODE>
+if a .cgi extension was required.
+
+<P>
+You should see the login screen:
+
+<P>
+<IMG SRC="../../gifs/login.gif" ALT="Admin login">
+
+<P>
+If you instead get a server error there is most likely a problem in the way you
+have one of the system variables configured correctly. You may want to read
+the <A HREF="../faq.html">faq</A>. 
+
+<P>
+The first time you login you can login as user <EM>admin</EM> with password
+<EM>admin</EM> (You will want to change these soon.) 
+
+<P>
+This will present you with the NetForum 
+<A HREF="maintenance.html">adminsitrative options</A> screen:
+
+<P>
+<IMG SRC="../../gifs/admin.ops.gif" ALT="Administrative options">
+
+
+<BR>
+
+Choose the <EM>Edit Site Configuration</EM> button and hit the submit button
+to produce the Edit Site Configuration menu. This menu allows you to configure
+options that will take effect across the entire instalation of netforum. 
+
+
+<P>
+<IMG SRC="../../gifs/editsite.gif" ALT="Edit Site Configuration">
+
+
+<P>
+To continue with the setup choose <EM>Edit System Configuration</EM> and click
+on submit. This will produce a list of all the current system wide variables
+and their values. This includes the three that you edited before to get
+netforum to run. Look thought the list and if any are incorrect for your system
+or you are unsure about what any mean hit the <EM>Edit System Variables</EM>
+button to edit the values. This will present you with a listing of all
+the variables, their current values and a short explanation of what each does.
+You can edit each of the values in the correspoding text area.
+<HR>
+Go on to <a href="maintenance.html"> administration and maintenance</a>.
+
+<FONT FACE="HELV" SIZE=2>
+Copyright &copy 1995, 1996  Board of Regents of the University
+of Wisconsin System. All rights reserved.
+</FONT>
+
+</TD>
+</TR>
+
+</TABLE>
+
+</BODY>
+</HTML>
+

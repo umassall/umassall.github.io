@@ -1,0 +1,104 @@
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+<h1 align=center> <img hspace=20 vspace=0 border=0 align=center src=images/logob.gif> WebSim </h1>
+See the
+source HTML code for this page to see the simulation definition that
+is parsed and executed by the WebSim applet below.<p>
+<p>
+All of this code is (c) 1996 by the respective authors, is freeware, and
+ may be freely distributed.  If modifications
+are made, please say so in the comments.<p>
+<p>
+The 2D plot shows the log of error going down as a linear neural
+network learns a linear function with 4 training examples mapping
+2 inputs to 1 output.  The error function is ill conditioned.  The
+3D plot shows the function learned.
+<p>
+The 3D plot is saved to disk as a GIF every 75 time steps until 20 frames
+have been saved.  All of the frames are stored in a single animated
+GIF file (though they can also be stored as separate files).  An example
+created with this program is here: <p>
+<img src=images/animation.gif><p>
+
+<a href=../index.html>Back</a> to WebSim.
+
+<p><applet codebase="../classes" code=WebSim.class width=500 height=650>
+   <param name=sourceText value="
+`/*****************************************************************/
+`//embed
+`//(0,0,300,300)
+`//ShowThreads  //show all the threads that are now running
+`embed
+`(0,0,424,60)
+`Simulator {
+`   experiment Backprop {
+`     learningRate .1
+`     momentum     .9
+`     tolerance     0 //this was .01, but infinite loops are better demos
+`     smooth       .9
+`     error SupervisedLearning {
+`       incremental true //not epoch-wise training
+`       data table {  //each row is an input vector, output vector
+`         [1 0 0] [1]   //  0 XOR 0 = 0
+`         [1 0 1] [0]
+`         [1 1 0] [0]
+`         [1 1 1] [1]
+`       }
+`       funApp   #DEF FUNCTION {Net {Identity Linear Bipolar(3) Linear Identity}}
+`     }
+`   }
+`   displays {
+`     embed
+`     (0,0,200,200)
+`     title {title 'Log error vs. timestep' display
+`     Graph2D {
+`       trigger 'time' freq 400
+`       plots {
+`         plotXY {
+`           size 100
+`           lineColor [0, .5, 0] symbolColor [0, .8, 0]
+`           trigger 'time' freq 400
+`           x       'time'
+`           y       'log error'
+`         }
+`       }
+`     }
+`     }
+`                embed
+`                (0,0,200,200)
+`                saveDisplay {
+`                  animate   true
+`                  filename  'c:\temp\animation.gif'
+`                  trigger   'time'
+`                  freq      75
+`                  maxFrames 20
+`                  display title {
+`                    title 'Function learned'
+`                    display Graph3D {
+`                          trigger 'time' freq 75
+`                          xElement 1 xSamples 10 xMin 0 xMax 1
+`                          yElement 2 ySamples 10 yMin 0 yMax 1
+`                          zElement 0
+`                          function #USE FUNCTION
+`                          plotFloor true   //plotTop true
+`                          floorColor [0,0,0]
+`                          plots {
+`                            Contour { contours 10
+`                                      spectrum true
+`                                      xElement  1   xSamples 10
+`                                      yElement  2   ySamples 10
+`                                      zElement  0
+`                                      function #USE FUNCTION
+`                            }
+`                          }
+`                    }
+`                  }
+`                }
+`   }
+`}
+`/*****************************************************************/
+">
+    <hr>This Java applet requires a Java-aware browser such as Netscape 2.0
+    for Solaris/Win95/WinNT.
+    <hr>
+</applet></p>
+

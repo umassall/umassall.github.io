@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<TITLE>People - Autonomous Learning Lab</TITLE>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</HEAD>
+
+<!--#include virtual="top.html" -->
+
+<H1>People</H1>
+
+<div id="people">
+
+<div id="faculty">
+<b>Faculty</b>
+<ul>
+<li><A HREF="http://www.cs.umass.edu/~barto">
+  <img src="img/barto.png" /><br>
+  Andrew G. Barto</A> (Emeritus)</li>
+<li><A HREF="http://www.cs.umass.edu/~mahadeva">
+  <img src="img/mahadevan.jpg"><br>
+  Sridhar Mahadevan</A></li>
+</ul>
+</div>
+
+<div id="staff">
+<b>Staff</b>
+<ul>
+<li>Susan Overstreet</li>
+<li>Gwyn Mitchell</li>
+</ul>
+</div>
+
+<div id="students">
+<b>Graduate Students</b>
+<ul>
+<li><a href="http://www.cs.umass.edu/~boucher">
+  <img src="http://people.cs.umass.edu/~boucher/images/100_self.png" /><br>
+  Thomas Boucher</a></li>
+<li><a href="http://www.cs.umass.edu/~ccarey">
+  <img src="http://people.cs.umass.edu/~ccarey/cj-100px.png" /><br>
+  CJ Carey</a></li>
+<li><a href="http://www.cs.umass.edu/~dernbach">
+  <img src="img/dernbach.jpg" /><br>
+  Stefan Dernbach</li>
+<li><a href="http://people.cs.umass.edu/~idurugkar/">
+  <img src="img/ishan.jpg" /><br>
+  Ishan Durugkar</a></li>
+<li><a href="http://people.cs.umass.edu/~kfedoren/">
+  <img src="img/kfedoren.jpg" /><br>
+  Kristina Fedorenko</a></li>
+<li><a href="http://www.cs.umass.edu/~fmgarcia">
+  <img src="img/me-all.jpg" /><br>
+  Francisco M. Garcia</a></li>
+<li><a href="http://www.cs.umass.edu/~imgemp">
+  <img src="img/igemp.jpg" /><br>
+  Ian Gemp</a></li>
+<li><a href="http://www.cs.umass.edu/~sgiguere">
+  <img src="https://lh3.googleusercontent.com/-lFNmQBsYans/AAAAAAAAAAI/AAAAAAAAAGY/mmMGpIoN_SU/s120-c/photo.jpg" /><br>
+  Stephen Giguere</a></li>
+<li><a href="http://www.cs.umass.edu/~njacek">
+  <img src="img/njacek.jpg" /><br>
+  Nicholas Jacek</li>
+<li><a href="http://www.cs.umass.edu/~cgbr">
+  <img src="img/cgbr.jpg" /><br>
+  Clemens Rosenbaum</a></li>
+<li><a href="http://www.cs.umass.edu/~kspiteri">
+  <img src="img/kevin.jpg" /><br>
+  Kevin Spiteri</a></li>
+<li><a href="http://www.cs.umass.edu/~ray">
+  <img src="img/archan.jpg" /><br>
+  Archan Ray</a></li>
+</ul>
+</div>
+
+<div id="collabs">
+<h2>Collaborators</h2>
+
+<div id="at_umass">
+<b>At UMass</b>
+<ul>
+  <li><A HREF="http://www.cs.umass.edu/~grupen/">Roderic Grupen</A><br>at <a href="http://www-robotics.cs.umass.edu/">the Lab for Perceptual Robotics</a>
+  <li><A HREF="http://www.cs.umass.edu/~ruiwang/">Rui Wang</A><br>at <a href="http://graphics.cs.umass.edu/"> the GFX Lab</a>
+</ul>
+</div>
+
+<div id="elsewhere">
+<b>Elsewhere</b>
+<ul>
+<li><a href="https://www.mtholyoke.edu/acad/astronomy/darby_dyar">Darby Dyar</a> at Mt. Holyoke
+<li><a href="http://www.math.duke.edu/~mauro/">Mauro Maggioni</a> at Duke
+<!-- TODO: Andy's italian collaborators -->
+</ul>
+</div>
+</div>
+
+<div id="alumni">
+<h2>Alumni</h2>
+(list not exhaustive and links may not be current)<br>
+<div id="alum_faculty">
+<b>Faculty</b>
+<ul>
+<li><A HREF="http://www.cs.ou.edu/~fagg/">Andrew H. Fagg</A>
+<li><A HREF="http://www.richsutton.com">Richard S. Sutton</A>
+</ul>
+</div>
+
+<div id="alum_postdocs">
+<b>Postdocs</b>
+<ul>
+<li>Sascha E.  Engelbrecht
+<li>Vijaykumar Gullapalli
+<li><a href="http://www.cs.berkeley.edu/~jordan/"> Michael I. Jordan</a>
+<li><a href="http://www.linkedin.com/pub/michael-kositsky/5/475/273">Michael Kositsky</a>
+<li><a href="http://matthew.siu.edu/">Matthew Schlesinger</a>
+</ul>
+</div>
+
+<div id="alum_phd">
+<b>PhD Students</b>
+<ul>
+<li><a href="http://www.cs.umass.edu/~boliu/">Bo Liu</a>, 2015</li>
+<li><a href="http://www.chrisvigorito.com">Chris Vigorito</a>, 2015</li>
+<li><a href="http://psthomas.com">Philip Thomas</a>, 2015</li>
+<li><a href="http://www.cs.umass.edu/~thelmuth/">Thomas Helmuth</a>, 2015</li>
+<li><a href="http://www.cs.umass.edu/~bsilva">Bruno Castro da Silva</a>, 2015</li>
+<li><a href="http://www.cs.umass.edu/~wdabney">William Dabney</a>, 2014</li>
+<li><a href="http://www.cs.utexas.edu/users/sniekum/">Scott Niekum</a>, 2013</li>
+<li><a href="http://www.cs.umass.edu/~ylevy/">Yariv Z. Levy</a>, 2012</li>
+<li><a href="http://people.csail.mit.edu/scottk">Scott Kuindersma</a>, 2012</li>
+<li><a href="http://www.cs.duke.edu/~gdk/">George Konidaris</a>, 2011</li>
+<li><a href="http://www.cs.duke.edu/~johns/">Jeffrey Johns</a>, 2010</li>
+<li><a href="http://www.cs.umass.edu/~chwang/">Chang Wang</a>, 2010</li>
+<li><a href="https://sites.google.com/site/pippinwolfeacademics/home">Alicia "Pippin" Peregrin Wolfe</a>, 2010</li>
+<li><a href="http://www.cs.brown.edu/~sosentos/">Sarah Osentoski</a>, 2009</li>
+<li><a href="http://sites.google.com/site/ashvin/">Ashvin Shah</a>, 2008</li>
+<li><A href="http://www.mpib-berlin.mpg.de/en/staff/oezguer-simsek">&#214;zg&#252;r &#350;im&#351;ek</a>, 2008</li>
+<li><a href="http://labs.ebay.com/people/khash-rohanimanesh/">Khashayar Rohanimanesh</a>, 2006</li>
+<li><a href="http://chercheurs.lille.inria.fr/~ghavamza/">Mohammad Ghavamzadeh</a>, 2005</li>
+<li><a href="http://www.dtic.upf.edu/~jonsson/">Anders Jonsson</a>, 2005</li>
+<li><a href="http://www.linkedin.com/pub/tom-kalt/6/b37/191">Thomas Kalt</a> (with <a href="http://ciir.cs.umass.edu/">CIIR</a>), 2005</li>
+<li><a href="http://www.cse.iitm.ac.in/~ravi">Balaraman Ravindran</a>, 2004</li>
+<li><a href="http://www.linkedin.com/pub/michael-rosenstein/29/a73/b64">Michael Rosenstein</a>, 2003</li>
+<li><A HREF="http://intron.ccam.uchc.edu/~mikeduff/">Michael Duff</A>, 2002</li>
+<li><a href="http://www.cs.ou.edu/~amy/">Amy McGovern</a>, 2002</li>
+<li><a href="http://www.perkinslab.ca/">Theodore Perkins</a>, 2002</li>
+<li><a href="http://www.cs.mcgill.ca/~dprecup">Doina Precup</a>, 2000</li>
+<li>Bob Crites, 1996</li>
+<li>S.J. Bradtke, 1994</li>
+<li><A HREF="http://www.eecs.umich.edu/~baveja/">Satinder Singh</A>, 1993</li>
+<li><A HREF="http://www.ai.mit.edu/projects/dynlangs/People/jonathan.htm">J.R. Bachrach</A>, 1992</li>
+<li>Vijaykumar Gullapalli, 1992</li>
+<li><A HREF="http://www.bcs.rochester.edu/people/robbie/jacobslab/people.html">Robert A. Jacobs</A>, 1990</li>
+<li>J.S. Judd, 1988</li>
+<li><A HREF="http://www.cs.colostate.edu/~anderson">C.W. Anderson</A>, 1986</li>
+<li><A HREF="http://richsutton.com">Richard S. Sutton</A>, 1984</li>
+</ul>
+</div>
+
+<div id="alum_masters">
+<b>Masters Students</b>
+<ul>
+<li><a href="http://people.csail.mit.edu/pkrafft/">Peter Krafft</a>
+<li>Colin Barringer
+<li><a href="http://www.cs.umass.edu/~jleahey">Jonathon Leahey</a>
+<li><a href="http://www.cs.umass.edu/~jchen">Jie Chen</a>
+</ul>
+</div>
+
+
+<div id="alum_ugrads">
+<b>Undergraduates</b>
+<ul>
+<li><a href="http://www.suchisaria.com/">Suchi Saria</a>
+<li><a href="http://www.linkedin.com/in/ericsondhi">Eric Sondhi</a>
+<li><a href="http://www.math.neu.edu/~scheidwasser/">Ilya Scheidwasser</a>
+</ul>
+</div>
+
+
+</div>
+</div>
+<!--#include virtual="bottom.html" -->

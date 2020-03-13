@@ -1,0 +1,236 @@
+<HTML>
+<HEAD>
+<TITLE>Interpreting the Reports of Wusage</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+
+<h2>Interpreting the reports of wusage</h2>
+</a>
+To see the results of running wusage, open
+the <code>index.html</code> (or index.htm) file in 
+the report directory with your favorite
+web browser. This filename can be changed using
+the <code><a href="indexname.html">indexname</a></code> 
+configuration file option. If you are producing summary
+reports, open the <code>summary.html</code> 
+(or summary.htm) file instead.
+<h4>Interpreting Daily, Weekly and Monthly History Reports</h4>
+If you are producing daily, weekly or monthly reports, you should
+now be seeing the "history page." This
+page features graphs over time of all documents matching
+the various <a href="totals.html">totals</a> that have
+been specified in the configuration file. The graphs
+display accesses over time, unless the
+<code><a href="order.html">order</a></code> configuration
+file option has been used to change the scale to
+reflect bytes transmitted instead of accesses.
+(NOTE: server logs in the older EMWAC format do not
+contain information about the number of bytes transmitted.)
+<p>
+If only one day or week of data is present
+in the log, the charts will not appear, as
+two points are necessary to draw a line.
+<p>
+Beneath the graphs, links to reports for individual
+months can be found, or to sublistings for the days
+of a month or the weeks of a year. 
+Select the report for an individual day, week or month 
+now in order to follow the explanation.
+
+<h4>Interpreting Day, Week, Month, and Summary Reports</h4>
+
+For each time period, or for the entire log when
+the the <code><a href="frequency.html">frequency</a></code>
+option is set to <code>summary</code>, wusage writes
+a report providing details of accesses to the
+server during that time period.
+<h4>Totals Report</h4>
+The page begins with a table displaying total
+accesses and bytes transmitted during that
+period for each of the <code><a href="totals.html">totals</a></code>
+specified in the configuration file. You can
+configure many such totals.
+(NOTE: server logs in the older EMWAC format do not
+contain information about the number of bytes transmitted.)
+<p>
+<strong>Note:</strong> if your web browser does
+not support tables, you will want to change the
+<code><a href="html.html">html</a></code> option in
+your configuration file to <code>2.0</code> instead
+of <code>3.0</code> to produce lists instead
+of tables. 
+<h4>Hourly Report</h4>
+Beneath the totals table is a graph indicating the
+pattern of access by time of day. This graph
+displays total accesses on the Y axis and the
+hour of the day on the X axis. It is possible
+to change this graph to display bytes transmitted
+instead using the 
+<code><a href="order.html">order</a></code> configuration
+file option. Beneath the graph is a table,
+providing accesses, bytes sent, and bits per
+second and bytes per second for each hour of
+the day. The last two columns are especially
+useful to gauge your impact on your Internet
+provider's connection to the net through the day, 
+or to gauge the impact of particular documents
+and sites if the <code><a href="allow.html">allow</a></code>
+and/or <code><a href="allowsites.html">allowsites</a></code>
+options are in use. (The last two columns are not present if 
+summary reports are being generated.)
+NOTE: server logs in the older EMWAC format do not
+contain information about the number of bytes transmitted.
+<h4>Popular Documents Report</h4>
+Next in the report is a pie chart and a table
+featuring the most frequently accessed documents
+on your site. The pie chart displays only the documents
+which were "popular" enough to occupy a visible
+pie slice, and combines the rest in the 
+<em>Other</em> category. The table is ranked
+by total accesses, unless the <code><a href="order.html">order</a></code>
+option is used to change the ranking order
+to <code>bytes</code> instead. The number of
+documents displayed in the table can be set
+to any value, including <code>all</code>, using the 
+<code><a href="top.html">top</a></code> option. 
+Documents can be explicitly allowed or ignored
+using the <code><a href="allow.html">allow</a></code>
+and <code><a href="ignore.html">ignore</a></code> options,
+which are useful to exclude potentially uninteresting 
+documents such as inline images, or to allow only
+the documents of one user.
+<h4>The Frequent Sites Report</h4>
+If the <code><a href="sites.html">sites</a></code> option
+is present in your configuration file, wusage will
+report on the sites most frequently accessing your
+server. Beneath the documents table is a table of
+the sites (Internet addresses) that accessed
+your server most often. The table is ranked
+by total accesses, unless the <code><a href="order.html">order</a></code>
+option is used to change the ranking order
+to <code>bytes</code> instead. The number of
+sites displayed in the table can be set
+to any value, including <code>all</code>, using the 
+<code><a href="topsites.html">topsites</a></code> option. 
+Sites can be explicitly allowed or ignored
+using the <code><a href="allowsites.html">allowsites</a></code>
+and <code><a href="ignoresites.html">ignoresites</a></code> options.
+This can be handy to exclude local test accesses
+or allow only accesses from your own organization.
+Note that major Internet providers such as AOL may
+appear as a small number of IP addresses making
+a large number of accesses.
+<h4>Should I turn on DNS?</h4>
+Looking at the table of sites, you may note
+that the sites are given only by IP
+address, rather than by hostname. Below
+is an example of each case:
+<p>
+<strong>IP Address: </strong>127.0.0.1<br>
+<strong>Host Name: </strong>boutell.com
+<p>
+If you see only IP addresses, it is likely that
+your server does not perform DNS (Domain Name
+Service) resolution for each access. This is not
+uncommon, because DNS can be a slow operation
+which limits the speed of the web server. 
+If you are interested in seeing full host
+names, especially to produce meaningful
+domain charts as described below, you may
+with to add the <code><a href="dns.html">dns</a></code>
+option in your configuration file.
+<p>
+If you see a <strong>mixture of IP addresses
+and host names,</strong> you probably do 
+<strong>not</strong> need to turn on DNS.
+It is normal for many addresses (perhaps 30% to 50%)
+to lack proper host names, and asking wusage to make a 
+second attempt to look them up will only slow down
+the program.
+<h4>The Domains Report</h4>
+If both the <code><a href="sites.html">sites</a></code> option
+and the <code><a href="domains.html">domains</a></code> option are 
+present in your configuration file, wusage will
+report on the Internet domains most frequently accessing your
+server. Internet top-level domains are political and
+economic classifications such as <code>com</code>
+(commercial, often US), <code>edu</code> (educational,
+often US), and <code>ru</code> (Russia). 
+<p>
+Wusage features the ability to <strong>combine several
+domains by continent or another criteria of your
+choice.</strong> This allows wusage to generate a
+meaningful pie chart which breaks down accesses by
+continent. 
+<p>
+You can control the way domains are combined using
+the <code><a href="domaingroups.html">domaingroups</a></code>
+option. You can also specify how many domains are
+included in the chart using the <code><a href="topdomains.html">
+topdomains</a></code> option, which is often unnecessary
+due to the set of domain groups for continents
+included in the configuration files created by
+<code>makeconf</code>. You can also obtain this
+list by copying the <code>domaingroups</code> option
+from the sample.conf file (sample.con under DOS) to your own
+configuration file.
+<h4>The Result Codes Report</h4>
+Next to last in the report is a summary of the
+number of accesses to your server which resulted
+in each HTTP result code. The result code
+200 ("Ok") is usually the most common. Result
+codes such as 301 ("Moved Permanently") are not
+uncommon especially if your site uses imagemaps
+and other forms of redirection. The result code
+404 ("Not Found") sometimes means that users are
+still trying to access a document that has been
+removed, and solving such problems is the purpose
+of the last section of the report.
+
+<h4>The Documents Not Found Report</h4>
+
+If you have specified the <a
+href="notfound.html"><code>notfound</code></a>
+option in your configuration file, then your reports will
+end with a list of the URLs that users unsuccessfully
+tried to retrieve from your server. Sometimes this is
+due to simple keyboarding error, or to outdated links
+from other sites. At other times, you may realize that
+you have accidentally removed or renamed a file, which
+is a good reason to turn on this option.
+<h4>Other Reports</h4>
+If you are operating a proxy server, specify the 
+<a href="proxysites.html"><code>proxysites</code></a> option in
+your configuration file to get statistics on the sites
+being accessed through the proxy server. If you are
+using HTTP basic authentication or another standard
+method of password-protecting some of your documents
+and directories, you will be interested in the
+<a href="authusers.html"><code>authusers</code></a> option,
+which produces statistics on the users who logged
+in to a password-protected portion of your site.
+<p>
+This concludes a brief tour of the reports 
+typically generated by wusage. Many additional configuration
+options are available, and we invite you to examine
+the <a href="reference.html">configuration file reference</a>.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="intranet.html"> Next</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+
+

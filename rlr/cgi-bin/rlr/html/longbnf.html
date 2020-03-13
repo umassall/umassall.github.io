@@ -1,0 +1,770 @@
+MatrixD native code loaded
+MatrixF native code loaded
+<html>
+<title>BNF for WebSim code embedded in Web Pages</title>
+<h1 align=center><img hspace=20 vspace=0 border=0 align=center src=images/logob.gif>BNF for WebSim </h1>
+WebSim parses a string embedded in a Web page.  This string uses 
+the language given below to describe the program to run.  This BNF listing
+was automatically generated from the BNF() methods in each class. The
+start symbol is &quotWebSim&quot.
+<p>
+<pre>
+Credits                   ::= 
+                          // print the credits.
+Credits2                  ::= 
+                          // print the credits.
+DisplayList               ::= '{' ( ['embed'] ['(' IntExp [','] IntExp [',']     
+                              IntExp [','] IntExp ')'] &ltDisplay&gt )* '}'
+                          // List of displays. Gives the (x,y,width,height) for 
+                          // each display window.
+FindBNF                   ::= ['html'] ['summary'] 'codebase' &ltstring&gt 'widths'  
+                              IntExp IntExp IntExp
+                          // Find BNF for all objects. Send BNFs to standard 
+                          // out in 3 columns with these widths, optionally 
+                          // with HTML headers and documentation. All files in 
+                          // directory codebase and below are explored. If 
+                          // 'summary' is there, comments are less detailed 
+                          // (only print out up to the first period).
+ProjWin                   ::= ['embed'] ['('IntExp [','] IntExp [','] IntExp     
+                              [','] IntExp')'] &ltProject&gt 
+                          // Window for a single Project. (x,y,width,height) 
+                          // for the Project's window (-1=default). 'embed' 
+                          // means embed in the Web page instead of making it a 
+                          // separate window
+ShowEdit                  ::= '{' (('trigger' &ltstring&gt) | ('freq'                
+                              expression.IntExp) | ('all' &ltstring&gt) | ('vars'    
+                              '{' pointer.PString+ '}'))* '}'
+                          // Show variables. Shows either all variables with a 
+                          // given prefix, or just the named variables.  The 
+                          // user can edit whatever is shown.  If a trigger is 
+                          // given, the window will update itself every time 
+                          // the    given variable changes the given number of 
+                          // times.. 
+                          //   trigger: update all the values every freq times 
+                          // that this variable changes
+                          //   freq: updates every freq times (-1=never)
+                          //   all: if not null, will show/edit all variable 
+                          // names starting with this string
+                          //   vars: list of variables to show and edit in the 
+                          // window
+ShowThreads               ::= 
+                          // Show all threads in a window.
+TestMatrix                ::= 
+                          // Test the MatrixD object.  Useful for debugging 
+                          // native-code implementations.
+Title                     ::= '{' (('title' &ltstring&gt) | ('display' &ltDisplay&gt))*  
+                              '}'
+                          // Title on a Display. Show the given Display with 
+                          // the given title at the top. 
+                          //   title: string to use as the title
+                          //   display: the display to show below the title
+WebSim                    ::= ['unparse'] ProjWin * 
+                          // Parse and run a WebSim program. Optionally, 
+                          // unparse everything back out to standard out 
+                          // immediately after parsing everything.
+expression.IntExp         ::= NumVarExp
+                          // A constant integer expression. The expression must 
+                          // not have a noninteger value or contain variables. 
+                          // Expressions like 3/floor(2.7) are integer 
+                          // expressions because floor() and ceil() always 
+                          // return integers, and division of two integers 
+                          // returns an integer.
+expression.IntVarExp      ::= NumVarExp
+                          // An integer expression. The expression must not 
+                          // have a noninteger value. Expressions like 
+                          // 3/floor(2.7) are integer expressions because 
+                          // floor() and ceil() always return integers, and 
+                          // division of two integers returns an integer.
+expression.NumExp         ::= NumVarExp
+                          // A constant numeric expression. The expression must 
+                          // not contain any variables. Division is as in C, so 
+                          // 5.0/2 is 2.5 but 5/2 is 2
+expression.NumVarExp      ::= NumVarTerm (('+' | '-') NumVarTerm )* 
+                          // A numeric expression. Can contain variables and 
+                          // combinations of the operators +-*/% and 14 
+                          // predefined functions, So it might be 
+                          // 3.0/sin(1+'time') if 'time' is a watchable 
+                          // variable name.  The functions sin(x), cos(x), 
+                          // tan(x), asin(x), acos(x), atan(x) are all in 
+                          // radians. The functions floor(x), ceil(x), 
+                          // mod(n,m), and n%m return ints. The functions 
+                          // sqrt(x), ln(x), log10(x), exp(x), and power(x,y) 
+                          // return doubles.
+expression.NumVarFact     ::= &ltinteger&gt | &ltdouble&gt | '-' NumVarFact | ('('       
+                              NumVarExp ')') | ('floor' '(' NumVarExp ')') |     
+                              ('ceil' '(' NumVarExp ')') | ('mod' '(' NumVarExp  
+                              ')') | ('power' '(' NumVarExp ')') | ('sqrt' '('   
+                              NumVarExp ')') | ('ln' '(' NumVarExp ')') |        
+                              ('log10' '(' NumVarExp ')') | ('exp' '(' NumVarExp 
+                              ')') | ('sin' '(' NumVarExp ')') | ('cos' '('      
+                              NumVarExp ')') | ('tan' '(' NumVarExp ')') |       
+                              ('asin' '(' NumVarExp ')') | ('acos' '(' NumVarExp 
+                              ')') | ('atan' '(' NumVarExp ')') | 
+                          // A factor used by NumVarExp.
+expression.NumVarTerm     ::= NumVarFactor (('*' | '/') NumVarTerm )*
+                          // A product or ratio used by NumVarExp.
+matrix.MatrixD            ::= ( ('[' [(NumExp [','])* NumExp] ']') | ('[' ('['   
+                              [(NumExp [','])* NumExp] ']' [','])* ('[' [(NumExp 
+                              [','])* NumExp] ']') ']' )) ['transpose']
+                          // A matrix or vector. Could be transposed.  Can 
+                          // either be a list of vectors [[1 2][3 4]]  or a 
+                          // single vector [5 6].  Commas are optional 
+                          // throughout.
+matrix.MatrixF            ::= ( ('[' [(NumExp [','])* NumExp] ']') | ('[' ('['   
+                              [(NumExp [','])* NumExp] ']' [','])* ('[' [(NumExp 
+                              [','])* NumExp] ']') ']' )) ['transpose']
+                          // A matrix or vector. Could be transposed.  Can 
+                          // either be a list of vectors [[1 2][3 4]]  or a 
+                          // single vector [5 6].  Commas are optional 
+                          // throughout.
+picture.Animation         ::= ( ('first' NumExp) | ('last' NumExp) | ('frames'   
+                              IntExp) )* &ltpicture.PicPipe&gt
+                          // The frames of an Animation. Each frame differs 
+                          // only in the time, and they are all laid out like 
+                          // the frames in a gallery.
+picture.Antialias         ::= 'jitter' ('true' | 'false') 'raysX' IntExp 'raysY' 
+                              IntExp 'raysZ' IntExp 'raysT' IntExp
+                          // Antialias each pixel. Breaks the pixel into raysX 
+                          // * raysY * raysZ * raysT boxes, sends one ray 
+                          // through each box, and averages the results. if 
+                          // 'jitter' is true, then shoots each ray at a random 
+                          // spot within the box.  Antialiasing in the T 
+                          // direction can be useful for animations (gives 
+                          // motion blurring). Antialiasing in the Z direction 
+                          // generally isn't useful.
+picture.ColorMap          ::= picture.ColorMapEntry +
+                          // linearly-interpolated mapping from double to color.
+picture.ColorMapEntry     ::= '[' NumExp [','] picture.ColorVector ']'
+                          // one line of a color map. In the linear map, the 
+                          // given number maps to the given color. values in 
+                          // between given colors map to linearly-interpolated 
+                          // colors.
+picture.ColorVector       ::= '&lt' NumExp [','] NumExp [','] NumExp [ [',']       
+                              NumExp [','] NumExp ] '&gt'
+                          // A single color. Elements are red, green, blue, 
+                          // filter, transparency, each of which range from 0 
+                          // to 1.
+picture.Description       ::= &ltstring&gt
+                          // A string describing the picture being drawn.
+picture.Edges             ::= IntExp
+                          // Trace figure edges. Each edge becomes a line 
+                          // IntExp pixels thick.
+picture.Gallery           ::= '{' picture.PicPipePipeline * '}'
+                          // A list of pictures to tile.
+picture.PicPipePipeline   ::= '{' picture.PicPipe * '}'
+                          // A Picture pipeline. The first Picture is the 
+                          // source for the second, which is the source for the 
+                          // third, etc. If you ask a Picture for a pixel's 
+                          // color, it either replies immediately, or asks it's 
+                          // source (1 or more times) and returns some function 
+                          // of the answer (or answers). Sources can 
+                          // take/return scalars (doubles) instead of colors.  
+                          // This allows a fractal object to be a scalar-valued 
+                          // function that is then fed in to another function 
+                          // that remaps the scalars (e.g. to do edge 
+                          // detection), which then feeds in to a third PicPipe 
+                          // that maps the resulting numbers to colors, which 
+                          // then feeds into a fourth PicPipe that does 
+                          // antialiasing by asking the third PicPipe for many 
+                          // colors then averaging them.
+picture.Picture           ::= '{'['bar' IntExp] 'pass1' picture.picPipePipeline  
+                              'pass2' picture.picPipePipeline 'bothPasses'       
+                              picture.picPipePipelin '}'
+                          // Picture to fade in. bothPasses is a picture, which 
+                          // is modified by pass1 or by pass2.  The first pass 
+                          // is used to draw every pixel, then for those pixels 
+                          // different from their neighbors, the second pass is 
+                          // asked to find their color (e.g. through 
+                          // antialiasing).  The number after 'bar' is the 
+                          // height of the status bar in pixels (default 10).
+picture.Region            ::= '(' NumExp [','] NumExp ')' [','] '(' NumExp [','] 
+                              NumExp ')'
+                          // A region to zoom into. Zoom into a region from 
+                          // (minX,minY) to (maxX,maxY)
+picture.RndColor          ::= [ picture.ColorVector ]
+                          // Random colors. A picture with 3 regions, one 
+                          // random black/white, one random colors, one a solid 
+                          // color (default green).
+picture.ValueMap          ::= picture.ValueMapEntry +
+                          // Piecewise linear function. A piecewise linear 
+                          // mapping from doubles to doubles. Function is 
+                          // defined at a list of points, and linearly 
+                          // interpolated in between.
+picture.ValueMapEntry     ::= '[' NumExp [','] NumExp ']'
+                          // One line of a value map.The first number maps to 
+                          // the second.  Numbers not on the list are linearly 
+                          // interpolated.
+picture.directFractal     ::= 
+                          // fractal circles
+   .Fract1               
+picture.directFractal     ::= 
+                          // a fractal maze (CS110 cover)
+   .Maze                 
+pointer.PDouble           ::= 
+pointer.PInt              ::= 
+pointer.PObject           ::= 
+pointer.PString           ::= &ltstring&gt
+                          // a string in single quotes
+sim.ForExperiment         ::= '{' ('variable' &ltstring&gt | 'initVal' &ltdouble&gt |    
+                              'finalVal' &ltdouble&gt 'increment' &ltdouble&gt)*         
+                              'experiment' &ltsim.Experiment&gt '}'
+                          // Repeats an Experiment.  On each repetition, the 
+                          // watchable variable is set to values from 'initVal' 
+                          // to 'finalVal', incremented by 'increment' each 
+                          // time (defaults all 0). This can be used, for 
+                          // example, to rerun a neural net experiment multiple 
+                          // times with different learning rates each time.  To 
+                          // also vary the momentum, there would be a 
+                          // ForExperiment inside another ForExperiment (note 
+                          // that a ForExperiment is itself an Experiment, and 
+                          // so can be nested).
+sim.Simulator             ::= '{' (('experiment' &ltsim.Experiment&gt) | ('displays' 
+                              DisplayList))* '}'
+                          // run a simulation. As the given experiment runs, 
+                          // the given displays show how the variables change. 
+                          //   experiment: runs the top-level, main loop of a 
+                          // simulation
+                          //   displays: list of windows and embedded frames
+sim.TDLambda              ::= '{' (('mdp' &ltsim.mdp.MDP&gt) | ('funApp'             
+                              &ltsim.funApp.FunApp&gt) | ('dt' NumExp)  |            
+                              ('incremental' &ltboolean&gt) | ('seed' IntExp) |      
+                              ('lambda' NumExp) | ('gamma' NumExp) | ('explore'  
+                              NumExp) |('rate' NumExp) | ('smooth' NumExp) |     
+                              ('tolerance' NumExp) | ('expDecay' NumExp))* '}'
+                          // TD(lambda).If 'incremental' is false, then it does 
+                          // epochwise training. 'seed' is for the random 
+                          // number generator. 'explore' is the percentage of 
+                          // time that the agent performs an action other than 
+                          // the action thought optimal. 'expDecay' is the 
+                          // decay rate of the exploration rate.  If 
+                          // expDecay=0.9 then explore has a half-life of 6.57 
+                          // iterations (expDecay=0.99 =&gt explore half-life of 
+                          // 65.7 iterations). In this case an iteration is 
+                          // completed when a terminal state is 
+                          // reached.DEFAULTS: lambda=0.5, gamma=0.9, dt=1, 
+                          // incremental=true, seed=0, rate=0.1, tolerance=1, 
+                          // smooth=0.9, explore=0.3, expDecay=0.99
+sim.data.Dot              ::= 
+                          // Always generates the vector (.3,.6).
+sim.data.OnesRnd          ::= '{' 'numOutputs' IntExp'}'
+                          // Random vector of ones and random numbers.  The 
+                          // output vector has the given number of elements, 
+                          // the first K of which are 1.0, and the rest are 
+                          // random in the range [0,1].  K is random in the 
+                          // range [0,N], where N is the number of elements in 
+                          // the output vector.
+sim.data.RemoteTable      ::= '{' 'download' &ltboolean&gt 'location' &ltstring&gt       
+                              'filename' &ltstring&gt 'inputs' (IntExp [','])+       
+                              'outputs' (IntExp [','])+ ( ('savefile' &ltboolean&gt) 
+                              | ('username' &ltstring&gt) | ('password' &ltstring&gt) |  
+                              ('normalize' IntExp IntExp) | ('nullAttribute'     
+                              IntExp) | ('unparseTable' &ltboolean&gt)* '}'
+                          // downloads a remote table of records and converts 
+                          // to input/output vectors for training. 'download' 
+                          // specifies whether to actually download the file.  
+                          // This is included because it is possible to 
+                          // download once and then use in multiple times by 
+                          // not deleting from the local drive.  'location' is 
+                          // the ftp site from which to download the file. 
+                          // 'filename' includes the path on the remote host. 
+                          // 'inputs' is a list of integers that represent the 
+                          // attribute fields in the record that are to be used 
+                          // as the inputs to the function approximator (Ex. 
+                          // 1,3,7: Data from columns 1, 3 and 7 of the table 
+                          // are to be used as inputs. 'outputs' - works the 
+                          // same as inputs. 'savefile' tells the system 
+                          // whether or not to save the file for future use.  
+                          // 'username' - The username for the ftp account. 
+                          // 'password' - for ftp account. 'normalize' Will 
+                          // normalize the data to a range specified by the 
+                          // integers following 'normalize' (Ex. normalize -1 1 
+                          // normlizes the training data to range from [-1,1]. 
+                          // 'nullAttribute' - Specifies the value of null 
+                          // fields in incomplete records. If 'unparseTable' is 
+                          // set to true, then the unparse method will create 
+                          // the resulting table from the datafile rather than 
+                          // simply returning the standard information.  In 
+                          // this case, the data object name remoteTable should 
+                          // be changed to table in the unparsed file, if the 
+                          // user wants to use the unparsed file as the 
+                          // definition of a new experiment.DEFAULTS: download 
+                          // - false; savefile - true; username - anonymous; 
+                          // password - WebSim; normalize - 0 1; nullAttribute 
+                          // 0; unparseTable - fales.  All other parameters are 
+                          // required.
+sim.data.RndCircle        ::= 
+                          // Points on a circle. Random 2D vectors around 
+                          // perimeter of a .5-radius circle centered at (.5,.5)
+sim.data.RndDisk          ::= 
+                          // Points in a circle. Random 2D vectors inside of a 
+                          // .5-radius circle at (.5,.5)
+sim.data.RndOnes          ::= IntExp
+                          // Create random vectors with this many elements. 
+                          // Uniformly chooses N, then fills in first N 
+                          // elements with ones, the rest with uniform real 
+                          // numbers in [0,1].
+sim.data.RndUniformLine   ::= 
+                          // random numbers on a line.  They are in the range 
+                          // [0.0,1.0]
+sim.data.RndUniformSquare ::= 
+                          // Points in a square. Random 2D vectors uniformly in 
+                          // the unit square (0,0)-(1,1).
+sim.data.SpiralData       ::= '{' 'numSpirals' NumExp'}'
+                          // Random points around a spiral within the [-1,1] 
+                          // square. 
+sim.data.Table            ::= '{' ( MatrixD MatrixD )* '}'
+                          // table of input/output vectors for training. Each 
+                          // MatrixD is a row vector representing one input or 
+                          // output.
+sim.data.XOR              ::= 
+                          // 2 input 1 output XOR data with bias.
+sim.display.Contour       ::= '{' (('function' &ltsim.funApp.FunApp&gt) |            
+                              ('contours' expression.IntExp) | ('spectrum'       
+                              &ltboolean&gt) | ('color' pointer.PMatrixD) |          
+                              ('xElement' expression.IntExp) | ('xSamples'       
+                              expression.IntExp) | ('yElement'                   
+                              expression.IntExp) | ('ySamples'                   
+                              expression.IntExp) | ('zElement'                   
+                              expression.IntExp) | ('zMin' expression.NumExp) |  
+                              ('zMax' expression.NumExp))* '}'
+                          // Contour plot. Given a function approximator, plot 
+                          // z vs. x and y. 
+                          //   function: the function to plot
+                          //   contours: # contour levels
+                          //   spectrum: use rainbow colors for curves?
+                          //   color: color for curves if not spectrum
+                          //   xElement: which element of input vector is X
+                          //   xSamples: # samples along x axis
+                          //   yElement: which element of input vector is Y
+                          //   ySamples: # samples along y axis
+                          //   zElement: which element of output vector to plot
+                          //   zMin: Z value of lowest contour level, if 
+                          // zMin&ltzMax
+                          //   zMax: (autoscales if zMax&ltzMin)
+sim.display.Graph2D       ::= '{' (('trigger' &ltstring&gt) | ('freq'                
+                              expression.IntExp) | ('xMin' expression.NumExp) |  
+                              ('xMax' expression.NumExp) | ('yMin'               
+                              expression.NumExp) | ('yMax' expression.NumExp) |  
+                              ('color' pointer.PMatrixD) | ('flicker' &ltboolean&gt) 
+                              | ('showNumbers' &ltboolean&gt) | ('propZoom'          
+                              &ltboolean&gt) | ('squareView' &ltboolean&gt) | ('plots'   
+                              '{' &ltsim.display.Plot&gt+ '}'))* '}'
+                          // 2D plot. Plot each of the plots on top of each 
+                          // other (first one on the bottom).. 
+                          //   trigger: redraw when this variable changes
+                          //   freq: redraw every freq times trigger changes
+                          //   xMin: min x value to plot (automatically scales 
+                          // if xMin&gtxMax)
+                          //   xMax: max x
+                          //   yMin: min y
+                          //   yMax: max y
+                          //   color: [red,green,blue] for background
+                          //   flicker: true=no double buffering, so it's 
+                          // faster, uses less memory, but flickers
+                          //   showNumbers: true=show numbers on X and Y axes
+                          //   propZoom: true=the user can only zoom in on 
+                          // proportional regions (no distortions)
+                          //   squareView: true=always show a square (not 
+                          // rectangular) region
+                          //   plots: list of PlotXY, last one plotted on top
+sim.display.Graph3D       ::= '{' (('flicker' &ltboolean&gt) | ('rotateX'            
+                              expression.NumExp) | ('rotateY' expression.NumExp) 
+                              | ('rotateZ' expression.NumExp) | ('trigger'       
+                              &ltstring&gt) | ('freq' expression.IntExp) |           
+                              ('xSamples' expression.IntExp) | ('ySamples'       
+                              expression.IntExp) | ('xMin' expression.NumExp) |  
+                              ('xMax' expression.NumExp) | ('yMin'               
+                              expression.NumExp) | ('yMax' expression.NumExp) |  
+                              ('zMin' expression.NumExp) | ('zMax'               
+                              expression.NumExp) | ('xElement'                   
+                              expression.IntExp) | ('yElement'                   
+                              expression.IntExp) | ('zElement'                   
+                              expression.IntExp) | ('function'                   
+                              &ltsim.funApp.FunApp&gt) | ('plotFloor' &ltboolean&gt) |   
+                              ('plotTop' &ltboolean&gt) | ('floorColor'              
+                              pointer.PMatrixD) | ('topColor' pointer.PMatrixD)  
+                              | ('bottomColor' pointer.PMatrixD) | ('plots' '{'  
+                              &ltsim.display.Plot&gt+ '}') | ('inputs'               
+                              pointer.PMatrixD))* '}'
+                          // 3D surface plot.  Given a function approximator, 
+                          // plot z vs. x and y every freq steps on a 3D graph 
+                          // with the given rotation.DEFAULTS: rotate 10,30,0, 
+                          // z autoscales, no flicker . 
+                          //   flicker: true=no double buffering, so it's 
+                          // faster, uses less memory, but flickers
+                          //   rotateX: rotate viewing angle about x axis (in 
+                          // degrees)
+                          //   rotateY: rotate about x, then y, then z
+                          //   rotateZ: rotate about x, then y, then z
+                          //   trigger: redraw graph every freq time that 
+                          // trigger signal changes
+                          //   freq: redraw frequency
+                          //   xSamples: # samples along x axis (2 or more)
+                          //   ySamples: # samples along y axis (2 or more)
+                          //   xMin: min x in region to plot
+                          //   xMax: max x in region to plot
+                          //   yMin: min y in region to plot
+                          //   yMax: max y in region to plot
+                          //   zMin: min z to plot (or automatically scale if 
+                          // zMin&gtzMax)
+                          //   zMax: max z to plot
+                          //   xElement: which element of input vector is x (0 
+                          // or more)
+                          //   yElement: which element of input vector is y (0 
+                          // or more)
+                          //   zElement: which element of output vector is z (0 
+                          // or more)
+                          //   function: function to plot z vs. x and y
+                          //   plotFloor: true=draw the plots on the floor of 
+                          // the cube
+                          //   plotTop: true=draw the plots on the top of the 
+                          // cube
+                          //   floorColor: [red,green,blue] of floor of the cube
+                          //   topColor: [red,green,blue] of surface top
+                          //   bottomColor: [red,green,blue] of surface 
+                          // underside
+                          //   plots: list of PlotXY to draw on sube bottom/top
+                          //   inputs: values for all input elements, since 
+                          // only 2 change with x and y
+sim.display.Grid          ::= '{' (('size' expression.NumExp) | ('type'          
+                              expression.IntExp))* '}'
+                          // Regular grid. Useful as a background for other 
+                          // plots. 
+                          //   size: size of one line segment (in graphing 
+                          // units, not pixels)
+                          //   type: 0=squares, 1=horiztal lines, 2=vertical 
+                          // lines, 3=hexagons, 4=triangles, 5=Penrose, 
+                          // 6=Penrose triangles, 7=Penrose dots
+sim.display.PlotXY        ::= '{' (('freq' expression.IntExp) | ('size'          
+                              expression.IntExp) | ('symbolType'                 
+                              expression.IntExp) | ('symbolSize'                 
+                              expression.IntExp) | ('ring' &ltboolean&gt) |          
+                              ('drawLines' &ltboolean&gt) | ('noMerge' &ltboolean&gt) |  
+                              ('lineColor' pointer.PMatrixD) | ('symbolColor'    
+                              pointer.PMatrixD) | ('x' &ltstring&gt) | ('y'          
+                              &ltstring&gt) | ('trigger' &ltstring&gt) | ('snapshotData' 
+                              &ltsim.data.Data&gt) | ('snapshotFunApp'               
+                              &ltsim.funApp.FunApp&gt) | ('snapshotXElement'         
+                              expression.IntExp) | ('snapshotYElement'           
+                              expression.IntExp) | ('snapshotSamples'            
+                              expression.IntExp))* '}'
+                          // //Autoscaling 2D plot. Plots one variable vs. 
+                          // another. 
+                          //   freq: how often to capture new data
+                          //   size: # points in buffer
+                          //   symbolType: 0=symbol on the data points, 
+                          // 1=circle, 2=square, 3=triangle, 4=+, 5=X, 6=*
+                          //   symbolSize: in pixels
+                          //   ring: use ring buffer (forget points in order 
+                          // seen)
+                          //   drawLines: don't connect dots?
+                          //   noMerge: don't draw rectangles around forgotten 
+                          // points?
+                          //   lineColor: RGB (each 0.0-1.0) for lines
+                          //   symbolColor: RGB (each 0.0-1.0) for filling in 
+                          // symbols (default is clear)
+                          //   x: variable to use for x coord
+                          //   y: variable to use for y coord
+                          //   trigger: take snapshot when this variable changes
+                          //   snapshotData: Data output goes through FunApp
+                          //   snapshotFunApp: applied to output of Data
+                          //   snapshotXElement: which FunApp output for X axis
+                          //   snapshotYElement: which FunApp output for Y axis
+                          //   snapshotSamples: how many samples in one snapshot
+sim.display.SaveDisplay   ::= '{' (('animate' &ltboolean&gt) | ('filename' &ltstring&gt) 
+                              | ('trigger' &ltstring&gt) | ('freq'                   
+                              expression.IntExp) | ('maxFrames'                  
+                              expression.IntExp) | ('display' &ltDisplay&gt))* '}'
+                          // Save GIFs periodically. The image of the given 
+                          // display is saved to disk periodically.If the given 
+                          // directory doesn't exist, it will not be created, 
+                          // and no files will be written.WARNING: SaveDisplay 
+                          // will automatically overwrite any files with the 
+                          // same names. . 
+                          //   animate: true=save in one big animated GIF 
+                          // file,false=save in separate files, appending 
+                          // '0001.gif' to the first filename, then 
+                          // incrementing for the rest
+                          //   filename: filename to save to
+                          //   trigger: save a frame every freq times trigger 
+                          // changes
+                          //   freq: save every freq times
+                          //   maxFrames: maximum # of frames to be saved
+                          //   display: the Display whose image will be saved
+sim.errFun                ::= '{' 'k' NumExp '}'
+                          // Advantage Learning.k is the scaling factor is 
+   .AdvantageLearning     // normally proportional in size to dt. DEFAULTS: k=1 
+sim.errFun.Batch          ::= '{' 'batchSize' IntExp &ltsim.errFun.ErrFun&gt '}'
+                          // Call the ErrFun this many times and averages the 
+                          // errors into a single error.  This allows 
+                          // approximate epoch-wise batch learning on an 
+                          // infinite data set.
+sim.errFun.ErrAvg         ::= '{' &ltsim.errFun.ErrFun&gt * '}'
+                          // Call all these error functions and average their 
+                          // errors.This allows gradient descent to satisfy 
+                          // several error functions simultaneously.
+sim.errFun.LocalLearning  ::= '{' 'incremental' &ltboolean&gt 'data' &ltsim.data.Data&gt 
+                              'funApp' &ltsim.funApp.FunApp&gt '}'
+                          // learn a input/output mapping. If 
+                          // incremental=false, then it does epochwise 
+                          // training. The 'data' object may represent a finite 
+                          // or infinite training set.  If infinite, then 
+                          // 'epochwise' will be a pseudoepoch, where a large 
+                          // set of points are grouped together and treated as 
+                          // if they were a full epoch.
+sim.errFun.PDFE           ::= '{['c' NumExp] 'input'  &ltsim.data.Data&gt 'target'   
+                              &ltsim.data.Data&gt 'funApp' &ltsim.funApp.FunApp&gt '}'
+                          // emulate a target PDF. After learning by observing 
+                          // iid vectors from the PDF, this can emulate it by 
+                          // sending uniform iid vectors into the function 
+                          // approximator, and the resulting vectors will be 
+                          // distributed correctly.
+sim.errFun.QLearning      ::= 
+                          // Q Learning. 
+sim.errFun                ::= '{' ('MDP' &ltsim.mdp.MDP&gt | 'funApp'                
+   .ReinforcementLearning     &ltsim.funApp.FunApp&gt 'dt' NumExp | 'gamma' NumExp | 
+                              'incremental' &ltboolean&gt | 'trajectories'           
+                              &ltboolean&gt'exploration' NumExp | 'algorithm'        
+                              &ltsim.errFun.RLErrFun&gt | 'method' ('resGrad' |      
+                              'direct' | ('residual' (NumExp | 'adapt'           
+                              NumExp*))))* '}'
+                          // Reinforcement Learning Experiment Wrapper.With tag 
+                          // 'method direct', this is the direct method. With 
+                          // 'method resGrad', this is the residual gradient 
+                          // method (the default). With 'method residual .7' 
+                          // this is the residual method with phi=.7 
+                          // (0=direct,1=residual gradient,between=residual). 
+                          // With 'method adapt 0.99' phi is adaptive and 
+                          // calculated autmatically.  The NumExp after 'adapt' 
+                          // is the decay factor for the update traces used in 
+                          // calculating phi. If incremental=false and 
+                          // trajectories=false then the NumExp after 'adapt' 
+                          // is ignored and the proper phi is calculated 
+                          // exactly.  If incremental=false and 
+                          // trajectories=true, or incremental=true then the 
+                          // NumExp after 'adapt' is used for an approximate 
+                          // solution to phi. If 'trajectories' is true, then 
+                          // it does training on a trajectory through state 
+                          // space, as opposed to randomly choosing a state on 
+                          // which to train.  'incremental' determines if the 
+                          // parameters of the function approximator will be 
+                          // updated after every transition in state space or 
+                          // after a sequence of transitions.  If 
+                          // incrementa=false and trajectories=true the 
+                          // parameters of the function approximator will be 
+                          // updated when an absorbing state is entered.  This 
+                          // is an analog to epochwise training in supervised 
+                          // learning. 'exploration' is the percentage of time 
+                          // a random action is chosen rather than the action 
+                          // considered best. 'gamma' is the discount factor.  
+                          // 'dt' is the time step size. 'algorithm' is the 
+                          // reinforcement learning algorithm to be used. 
+                          // DEFAULTS: method=resGrad, gamma=0.9, 
+                          // exploration=1, dt=1, incremental=true, 
+                          // trajectories=false. 
+sim.errFun                ::= '{' 'incremental' &ltboolean&gt 'data' &ltsim.data.Data&gt 
+   .SupervisedLearning        'funApp' &ltsim.funApp.FunApp&gt '}'
+                          // learn a input/output mapping. If 
+                          // incremental=false, then it does epochwise 
+                          // training. The 'data' object may represent a finite 
+                          // or infinite training set.  If infinite, then 
+                          // 'epochwise' will be a pseudoepoch, where a large 
+                          // set of points are grouped together and treated as 
+                          // if they were a full epoch.
+sim.errFun.ValueIteration ::= 
+                          // Value Iteration.
+sim.funApp                ::= '{' 
+                         
+   .InterferenceFunction 
+sim.funApp.LookupTable    ::= ('{' NumExp NumExp IntExp '}')+ 
+                          // Lookup Table. The triplets are ordered {min max 
+                          // levels} where min and max refer to the variable, 
+                          // and levels is the number of discretizations in 
+                          // that dimension.  The min and max can be real 
+                          // valued.
+sim.funApp.Net            ::= '{' ('Identity' | 'HardlimitingSquashing' |        
+                              'Bipolar' | 'Monopolar' | 'ExponentialInverted' |  
+                              'HyperbolicTan' | 'Sin' | 'Gaussian') ('Linear' |  
+                              'Quadratic1'| 'Quadratic2') (('Identity' |         
+                              'HardlimitingSquashing' | 'Bipolar' | 'Monopolar'  
+                              | 'ExponentialInverted' | 'HyperbolicTan' | 'Sin'  
+                              | 'Gaussian') '(' IntExp ')' ('Linear' |           
+                              'Quadratic1'| 'Quadratic2') ) *  (('Identity' |    
+                              'HardlimitingSquashing' | 'Bipolar' | 'Monopolar'  
+                              | 'ExponentialInverted' | 'HyperbolicTan' | 'Sin'  
+                              | 'Gaussian') 
+                          // Neural network which computes the first and second 
+                          // derivitives wrt the weights and inputs.  It's of 
+                          // the form Net {a w a(#) w a(#) w a(#) w a} where a 
+                          // is an activation function, w is a type of weights, 
+                          // and # is the number of nodes in a layer.  The 
+                          // layers are listed in order from input to output.  
+                          // A layer of 10 sigmoids would be 'Linear 
+                          // Sigmoid(10)'.  A layer of 5 Radial Basis Functions 
+                          // (RBFs) would be 'Quadratic? Gaussian(5)'. Note 
+                          // that activation functions must be in the first and 
+                          // last positions and these two activation functions 
+                          // should not specifiy a number of nodes, because 
+                          // that information is given in the Data object. 
+sim.funApp.SpiralFunction ::= 
+                          // spiral function. Maps a single input in the range 
+                          // [0,1] into 2D vectors in the [-1,1], [-1,1] square 
+                          // lying on a spiral.  The weight W makes the spiral 
+                          // circle W times within the square.
+sim.funApp.ValuePolicy    ::= '{' (('statesOnly' &ltboolean&gt) | ('dt'              
+                              expression.NumExp) | ('gamma' expression.NumExp) | 
+                              ('mdp' &ltsim.mdp.MDP&gt) | ('funApp'                  
+                              &ltsim.funApp.FunApp&gt))* '}'
+                          // A function that takes a state and returns the 
+                          // value of the state with the optimal action.This is 
+                          // generally used with Graph3D.  When used as the 
+                          // FunApp this object can be used to display the 
+                          // policy and the value function learned by a machine 
+                          // learning algorithm. . 
+                          //   statesOnly: 
+                          //   dt: 
+                          //   gamma: 
+                          //   mdp: 
+                          //   funApp: 
+sim.gradDesc.Backprop     ::= '{' (('learningRate' expression.NumExp) |          
+                              ('momentum' expression.NumExp) | ('smooth'         
+                              expression.NumExp) | ('tolerance'                  
+                              expression.NumExp) | ('minInitWeight'              
+                              expression.NumExp) | ('maxInitWeight'              
+                              expression.NumExp) | ('error'                      
+                              &ltsim.errFun.ErrFun&gt))* '}'
+                          // backprop with momentum.. 
+                          //   learningRate: learning rate, 0=don't learn, 
+                          // 1000=change weights fast
+                          //   momentum: 0=no momentum, .9999=lots of momentum
+                          //   smooth: exponential smoothing factor for 'avg 
+                          // error', 0=raw error, no smoothing. .9999=very 
+                          // smooth, averaged error
+                          //   tolerance: learning stops when smoothed error 
+                          // below this
+                          //   minInitWeight: min value for random initial 
+                          // weights
+                          //   maxInitWeight: max value for random initial 
+                          // weights
+                          //   error: the error function to be minimized
+sim.gradDesc.ConjGrad     ::= '{' ( 'tolerance' NumExp | 'step' NumExp |         
+                              'initWeights' NumExp [','] NumExp)* 'error'        
+                              &ltsim.errFun.ErrFun&gt | 'mode' NumExp '}'
+                          // Conjugate Gradient.  minimizes error in ErrFun.  
+                          // The two numbers after 'initWeights' are the min 
+                          // and max respectively for the initial random 
+                          // weights.  Learning stops when the error drops 
+                          // below 'tolerance' or a local minimum is reached.  
+                          // 'step' is used when initially guessing points that 
+                          // bracket a minimum for the line search. 'mode' is 
+                          // the method used to calculate the conjugate 
+                          // direction: 0=Polak-Ribiere, 1=Fletcher-Reeves. 
+                          // DEFAULTS: tolerance = 0, step = 1, initWeights 
+                          // (min=-1,max=1)
+sim.gradDesc.IDD          ::= '{' ('theta' NumExp | 'smooth' NumExp |            
+                              'tolerance' NumExp | 'initWeights' NumExp [',']    
+                              NumExp)* 'error' &ltsim.errFun.ErrFun&gt'}'
+                          // Incremental Delta Delta. An approximate second 
+                          // order method that minimizes error in ErrFun.  Each 
+                          // funApp parameter has an associated weight.  IDD 
+                          // does gradient descent in the learning rate space 
+                          // as well as doing gradient descent on the ErrFun.  
+                          // Learning stops when the smoothed error drops below 
+                          // tolerance.  The smoothing factor determines how 
+                          // fast the smoothed error reacts.The two numbers 
+                          // after 'initWeights' are the min and max 
+                          // respectively for the initial random weights.
+sim.mdp.GridWorld         ::= ('granularity' IntExp)
+                          // 2D Continuous Grid World. 'granularity' defines 
+                          // the number of states. The size of the grid is 
+                          // sqr(granularity+1) states.
+sim.mdp.HC                ::= ('epochSize' IntExp)*
+                          // Linear-Quadratic Regulator. epochSize must be set 
+                          // if doing epochwise training.
+sim.mdp.HCDemo            ::= ('epochSize' IntExp)*
+                          // Linear-Quadratic Regulator. epochSize must be set 
+                          // if doing epochwise training.
+sim.mdp.Hall              ::= 
+                          // A Hall Markov chain. Starts in state -1, 
+                          // deterministically transitions from x to x+dt. 
+                          // Final state 1 is absorbing. Reinforcement is 
+                          // always 0.
+sim.mdp.LQR               ::= ('discrete' &ltboolean&gt 'epochSize' IntExp)*
+                          // Linear-Quadratic Regulator. epochSize must be set 
+                          // if discrete=false and doing epochwise training.
+sim.mdp.XORmdp            ::= 
+                          // XOR Markov Decision Process. 
+&ltDisplay&gt                 ::= 'ShowEdit'                                           ShowEdit |
+                              'Title'                                              Title |
+                              'Graph2D'                                            sim.display.Graph2D |
+                              'Graph3D'                                            sim.display.Graph3D |
+                              'SaveDisplay'                                        sim.display.SaveDisplay
+&ltProject&gt                 ::= 'Credits'                                            Credits |
+                              'Credits2'                                           Credits2 |
+                              'FindBNF'                                            FindBNF |
+                              'ShowThreads'                                        ShowThreads |
+                              'TestMatrix'                                         TestMatrix |
+                              'Picture'                                            picture.Picture |
+                              'Simulator'                                          sim.Simulator
+&ltpicture.PicPipe&gt         ::= 'Animation'                                          picture.Animation |
+                              'Antialias'                                          picture.Antialias |
+                              'ColorMap'                                           picture.ColorMap |
+                              'Description'                                        picture.Description |
+                              'Edges'                                              picture.Edges |
+                              'Gallery'                                            picture.Gallery |
+                              'PicPipePipeline'                                    picture.PicPipePipeline |
+                              'Region'                                             picture.Region |
+                              'RndColor'                                           picture.RndColor |
+                              'ValueMap'                                           picture.ValueMap |
+                              'Fract1'                                             picture.directFractal.Fract1 |
+                              'Maze'                                               picture.directFractal.Maze
+&ltsim.Experiment&gt          ::= 'ForExperiment'                                      sim.ForExperiment |
+                              'TDLambda'                                           sim.TDLambda |
+                              'Backprop'                                           sim.gradDesc.Backprop |
+                              'ConjGrad'                                           sim.gradDesc.ConjGrad |
+                              'IDD'                                                sim.gradDesc.IDD
+&ltsim.data.Data&gt           ::= 'Dot'                                                sim.data.Dot |
+                              'OnesRnd'                                            sim.data.OnesRnd |
+                              'RemoteTable'                                        sim.data.RemoteTable |
+                              'RndCircle'                                          sim.data.RndCircle |
+                              'RndDisk'                                            sim.data.RndDisk |
+                              'RndOnes'                                            sim.data.RndOnes |
+                              'RndUniformLine'                                     sim.data.RndUniformLine |
+                              'RndUniformSquare'                                   sim.data.RndUniformSquare |
+                              'SpiralData'                                         sim.data.SpiralData |
+                              'Table'                                              sim.data.Table |
+                              'XOR'                                                sim.data.XOR
+&ltsim.display.Plot&gt        ::= 'Contour'                                            sim.display.Contour |
+                              'Grid'                                               sim.display.Grid |
+                              'PlotXY'                                             sim.display.PlotXY
+&ltsim.errFun.ErrFun&gt       ::= 'AdvantageLearning'                                  sim.errFun.AdvantageLearning |
+                              'Batch'                                              sim.errFun.Batch |
+                              'ErrAvg'                                             sim.errFun.ErrAvg |
+                              'LocalLearning'                                      sim.errFun.LocalLearning |
+                              'PDFE'                                               sim.errFun.PDFE |
+                              'QLearning'                                          sim.errFun.QLearning |
+                              'ReinforcementLearning'                              sim.errFun.ReinforcementLearning |
+                              'SupervisedLearning'                                 sim.errFun.SupervisedLearning |
+                              'ValueIteration'                                     sim.errFun.ValueIteration
+&ltsim.errFun.RLErrFun&gt     ::= 'AdvantageLearning'                                  sim.errFun.AdvantageLearning |
+                              'QLearning'                                          sim.errFun.QLearning |
+                              'ReinforcementLearning'                              sim.errFun.ReinforcementLearning |
+                              'ValueIteration'                                     sim.errFun.ValueIteration
+&ltsim.funApp.FunApp&gt       ::= 'InterferenceFunction'                               sim.funApp.InterferenceFunction |
+                              'LookupTable'                                        sim.funApp.LookupTable |
+                              'Net'                                                sim.funApp.Net |
+                              'SpiralFunction'                                     sim.funApp.SpiralFunction |
+                              'ValuePolicy'                                        sim.funApp.ValuePolicy
+&ltsim.mdp.MDP&gt             ::= 'GridWorld'                                          sim.mdp.GridWorld |
+                              'HC'                                                 sim.mdp.HC |
+                              'HCDemo'                                             sim.mdp.HCDemo |
+                              'Hall'                                               sim.mdp.Hall |
+                              'LQR'                                                sim.mdp.LQR |
+                              'XORmdp'                                             sim.mdp.XORmdp
+&ltstring&gt                  ::= a string in single or double quotes
+&ltinteger&gt                 ::= an integer (no decimal point)
+&ltdouble&gt                  ::= a floating point number with a decimal point
+&ltboolean&gt                 ::= 'true' | 'false'
+</pre>
+</html>
+WebSim quitting

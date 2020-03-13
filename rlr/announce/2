@@ -1,0 +1,100 @@
+
+From ryanlyn1@cps.msu.edu Thu Oct  9 14:20:56 1997
+Date: Thu, 9 Oct 1997 14:14:36 -0400 (EDT)
+From: Lynn T Ryan <ryanlyn1@cps.msu.edu>
+To: ryanlyn1@cps.msu.edu
+
+To: ryanlyn1@cps.msu.edu
+Subject: (fwd) New Article, Towards Flexible Teamwork  ...
+Newsgroups: comp.ai.jair.announce
+
+Path: msunews!agate!newsgate.duke.edu!nntprelay.mathworks.com!europa.clark.net!204.127.161.1!wnfeed!worldnet.att.net!205.252.116.205!howland.erols.net!usc!news.isi.edu!not-for-mail
+From: jair-ed@ptolemy.arc.nasa.gov
+Newsgroups: comp.ai.jair.announce
+Subject: New Article, Towards Flexible Teamwork  ...
+Date: 30 Sep 1997 15:15:28 -0700
+Organization: USC Information Sciences Institute
+Lines: 77
+Sender: jair-ed@quark.isi.edu
+Approved: jair-ed@ptolemy.arc.nasa.gov
+Message-ID: <60rtm0$kv8@quark.isi.edu>
+NNTP-Posting-Host: quark.isi.edu
+Xref: msunews comp.ai.jair.announce:191
+
+JAIR is pleased to announce the publication of the following article:
+
+Tambe, M. (1997)
+  "Towards Flexible Teamwork", Volume 7, pages 83-124.
+
+   Available in Postscript (940K) and compressed Postscript (223K).
+   An online appendix (STEAM release 1.0) is also a available.
+
+   For quick access via your WWW browser, use this URL:
+     http://www.jair.org/abstracts/tambe97a.html
+   More detailed instructions are below.
+
+   Abstract: Many AI researchers are today striving to build agent teams
+   for complex, dynamic multi-agent domains, with intended applications
+   in arenas such as education, training, entertainment, information
+   integration, and collective robotics.  Unfortunately, uncertainties in
+   these complex, dynamic domains obstruct coherent teamwork.  In
+   particular, team members often encounter differing, incomplete, and
+   possibly inconsistent views of their environment.  Furthermore, team
+   members can unexpectedly fail in fulfilling responsibilities or
+   discover unexpected opportunities.  Highly flexible coordination and
+   communication is key in addressing such uncertainties.  Simply fitting
+   individual agents with precomputed coordination plans will not do, for
+   their inflexibility can cause severe failures in teamwork, and their
+   domain-specificity hinders reusability.
+
+   Our central hypothesis is that the key to such flexibility and
+   reusability is providing agents with general models of teamwork.
+   Agents exploit such models to autonomously reason about coordination
+   and communication, providing requisite flexibility.  Furthermore, the
+   models enable reuse across domains, both saving implementation effort
+   and enforcing consistency.  This article presents one general,
+   implemented model of teamwork, called STEAM.  The basic building block
+   of teamwork in STEAM is joint intentions (Cohen & Levesque, 1991b);
+   teamwork in STEAM is based on agents' building up a (partial)
+   hierarchy of joint intentions (this hierarchy is seen to parallel
+   Grosz & Kraus's partial SharedPlans, 1996).  Furthermore, in STEAM,
+   team members monitor the team's and individual members' performance,
+   reorganizing the team as necessary.  Finally, decision-theoretic
+   communication selectivity in STEAM ensures reduction in communication
+   overheads of teamwork, with appropriate sensitivity to the
+   environmental conditions.  This article describes STEAM's application
+   in three different complex domains, and presents detailed empirical
+   results.
+
+The article is available via:
+   
+ -- comp.ai.jair.papers (also see comp.ai.jair.announce)
+
+ -- World Wide Web: The URL for our World Wide Web server is
+       http://www.jair.org/
+    For direct access to this article and related files try:
+       http://www.jair.org/abstracts/tambe97a.html
+
+ -- Anonymous FTP from either of the two sites below.
+
+    Carnegie-Mellon University (USA):
+	ftp://ftp.cs.cmu.edu/project/jair/volume7/tambe97a.ps
+    The University of Genoa (Italy):
+	ftp://ftp.mrg.dist.unige.it/pub/jair/pub/volume7/tambe97a.ps
+
+    The compressed PostScript file is named tambe97a.ps.Z (223K)
+
+ -- automated email. Send mail to jair@cs.cmu.edu or jair@ftp.mrg.dist.unige.it
+    with the subject AUTORESPOND and our automailer will respond. To
+    get the Postscript file, use the message body GET volume7/tambe97a.ps 
+    (Note: Your mailer might find this file too large to handle.) 
+
+For more information about JAIR, visit our WWW or FTP sites, or
+send electronic mail to jair@cs.cmu.edu with the subject AUTORESPOND
+and the message body HELP, or contact jair-ed@ptolemy.arc.nasa.gov.
+
+
+
+-- 
+Steven Minton
+JAIR Managing Editor

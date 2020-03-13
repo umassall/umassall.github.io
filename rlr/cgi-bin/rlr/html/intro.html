@@ -1,0 +1,290 @@
+<html>
+<title>Intro to WebSim</title>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+<h1 align=center> <img hspace=20 vspace=0 border=0 align=center src=images/logob.gif>WebSim Overview</h1>
+WebSim allows a large string to be embedded in the HTML code of a Web page.
+This string defines what the program should do, and what objects will be
+included in it.  For example, the HTML code might contain:
+<pre>
+&ltp&gt&ltapplet codebase="../classes" code=WebSim.class width=635 height=650&gt
+   &ltparam name=sourceText value=&quot
+     (0,0,200,200)
+     Simulator {
+        experiment SupervisedLearning
+          incremental false
+          data     table {  //each row is an input vector, output vector
+                     [1 0 0] [0]   //  0 XOR 0 = 0
+                     [1 0 1] [1]   //  0 XOR 1 = 1
+                   }
+          funApp   #DEF FUNCTION {Net { Identity Linear Identity }}
+          learning Backprop {
+                     learningRate .0001 //.1 learns almost instantly
+                     momentum  .9
+                     tolerance 0 //this was .01, but infinite loops are better
+                     smooth    .99
+                   }
+        displays {
+          embed
+          (0,0,200,200)
+          title {title 'Log error vs. timestep'
+            display Graph2D {
+              trigger 'time' freq 400
+              plots {
+                plotXY {
+                  size 100
+                  lineColor [0 .5 0] symbolColor [0 .8 0]
+                  trigger 'time' freq 400
+                  x       'time'
+                  y       'log error'
+                }
+              }
+            }
+          }
+        }
+     }
+&quot
+&lt/applet&gt
+</pre>
+(Actually, due to a bug in the current Netscape, the // style comments
+only work if each line within the string starts with a back apostrophe).
+The code in this example says that the project to run is a simulation.
+The simulation has two parts, an experiment, and the display that shows
+information about that experiment.  The experiment does supervised learning,
+and has 4 parts: whether it is incremental, the data to train on,
+the type of function approximator, and which learning algorithm to use.
+This little language for describing projects can be defined with a set
+of BNF productions, such as:
+<pre>
+WebSim    ::= ['unparse'] ProjWin*               // the string in the HTML code has this form
+ProjWin   ::= ['embed']['(&ltint&gt[',']&ltint&gt[',']   // (x,y,width,height) for the Project's window (-1=default)
+              &ltint&gt[',']&ltint&gt] &ltProject&gt
+&ltProject&gt ::= 'Simulator'   Simulator |
+              'Picture'     Picture   |
+              'ShowThreads' ShowThreads
+Simulator ::= '{' 'experiment' &ltExperiment&gt      // run a simulation
+              'displays' DisplayList '}'
+</pre>
+This says that WebSim will expect the HTML file to contain a string optionally
+starting with &quotunparse&quot, followed by zero or more project windows (ProjWin).
+Each project window can start with the optional word &quotembed&quot, which embeds
+the window in the web page rather than creating a separate window.  It may
+also optionally contain numbers for the shape and location of the window,
+which have optional commas between them.  These are then followed by
+a project, &ltProject&gt.<p>
+
+This is a fairly standard-looking BNF description of a simple language.
+Interestingly, there is a separate WebSim class for each of the nonterminals
+WebSim, ProjWin, and Simulator.  Each class has a BNF method that returns a
+string containing one entry from the above description.  Each class also knows how
+to parse it's own parameters.  So the class Simulator knows that when it is
+its turn to parse, it should be able to parse the two curly brackets and the
+words &quotexperiment&quot and &quotdisplays&quot.  It also knows that it needs to create
+objects of type Experiment and DisplayList, and should let them parse
+their own parameters.  In this way, the WebSim parser is distributed
+among all the classes.  Each class knows how to parse its own parameters,
+and knows who to call to parse other parameters within it.  It even has
+a method. BNF(), that returns a string describing what it parses,
+so documentation can be generated automatically<p>
+
+This BNF is fairly normal, using single quotes around terminals,
+square brackets for optional parts, a &quot*&quot for zero or more
+repetitions, a &quot+&quot for one or more repititions, a &quot|&quot for a choice,
+and parentheses for grouping whatever the &quot*&quot or &quot+&quot applies to.  There
+is one important extension to this notation: there are two types of nonterminals.
+A nonterminal without brackets, like &quotSimulator&quot means that
+an object should be instantiated
+from the class Simulator, and that its parse() method should then be called
+so it can parse its own parameters.  A nonterminal in angled brackets,
+such as &ltProject&gt means something slightly different.  There must a type
+named Project, but it can be either a class or an interface, and it
+doesn't have to have any particular methods defined such as BNF() or
+parse(), since it will never be instantiated anyway.  Instead,
+the string in the HTML file will contain a token at this point which
+is the name of a class of type Project.  And <em>that</em> is the class
+that is instantiated.  So, the entry:
+<pre>
+ProjWin   ::= ['embed']['(&ltint&gt[',']&ltint&gt[',']
+              &ltint&gt[',']&ltint&gt] &ltProject&gt         // (x,y,width,height) for the Project's window (-1=default)
+</pre>
+means that the &quotembed&quot and the numbers in parentheses will
+be followed by some unknown token, which will be the name of a
+class of type Project.  In the example above, the token was
+&quotSimulator&quot, which was legal because there is a class called
+&quotSimulator&quot, and it does inherit from the class &quotProject&quot.
+The BNF description:
+<pre>
+&ltProject&gt ::= 'Simulator'   Simulator |
+              'Picture'     Picture   |
+              'ShowThreads' ShowThreads
+</pre>
+was not a string returned by some BNF() method.  Instead, it can be
+generated automatically by checking each class on the disk to see if it
+is of type Project.  If it is, then it can be added to the list. Since
+this part of the language is generated automatically, new classes can be
+added to the language by just compiling them and placing them on the disk.
+<p>
+This is where WebSim gains its extensibility.  If I want to create a new type
+of project, I can simply write a class called &quotMyProject&quot, and make sure it
+inherits from Project.  Simply compiling MyProject and putting it on the
+disk thus extends the WebSim language.  In the example HTML above, the word
+&quotSimulator&quot can be replaced with &quotMyProject&quot, and everything after the
+word &quotSimulator&quot can be replaced with whatever parameters MyProject expects.
+There is no need to change some special parser object, or change header files,
+or recompile anything.  The simple act of placing the file MyProject.class
+on the disk automatically extends the language that WebSim understands.
+To find out what WebSim currently understands (given a directory full
+of WebSim objects), run the project FindBNF, which will generate a full
+commented BNF description for all the objects in the directory.<p>
+
+<h1>Writing WebSim Classes</h1>
+To work with WebSim, a class must implement parser.Parsable, or inherit from
+a class that does.  This ensures that the class will have three methods:
+<pre>
+  public String BNF(int lang);
+  public void   unparse(Unparser u, boolean emitName, int lang);
+  public Object parse(Parser p,int lang) throws ParserException;
+</pre>
+The BNF() method returns a string documenting the parameters that
+the class takes.  This allows documentation to be generated
+automatically.  The parse() method parses this object's parameters,
+sets appropriate local variables, and returns a pointer to itself.
+The unparse() method is used to do the opposite.  It allows an
+entire set of instantiated objects in RAM to output a complete
+description of their state to a text file.  That text file could later
+be read as the string in an HTML file to recreate those objects and
+that state.  This allows a simulation to store its state periodically
+so nothing is lost in a system crash.<p>
+
+It is possible for a class to understand more than one language.
+For example, a Sphere class might know how to ray trace a sphere. This
+single class might be used to parse POV-RAY files that describe 3D scenes,
+and might also be used to parse VRML files that describe 3D scenes in a
+different language.  In either case there is a sphere object that does
+the same thing, but the particular form and order of its parameters are
+different.  That is why BNF(), unparse(), and parse() all take an integer
+parameter &quotlang&quot.  This might be zero for parsing POV-RAY and one for
+parsing VRML.  In all the WebSim files so far, there is only a single
+language, and so this parameter is always zero, but for future
+compatability, it is important that each class pass this on to any
+other class whose parse() method it calls. <p>
+
+If a WebSim class takes no parameters when being parsed, then the three
+methods can use these minimal implementations:
+<pre>
+  /* Return the BNF description of how to parse the parameters of this object. */
+  public abstract String BNF(int lang) {
+    return &quot//Brief comment. Format: Double dash, brief comment, dot, long comment&quot;
+  }
+
+  /** Output a description of this object that can be parsed with parse().*/
+  public abstract void unparse(Unparser u, int lang) {
+  }
+
+  /** Parse the input file to get the parameters for this object.
+    * @exception parse.ParserException parser didn't find the required token
+    */
+  public abstract Object parse(Parser p,int lang) throws ParserException {
+    return this;
+  }
+</pre>
+The BNF returns nothing but a comment (which always starts with
+a //), since there are no parameters.
+Similarly, the parse() method has nothing to do, and the unparse()
+method has nothing to do except to emit the name of the class (if
+asked to do so).  In addition
+to implementing Parsable, a new object for WebSim must be of a type that
+is defined in the current BNF.  So a new project would have to extend
+Project, a new neural network function approximator would extend
+FunApp, a new gradient descent algorithm would extend GradDesc, and
+a new type of learning algorithm would extend Simulator.  To create
+a new class in WebSim, it is probably simplest to start with a copy of
+the source code of a similar, existing class, and modify that.
+
+<h1>Source Files</h1>
+The minimum required for parsing in general:
+<pre>
+
+WebSim                     The applet that parses all the projects
+Project                    Each project inherits from this
+ProjWin                    A window created for each project
+Directories                A list of all directories to search for parsed types
+parse.Unparser             used to create text files readable by Parser
+parse.Scanner              tokenizes an input file for the Parser
+parse.Parser               used to parse text files
+parse.ParserException      raised by Parser
+parse.Parsable             can be created by parsing a text file
+
+</pre>
+The minimum required for the simulator:
+<pre>
+
+sim.Simulator              create a simulation by parsing, and run it
+sim.Sim                    This connects all the nets/displays/etc
+sim.display.ShowEdit       a window showing the values of variables
+
+</pre>
+The minimum required for the direct-fractal viewer:
+<pre>
+
+picture.ViewApplet         the applet interfacing with window/mouse/keyboard
+picture.FadeInThread       a separate thread that draws the screen
+picture.PicPipeList        linked list of pointers to PicPipes
+picture.Colors             a pixel's color
+picture.PicPipe            a parsable source of pixels for a picture
+picture.PicPipePipeline    parses a series of PicPipes
+picture.PictureDescription parses the input file to see what to draw
+picture.Gallery            a mouse-selectable collection of pictures
+
+</pre>
+Other classes defined:
+<pre>
+
+sim.display.Graph3D        3D plotting class
+sim.display.Graph2D        2D plotting class
+sim.display.Contour        contour plot class
+sim.gradDesc.ConjGrad      conjugate gradient code
+
+watch.Watchable            These objects have variables that can be watched
+watch.Watcher              These objects watch variables in Watchable objects
+watch.WatchManager         Variables that can be seen are registered with this
+watch.Snapable             Can back up a snapshot of internal state through a stream
+
+matrix.MatrixD             a matrix of doubles
+matrix.MatrixException     an error during matrix operations
+
+picture.RndColor           a randomly-colored picture
+picture.Antialias          avg multiple points within a pixel
+picture.ColorVector        a color constant &ltred,green,blue&gt
+picture.Region             zooms in on part of a picture
+picture.Animation          a gallery of frames of a movie
+picture.ColorMap           map numbers to colors
+picture.ColorMapEntry      one line from a ColorMap
+picture.ValueMap           map numbers to numbers
+picture.ValueMapEntry      one line from a ValueMap
+picture.Edges              traces the edges of a picture
+picture.Description        define comments to print w/ picture on screen
+picture.directFractal.DirectFractal  all direct fractals extend this
+picture.directFractal.Fract1         a fractal with circles
+picture.directFractal.Maze           a fractal maze
+
+pointers.PByte             object wrappers for 8 primitive types
+pointers.PShort                and 5 nonprimitive types, String, Object,
+pointers.PInt                  Object[], MatrixF, and MatrixD, which each
+pointers.PLong                 contain a public variable val.  These allow
+pointers.PFloat                pass-by-reference function calls.
+pointers.PDouble
+pointers.PChar
+pointers.PBoolean
+pointers.PString
+pointers.PObject
+pointers.PArray
+pointers.PFloatArray1
+pointers.PFloatArray2
+pointers.PFloatElement1
+pointers.PMatrixD
+<p>
+<p>
+</pre>
+<a href=http://www.cs.cmu.edu/~baird>Leemon Baird</a><br>
+<a href=mailto:leemon@cs.cmu.edu><address>leemon@cs.cmu.edu</address></a>
+</html>

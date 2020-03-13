@@ -1,0 +1,118 @@
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#FF0000" VLINK="#800080" ALINK="#0000FF">
+<h1 align=center> <img hspace=20 vspace=0 border=0 align=center src=images/logob.gif> WebSim </h1>
+See the
+source HTML code for this page to see the simulation definition that
+is parsed and executed by the WebSim applet below.<p>
+<p>
+All of this code is (c) 1996 by the respective authors, is freeware, and
+may be freely distributed.  If modifications
+are made, please say so in the comments.<p>
+
+The definition of this simulation is as follows:<br><br>
+MDP - a linear-quadratic regulator.  State space is a section of the number line from [-1,1].  An agent
+sits on this number line and has two actions possible: move left or move right.  The act of moving left
+corresponds to an input to the neural network of -1.  The act of moving right corresponds to an input
+to the neural network of 1.  The state is the position on the number line.  The cost function is the
+position on the number line squared after performing an action.  The goal is to minimize the cost.  There
+is no absorbing state.<br><br>
+
+Function Approximator: single-hidden-layer sigmoidal network with 8 nodes<br><br>
+
+Learning algorithm: Backprop<br><br>
+
+RL algorithm: Residual Gradient Advantage Learning<br><br>
+
+Displays: 1) 2D graph of log error vs. learning time, 2) 3D graph of value function.
+
+
+<p>
+<a href=../index.html>Back</a> to WebSim.
+
+<p><applet codebase="../classes" code=WebSim.class width=620 height=520>
+   <param name=sourceText value="
+`/*****************************************************************/
+`embed
+`(0,0,524,60)
+`Simulator {
+`   experiment Backprop {
+`     learningRate  0.1
+`     momentum  0.0
+`     tolerance 0   //this was .01, but infinite loops are better demos
+`     smooth    .9
+`     minInitWeight  -1
+`     maxInitWeight   1
+`     error ReinforcementLearning {
+`       mdp             LQR
+`       algorithm       AdvantageLearning {k 1.5}
+`       method          resGrad
+`       dt              0.1
+`       gamma           0.9
+`       incremental     false
+`       trajectories    false
+`       exploration     1.0
+`     //  funApp          #DEF FUNCTION {lookupTable {0 1 1} {-1 1 21} {-1 1 2}}
+`      funApp          #DEF FUNCTION {Net {Identity Linear Bipolar(8) Linear Identity}}
+`     }
+`   }
+`   displays {
+`      embed
+`      (0,0,200,200)
+`      title {title 'Learned policy vs. state' display
+`      Graph3D {
+`                rotateX 10 rotateY -93 rotateZ 0
+`                trigger 'time' freq 500
+`                inputs  [1 0 0]
+`                xElement 1 xSamples 21 xMin -1 xMax 1
+`                yElement 2 ySamples 2  xMin -1 xMax 1
+`                zElement 1
+`                function ValuePolicy {
+`                                       mdp LQR
+`                                       funApp #USE FUNCTION
+`                                     }
+`                plotTop true
+`                floorColor [0,0,0]
+`      }
+`      }
+`      embed
+`      (0,0,200,200)
+`      title {title 'Learned value vs. state' display
+`      Graph3D {
+`                rotateX  10 rotateY -93 rotateZ 0
+`                trigger 'time' freq 500
+`                inputs  [1 0 0]
+`                xElement 1 xSamples 21 xMin -1 yMax 1
+`                yElement 2 ySamples 2  yMin -1 yMax 1
+`                zElement 0
+`                function ValuePolicy {
+`                                       mdp LQR
+`                                       funApp #USE FUNCTION
+`                                     }
+`                plotFloor true //plotTop true
+`                floorColor [0,0,0]
+`      }
+`      }
+`
+`     embed
+`     (0,0,200,200)
+`     title {title 'Log error vs. timestep' display
+`     Graph2D {
+`       trigger 'time' freq 100
+`       plots {
+`         plotXY {
+`           size 100
+`           lineColor [0 .5 0] symbolColor [0 .8 0]
+`           trigger 'time' freq 100
+`           x       'time'
+`           y       'log error'
+`         }
+`       }
+`     }
+`     }
+`   }
+`}
+`/*****************************************************************/
+">
+    <hr>This Java applet requires a Java-aware browser such as Netscape 2.0
+    for Solaris/Win95/WinNT.
+    <hr>
+</applet></p>

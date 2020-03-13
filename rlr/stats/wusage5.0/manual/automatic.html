@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<TITLE>Running Wusage Automatically?</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+<h2>Running Wusage Automatically</h2>
+</a>
+Since wusage is intended to be run on a regular basis,
+for the most part either daily, weekly or monthly, many 
+administrators run the program automatically using
+automatic scheduling tools.
+<p>
+Under Unix, this is commonly accomplished
+using the standard Unix program <code>cron</code>.
+Cron can be used to schedule "jobs" to be run at
+particular times without human intervention.
+<p>
+New cron jobs are installed using the <code>crontab</code>
+command. To edit your crontab file, enter the
+following command:
+<p>
+<code>crontab -e</code>
+<p>
+This command typically launches the <code>vi</code> editor.
+You can, alternatively, create a text file using the
+editor of your choice and submit it to cron with
+the following command:
+<p>
+<code>crontab filename</code>
+<p>
+A typical crontab entry (line of the crontab file)
+to run wusage resembles the following entry:
+<pre>
+0 1 * * 0 /full/path/to/wusage -c /full/path/to/configuration/file
+</pre>
+The five digits (or asterisks) correspond to minutes,
+hours, days of the month, months, and weekdays, respectively.
+If a particular digit is not important to schedule the job,
+an asterisk is given. For instance, we want the job to
+run every month, not just in specific months, so an
+asterisk is specified for the fourth digit. Sunday
+is day zero (or seven). For more information,
+use the Unix commands <code>man crontab</code>
+and <code>man 5 crontab</code>.
+<p>
+<strong>"What about non-Unix platforms?"</strong>
+<p>
+Windows NT supports the <code>AT</code> command, which
+can also be used to schedule programs to run at particular 
+times. Scheduling of this sort is not a standard feature
+of non-server operating systems such as MSDOS and
+Windows 95.
+<p>
+<strong>Note: Boutell.Com does not provide basic assistance
+with your operating system's commands.</strong> Please consult
+the online help of your operating system if you have questions
+about the basic operation of <code>cron</code>, <code>AT</code>,
+or the scheduling service of your particular operating system.
+This document is intended to provide an overview of the
+services that may be available to you as part of your
+operating system.
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="intro2.html">Table of Contents</a><TD align="right"><a href="spreadsheet.html"> Next</a>
+</table>
+
+<p align="center">
+
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+
+

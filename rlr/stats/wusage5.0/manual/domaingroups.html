@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>domaingroups</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+
+
+<h4>domaingroups</h4>
+</a>
+<pre>
+domaingroups
+#Example: here are the top-level domains in Africa.
+Africa DZ EG TN ZA AO BF BI BJ BW CF CG CI CM DJ EH ER ET GA GH GM
+Africa GN GW KE KM LK LR LS MA MG ML MR MW MZ NA NE NG RW SY SL SZ
+Africa TZ UG VA YE ZM ZR ZW
+end domaingroups
+</pre>
+The <code>domaingroups</code> option, which extends for
+several lines and must end with the line
+<code>end domaingroups</code>, is used to combine
+accesses from several domains into one larger
+virtual domain. The sample.conf (or sample.con) file,
+and the .conf or .con files produced by 
+<code><a href="configuring.html">makeconf</a></code>,
+both contain <code>domaingroups</code> information
+to group domains on all seven continents.
+Each line of the <code>domaingroups</code>
+option begins with the name of the virtual
+domain, followed by a list of real domains
+which make it up. If a continent or other
+grouping contains many domains, the same
+virtual domain can be listed several times,
+as in the above example. This feature is
+useful to make sure that a continent
+such as Europe is visible in the pie
+chart of domains, whereas individual
+countries might comprise too small
+a wedge to be drawn. Normally, only
+top-level domains appear in the domaingroups
+listing. The exception is that subdomains
+listed for the <code>
+<a href="subdomains.html">subdomains</a></code> 
+option can appear as part of a <code>domaingroups</code> entry.
+domain name information for sites which do not
+have proper host names. 
+If the <code>domaingroups ... end domaingroups</code>
+option is absent, all domains will appear 
+individually in the top domains listing and pie chart.
+
+<hr>
+<table border="0"width="100%"><TR><TD><a
+href="index.html">Wusage Home
+Page</a><TD align="right"><a href="reference.html"> Configuration File
+Reference Index</a>
+</table>
+
+<p align="center">
+<a href="http://www.boutell.com/">Copyright 1996, Boutell.Com,
+Inc.</a><br>
+<a href="mailto:wusage@boutell.com">wusage@boutell.com</a>
+<br clear="left">
+<p>
+<hr>
+<p align="center"> Boutell.Com, Inc - PO Box 20837, Seattle WA, 98102, USA
+<br>
+Phone/Fax
++1 206.325.3009</body>
+
