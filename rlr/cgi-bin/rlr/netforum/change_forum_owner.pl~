@@ -1,8 +1,0 @@
-#!/opt/bin/perl
-
-#this script looks at the files: **/a where "**" is the two-letter forum id
-
-#match and replace $forum_monitor = "Natalia Hernandez";
-
-
-#match and replace $forum_monitor_email = "hernan49\@cse.msu.edu";
