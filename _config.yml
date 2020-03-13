@@ -1,2 +1,4 @@
 theme: jekyll-theme-cayman
-exclude: [legacy, rlr]
+exclude:
+  - legacy
+  - rlr
