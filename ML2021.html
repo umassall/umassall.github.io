@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Standard Bootstrap Intro -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Autonomous Learning Laboratory">
+	<meta name="author" content="Autonomous Learning Laboratory">
+	<link rel="icon" href="../../favicon.ico">
+
+	<title>UMass CICS Machine Learning Retrospective (2021)</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	 crossorigin="anonymous">
+</head>
+
+<body>
+	<!-- whitespace -->
+	<div class="container">&nbsp;</div>
+	<!-- Logo -->
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8">
+					<img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4f/University_of_Massachusetts_Amherst_seal.svg/1200px-University_of_Massachusetts_Amherst_seal.svg.png" class="center-block" alt="UMass Amherst" width="30%">
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="6" color="#800000">
+						<p class="text-center">University of Massachusetts</p>
+						<p class="text-center">Manning College of Information and Computer Sciences</p>
+					</font>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="overview"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="6">
+						<b>Machine Learning Retrospective, 2021</b>
+					</font>
+				</div>
+				<div class="col-sm-12">
+					<p>
+						With 2021 drawing to a close, we would like to take a moment to recognize the wealth of machine learning research produced by the UMass Manning College of Information and Computer Sciences (CICS). This retrospective provides a brief summary of many (not all) of the machine learning papers published by students and/or faculty in CICS. You can browse papers by their name in the index below, or can just scroll through to get a sense for all of the work that we are doing!
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="index"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="6">
+						<b>Index</b>
+					</font>
+				</div>
+				<div class="col-sm-12">
+					<p> [AISTATS 2021] <a href="#Cunningham1">RealMVP: A Change of Variables Method For Rectangular Matrix-Vector Products.</a> </p>
+					<p> [ICML 2021] <a href="#Kostas1">High Confidence Generalization for Reinforcement Learning. </a> </p>
+					<p> [ICML 2021] <a href="#Geffner1">On the Difficulty of Unbiased Alpha Divergence Minimization. </a> </p>
+					<p> [ICML 2021] <a href="#Nota1">Posterior Value Functions: Hindsight Baselines for Policy Gradient Methods. </a> </p>
+					<p> [ICML 2021] <a href="#Phan1">Towards Practical Mean Bounds for Small Samples.</a> </p>
+					<p> [ICML 2021] <a href="#Gentzel1">How and Why to Use Experimental Data to Evaluate Methods for Observational Causal Inference.</a> </p>
+					<p> [ICML 2021] <a href="#Anon1">DeepWalking Backwards: From Node Embeddings Back to Graphs.</a> </p>
+					<p> [NeurIPS 2021] <a href="#Anon2">Structural Credit Assignment in Neural Networks using Reinforcement Learning.</a> </p>
+					<p> [NeurIPS 2021] <a href="#Chandak1">Universal Off-Policy Evaluation.</a> </p>
+					<p> [NeurIPS 2021] <a href="#Yuan1">SOPE: Spectrum of Off-Policy Estimators.</a> </p>
+					<p> [NeurIPS 2021] <a href="#Geffner2">MCMC Variational Inference via Uncorrected Hamiltonian Annealing.</a> </p>
+					<p> [NeurIPS 2021] <a href="#Agrawal1">Amortized Variational Inference for Simple Hierarchical Models.</a> </p>
+					<p> [NeurIPS 2021] <a href="#McKenna1">Relaxed Marginal Consistency for Differentially Private Query Answering.</a> </p>		
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Cunningham1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>RealMVP: A Change of Variables Method For Rectangular Matrix-Vector Products</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Edmond Cunningham and Madalina Fiterau
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Cunningham1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					Rectangular matrix-vector products are used extensively throughout machine learning and are fundamental to neural networks such as multi-layer perceptrons, but are notably absent as normalizing flow layers. This paper identifies this methodological gap and plugs it with a tall and wide MVP change of variables formula. Our theory builds up to a practical algorithm that envelops existing dimensionality increasing flow methods such as augmented flows. We show that tall MVPs are closely related to the stochastic inverse of wide MVPs and empirically demonstrate that they improve density estimation over existing dimension changing methods.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://proceedings.mlr.press/v130/cunningham21a.html" type="button" class="btn btn-primary">Paper</a>
+              			<a href="https://github.com/Information-Fusion-Lab-Umass/NuX/blob/master/nux/flows/surjective/rectangular_mvp.py" type="button" class="btn btn-success">Github</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Kostas1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>High Confidence Generalization for Reinforcement Learning</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By James Kostas, Yash Chandak, Scott Jordan, Georgios Theocharous, Philip Thomas
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Kostas1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					We present several classes of reinforcement learning algorithms that safely generalize to Markov decision processes (MDPs) not seen during training. Specifically, we study the setting in which some set of MDPs is accessible for training. For various definitions of safety, our algorithms give probabilistic guarantees that agents can safely generalize to MDPs that are sampled from the same distribution but are not necessarily in the training set. These algorithms are a type of Seldonian algorithm (Thomas et al., 2019), which is a class of machine learning algorithms that return models with probabilistic safety guarantees for user-specified definitions of safety.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://proceedings.mlr.press/v139/kostas21a.html" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Geffner1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>On the Difficulty of Unbiased Alpha Divergence Minimization</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Tomas Geffner and Justin Domke
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Geffner1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					Short description: Variational inference approximates a target distribution with a simpler one. While traditional inference minimizes the “inclusive” KL-divergence, several algorithms have recently been proposed to minimize other divergences. Experimentally, however, these algorithms often seem to fail to converge. In this paper we analyze the variance of the underlying estimators for these papers. Our results are very pessimistic: For any divergence except the traditional one, the signal-to-noise ratio of the gradient estimator decays exponentially in the dimensionality.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://icml.cc/virtual/2021/spotlight/10338" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Nota1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Posterior Value Functions: Hindsight Baselines for Policy Gradient Methods</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Chris Nota, Bruno C. da Silva, Philip S. Thomas
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+				</div>
+				<div class="col-sm-8">
+					Hindsight allows reinforcement learning agents to leverage new observations to make inferences about earlier states and transitions. In this paper, we exploit the idea of hindsight and introduce posterior value functions. Posterior value functions are computed by inferring the posterior distribution over hidden components of the state in previous timesteps and can be used to construct novel unbiased baselines for policy gradient methods. Importantly, we prove that these baselines reduce (and never increase) the variance of policy gradient estimators compared to traditional state value functions. While the posterior value function is motivated by partial observability, we extend these results to arbitrary stochastic MDPs by showing that hindsight-capable agents can model stochasticity in the environment as a special case of partial observability. Finally, we introduce a pair of methods for learning posterior value functions and prove their convergence.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://people.cs.umass.edu/~pthomas/papers/Nota2021.pdf" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Phan1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Towards Practical Mean Bounds for Small Samples</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By My Phan, Philip S. Thomas, Erik Learned-Miller
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Phan1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					Historically, to bound the mean for small sample sizes, practitioners have had to choose between using methods with unrealistic assumptions about the unknown distribution (e.g., Gaussianity) and methods like Hoeffding's inequality that use weaker assumptions but produce much looser (wider) intervals. In 1969, Anderson proposed a mean confidence interval strictly better than or equal to Hoeffding's whose only assumption is that the distribution's support is contained in an interval [a, b]. For the first time since then, we present a new family of bounds that compares favorably to Anderson's. We prove that each bound in the family has guaranteed coverage, i.e., it holds with probability at least 1−α for all distributions on an interval [a, b]. Furthermore, one of the bounds is tighter than or equal to Anderson's for all samples. In simulations, we show that for many distributions, the gain over Anderson's bound is substantial.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="http://proceedings.mlr.press/v139/phan21a/phan21a.pdf" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Gentzel1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>How and Why to Use Experimental Data to Evaluate Methods for Observational Causal Inference</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Amanda M Gentzel, Purva Pruthi, David Jensen
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Gentzel1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					Methods that infer causal dependence from observational data are central to many areas of science, including medicine, economics, and the social sciences. We describe and analyze observational sampling from randomized controlled trials (OSRCT).  This method is used to create observational data sets with corresponding unbiased estimates of treatment effect, increasing the number of data sets available for evaluating causal inference methods.  We show that, OSRCT creates data sets that are equivalent to those produced by randomly sampling from empirical data sets in which all potential outcomes are available. We then perform a large-scale evaluation and find notable performance differences when comparing across data from different sources, demonstrating the importance of using data from a variety of sources when evaluating any causal inference method.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="http://proceedings.mlr.press/v139/gentzel21a" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Anon1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>DeepWalking Backwards: From Node Embeddings Back to Graphs</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+				</div>
+				<div class="col-sm-8">
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="http://proceedings.mlr.press/v139/chanpuriya21a/chanpuriya21a.pdf" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Anon2"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Faster Kernel Matrix Algebra via Density Estimation</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+				</div>
+				<div class="col-sm-8">
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="http://proceedings.mlr.press/v139/backurs21a/backurs21a.pdf" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Gupta1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Structural Credit Assignment in Neural Networks using Reinforcement Learning</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Dhawal Gupta, Gabor Mihucz, Matthew Schlegel, James Kostas, Philip Thomas, Martha White
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Gupta1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					In this work, we revisit REINFORCE and investigate if we can leverage other reinforcement learning approaches to improve learning. We formalize training a neural network as a finite-horizon reinforcement learning problem and discuss how this facilitates using ideas from reinforcement learning like off-policy learning. We show that the standard on-policy REINFORCE algorithm, even with variance reduction approaches, learns sub-optimal solutions. We introduce an off-policy approach, to facilitate reasoning about the greedy action for other agents and help overcome stochasticity in other agents. We conclude by showing that these networks of agents can be more robust to correlated samples when learning online.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://openreview.net/forum?id=nz2iUi-iZLQ" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Chandak1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Universal Off-Policy Evaluation</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Yash Chandak, Scott Niekum, Bruno Castro da Silva, Erik Learned-Miller, Emma Brunskill, Philip Thomas
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Chandak1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					When faced with sequential decision-making problems, it is often useful to be able to predict what would happen if decisions were made using a new policy. Those predictions must often be based on data collected under some previously used decision-making rule. Many previous methods enable such off-policy (or counterfactual) estimation of the expected value of a performance measure called the return. In this paper, we take the first steps towards a universal off-policy estimator (UnO) -- one that provides off-policy estimates and high-confidence bounds for any parameter of the return distribution. We use UnO for estimating and simultaneously bounding the mean, variance, quantiles/median, inter-quantile range, CVaR, and the entire cumulative distribution of returns. Finally, we also discuss Uno's applicability in various settings, including fully observable, partially observable (i.e., with unobserved confounders), Markovian, non-Markovian, stationary, smoothly non-stationary, and discrete distribution shifts.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://arxiv.org/abs/2104.12820" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<a name="Yuan1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>SOPE: Spectrum of Off-Policy Estimators</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Christina Yuan, Yash Chandak, Stephen Giguere, Philip Thomas, Scott Niekum
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Yuan1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					Off-policy evaluation (OPE) of a new policy using historical data has usage in many high-stake applications. Importance sampling (IS) being one of the most common OPE method provides unbiased estimates but has high variance. IS methods based on stationary distributions (SIS) have recently been adopted, which often provide lower variance estimates, but can be biased. In this paper, we present a new perspective on this bias-variance trade-off and show the existence of a spectrum of estimators whose endpoints are SIS and IS. We then show that estimators in this spectrum can achieve lower mean-squared error than both IS and SIS.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://arxiv.org/abs/2111.03936" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<a name="Geffner2"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>MCMC Variational Inference via Uncorrected Hamiltonian Annealing</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Tomas Geffner, Justin Domke
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Geffner2.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					Annealed Importance Sampling (AIS) with Hamiltonian MCMC can be used to get tight lower bounds on a distribution's (log) normalization constant. Its main drawback is that it uses non-differentiable transition kernels, which makes tuning its many parameters hard. We propose a framework to use an AIS-like procedure with Uncorrected Hamiltonian MCMC, called Uncorrected Hamiltonian Annealing. Our method leads to tight and differentiable bounds. Additionally, we observe empirically that the ability to tune all of our method's parameters using unbiased reparameterization gradients leads to significant gains in performance.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://arxiv.org/abs/2107.04150v3" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<a name="Agrawal1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Amortized Variational Inference for Simple Hierarchical Models</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Abhinav Agrawal, Justin Domke
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Agrawal1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					It is difficult to use subsampling with variational inference in hierarchical models since the number of local latent variables scales with the dataset. Thus, inference in hierarchical models remains a challenge at large scale. It is helpful to use a variational family with structure matching the posterior, but optimization is still slow due to the huge number of local distributions. Instead, this paper suggests an amortized approach where shared parameters simultaneously represent all local distributions and the encoder network only requires the local observations as input. This approach is similarly accurate as using a given joint distribution (e.g., a full- rank Gaussian) but is feasible on datasets that are several orders of magnitude larger. It is also dramatically faster than using a structured variational distribution.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://arxiv.org/abs/2111.03144" type="button" class="btn btn-primary">Paper</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<a name="McKenna1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Relaxed Marginal Consistency for Differentially Private Query Answering</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Ryan McKenna, Siddhant Pradhan, Daniel Sheldon, Gerome Miklau
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/McKenna1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					Differentially private algorithms for answering database queries often involve reconstruction of a discrete distribution from noisy measurements. PRIVATE-PGM is a recent exact inference based technique that scales well for sparse measurements and provides consistent and accurate answers. However it fails to run in high dimensions with dense measurements. This work overcomes the scalability limitation of PRIVATE-PGM on dense data by relaxing consistency constraints. Our new approach works with many existing private query answering algorithms and improves scalability or accuracy with no privacy cost.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://openreview.net/forum?id=comGUyv5sac" type="button" class="btn btn-primary">Paper</a>
+              			<a href="https://github.com/ryan112358/private-pgm/tree/approx-experiments-snapshot" type="button" class="btn btn-success">Github</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--
+
+	<a name="paper1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Title</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Authors
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/IMAGENAME.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					TEXT
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="PAPER_LINK" type="button" class="btn btn-primary">Paper</a>
+              			<a href="CODE_LINK" type="button" class="btn btn-success">Github</a>
+            		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	-->
+
+
+	<!-- Force white space at the bottom -->
+	<footer>
+		<p>
+			<img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4f/University_of_Massachusetts_Amherst_seal.svg/1200px-University_of_Massachusetts_Amherst_seal.svg.png" class="center-block" alt="ALL Logo" width="5%">
+		</p>
+	</footer>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	 crossorigin="anonymous"></script>
+	<!-- Tool Tips -->
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('[data-toggle="tooltip"]').tooltip({
+				placement: 'top'
+			});
+		});
+	</script>
+</body>
+
+</html>
