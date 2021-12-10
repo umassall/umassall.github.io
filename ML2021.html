@@ -78,7 +78,7 @@
 					<p> [ICML 2021] <a href="#Phan1">Towards Practical Mean Bounds for Small Samples.</a> </p>
 					<p> [ICML 2021] <a href="#Gentzel1">How and Why to Use Experimental Data to Evaluate Methods for Observational Causal Inference.</a> </p>
 					<p> [ICML 2021] <a href="#Musco1">DeepWalking Backwards: From Node Embeddings Back to Graphs.</a> </p>
-					<p> [ICML 2021] <a href="#Musco2">Faster Kernel Matrix Algebra via Density Estimation</a> </p>
+					<p> [ICML 2021] <a href="#Backurs1">Faster Kernel Matrix Algebra via Density Estimation.</a> </p>
 					<p> [NeurIPS 2021] <a href="#Gupta1">Structural Credit Assignment in Neural Networks using Reinforcement Learning.</a> </p>
 					<p> [NeurIPS 2021] <a href="#Chandak1">Universal Off-Policy Evaluation.</a> </p>
 					<p> [NeurIPS 2021] <a href="#Yuan1">SOPE: Spectrum of Off-Policy Estimators.</a> </p>
@@ -89,6 +89,7 @@
 					<p> [NeurIPS 2021] <a href="#Yang1">Cooperative Stochastic Bandits with Asynchronous Agents and Constrained Feedback.</a> </p>
 					<p> [NeurIPS 2021] <a href="#Chung1">Turing Completeness of Bounded-Precision Recurrent Neural Networks.</a> </p>
 					<p> [NeurIPS 2021] <a href="#Chung2">MAP Propagation Algorithm: Faster Learning with a Team of Reinforcement Learning Agents.</a> </p>
+					<p> [NeurIPS 2021] <a href="#Mai1">Coresets for Classification – Simplified and Strengthened.</a> </p>
 				</div>
 			</div>
 		</div>
@@ -325,7 +326,7 @@
 		</div>
 	</div>
 
-	<a name="Musco2"></a>
+	<a name="Backurs1"></a>
 	<div class="container">
 		<div class="well">
 			<div class="row">
@@ -338,6 +339,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<font size="3">
+						By Arturs Backurs, Piotr Indyk, Cameron Musco, and Tal Wagner
 					</font>
 				</div>
 			</div>
@@ -346,6 +348,8 @@
 				<div class="col-sm-4">
 				</div>
 				<div class="col-sm-8">
+					Consider an n x n Gaussian kernel matrix corresponding to n input points in d dimensions. We show that one can compute a relative error approximation to the sum of entries in this matrix in just O(dn^{2/3}) time. This is significantly sublinear in the number of entries in the matrix – which is n^2. Our algorithm combines a novel analysis of entrywise sampling with fast kernel density estimation methods based on locality sensitive hashing. We extend our results to other popular kernels and build on this basic result to give other fast linear algebraic primitives for kernel matrices. For example, we give the first subquadratic time algorithms for approximating the top eigenvector and top eigenvalue of a Gaussian kernel matrix. 
+					<br>
 					<div class="btn-group btn-group" role="group" aria-label="Next">
               			<a href="http://proceedings.mlr.press/v139/backurs21a/backurs21a.pdf" type="button" class="btn btn-primary">Paper</a>
             		</div>
@@ -709,6 +713,39 @@
 					<div class="btn-group btn-group" role="group" aria-label="Next">
 										<a href="https://stephen-c.com/post.html" type="button" class="btn btn-primary">Blog</a>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a name="Mai1"></a>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="5">
+						<b>Coresets for Classification – Simplified and Strengthened</b>
+					</font>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<font size="3">
+						By Tung Mai, Anup B. Rao, and Cameron Musco
+					</font>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="ML2021img/Mai1.png" class="img-fluid mx-auto d-block rounded shadow p-3 mb-5 bg-white" alt="Paper Image" width="100%">
+				</div>
+				<div class="col-sm-8">
+					We show how to sample a small subset of points from a larger dataset, such that if we solve logistic regression, hinge loss regression (i.e., soft margin SVM), or a number of other problems used to train linear classifiers on the sampled dataset, then we obtain a near optimal solution for the full dataset. This 'coreset' guarantee requires sampling the subset of points according to a carefully chosen distribution, which reflects each point's importance. We use a distribution based on the l_1 Lewis weights, which are closely related to the statistical leverage scores. This allows us to significantly improve the state-of-the-art for the problem.
+					<br>
+					<div class="btn-group btn-group" role="group" aria-label="Next">
+              			<a href="https://arxiv.org/abs/2106.04254" type="button" class="btn btn-primary">Paper</a>
+          			</div>
 				</div>
 			</div>
 		</div>
